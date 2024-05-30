@@ -1,0 +1,21 @@
+[
+    {
+      "eventName": "Event 1",
+      "eventDescription": "Description for Event 1",
+      "eventDate": "1st Jan",
+      "imageURL": "https://example.com/image1.jpg"
+    },
+    {
+      "eventName": "Event 2",
+      "eventDescription": "Description for Event 2",
+      "eventDate": "2nd Feb",
+      "imageURL": "https://example.com/image2.jpg"
+    },
+    {
+      "eventName": "Event 3",
+      "eventDescription": "Description for Event 3",
+      "eventDate": "3rd Mar",
+      "imageURL": "https://example.com/image3.jpg"
+    }
+  ]
+  

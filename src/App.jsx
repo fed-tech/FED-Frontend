@@ -1,35 +1,83 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React ,{ Suspense } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+
+// layouts
+import Nav from "./layouts/Navbar/Navbar";
+import Footer from "./layouts/Footer/Footer";
+// import MobileNav from "./components/header/MobileHeader";
+
+// // pages
+const Home = React.lazy(() => import("./pages/Home/Home"));
+// const About = React.lazy(() => import("./pages/About/About"));
+const Contact = React.lazy(() => import("./pages/Contact/Contact"));
+const EventCards = React.lazy(() => import("./components/EventCards/EventCards"));
+
+// // microInteraction
+import Loading from "./microInteraction/Load/Load";
+// import { Alert } from "./MicroInteraction/Alert";
+
+// // state
+// import AuthContext from "./context/auth-context";
+
+// // axios
+// import axios from "axios";
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <Nav />
+
+      <div className="page">
+        <div className="pageExt">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Home />
+                </Suspense>
+              }
+            />
+
+            <Route
+              path="/EventCards"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <EventCards />
+                </Suspense>
+              }
+            />
+
+            <Route
+              path="/Contact"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Contact />
+                </Suspense>
+              }
+            />
+
+            <Route
+              path="*"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <h1>Not Found</h1>
+                </Suspense>
+              }
+            />  
+          </Routes>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+      <Footer />
+    </Router>
+  );
 }
 
-export default App
+export default App;
