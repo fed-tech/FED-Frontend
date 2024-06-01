@@ -1,0 +1,64 @@
+.sponser_container{
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; //change for proper position of gola - Ritam
+}
+
+
+.sponser_all {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2.77rem;
+    border: 0.88px solid rgba(255, 255, 255, 0.40);
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(6.7px);
+    padding: 5rem 0;
+    margin-top: 4rem;
+    width: 58rem;
+    gap: 4.75rem 3.03763rem;
+    margin-bottom: 5rem;
+  }
+  
+  .sponser_card {
+    height: 13rem;
+    width: 13rem;
+    border-radius: 2.5rem; 
+    border: 2px solid white;
+    overflow: hidden;
+  }
+  
+  .SponserCard_image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .sponser_title{
+    text-align: center;
+    font-size: 3.5rem;
+    color: white;
+    font-weight: 700;
+    // font-family: Poppins;
+    line-height: 149.415%;
+    letter-spacing: 0.035rem;
+    text-transform: uppercase;
+
+  }
+
+  .sponser_title2{
+    color: var(--Tab-Color, #FF8A00);
+  }
+
+  
+  .bottom_line{
+    width: 8rem;    
+    height: 0.3125rem;
+    background: #D87B0C;
+    margin-left: 47%;
+    border-radius:5px;
+  }

@@ -1,0 +1,65 @@
+
+.nav {
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+    display: flex;
+    gap: 20px;
+    font-size: 20px;
+    background-color: $page-color;
+    color: #fff;
+    text-align: center;
+    padding: 20px 56px;
+    position: relative;
+  }
+  
+  .logo {
+    aspect-ratio: 2.38;
+    object-fit: auto;
+    object-position: center;
+    width: 135px;
+    max-width: 100%;
+  }
+  
+  .navItems {
+    border-radius: 1.65rem;
+   border: 1.652px solid rgba(214, 214, 214, 0.81);
+   background: linear-gradient(91deg, rgba(217, 217, 217, 0.30) -147.64%, rgba(217, 217, 217, 0.00) 143.9%);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 25rem;
+    gap: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+    justify-content: space-between;
+    padding: 13px 46px;
+    height: 3.5rem;
+    list-style: none;
+    margin: 0;
+  }
+  
+  .navLink {
+    font-family: Poppins, sans-serif;
+    justify-content: center;
+    padding: 8px 0;
+    cursor: pointer;
+  }
+
+  .navLink:hover{
+    color: var(--Tab-Color, #ff8a00);
+  }
+  
+  .authButton {
+    font-family: Poppins, sans-serif;
+    justify-content: center;
+    border-radius: 26px;
+    width: 14rem;
+    height: 3.5rem;
+    font-size: 1.2rem;
+    background: linear-gradient(260deg, rgba(255, 190, 11, 0.84) -29.7%, rgba(244, 43, 3, 0.84) 128.34%);
+    font-weight: 600;
+    padding: 13px 46px;
+    border: none;
+    color: #fff;
+  }
+  
