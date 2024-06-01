@@ -1,0 +1,130 @@
+@import "/src/assets/styles/Global.scss";
+
+.card{
+    height: 620px;
+    width: 702px;
+    border-top: 2px solid $border-color;
+    border-left: 2px solid $border-color;
+    border-right: 2px solid $border-color;
+    background-color: $bg-color;
+    margin-left: 10px;
+    margin-top: 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: $text-color;
+    text-align: center;
+    position: relative;
+    z-index: 100;
+    top: -530px;
+    left: 350px;
+}
+
+.img{
+    height: 250px;
+	width: 500px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 20px;
+    border: 2px solid $border-color;
+}
+
+.backimg{
+	height: 250px;
+	width: 500px;
+    margin-top: 50px;
+    margin-left: 100px;
+}
+
+.date{
+    height: 60px;
+    width: 60px;
+    background: $back-glass;
+    border: 1px solid $border-color;
+    color: $text-color;
+    position: relative;
+    top: -240px;
+    left: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1rem;
+    padding: 7px;
+}
+
+.paid{
+    height: 25px;
+    width: 50px;
+    background: $back-glass;
+    border: 1px solid $border-color;
+    color: $orange-color;
+    position: relative;
+    top: -295px;
+    left: 425px;
+    text-align: center;
+    border-radius: 7px;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.5px;
+}
+
+.backtxt{
+    height: 229px;
+    width: 699px;
+    padding-left: 100px;
+    padding-right: 100px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom: 2px solid $border-color;
+    border-top: none;
+    text-align: start;
+    font-size: 0.8rem;
+    padding-top: 40px;
+}
+
+.backbtn{
+    height: 50px;
+    width: 700px;
+    padding-left: 100px;
+    padding-right: 100px;
+    border-right: 2px solid $border-color;
+    display: flex;
+}
+
+.eventname{
+    height: 70px;
+    width: 250px;
+    text-align: start;
+}
+
+.eventname h3{
+    
+    font-size: 1.25rem;
+}
+
+.registerbtn{
+    height: 70px;
+    width: 250px;
+}
+
+.regbtn{
+    height: 40px;
+    width: 180px;
+    border-radius: 20px;
+    color: black;
+    border: none;
+    background: linear-gradient(to right , #F42B03,#FFBE0B);
+    font-weight: 800;
+    margin-top: 5px;
+    margin-left: 50px;
+}
+
+
+.closeModal{
+    color: $text-color;
+    border: none;
+    background: none;
+    font-size: 30px;
+    position: relative;
+    top: -290px;
+    left: 310px;
+    cursor: pointer;
+}

@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+
+*{
+  background-color: black;
+}
+
+
+.sidebar {
+  width: 20.125rem;
+  padding-right: -78px;
+  border-right: 1px solid white;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  display: flex;
+  height: 50rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+// .profile{
+//   padding-left: 78px;
+// }
+
+.profile {
+  margin-top: -18.125rem;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin-bottom: 20px;
+}
+
+.profilePhoto {
+  width: 156px;
+  height: 156px;
+  border-radius: 19px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.profileInfo {
+  text-align: center;
+}
+
+.name {
+  color: rgb(255, 255, 255);
+  font-size: 34.05px;
+  font-weight: 600;
+}
+
+.role {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+}
+
+.menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu div{
+  width: 50%;
+  font-family: "Poppins";
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 20px;
+  gap: 4.06px;
+  padding: 16px 0px;
+  // color: #F42B03;
+  transition: background-color 0.3s;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.menuItem:hover {
+  background-color: #ffffff;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: left;
+  gap: 0.658rem;
+  margin-top: -49.82rem;
+  margin-left: 427px;
+}
+
+.button {
+  padding: 10px 20px;
+  height: 46.2px;
+  width: 132.14px;
+  font-family: "Poppins";
+  font-size: 0.943rem;
+  border-radius: 3.95px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.viewEvents {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+
+  &:hover {
+    background-color: #333;
+  }
+
+  &:active{
+    background-color: #919191;
+  color: #FF8A00;
+  }
+}
+
+.addEvent {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+
+  &:hover {
+    background-color: #cc7a00;
+  }
+
+  &:active{
+    background-color: #919191;
+  color: #FF8A00;
+  }
+}
