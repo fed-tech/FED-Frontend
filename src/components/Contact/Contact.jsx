@@ -16,7 +16,7 @@ const ContactForm = () => {
             <input type="email" name="email" placeholder="Email" />
           </div>
           <div className={styles['form-group']}>
-            <textarea name="message" placeholder="Message"></textarea>
+            <textarea type="text" name="message" placeholder="Message"></textarea>
           </div>
           <button type="submit">Submit</button>
         </form>

@@ -1,43 +1,45 @@
-/* Styles/Feedback.module.scss */
-
 .feedback-container {
   background-color: #1C1C1C;
   color: #ffffff;
-  padding: 20px;
   text-align: center;
   position: relative;
+  overflow: hidden;
+  padding-bottom: 60px;
 }
 
-.feedback-container .upQuote{
-  width: 200px;
-  height: 120px;
+.feedback-container .upQuote {
+  width: 150px;
+  height: 90px;
   position: absolute;
   right: 0%;
   top: 15%;
 }
 
-.feedback-container .downQuote{
-  width: 200px;
-  height: 120px;
+.feedback-container .downQuote {
+  width: 150px;
+  height: 90px;
   position: absolute;
   left: 0%;
-  bottom: 10%;
+  bottom: 0%;
   rotate: 180deg;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .feedback-container h2 {
   font-size: 2.5em;
   margin-bottom: 20px;
+  padding-top: 20px;
 }
 
-.bottom_line{
-  width: 8rem;    
+.bottom_line {
+  width: 8rem;
   height: 0.3125rem;
   background: #D87B0C;
-  border-radius:5px;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
-.heading{
+
+.heading {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,11 +51,25 @@
   color: #FF8A00;
 }
 
+.feedbacks-container {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
 .feedbacks {
   display: flex;
-  overflow: hidden; 
-  scroll-behavior: smooth; 
-  z-index: 1;
+  animation: scroll 15s linear infinite;
+  animation-play-state: running;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .feedback-card {
@@ -63,7 +79,7 @@
   backdrop-filter: blur(7.5px);
   padding: 20px;
   margin: 10px;
-  min-width: 350px;
+  min-width: 300px;
   text-align: left;
   display: inline-block;
   height: auto; /* Allow card height to adjust based on content */
@@ -79,32 +95,70 @@
   color: #FF8A00;
   font-weight: bold;
   margin-bottom: 5px;
-  white-space: normal; 
+  white-space: normal;
 }
 
 .feedback-ev {
   font-size: 0.9em;
   color: #cccccc;
-  white-space: normal; 
+  white-space: normal;
 }
 
-.button-container {
-  margin-top: 60px;
-  display: flex;
-  justify-content: space-between;
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .feedback-container h2 {
+    font-size: 1.5em;
+  }
+
+  .feedback-card {
+    min-width: 250px;
+    padding: 15px;
+  }
+
+  .feedback-container .upQuote,
+  .feedback-container .downQuote {
+    width: 100px;
+    height: 60px;
+  }
 }
 
-.scroll-button {
-  background-color: #FF8A00;
-  color: #1c1c1c;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1em;
-  margin: 0 10px;
-}
+@media (max-width: 480px) {
+  .feedback-container h2 {
+    font-size: 1.2em;
+  }
 
-.scroll-button:hover {
-  background-color: #e5940c;
+  .feedback-card {
+    min-width: 200px;
+    padding: 10px;
+  }
+
+  .feedback-text {
+    font-size: 0.7em;
+    margin-bottom: 15px;
+  }
+
+  .feedback-author {
+    font-size: 0.7em;
+  }
+
+  .feedback-ev {
+    font-size: 0.6em;
+  }
+
+  .feedbacks {
+    display: flex;
+    animation: scroll 9s linear infinite;
+  }
+
+  .feedback-container .upQuote,
+  .feedback-container .downQuote {
+    width: 80px;
+    height: 50px;
+  }
+  .feedback-container .upQuote {
+    top: 27%;
+  }
+  .feedback-container .downQuote {
+    bottom: 10%;
+  }
 }

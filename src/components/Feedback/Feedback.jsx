@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
-import { feedbackEach } from '../../data/feedback';
+import React, { useRef, useEffect } from 'react';
 import styles from './Styles/Feedback.module.scss';
+import { feedbackEach } from '../../data/feedback';
 import quoteImg from "../../data/images/quote.png";
 
 const FeedbackCard = ({ quote }) => {
@@ -14,33 +14,41 @@ const FeedbackCard = ({ quote }) => {
 };
 
 const Feedback = () => {
-  const feedbackContainerRef = useRef(null);
+  const feedbacksRef = useRef(null);
 
-  const scrollLeft = () => {
-    feedbackContainerRef.current.scrollBy({ left: -300, behavior: 'smooth' });
-  };
+  useEffect(() => {
+    const feedbacksContainer = feedbacksRef.current;
+    const handleMouseEnter = () => {
+      feedbacksContainer.style.animationPlayState = 'paused'; //stop on hovering
+    };
+    const handleMouseLeave = () => {
+      feedbacksContainer.style.animationPlayState = 'running'; 
+    };
 
-  const scrollRight = () => {
-    feedbackContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
-  };
+    feedbacksContainer.addEventListener('mouseenter', handleMouseEnter);
+    feedbacksContainer.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      feedbacksContainer.removeEventListener('mouseenter', handleMouseEnter);
+      feedbacksContainer.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
 
   return (
     <div className={styles['feedback-container']}>
-      <img className={styles['upQuote']} src={quoteImg} alt="To Fed" />
-        <div className={styles.heading}>
-      <h2>FEEDBACK ON <span className={styles.highlight}>US</span></h2>
-      <div className={styles.bottom_line}></div>
+      <img className={styles['upQuote']} src={quoteImg} alt="Up Quote" />
+      <div className={styles.heading}>
+        <h2>FEEDBACK ON <span className={styles.highlight}>US</span></h2>
+        <div className={styles.bottom_line}></div>
       </div>
-      <div className={styles.feedbacks} ref={feedbackContainerRef}>
-        {feedbackEach.map((quote, index) => (
-          <FeedbackCard key={index} quote={quote} />
-        ))}
+      <div className={styles['feedbacks-container']}>
+        <div className={styles.feedbacks} ref={feedbacksRef}>
+          {feedbackEach.map((quote, index) => (
+            <FeedbackCard key={index} quote={quote} />
+          ))}
+        </div>
       </div>
-      <div className={styles['button-container']}>
-        <button className={styles['scroll-button']} onClick={scrollLeft}>Left</button>
-        <button className={styles['scroll-button']} onClick={scrollRight}>Right</button>
-      </div>
-      <img className={styles['downQuote']} src={quoteImg} alt="To Fed" />
+      <img className={styles['downQuote']} src={quoteImg} alt="Down Quote" />
     </div>
   );
 };
