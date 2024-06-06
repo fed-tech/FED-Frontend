@@ -13,29 +13,33 @@ const EventPopup = () => {
     if (currentEvent) {
       setIsEventOngoing(true);
       setEventImage(currentEvent.imageURL);
+
+      // Show the popup after a delay
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+      }, 100);
+
+      // Cleanup the timer
+      return () => clearTimeout(timer);
+    } else {
+      setIsEventOngoing(false);
     }
-
-    // Show the popup after a delay
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 100); 
-
-    // Cleanup the timer
-    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    if (isVisible) {
-      document.body.classList.add(styles.lockScroll);
-    } else {
-      document.body.classList.remove(styles.lockScroll);
+    if (isEventOngoing) {
+      if (isVisible) {
+        document.body.classList.add(styles.lockScroll);
+      } else {
+        document.body.classList.remove(styles.lockScroll);
+      }
     }
 
-    // Cleanup the scroll lock class on unmount
+    // Cleanup the scroll lock class on unmount or when isEventOngoing changes
     return () => {
       document.body.classList.remove(styles.lockScroll);
     };
-  }, [isVisible]);
+  }, [isVisible, isEventOngoing]);
 
   const closePopup = () => {
     setIsVisible(false);
