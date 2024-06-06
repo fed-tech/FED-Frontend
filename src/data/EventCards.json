@@ -1,21 +1,25 @@
+
 [
     {
       "eventName": "Event 1",
       "eventDescription": "Description for Event 1",
       "eventDate": "1st Jan",
-      "imageURL": "https://example.com/image1.jpg"
+      "imageURL": "https://uploads-ssl.webflow.com/663d1907e337de23e83c30b2/66618443f9264a1789b89ced_Screenshot%202024-05-31%20013317.png",
+      "IsEventOngoing":"true"
     },
     {
       "eventName": "Event 2",
       "eventDescription": "Description for Event 2",
       "eventDate": "2nd Feb",
-      "imageURL": "https://example.com/image2.jpg"
+      "imageURL": "https://example.com/image2.jpg",
+      "IsEventOngoing":"false"
     },
     {
       "eventName": "Event 3",
       "eventDescription": "Description for Event 3",
       "eventDate": "3rd Mar",
-      "imageURL": "https://example.com/image3.jpg"
+      "imageURL": "https://example.com/image3.jpg",
+      "IsEventOngoing":"false"
     }
   ]
   

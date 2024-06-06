@@ -1,4 +1,4 @@
-.sponser_container{
+.sponser_container {
   width: 100%;
   height: auto;
   display: flex;
@@ -6,58 +6,100 @@
   align-items: center;
 }
 
-
 .sponser_all {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    border-radius: 2.77rem;
-    border: 0.88px solid rgba(255, 255, 255, 0.40);
-    background: rgba(255, 255, 255, 0.10);
-    backdrop-filter: blur(6.7px);
-    padding: 5rem 0;
-    margin-top: 4rem;
-    width: 70rem;
-    gap: 3.75rem 8rem;
-    margin-bottom: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2.77rem;
+  border: 0.88px solid rgba(255, 255, 255, 0.40);
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(6.7px);
+  padding: 5rem 0;
+  margin-top: 3rem;
+  width: 70rem;
+  gap: 3rem 3rem;
+  margin-bottom: 3rem;
+}
+
+.sponser_card {
+  height: 8rem;
+  width: 8rem;
+  border-radius: 2.5rem;
+  border: 2px solid white;
+  overflow: hidden;
+}
+
+.SponserCard_image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.sponser_title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: white;
+  font-weight: 700;
+  /* font-family: Poppins; */
+  line-height: 149.415%;
+  letter-spacing: 0.035rem;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.sponser_title2 {
+  color: var(--Tab-Color, #FF8A00);
+}
+
+.bottom_line {
+  width: 8rem;
+  height: 0.3125rem;
+  background: #d87b0c;
+  margin-left: 45%;
+  border-radius: 5px;
+}
+
+/* Media Queries */
+
+@media (max-width: 1024px) {
+  .sponser_all {
+    width: 90%;
+    padding: 4rem 0;
+    gap: 2rem;
   }
-  
+
   .sponser_card {
-    height: 13rem;
-    width: 13rem;
-    border-radius: 2.5rem; 
-    border: 2px solid white;
-    overflow: hidden;
-  }
-  
-  .SponserCard_image {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
+    height: 6rem;
+    width: 6rem;
   }
 
-  .sponser_title{
-    text-align: center;
-    font-size: 3.5rem;
-    color: white;
-    font-weight: 700;
-    // font-family: Poppins;
-    line-height: 149.415%;
-    letter-spacing: 0.035rem;
-    text-transform: uppercase;
-
+  .sponser_title {
+    font-size: 2rem;
   }
 
-  .sponser_title2{
-    color: var(--Tab-Color, #FF8A00);
+  .bottom_line {
+    margin-left: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .sponser_all {
+    width: 90%;
+    padding: 3rem 0;
+    gap: 1.5rem;
   }
 
-  
-  .bottom_line{
-    width: 8rem;    
-    height: 0.3125rem;
-    background: #D87B0C;
-    margin-left: 47%;
-    border-radius:5px;
+  .sponser_card {
+    height: 5rem;
+    width: 5rem;
   }
+
+  .sponser_title {
+    font-size: 1.5rem;
+  }
+
+  .bottom_line {
+    margin-left: 35%;
+  }
+}

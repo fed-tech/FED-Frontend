@@ -1,31 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import styles from './EventPopup.module.scss';
-import eventImg from '../../data/images/EventPopup.png'
+import eventData from '../../data/EventCards.json';
 
 const EventPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isEventOngoing, setIsEventOngoing] = useState(false);
+  const [eventImage, setEventImage] = useState('');
 
   useEffect(() => {
-    // Show the popup after a slight delay to trigger the animation
+    // Fetch data from the JSON file
+    const currentEvent = eventData.find(event => event.IsEventOngoing === "true");
+    if (currentEvent) {
+      setIsEventOngoing(true);
+      setEventImage(currentEvent.imageURL);
+    }
+
+    // Show the popup after a delay
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 100); // Delay in milliseconds
+    }, 100); 
 
+    // Cleanup the timer
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (isVisible) {
+      document.body.classList.add(styles.lockScroll);
+    } else {
+      document.body.classList.remove(styles.lockScroll);
+    }
+
+    // Cleanup the scroll lock class on unmount
+    return () => {
+      document.body.classList.remove(styles.lockScroll);
+    };
+  }, [isVisible]);
 
   const closePopup = () => {
     setIsVisible(false);
   };
 
   return (
-    <div className={`${styles.popup} ${isVisible ? styles.fadeIn : ''}`}>
-      <div className={styles.popupContent}>
-        <button className={styles.closeButton} onClick={closePopup}>×</button>
-        {/* <p>This is a popup message.</p> */}
-        <a href="#"><img src={eventImg} alt="To Fed" /></a>
-      </div>
-    </div>
+    <>
+      {isEventOngoing && (
+        <div className={`${styles.popup} ${isVisible ? styles.fadeIn : ''}`}>
+          <div className={styles.popupContent}>
+            <button className={styles.closeButton} onClick={closePopup}>×</button>
+            <a href="#"><img src={eventImage} alt="Event" /></a>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
