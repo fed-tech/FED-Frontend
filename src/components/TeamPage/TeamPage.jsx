@@ -7,7 +7,7 @@ const TeamMember = ({ name, image }) => {
     <div className={styles['team-member']}>
       <img src={image} alt={name} className={styles['team-member-img']} />
       <div className={styles['team-member-info']}>
-        <h3 style={{ color: '#fff' }}>{name}</h3>
+        <h3 style={{ color: '#FF5C00' }}>{name}</h3>
       </div>
     </div>
   );
@@ -41,6 +41,8 @@ const Team = () => {
   return (
     <div>
       <h2>Meet Our <span>Team</span></h2>
+      <div className={styles['circle']}></div>
+      
       {teamByRole.filter(section => section.role === 'Director').map((section, index) => (
         <TeamSection
           key={index}
@@ -48,6 +50,7 @@ const Team = () => {
           members={section.members}
         />
       ))}
+      
       {teamByRole.filter(section => section.role !== 'Director').map((section, index) => (
       <TeamSection
       key={index}
@@ -59,6 +62,7 @@ const Team = () => {
       members={section.members}
     />
       ))}
+      <div className={styles['circle2']}></div>
     </div>
   );
 };

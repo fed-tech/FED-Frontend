@@ -28,20 +28,23 @@
   
     .team-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 20px;
       justify-items: center;
       padding: 10px 50px;
+      z-index: 2;
     }
 
     
   }
   
   .team-member {
-    background-color: #444;
+    background-color: #FFF;
     border-radius: 8px;
     text-align: center;
     color: white;
+    height: auto;
+    z-index: 2;
   
     &-img {
       width: fit-content;
@@ -60,4 +63,29 @@
       
     }
   }
+
+  .circle {
+    height: 50vh;
+    width: 30vh;
+    background-color: #FF5C00;
+    position: absolute;
+    top: 15%;
+    left: -10%;
+    border-radius: 50%;
+    filter: blur(80px);
+    
+  }
+  .circle2 {
+    height: 50vh;
+    width: 30vh;
+    background-color: #FF5C00;
+    position: absolute;
+    bottom: -600%;
+    right: -10%;
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+
+
  
