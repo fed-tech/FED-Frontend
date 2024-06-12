@@ -3,7 +3,7 @@ import styles from "./styles/ViewEvent.module.scss";
 import Button from "../../../../Core/Button";
 
 import AddEventForm from "../../Form/EventForm/AddEventForm";
-import EventCard from "../../../../Event/EventCards/PastEventCard/PastEventCard";
+import EventCard from "../../../../../components/Event/EventCards/pastEvents/PastEvents";
 
 function ViewEvent () {
 
@@ -51,6 +51,6 @@ function ViewEvent () {
       </div>
     </>
   );
-};
+}
 
 export default ViewEvent;

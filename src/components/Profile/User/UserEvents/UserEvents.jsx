@@ -1,9 +1,9 @@
-import PastEventCard from "../../../Event/EventCards/PastEventCard/PastEventCard";
+import PastEvents from "../../../Event/EventCards/pastEvents/PastEvents";
 
 function UserEvents() {
   return (
     <div>
-      <PastEventCard />
+      <PastEvents/>
     </div>
   )
 }

@@ -1,0 +1,202 @@
+// Import Poppins font
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+// Import global styles
+@import "/src/assets/styles/Global.scss";
+
+.card {
+  width: 25rem;
+  height: auto;
+  border-radius: 1.42075rem 1.42075rem 1.4rem 1.4rem;
+  border: 1px solid #fff;
+  background: #2a2a2a;
+  font-family: 'Poppins', sans-serif;
+}
+
+.backimg {
+  height: 60%;
+  width: 100%;
+  position: relative;
+}
+
+.img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border: 2px solid $border-color;
+  border-bottom: none;
+}
+
+.date {
+  height: 5rem;
+  width: 5rem;
+  background: $back-glass;
+  border: 1px solid $border-color;
+  color: $text-color;
+  position: absolute;
+  top: 2rem;
+  left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 7px;
+}
+
+.paid {
+  height: 2rem;
+  width: 4rem;
+  position: relative;
+  bottom: 3rem;
+  left: 18px;
+  border-radius: 0.69988rem;
+  border: 0.933px solid rgba(120, 120, 120, 0.5);
+  background: #fff;
+  backdrop-filter: blur(1.8663231134414673px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25rem 1rem;
+  color: var(--primary-orange, #ff8a00);
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.share {
+  height: 1.6rem;
+  width: 60px;
+  background: $back-glass;
+  border: 1px solid $border-color;
+  color: $orange-color;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  text-align: center;
+  border-radius: 7px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.backbtn {
+  height: auto;
+  width: 90%;
+  margin-inline: auto;
+  display: flex;
+  justify-content: space-between;
+  margin-top: -1.5rem;
+}
+
+.eventname {
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.eventname p {
+  font-size: 1rem;
+}
+
+.registerbtn button {
+  border-radius: 0.35788rem;
+  background: var(
+      --Primary,
+      linear-gradient(
+          260deg,
+          rgba(255, 190, 11, 0.84) -29.7%,
+          rgba(244, 43, 3, 0.84) 128.34%
+      )
+  );
+  display: inline-flex;
+  padding: 0.75888rem 1.4315rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.71575rem;
+  color: #000;
+}
+
+.backtxt {
+  font-size: 0.8rem;
+  width: 90%;
+  margin-inline: auto;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.89425rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 0.6rem;
+  margin-bottom: 0.2rem;
+}
+
+/* Media Query for max 400px */
+@media (max-width: 400px) {
+  .card {
+      width: 300px;
+      margin: 0 auto;
+      border-radius: 1rem;
+      padding: 0%;
+      position: relative;
+      left: 3vw;
+      z-index: 7;
+  }
+
+  .backimg {
+      height: auto;
+  }
+
+  .img {
+      border-radius: 1rem 1rem 0 0;
+  }
+
+  .date {
+      height: 4rem;
+      width: 4rem;
+      font-size: 1.2rem;
+      top: 1rem;
+      left: 0.5rem;
+  }
+
+  .paid {
+      bottom: 2rem;
+      left: 10px;
+      font-size: 1rem;
+      padding: 0.2rem;
+  }
+
+  .share {
+      top: 1rem;
+      right: 1rem;
+      font-size: 0.6rem;
+  }
+
+  .backbtn {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .eventname {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+  }
+
+  .eventname p {
+      font-size: 0.9rem;
+  }
+
+  .registerbtn button {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+  }
+
+  .backtxt {
+      font-size: 0.7rem;
+      margin-top: 0.4rem;
+  }
+}

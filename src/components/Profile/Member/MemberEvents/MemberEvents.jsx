@@ -1,4 +1,4 @@
-import PastEventCard  from "../../../Event/EventCards/PastEventCard/PastEventCard";
+import PastEventCard  from "../../../../components/Event/EventCards/pastEvents/PastEvents";
 
 function MemberEvents() {
   return (

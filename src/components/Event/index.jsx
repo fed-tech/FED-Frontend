@@ -1,3 +1,3 @@
 //Event components
-export { default as OngoingEventCard } from "./EventCards/OngoingEventCard/OngoingEventCard";
-export { default as PastEventCard } from "./EventCards/PastEventCard/PastEventCard";
+export { default as OngoingEventCard } from './EventCards/ongoingEvents/OngoingEvent'
+export { default as PastEventCard } from './EventCards/pastEvents/PastEvents'

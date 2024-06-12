@@ -1,0 +1,121 @@
+@import "/src/assets/styles/Global.scss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+// Import global styles
+@import "/src/assets/styles/Global.scss";
+
+.card {
+    height: 260px;
+    width: 350px;
+    background-color: rgb(46, 44, 44);
+    margin-left: 10px;
+    margin-top: 80px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: $text-color;
+    text-align: center;
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+}
+
+.img {
+    height: 200px;
+    width: 350px;
+    object-fit: cover;
+    object-position: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border: 2px solid $border-color;
+    border-bottom: none;
+}
+
+.backimg {
+    height: 200px;
+    width: 350px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.date {
+    height: 60px;
+    width: 60px;
+    background: $back-glass;
+    border: 1px solid $border-color;
+    color: $text-color;
+    position: relative;
+    top: -185px;
+    left: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1rem;
+    padding: 7px;
+}
+
+.paid {
+    height: 25px;
+    width: 50px;
+    background: $back-glass;
+    border: 1px solid $border-color;
+    color: $orange-color;
+    position: relative;
+    top: -245px;
+    left: 285px;
+    text-align: center;
+    border-radius: 7px;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.5px;
+}
+
+.backtxt {
+    height: 60px;
+    width: 350px;
+    padding: 12px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: 2px solid $border-color;
+    border-top: none;
+}
+
+span {
+    color: $orange-color;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+/* Media Query for max 400px */
+@media (max-width: 400px) {
+    .card {
+        width: 90%;
+        height: auto;
+        margin: 10px auto;
+        border-radius: 15px;
+    }
+
+    .img, .backimg {
+        width: 100%;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .date {
+        height: 50px;
+        width: 50px;
+        font-size: 0.9rem;
+        top: -180px;
+        left: 10px;
+    }
+
+    .paid {
+        height: 20px;
+        width: 45px;
+        font-size: 0.9rem;
+        top: -235px;
+        left: 230px;
+    }
+
+    .backtxt {
+        width: 100%;
+        height: auto;
+        border-radius: 0 0 15px 15px;
+    }
+}

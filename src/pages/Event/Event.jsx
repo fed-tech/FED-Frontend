@@ -1,9 +1,11 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react'
+import Eventc from './Eventc/Event';
 
 function Event() {
   return (
     <div>
-      <h1>Events</h1>
+      <Eventc/>
     </div>
   )
 }
