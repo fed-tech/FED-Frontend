@@ -1,0 +1,326 @@
+[
+  {
+    "name": "John Doe",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/johndoe",
+      "twitter": "https://twitter.com/johndoe",
+      "github": "https://github.com/johndoe"
+    }
+  },
+  {
+    "name": "Jane Smith",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/janesmith",
+      "twitter": "https://twitter.com/janesmith",
+      "github": "https://github.com/janesmith"
+    }
+  },
+  {
+    "name": "Alice Johnson",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/alicejohnson",
+      "twitter": "https://twitter.com/alicejohnson",
+      "github": "https://github.com/alicejohnson"
+    }
+  },
+  {
+    "name": "Bob Brown",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/bobbrown",
+      "twitter": "https://twitter.com/bobbrown",
+      "github": "https://github.com/bobbrown"
+    }
+  },
+  {
+    "name": "Carol Davis",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/caroldavis",
+      "twitter": "https://twitter.com/caroldavis",
+      "github": "https://github.com/caroldavis"
+    }
+  },
+  {
+    "name": "David Wilson",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/davidwilson",
+      "twitter": "https://twitter.com/davidwilson",
+      "github": "https://github.com/davidwilson"
+    }
+  },
+  {
+    "name": "Eve Thompson",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/evethompson",
+      "twitter": "https://twitter.com/evethompson",
+      "github": "https://github.com/evethompson"
+    }
+  },
+  {
+    "name": "Frank Green",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/frankgreen",
+      "twitter": "https://twitter.com/frankgreen",
+      "github": "https://github.com/frankgreen"
+    }
+  },
+  {
+    "name": "Grace Hall",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/gracehall",
+      "twitter": "https://twitter.com/gracehall",
+      "github": "https://github.com/gracehall"
+    }
+  },
+  {
+    "name": "Hank King",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/hankking",
+      "twitter": "https://twitter.com/hankking",
+      "github": "https://github.com/hankking"
+    }
+  },
+  {
+    "name": "Ivy Lee",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/ivylee",
+      "twitter": "https://twitter.com/ivylee",
+      "github": "https://github.com/ivylee"
+    }
+  },
+  {
+    "name": "Jack Martin",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/jackmartin",
+      "twitter": "https://twitter.com/jackmartin",
+      "github": "https://github.com/jackmartin"
+    }
+  },
+  {
+    "name": "Kelly Nelson",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/kellynelson",
+      "twitter": "https://twitter.com/kellynelson",
+      "github": "https://github.com/kellynelson"
+    }
+  },
+  {
+    "name": "Leo Owens",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/leoowens",
+      "twitter": "https://twitter.com/leoowens",
+      "github": "https://github.com/leoowens"
+    }
+  },
+  {
+    "name": "Mia Perez",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/miaperez",
+      "twitter": "https://twitter.com/miaperez",
+      "github": "https://github.com/miaperez"
+    }
+  },
+  {
+    "name": "Nina Quinn",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/ninaquinn",
+      "twitter": "https://twitter.com/ninaquinn",
+      "github": "https://github.com/ninaquinn"
+    }
+  },
+  {
+    "name": "Oscar Roberts",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/oscarroberts",
+      "twitter": "https://twitter.com/oscarroberts",
+      "github": "https://github.com/oscarroberts"
+    }
+  },
+  {
+    "name": "Paula Scott",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/paulascott",
+      "twitter": "https://twitter.com/paulascott",
+      "github": "https://github.com/paulascott"
+    }
+  },
+  {
+    "name": "Quinn Taylor",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/quinntaylor",
+      "twitter": "https://twitter.com/quinntaylor",
+      "github": "https://github.com/quinntaylor"
+    }
+  },
+  {
+    "name": "Rachel Upton",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/rachelupton",
+      "twitter": "https://twitter.com/rachelupton",
+      "github": "https://github.com/rachelupton"
+    }
+  },
+  {
+    "name": "Steve Vance",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/stevevance",
+      "twitter": "https://twitter.com/stevevance",
+      "github": "https://github.com/stevevance"
+    }
+  },
+  {
+    "name": "Tina Wright",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/tinawright",
+      "twitter": "https://twitter.com/tinawright",
+      "github": "https://github.com/tinawright"
+    }
+  },
+  {
+    "name": "Uma Yates",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/umayates",
+      "twitter": "https://twitter.com/umayates",
+      "github": "https://github.com/umayates"
+    }
+  },
+  {
+    "name": "Victor Zane",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/victorzane",
+      "twitter": "https://twitter.com/victorzane",
+      "github": "https://github.com/victorzane"
+    }
+  },
+  {
+    "name": "Wendy Adams",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/wendyadams",
+      "twitter": "https://twitter.com/wendyadams",
+      "github": "https://github.com/wendyadams"
+    }
+  },
+  {
+    "name": "Xander Black",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/xanderblack",
+      "twitter": "https://twitter.com/xanderblack",
+      "github": "https://github.com/xanderblack"
+    }
+  },
+  {
+    "name": "Yara Clarke",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/yaraclarke",
+      "twitter": "https://twitter.com/yaraclarke",
+      "github": "https://github.com/yaraclarke"
+    }
+  },
+  {
+    "name": "Zane Dawson",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/zanedawson",
+      "twitter": "https://twitter.com/zanedawson",
+      "github": "https://github.com/zanedawson"
+    }
+  },
+  {
+    "name": "Alex Evans",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/alexevans",
+      "twitter": "https://twitter.com/alexevans",
+      "github": "https://github.com/alexevans"
+    }
+  },
+  {
+    "name": "Bella Foster",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/bellafoster",
+      "twitter": "https://twitter.com/bellafoster",
+      "github": "https://github.com/bellafoster"
+    }
+  },
+  {
+    "name": "Charlie Graham",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/charliegraham",
+      "twitter": "https://twitter.com/charliegraham",
+      "github": "https://github.com/charliegraham"
+    }
+  },
+  {
+    "name": "Dana Hayes",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/danahayes",
+      "twitter": "https://twitter.com/danahayes",
+      "github": "https://github.com/danahayes"
+    }
+  },
+  {
+    "name": "Eli Jenkins",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/elijenkins",
+      "twitter": "https://twitter.com/elijenkins",
+      "github": "https://github.com/elijenkins"
+    }
+  },
+  {
+    "name": "Fiona Kelly",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/fionakelly",
+      "twitter": "https://twitter.com/fionakelly",
+      "github": "https://github.com/fionakelly"
+    }
+  },
+  {
+    "name": "George Lewis",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/georgelewis",
+      "twitter": "https://twitter.com/georgelewis",
+      "github": "https://github.com/georgelewis"
+    }
+  },
+  {
+    "name": "Hannah Moore",
+    "image": "https://via.placeholder.com/150",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/hannahmoore",
+      "twitter": "https://twitter.com/hannahmoore",
+      "github": "https://github.com/hannahmoore"
+    }
+  }
+]

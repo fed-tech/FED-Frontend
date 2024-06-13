@@ -14,6 +14,7 @@ const Team = lazy(() => import("./pages/Team/Team"));
 const Login = lazy(() => import("./pages/Authentication/Login/Login"));
 const SignUp = lazy(() => import("./pages/Authentication/SignUp/SignUp"));
 const Error = lazy(() => import("./pages/Error/Error"));
+const Alumni = lazy(() => import("./pages/Alumni/Alumni"));
 
 // microInteraction
 import Loading from "./microInteraction/Load/Load";
@@ -45,6 +46,8 @@ function App() {
               <Route path="/Login" element={<Login />} />
               <Route path="/SignUp" element={<SignUp />} />
               <Route path="*" element={<Error />} />
+              <Route path="/Alumni" element={<Alumni />} />
+
             </Routes>
 
           </Suspense>
