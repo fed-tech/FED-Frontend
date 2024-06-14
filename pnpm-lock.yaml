@@ -32,6 +32,9 @@ importers:
       framer-motion:
         specifier: ^11.2.10
         version: 11.2.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      load-script:
+        specifier: ^2.0.0
+        version: 2.0.0
       lucide-react:
         specifier: ^0.379.0
         version: 0.379.0(react@18.3.1)
@@ -71,9 +74,15 @@ importers:
       react-social-media-embed:
         specifier: ^2.5.13
         version: 2.5.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      run:
+        specifier: ^1.5.0
+        version: 1.5.0
       sass:
         specifier: ^1.76.0
         version: 1.76.0
+      sister:
+        specifier: ^3.0.2
+        version: 3.0.2
     devDependencies:
       '@types/react':
         specifier: ^18.2.66
@@ -1267,6 +1276,9 @@ packages:
   load-script@1.0.0:
     resolution: {integrity: sha512-kPEjMFtZvwL9TaZo0uZ2ml+Ye9HUMmPwbYRJ324qF9tqMejwykJ5ggTyvzmrbBeapCAbk98BSbTeovHEEP1uCA==}
 
+  load-script@2.0.0:
+    resolution: {integrity: sha512-km6cyoPW4rM22JMGb+SHUKPMZVDpUaMpMAKrv8UHWllIxc/qjgMGHD91nY+5hM+/NFs310OZ2pqQeJKs7HqWPA==}
+
   locate-path@6.0.0:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
@@ -1624,6 +1636,11 @@ packages:
 
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
+
+  run@1.5.0:
+    resolution: {integrity: sha512-CBPzeX6JQZUdhZpSFyNt2vUk44ivKMWZYCNBYoZYEE46mL9nf6WyMP3320WnzIrJuo89+njiUvlo83jUEXjXLg==}
+    engines: {node: '>=v0.9.0'}
+    hasBin: true
 
   safe-array-concat@1.1.2:
     resolution: {integrity: sha512-vj6RsCsWBCf19jIeHEfkRMw8DPiBb+DMXklQ/1SGDHOMlHdPUkZXFQ2YdplS23zESTijAcurb1aSgJA3AgMu1Q==}
@@ -3142,6 +3159,8 @@ snapshots:
 
   load-script@1.0.0: {}
 
+  load-script@2.0.0: {}
+
   locate-path@6.0.0:
     dependencies:
       p-locate: 5.0.0
@@ -3530,6 +3549,10 @@ snapshots:
   run-parallel@1.2.0:
     dependencies:
       queue-microtask: 1.2.3
+
+  run@1.5.0:
+    dependencies:
+      minimatch: 3.1.2
 
   safe-array-concat@1.1.2:
     dependencies:
