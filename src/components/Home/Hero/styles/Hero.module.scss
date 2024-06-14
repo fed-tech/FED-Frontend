@@ -165,12 +165,6 @@ h5{
      }
 }
 
-@media screen and (max-width: 440px) {
-    .circle{
-        left: -145%;
-    }
-}
-
 @media screen and (max-width: 400px) {
     .hero{
         // min-height: 100vh;
@@ -180,11 +174,6 @@ h5{
         background-color: #1C1C1C;
         position: relative; 
         margin-top: -3rem;
-        margin-left: -2rem;
-    }
-
-    .circle{
-        left: -185%;
     }
 
     .hero1 h2{
@@ -199,13 +188,13 @@ h5{
     }
     
     h4{
-        font-size: 3.5vw;
+        font-size: 3vw;
        color: #FFFFFF;
         margin-left: 0.3vw;
     }
 
     h5{
-        font-size: 3.5vw;
+        font-size: 3vw;
         color: #FF5C00;
         margin-left: 1vw;
         margin-right: 1vw;
@@ -217,11 +206,7 @@ h5{
 
     .hero1{
         margin-left:7%;
-        margin-top: 25%;
-    }
-
-    .herotwo{
-        margin-top: -2rem;
+        margin-top: 21%;
     }
 
   

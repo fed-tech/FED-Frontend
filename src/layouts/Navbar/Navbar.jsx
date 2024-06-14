@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import style from "./styles/Navbar.module.scss";
 import Headroom from 'react-headroom';
 import logo from "../../assets/images/Logo/logo.svg";
-import MobileNavbar from "../MobileNavbar/MobileNavbar";
 
 function Navbar() {
 

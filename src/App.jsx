@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 
 // layouts
 import Navbar from "./layouts/Navbar/Navbar";
-import MobileNavbar from "./layouts/MobileNavbar/MobileNavbar";
 import Footer from "./layouts/Footer/Footer";
 
 // pages
@@ -34,7 +33,6 @@ function App() {
     <>
       
       <Navbar />
-      <MobileNavbar />
       <div className="page">
        
           <Suspense fallback={<Loading />}>

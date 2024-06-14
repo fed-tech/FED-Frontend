@@ -144,11 +144,8 @@ span{
 
 
 @media screen and (max-width: 1046px){
-    .container{
-        margin-top: -13rem;
-    }
     .head{
-        font-size: 60.8px;
+        font-size: 42px;
     }
 
     .box1{
@@ -166,8 +163,7 @@ span{
     }
 
     .box{
-        width: 55%;
-        font-size: 1.65rem;
+        font-size: 1.15rem;
     }
 }
 
@@ -176,24 +172,8 @@ span{
         font-size: 40px;
     }
     .box{
-        font-size: 1.3rem;
+        font-size: 1.05rem;
         height: 9rem;
-        width: 55%;
-    }
-
-    .box1{
-        align-items: center;
-        padding-top: 1rem;
-    }
-    
-    .box2{
-        padding-top: -1rem;
-        margin-top: -5rem;
-    }
-    
-    .box3{
-        padding-top: -1rem;
-        margin-top: -5rem;
     }
 
     .whatfed{
@@ -207,16 +187,7 @@ span{
     }
     .box{
         font-size: 1rem;
-        height: 14rem;
-        width: 55%;
-        padding: 2rem;
-        background: transparent;
-        font-size: 1.85rem;
-        border: 2px solid white;
-        border-radius: 20px;
     }
-
-    
 }
 
 @media screen and (max-width: 875px){
@@ -225,9 +196,9 @@ span{
         margin-bottom: 20px;
     }
     .box{
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         height: 17rem;
-        width: 45%;
+        width: 80%;
         text-align: left;
         padding: 1rem;
         border-radius: 30px;
@@ -250,7 +221,7 @@ span{
     .whyfedimg{
         order: 1;
         position: relative;
-        left: 0px;
+        left: 15px;
         top: 0px;
     }
     
@@ -285,83 +256,15 @@ span{
         right: 0px;
         bottom: 250px;
         height: 353px;
-    }
-
-    .container{
-        margin-bottom: -20rem;
     }
 }
 
-@media screen and (max-width: 714px){
+@media screen and (max-width: 694px){
     .head{
         font-size: 42px;
-        margin-bottom: 20px;
     }
     .box{
-        font-size: 1.45rem;
-        height: 17rem;
-        width: 45%;
-        text-align: left;
-        padding: 1rem;
-        border-radius: 30px;
-    }
-    .boxflex{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .whyfed{
-        padding-top: 8rem;
-        order: 2;
-        position: relative;
-        left: 0px;
-        z-index: 0;
-        bottom: 200px;
-    }
-    
-    .whyfedimg{
-        order: 1;
-        position: relative;
-        left: 100px;
-        top: 0px;
-    }
-    
-    .howfed{
-        order: 2;
-        position: relative;
-        right: 0px;
-        bottom: 300px;
-        padding-top: 9.5rem;
-    }
-    
-    .howfedimg{
-        order: 1;
-        position: relative;
-        left: 0px;
-        bottom: 150px;
-        height: 350px;
-    }
-    
-    .whatfed{
-        order: 2;
-        position: relative;
-        left: 0px;
-        bottom: 350px;
-        padding: 1rem;
-        padding-top: 7rem;
-    }
-    
-    .whatfedimg{
-        order: 1;
-        position: relative;
-        right: 0px;
-        bottom: 250px;
-        height: 353px;
-    }
-
-    .container{
-        margin-bottom: -3rem;
+        font-size: 1.15rem;
     }
     
 }
@@ -496,10 +399,8 @@ span{
     .whyfedimg{
         order: 1;
         position: relative;
-        right: -100;
         top: 0px;
         height: 347px;
-        margin-right: 9.9rem;
     }
     
     .howfed{
@@ -532,10 +433,6 @@ span{
         right: 0px;
         bottom: 250px;
         height: 253px;
-    }
-
-    .container{
-        margin-bottom: 1rem;
     }
 }
 
@@ -644,19 +541,5 @@ span{
         right: 0px;
         bottom: 250px;
         height: 253px;
-    }
-}
-
-@media screen and (min-width: 1680px){
-    .box{
-        width: 80%;
-        font-size: 2.3rem;
-    }
-}
-
-@media screen and (min-width: 2496px){
-    .box{
-        width: 110%;
-        font-size: 2.3rem;
     }
 }

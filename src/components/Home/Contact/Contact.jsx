@@ -55,7 +55,7 @@ function ContactForm () {
           <div className={styles['form-group']}>
             <textarea name="message" placeholder="Message"></textarea>
           </div>
-          <button className={styles.submitbutton} type="submit">Submit</button>
+          <button type="submit">Submit</button>
         </form>
          <div className={styles['image-section']}>
             <div className={styles['backCircle']}></div>
