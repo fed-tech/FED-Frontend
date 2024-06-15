@@ -62,7 +62,9 @@ const SocialMedia = () => {
     }, []);
     const calculateInstagramWidth = () => {
         if (viewportWidth >= 1200) {
-        return 348.45;
+        return 338.45;
+        } else if (viewportWidth >= 1024) {
+          return 330;
         } else if (viewportWidth >= 768) {
         return 330; 
         } else {
@@ -70,25 +72,61 @@ const SocialMedia = () => {
         }
     };
 
+    const calculateInstagramHeight = () => {
+      if (viewportWidth >= 1200) {
+        return 350;
+      } else if (viewportWidth >= 768) {
+        return 350;
+      } else {
+        return 350;
+      }
+    }
+
     const calculateInstagramReelWidth = () => {
         if (viewportWidth >= 1200) {
-        return 446.61;
+        return 426.61;
+        } else if (viewportWidth >= 1024) {
+          return 600;
         } else if (viewportWidth >= 768) {
-        return 400; 
+        return 600; 
         } else {
         return 360; 
         }
     };
 
+    const calculateInstagramReelHeight = () => {
+      if (viewportWidth >= 1200) {
+        return 730;
+      } else if (viewportWidth >= 768) {
+        return 730;
+      } else {
+        return 730;
+      }
+    }
+
     const calculateLinkedInWidth = () => {
         if (viewportWidth >= 1200) {
-        return 468;
+        return 376;
+        } else if (viewportWidth >= 1024) {
+          return 600;
         } else if (viewportWidth >= 768) {
-        return 400; 
+        return 600; 
         } else {
         return 360; 
         }
     };
+
+    const calculateLinkedInHeight = () => {
+      if (viewportWidth >= 1200) {
+        return 730;
+      } else if (viewportWidth >= 1024) {
+        return 710;
+      } else if (viewportWidth >= 768) {
+        return 730;
+      } else {
+        return 730;
+      }
+    }
 
     return (
         
@@ -112,12 +150,12 @@ const SocialMedia = () => {
                 <div className={styles.sidebyside}>
                     <div className={styles.instagramfeed}>
                     <AnimatedBox>
-                    <InstagramEmbed url="https://www.instagram.com/p/C7Bxq3-rcK7/?hl=en" height={350} width={calculateInstagramWidth()} />
+                    <InstagramEmbed url="https://www.instagram.com/p/C7Bxq3-rcK7/?hl=en" height={calculateInstagramHeight()} width={calculateInstagramWidth()} />
                     </AnimatedBox>
                     </div>
                     <div className={styles.instagramfeed2}>
                     <AnimatedBox>
-                    <InstagramEmbed url="https://www.instagram.com/p/C7B73kprfBd/?hl=en" height={350} width={calculateInstagramWidth()} />
+                    <InstagramEmbed url="https://www.instagram.com/p/C7B73kprfBd/?hl=en" height={calculateInstagramHeight()} width={calculateInstagramWidth()} />
                     </AnimatedBox>
                     <div className={styles.circle}></div>
                     </div>
@@ -126,7 +164,7 @@ const SocialMedia = () => {
                 <div className={styles.centerColumn}>
                 <div className={styles.instagramreel}>
                     <AnimatedBox>
-                    <InstagramEmbed url="https://www.instagram.com/p/C7ErB7-SmV-/?hl=en" height={730} width={calculateInstagramReelWidth()} />
+                    <InstagramEmbed url="https://www.instagram.com/p/C7ErB7-SmV-/?hl=en" height={calculateInstagramReelHeight} width={calculateInstagramReelWidth()} />
                     </AnimatedBox>
                 </div>
                 </div>
@@ -138,7 +176,7 @@ const SocialMedia = () => {
                     url="https://www.linkedin.com/embed/feed/update/urn:li:share:7196928173924655106"
                     postUrl="https://www.linkedin.com/posts/fedkiit_kiituniversity-fed-productdesign-activity-7196928174897700864-flSC?utm_source=share&utm_medium=member_desktop"
                     width={calculateLinkedInWidth()}
-                    height={730}
+                    height={calculateLinkedInHeight()}
                     />
                     </AnimatedBox>
                 </div>

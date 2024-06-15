@@ -21,10 +21,8 @@
   color: white;
   display: flex;
   width: 99vw;
-
-  gap:15rem;
   // margin-left: 1rem;
-  background: rgba(41, 41, 41, 0.1);
+  background: rgba(41, 41, 41, 0.2);
   border-radius: 40px;
 
   backdrop-filter: blur(20px);
@@ -32,7 +30,6 @@
   text-align: center;
   margin-top: 1rem;
   padding: .5rem 0rem .5rem 2rem;
-  
   
   // position: relative;
   // position: -webkit-sticky; /* Safari */
@@ -79,14 +76,15 @@ a{
   justify-content: center;
   align-items: center;
   gap: 20px;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
+  font-family: Poppins;
   justify-content: space-around;
   padding: 0.8125rem 2.875rem;
   // padding-left: 3.5rem;
   height: 3.5rem;
   list-style: none;
-  margin: 0; 
+  margin-left: 1.5rem; 
   &:hover{
     color: var(--Tab-Color, #ff8a00);
   }
@@ -117,10 +115,16 @@ a{
     rgba(244, 43, 3, 0.84) 128.34%
   );
   font-weight: 600;
-  padding: 13px 15px;
+  padding: 8px 21px;
   border: none;
   color: #fff;
-  margin-right: 2.4rem;
+  margin-right: 1rem;
+}
+
+@media screen and (max-width: 915px) {
+  .navItems{
+    margin-right: 2rem;
+  }
 }
 
 @media screen and (max-width: 825px) {
@@ -132,57 +136,62 @@ a{
     gap: 0.5rem;
     padding: 0.2125rem 0.8rem;
     height: 2.5rem;
+    font-size: 1rem;
   }
   
   .authButton {
     height: 2.5rem;
     font-size: 1rem;
-    padding: 0.7rem 2rem;
+    padding: 0.5rem 1rem;
   }
 }
+// @media screen and (max-width: 600px) {
+//   // .nav{
+//   //   gap: 4px;
+//   // }
+
+//   // .logo {
+//   //   width: 1.8rem;
+//   //   height: 1.8rem;
+//   //   border-radius: 1.8rem;
+//   //   background: url("../../../assets/images/Logo/logo.svg") lightgray 50% / cover no-repeat;
+//   // }
+  
+//   // .logo_text {
+//   //   width: 4.9rem;
+//   //   height: 2.3rem;
+//   //   background: url("../../../assets/images/Logo/FED.svg") no-repeat;
+//   // }
+
+//   // .nav {
+//   //   padding: 0.25rem 1.25rem;
+//   // }
+  
+//   // .navItems {
+//   //   gap: 0.25rem;
+//   //   padding: 0.2125rem 0.4rem;
+//   //   height: 1.8rem;
+//   // }
+  
+//   // .authButton {
+//   //   height: 1.9rem;
+//   //   font-size: 0.5rem;
+//   //   padding: 0.4rem 1rem;
+//   // }
+// }
+
+
+
 @media screen and (max-width: 600px) {
-  .nav{
-    gap: 4px;
-  }
-
-  .logo {
-    width: 1.8rem;
-    height: 1.8rem;
-    border-radius: 1.8rem;
-    background: url("../../../assets/images/Logo/logo.svg") lightgray 50% / cover no-repeat;
-  }
-  
-  .logo_text {
-    width: 4.9rem;
-    height: 2.3rem;
-    background: url("../../../assets/images/Logo/FED.svg") no-repeat;
-  }
-
-  .nav {
-    padding: 0.25rem 1.25rem;
-  }
-  
-  .navItems {
-    gap: 0.25rem;
-    padding: 0.2125rem 0.4rem;
-    height: 1.8rem;
-  }
-  
-  .authButton {
-    height: 1.9rem;
-    font-size: 0.5rem;
-    padding: 0.4rem 1rem;
-  }
-}
-
-
-
-@media screen and (max-width: 500px) {
   .navItems {
     display: none;
   }
 
   .authButton {
+    display: none;
+  }
+
+  .nav{
     display: none;
   }
 }

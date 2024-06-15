@@ -47,33 +47,19 @@ function Hero() {
         <div className={styles.hero1}>
           <AnimatedBox direction="left">
             <div className={styles.heroone}>
-              <div className={styles.maincontent}>
-                <h2>Nurturing</h2>
-                <h3>entrepreneurship</h3>
-              </div>
-              <h2>through creative, authentic,</h2> 
-              <h2>and efficient techniques.</h2>
+              <strong>Nurturing <span style={{ color: '#FF5C00' }}>entrepreneurship</span> through creative, authentic, and efficient techniques.</strong> 
             </div>
-
             <div className={styles.herotwo}>
               <div className={styles.smallcontent}>
-                <h4>Nurturing</h4>
-                <h5>entrepreneurship </h5>
-                <h4>through</h4>
-                <h4>creative,</h4>
+                <strong>Nurturing <span style={{ color: '#FF5C00' }}>entrepreneurship</span> through creative, authentic, and efficient techniques.</strong>
               </div>
-              <h4>authentic, and efficient techniques.</h4> 
             </div>
           </AnimatedBox>
         </div>
-
         <div className={styles.hero2}>
           <Carousel images={CarouselImg} />
         </div>
-
-        <div className={styles.circle}>
-          <div></div>
-        </div>
+        <div className={styles.circle}></div>
       </div>
     </div>
   );

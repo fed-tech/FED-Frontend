@@ -40,7 +40,7 @@ const Feedback = () => {
     <div className={styles['feedback-container']}>
       <img className={styles['upQuote']} src={quoteImg} alt="Up Quote" />
       <div className={styles.heading}>
-        <h2>FEEDBACK ON <span className={styles.highlight}>US</span></h2>
+        <h2>TESTIMONIALS</h2>
         <div className={styles.bottom_line}></div>
       </div>
       <div className={styles['feedbacks-container']}>

@@ -1,79 +1,145 @@
-
 .nav {
-    justify-content: space-between;
-    backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  backdrop-filter: blur(10px);
+  gap: 20px;
+  font-size: 19px;
+  background-color: $page-color;
+  color: #fff;
+  text-align: center;
+  padding: 20px 56px;
+  position: relative;
+
+  .logo {
+    aspect-ratio: 2.38;
+    object-fit: auto;
+    object-position: center;
+    width: 135px;
+    max-width: 100%;
+    margin-top: 1rem;
+  }
+
+  .icon {
+    display: none;
+    cursor: pointer;
+  }
+
+  .profile {
+    display: none;
+  }
+
+  .name {
+    display: none;
+  }
+
+  .navItems {
+    border-radius: 1.65rem;
+    border: 1.652px solid rgba(214, 214, 214, 0.81);
+    background: linear-gradient(91deg, rgba(217, 217, 217, 0) -147.64%, rgba(217, 217, 217, 0.00) 143.9%);
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 25rem;
     gap: 20px;
-    font-size: 20px;
-    background-color: $page-color;
-    .nav {
-      justify-content: space-between;
-      backdrop-filter: blur(10px);
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 13px 46px;
+    height: 3.5rem;
+    list-style: none;
+    margin: 0;
+
+    &.open {
       display: flex;
-      gap: 20px;
-      font-size: 20px;
-      background-color: $page-color;
-      color: #fff;
-      text-align: center;
-      padding: 20px 56px;
-      position: relative;
     }
-    
-    .mobilesignup {
-      display: none;
-    }
-    
-    .logo {
-      aspect-ratio: 2.38;
-      object-fit: auto;
-      object-position: center;
-      width: 135px;
-      max-width: 100%;
-    }
-    
-    .icon {
-      display: none;
-      cursor: pointer;
-    }
-    
-    .profile {
-      display: none;
-    }
-    
-    .name {
-      display: none;
-    }
-    
-    .navItems {
-      border-radius: 1.65rem;
-      border: 1.652px solid rgba(214, 214, 214, 0.81);
-      background: linear-gradient(91deg, rgba(217, 217, 217, 0.30) -147.64%, rgba(217, 217, 217, 0.00) 143.9%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 25rem;
-      gap: 20px;
-      font-weight: 500;
-      white-space: nowrap;
-      justify-content: space-between;
-      padding: 13px 46px;
-      height: 3.5rem;
-      list-style: none;
-      margin: 0;
-    }
-    
+
     .navLink {
       font-family: Poppins, sans-serif;
       justify-content: center;
       padding: 8px 0;
       cursor: pointer;
+
+      &:hover {
+        color: var(--Tab-Color, #ff8a00);
+      }
     }
-    
-    .navLink:hover {
-      color: var(--Tab-Color, #ff8a00);
+  }
+
+  .authButton {
+    font-family: Poppins, sans-serif;
+    justify-content: center;
+    border-radius: 26px;
+    width: 14rem;
+    height: 3.5rem;
+    font-size: 19px;
+    background: linear-gradient(260deg, rgba(255, 190, 11, 0.84) -29.7%, rgba(244, 43, 3, 0.84) 128.34%);
+    font-weight: 600;
+    padding: 13px 46px;
+    border: none;
+    color: #fff;
+  }
+
+  .mobilesignup {
+    display: none;
+  }
+
+  @media (max-width: 601px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5rem;
+    height: 78px;
+    z-index: 2;
+
+    .nav{
+      backdrop-filter: blur(65px);
     }
-    
+
+    .icon {
+      display: block;
+      position: relative;
+      
+      height: 30.39px;
+      width: 54.85px;
+      color: #fff;
+      cursor:pointer;
+      margin-top: 2rem;
+      padding-top: 0.5vw;
+      padding-bottom: 9vw;
+      background: rgba(255, 255, 255, 0.064); // Add a background for the blur effect
+      backdrop-filter: blur(50px); // Apply the blur effect
+      border-radius: 16.35px;
+    }
+
     .authButton {
+      display: none;
+    }
+
+    .profile {
+      display: block;
+      height: 20vw;
+      width: 20vw;
+      background-color: white;
+      border-radius: 50%;
+    }
+     
+    .logo{
+      height: 60%;
+      margin-top: 1.2rem;
+      margin-right: 1rem;
+    }
+    .mobile {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row-reverse;
+      
+    }
+    .icon{
+      margin-left: 2vw;
+    }
+
+    
+    .mobilesignup {
+      display: block;
       font-family: Poppins, sans-serif;
       justify-content: center;
       border-radius: 26px;
@@ -86,245 +152,39 @@
       border: none;
       color: #fff;
     }
-    
-    @media (max-width: 400px) {
-      .nav {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 0.5rem;
-        height: 78px;
-        // background-color: #202020;
-        z-index: 2;
-       
-    
-        .icon {
-          display: block;
-          position: relative;
-          margin-bottom: 4px;
-          height: 5vw;
-          color: #fff;
-        
-        }
-    
-        .authButton {
-          display: none;
-        }
-        .profile {
-          display: block;
-          height: 20vw;
-          width: 20vw;
-          background-color: white;
-          border-radius: 50%;
-        }
-    
-        .mobile {
-          width: 100%;
-          display: flex;
-        
-          align-items: center;
-          justify-content:space-between;
-        }
-    
-        .mobilesignup {
-          display: block;
-          font-family: Poppins, sans-serif;
-          justify-content: center;
-          border-radius: 26px;
-          width: 14rem;
-          height: 3.5rem;
-          font-size: 1.2rem;
-          background: linear-gradient(260deg, rgba(255, 190, 11, 0.84) -29.7%, rgba(244, 43, 3, 0.84) 128.34%);
-          font-weight: 600;
-          padding: 13px 46px;
-          border: none;
-          color: #fff;
-        }
-    
-        .navItems {
-          flex-direction: column;
-          width: 100%;
-          align-items: flex-start;
-          height: max-content;
-          gap: 0.1vh;
-          align-items: center;
-          display: none;
-          background-color: #202020;
-          // z-index: 1;
-          // transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-         
-          
-          &.open {
-            display: flex;
-          }
-    
-          .navLink {
-            margin: 0.5rem 0;
-            text-align: center;
-          }
-        }
-    
-        .authButton {
-          width: 100%;
-          margin-top: 1rem;
-          text-align: center;
-        }
-      }
-    }
-    
-    color: #fff;
-    text-align: center;
-    padding: 20px 56px;
-    position: relative;
-  }
-  
-  .mobilesignup {
-    display: none;
-  }
-  
-  .logo {
-    aspect-ratio: 2.38;
-    object-fit: auto;
-    object-position: center;
-    width: 135px;
-    max-width: 100%;
-  }
-  
-  .icon {
-    display: none;
-    cursor: pointer;
-  }
-  
-  .profile {
-    display: none;
-  }
-  
-  .name {
-    display: none;
-  }
-  
-  .navItems {
-    border-radius: 1.65rem;
-    border: 1.652px solid rgba(214, 214, 214, 0.81);
-    background: linear-gradient(91deg, rgba(217, 217, 217, 0.30) -147.64%, rgba(217, 217, 217, 0.00) 143.9%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 25rem;
-    gap: 20px;
-    font-weight: 500;
-    white-space: nowrap;
-    justify-content: space-between;
-    padding: 13px 46px;
-    height: 3.5rem;
-    list-style: none;
-    margin: 0;
-  }
-  
-  .navLink {
-    font-family: Poppins, sans-serif;
-    justify-content: center;
-    padding: 8px 0;
-    cursor: pointer;
-  }
-  
-  .navLink:hover {
-    color: var(--Tab-Color, #ff8a00);
-  }
-  
-  .authButton {
-    font-family: Poppins, sans-serif;
-    justify-content: center;
-    border-radius: 26px;
-    width: 14rem;
-    height: 3.5rem;
-    font-size: 1.2rem;
-    background: linear-gradient(260deg, rgba(255, 190, 11, 0.84) -29.7%, rgba(244, 43, 3, 0.84) 128.34%);
-    font-weight: 600;
-    padding: 13px 46px;
-    border: none;
-    color: #fff;
-  }
-  
-  @media (max-width: 400px) {
-    .nav {
+
+    .navItems {
       flex-direction: column;
+      width: 100%;
       align-items: flex-start;
-      padding: 0.5rem;
-      height: 78px;
-      // background-color: #202020;
-      z-index: 2;
-     
-  
-      .icon {
-        display: block;
-        position: relative;
-        margin-bottom: 4px;
-        height: 5vw;
-        color: #fff;
-      
-      }
-  
-      .authButton {
-        display: none;
-      }
-      .profile {
-        display: block;
-        height: 20vw;
-        width: 20vw;
-        background-color: white;
-        border-radius: 50%;
-      }
-  
-      .mobile {
-        width: 100%;
+      height: max-content;
+      gap: 0.1vh;
+      align-items: center;
+      display: none;
+      background-color: #202020;
+
+      &.open {
         display: flex;
-      
-        align-items: center;
-        justify-content:space-between;
       }
-  
-      .mobilesignup {
-        display: block;
-        font-family: Poppins, sans-serif;
-        justify-content: center;
-        border-radius: 26px;
-        width: 14rem;
-        height: 3.5rem;
-        font-size: 1.2rem;
-        background: linear-gradient(260deg, rgba(255, 190, 11, 0.84) -29.7%, rgba(244, 43, 3, 0.84) 128.34%);
-        font-weight: 600;
-        padding: 13px 46px;
-        border: none;
-        color: #fff;
-      }
-  
-      .navItems {
-        flex-direction: column;
-        width: 100%;
-        align-items: flex-start;
-        height: max-content;
-        gap: 0.1vh;
-        align-items: center;
-        display: none;
-        background-color: #202020;
-        // z-index: 1;
-        // transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-       
-        
-        &.open {
-          display: flex;
-        }
-  
-        .navLink {
-          margin: 0.5rem 0;
-          text-align: center;
-        }
-      }
-  
-      .authButton {
-        width: 100%;
-        margin-top: 1rem;
+
+      .navLink {
+        margin: 0.5rem 0;
         text-align: center;
       }
     }
   }
+}
+
+@media screen and (min-width: 601px) {
+  .navItems {
+    display: none;
+  }
+
+  .authButton {
+    display: none;
+  }
+
+  .nav{
+    display: none;
+  }
+}

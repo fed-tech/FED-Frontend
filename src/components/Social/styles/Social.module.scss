@@ -2,6 +2,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+.text{
+  margin-top: -3rem;
+}
+
 .texticon{
   display: flex;
   align-items: center;
@@ -9,7 +13,7 @@
 }
 
 .text p {
-  font-size: 47.45px;
+  font-size: 33.45px;
   text-align: center;
   font-family: Poppins;
   font-weight: 600;
@@ -76,7 +80,7 @@ background: linear-gradient(270deg, rgba(255,190,11,1) 0%, rgba(244,43,3,1) 100%
 .circleCenter{
   height: 30rem;
   width: 30rem;
-  margin-top: 176px;
+  margin-top: 16px;
   position:absolute;
   left: 38%;
   border-radius: 50%;
@@ -101,29 +105,37 @@ background: linear-gradient(270deg, rgba(255,190,11,1) 0%, rgba(244,43,3,1) 100%
 .socialMcontainer{
   height: auto;
   width: auto;
-  margin-top: 5rem;
+  margin-top: 4rem;
 }
 
 .socialMedia{
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 1000px;
   // height: 100vh; /* Ensure the parent takes full viewport height */
   // width: 100vw;  /* Ensure the parent takes full viewport width */
   margin-top: -3rem;
   margin-bottom: 5%;
+  // padding-left: 30px;
+  // padding-right: 30px;
 }
 
 .container {
     display: flex;
-    justify-content: center;
+    // justify-content: ce;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
+    justify-content: center;
     background-color: transparent;
     height: auto;
     width: 1323px;
-    gap: 58.55px;
-    padding-left: 59px;
+    gap: 98.55px;
+    margin-left: 3rem;
+    z-index: 0;
+    // padding-left: 30px;
+    // padding-right: 30px;
+    // padding-left: 59px;
   }
 
   .sidebyside{
@@ -153,10 +165,15 @@ background: linear-gradient(270deg, rgba(255,190,11,1) 0%, rgba(244,43,3,1) 100%
     display: flex;
     flex-direction: column;
     gap: 30px;
+    margin-left: 5rem;
   }
 
   .centerColumn{
     margin-top: 0.5rem;
+  }
+
+  .rightColumn{
+    margin-right: 8rem;
   }
   
   .post {
@@ -177,429 +194,657 @@ background: linear-gradient(270deg, rgba(255,190,11,1) 0%, rgba(244,43,3,1) 100%
 
 
 /* Media Queries for Responsiveness */
-@media (max-width: 1200px) {
-  .socialMedia {
+@media (max-width: 1440px) {
+  .texticon{
     display: flex;
-    justify-content: center;
-    height: auto;
-    width: 100%;
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    margin-top: -70rem;
-  }
-  
-  .leftColumn {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .highlight{
-    margin-left: 4rem;
-  }
-
-  .text #faded::after {
-    font-size: 135.84px;
-    font-family: Poppins;
-    font-weight: 700;
-    background: rgb(255,190,11);;
-    background: linear-gradient(90deg, rgba(255, 190, 11, 0) 0%, rgba(244, 43, 3, 0.178) 100%);/* This will mirror the text */
-    content: "FED";
-    display: flex;
-    margin-left: 03.95rem;
-    margin-top: -7rem;
-    justify-content: center;
-    align-content: center;
-    transform: rotateX(180deg);
-    // -webkit-background-clip: text;
-    background-clip: text;
-  }
-  
-  
-  .sidebyside{
-    margin-top: 70rem;
-    margin-left: 18.7rem;
-    display: flex;
-    gap: 30px;
-    width: auto;
-    height: 350px;
-  }
-
-  .instagramfeed , .instagramfeed2 {
-    flex: 1;
-  }
-  
-  .centerColumn {
-    width: 100%;
-    margin-top: 70rem;
-  }
-  
-  .instagramreel {
-    width: 100%;
-    display: flex;
     justify-content: center;
   }
   
-  .rightColumn {
-    width: 100%;
-    margin-top: -1.6rem;
-  }
-  
-  .linkedinfeed {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-    
-  }
-
-  @media (max-width: 910px) {
-    .socialMedia {
-      display: flex;
-      justify-content: center;
-      height: auto;
-      width: 100%;
-    }
-    
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: -70rem;
-    }
-    
-    .leftColumn {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-    }
-  
-    .highlight{
-      margin-left: 4rem;
-    }
-  
-    .text #faded::after {
-      font-size: 135.84px;
-      font-family: Poppins;
-      font-weight: 700;
-      background: rgb(255,190,11);;
-      background: linear-gradient(90deg, rgba(255, 190, 11, 0) 0%, rgba(244, 43, 3, 0.178) 100%);/* This will mirror the text */
-      content: "FED";
-      display: flex;
-      margin-left: 03.95rem;
-      margin-top: -7rem;
-      justify-content: center;
-      align-content: center;
-      transform: rotateX(180deg);
-      // -webkit-background-clip: text;
-      background-clip: text;
-    }
-    
-    
-    .sidebyside{
-      margin-top: 70rem;
-      margin-left: 15rem;
-      display: flex;
-      gap: 30px;
-      width: auto;
-      height: 350px;
-    }
-  
-    .instagramfeed , .instagramfeed2 {
-      flex: 1;
-    }
-    
-    .centerColumn {
-      width: 100%;
-      margin-top: 70rem;
-    }
-    
-    .instagramreel {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-    
-    .rightColumn {
-      width: 100%;
-      margin-top: -1.6rem;
-    }
-    
-    .linkedinfeed {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-         
-  }
-
-@media (max-width: 830px) {
-  .socialMedia {
-    display: flex;
-    justify-content: center;
-    height: auto;
-    width: 100%;
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: -70rem;
-  }
-  
-  .leftColumn {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .highlight{
-    margin-left: 4rem;
-  }
-
-  .text #faded::after {
-    font-size: 135.84px;
-    font-family: Poppins;
-    font-weight: 700;
-    background: rgb(255,190,11);;
-    background: linear-gradient(90deg, rgba(255, 190, 11, 0) 0%, rgba(244, 43, 3, 0.178) 100%);/* This will mirror the text */
-    content: "FED";
-    display: flex;
-    margin-left: 03.95rem;
-    margin-top: -7rem;
-    justify-content: center;
-    align-content: center;
-    transform: rotateX(180deg);
-    // -webkit-background-clip: text;
-    background-clip: text;
-  }
-  
-  
-  .sidebyside{
-    margin-top: 70rem;
-    margin-left: 12.9rem;
-    display: flex;
-    gap: 30px;
-    width: auto;
-    height: 350px;
-  }
-
-  .instagramfeed , .instagramfeed2 {
-    flex: 1;
-  }
-  
-  .centerColumn {
-    width: 100%;
-    margin-top: 70rem;
-  }
-  
-  .instagramreel {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .rightColumn {
-    width: 100%;
-    margin-top: -1.6rem;
-  }
-  
-  .linkedinfeed {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-    
-}
-
-
-@media (max-width: 810px) {
-  .socialMedia {
-    display: flex;
-    justify-content: center;
-    height: auto;
-    width: 100%;
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: -70rem;
-  }
-  
-  .leftColumn {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .highlight{
-    margin-left: 4rem;
-  }
-
-  .text #faded::after {
-    font-size: 135.84px;
-    font-family: Poppins;
-    font-weight: 700;
-    background: rgb(255,190,11);;
-    background: linear-gradient(90deg, rgba(255, 190, 11, 0) 0%, rgba(244, 43, 3, 0.178) 100%);/* This will mirror the text */
-    content: "FED";
-    display: flex;
-    margin-left: 03.95rem;
-    margin-top: -7rem;
-    justify-content: center;
-    align-content: center;
-    transform: rotateX(180deg);
-    // -webkit-background-clip: text;
-    background-clip: text;
-  }
-  
-  
-  .sidebyside{
-    margin-top: 70rem;
-    margin-left: 11.9rem;
-    display: flex;
-    gap: 30px;
-    width: auto;
-    height: 350px;
-  }
-
-  .instagramfeed , .instagramfeed2 {
-    flex: 1;
-  }
-  
-  .centerColumn {
-    width: 100%;
-    margin-top: 70rem;
-  }
-  
-  .instagramreel {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .rightColumn {
-    width: 100%;
-    margin-top: -1.6rem;
-  }
-  
-  .linkedinfeed {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-    
-}
-
-
-@media (max-width: 768px) {
-
-  .text p{
-    size: 40px;
-  }
-
-  .socialMedia {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .leftColumn {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-  
-  .sidebyside{
-    margin-top: 84rem;
-    margin-left: 8.5rem;
-    display: flex;
-    gap: 10px;
-    width: auto;
-    height: 350px;
-  }
-
-  .instagramfeed , .instagramfeed2 {
-    flex: 1;
-  }
-  
-  .centerColumn {
-    width: 100%;
-    margin-top: 80rem;
-  }
-  
-  .instagramreel {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .rightColumn {
-    width: 100%;
-    margin-top: -15rem;
-  }
-  
-  .linkedinfeed {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-    
-  }
-
-@media (max-width: 480px) {
   .text p {
-    font-size: 40.45px;
+    font-size: 40px;
     text-align: center;
     font-family: Poppins;
     font-weight: 600;
     color: white;
-    margin-right: 0;
   }
+  
+  .text .highlight {
+    font-size: 125.84px;
+    font-family: Poppins;
+    font-weight: 700;
+    background: rgb(255,190,11);
+  background: linear-gradient(270deg, rgba(255,190,11,1) 0%, rgba(244,43,3,1) 100%);
+    // -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .text #faded::after {
+    font-size: 125.84px;
+    font-family: Poppins;
+    font-weight: 700;
+    background: rgb(255,190,11);;
+    background: linear-gradient(90deg, rgba(255, 190, 11, 0) 0%, rgba(244, 43, 3, 0.178) 100%);/* This will mirror the text */
+    content: "FED";
+    display: flex;
+    margin-right: -0.75rem;
+    margin-top: -7rem;
+    justify-content: center;
+    align-content: center;
+    transform: rotateX(180deg);
+    // -webkit-background-clip: text;
+    background-clip: text;
+    margin-bottom: 3rem;
+  }
+  
+  .backcircle{
+    width: 20rem;
+    height: 10rem;
+    flex-shrink: 0;
+    margin-top: 4rem;
+    z-index: 1;
+    padding-left: 40px;
+    border-radius: 32.99306rem;
+    opacity: 0.4;
+    background: rgba(255, 153, 0, 0.977);
+    mix-blend-mode: color-dodge;
+    filter: blur(110.9010238647461px);
+    position: absolute;
+    right: 20px;
+    top: 10px;
+  }
+  
+  .circle{
+      height: 50vh;
+      width: 30vh;
+      background-color: rgba(255, 92, 0, 0.19);
+      position: absolute;
+     
+      top: 85%;
+      left: -8%;
+      border-radius: 50%;
+      filter: blur(100px);
+  }
+  
+  .circleCenter{
+    height: 30rem;
+    width: 30rem;
+    margin-top: 176px;
+    position:absolute;
+    left: 38%;
+    border-radius: 50%;
+    filter: blur(100px);
+    top: 10%;
+    background-color: rgba(255, 92, 0, 0.19);
+  }
+  
+  .circle1{
+    height: 50vh;
+    width: 30vh;
+    background-color: rgba(255, 92, 0, 0.19);
+    position: absolute;
+   
+    top: 30%;
+    right: -5%;
+    border-radius: 50%;
+    filter: blur(100px);
+    // overflow: hidden;
+  }
+  
+  .socialMcontainer{
+    height: auto;
+    width: auto;
+    margin-top: 5rem;
+  }
+  
+  .socialMedia{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // height: 100vh; /* Ensure the parent takes full viewport height */
+    // width: 100vw;  /* Ensure the parent takes full viewport width */
+    margin-top: -11rem;
+    margin-bottom: 5%;
+    margin-left: 1rem;
+  }
+  
+  .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      background-color: transparent;
+      height: auto;
+      width: 1323px;
+      gap: 38.55px;
+      padding-left: 59px;
+      margin-right: 14rem;
+      margin-top: 3rem;
+      z-index: 0;
+    }
+  
+    .sidebyside{
+      height: 730px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+  
+  
+    .instagramfeed{
+      height: 348.45px;
+      width: 350px;
+    }
+  
+    .instagramreel{
+      height: 930px;
+    }
+    
+    .leftColumn, .centerColumn, .rightColumn {
+      display: flex;
+      flex-direction: column;
+      height: 730px;
+    }
+  
+    .leftColumn{
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+  
+    .centerColumn{
+      margin-top: 0.5rem;
+    }
+
+    .rightColumn{
+      margin-right: -3rem;
+    }
+    
+    .post {
+      margin-bottom: 20px;
+    }
+    
+    .post img, .middleColumn img, .rightColumn img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      transition: transform 0.3s ease-in-out;
+    }
+    
+    .post img:hover, .middleColumn img:hover, .rightColumn img:hover {
+      transform: scale(1.05);
+    }
+  
+}
+
+@media (max-width: 1024px) {
+  .socialMedia {
+    display: flex;
+    justify-content: center;
+    height: auto;
+    width: 100%;
+  }
+
+  .text p{
+    font-size: 35px;
+  }
+
+  .fed{
+    margin-right: 6rem;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -70rem;
+    margin-right: 15rem;
+    z-index: 0;
+  }
+
+  .highlight{
+    margin-left: 4rem;
+  }
+
+  .text #faded::after {
+    font-size: 135.84px;
+    font-family: Poppins;
+    font-weight: 700;
+    background: rgb(255,190,11);;
+    background: linear-gradient(90deg, rgba(255, 190, 11, 0) 0%, rgba(244, 43, 3, 0.178) 100%);/* This will mirror the text */
+    content: "FED";
+    display: flex;
+    margin-left: 03.95rem;
+    margin-top: -7rem;
+    justify-content: center;
+    align-content: center;
+    transform: rotateX(180deg);
+    // -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
+  
+  .sidebyside{
+    margin-top: 70rem;
+    margin-left: 3rem;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: auto;
+    height: 350px;
+    z-index: 100;
+    margin-bottom: -10rem;
+  }
+  
+  .centerColumn {
+    width: 100%;
+    margin-top: 50rem;
+    margin-left: 10rem;
+  }
+  
+  .instagramreel {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: -2rem;
+  }
+
+  .leftColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 4rem;
+    margin-left: 39rem;
+  }
+  
+  .rightColumn {
+    width: 100%;
+    margin-top: 12rem;
+    margin-left: 7rem;
+  }
+  
+  .linkedinfeed {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .circleCenter{
+    height: 30rem;
+    width: 30rem;
+    margin-top: 29px;
+    position:absolute;
+    left: 28%;
+    border-radius: 50%;
+    filter: blur(100px);
+    top: 10%;
+    z-index: 0;
+    background-color: rgba(255, 92, 0, 0.19);
+  }
+
+  .post img, .middleColumn img, .rightColumn img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .post img:hover, .middleColumn img:hover, .rightColumn img:hover {
+    transform: scale(1.05);
+  }
+       
+}
+
+@media (max-width: 960px) {
+  .socialMedia {
+    display: flex;
+    justify-content: center;
+    height: auto;
+    width: 100%;
+  }
+
+  .text p{
+    font-size: 35px;
+  }
+
+  .fed{
+    margin-right: 6rem;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -70rem;
+    margin-right: 15rem;
+    z-index: 0;
+  }
+
+  .highlight{
+    margin-left: 4rem;
+  }
+
+  .text #faded::after {
+    font-size: 135.84px;
+    font-family: Poppins;
+    font-weight: 700;
+    background: rgb(255,190,11);;
+    background: linear-gradient(90deg, rgba(255, 190, 11, 0) 0%, rgba(244, 43, 3, 0.178) 100%);/* This will mirror the text */
+    content: "FED";
+    display: flex;
+    margin-left: 03.95rem;
+    margin-top: -7rem;
+    justify-content: center;
+    align-content: center;
+    transform: rotateX(180deg);
+    // -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
+  
+  .sidebyside{
+    margin-top: 70rem;
+    margin-left: 3rem;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: auto;
+    height: 350px;
+    z-index: 100;
+    margin-bottom: -10rem;
+  }
+  
+  .centerColumn {
+    width: 100%;
+    margin-top: 50rem;
+    margin-left: 10rem;
+  }
+  
+  .instagramreel {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: -2rem;
+  }
+
+  .leftColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 37rem;
+  }
+  
+  .rightColumn {
+    width: 100%;
+    margin-top: 15rem;
+    margin-left: 10.5rem;
+  }
+  
+  .linkedinfeed {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .circleCenter{
+    height: 30rem;
+    width: 30rem;
+    margin-top: 29px;
+    position:absolute;
+    left: 28%;
+    border-radius: 50%;
+    filter: blur(100px);
+    top: 10%;
+    z-index: 0;
+    background-color: rgba(255, 92, 0, 0.19);
+  }
+
+  .post img, .middleColumn img, .rightColumn img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .post img:hover, .middleColumn img:hover, .rightColumn img:hover {
+    transform: scale(1.05);
+  }
+       
+}
+
+@media (max-width: 840px) {
+.socialMedia {
+  display: flex;
+  justify-content: center;
+  height: auto;
+  width: 100%;
+}
+
+.text p {
+  font-size: 33.45px;
+  text-align: center;
+  font-family: Poppins;
+  font-weight: 600;
+  color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -70rem;
+  margin-right: 17rem;
+  z-index: 0;
+}
+
+.leftColumn {
+  display: flex;  
+  gap: 10px;
+  width: 100%;
+  margin-right: 19.7rem;
+}
+
+.highlight{
+  margin-left: 4rem;
+}
+
+.text #faded::after {
+  font-size: 135.84px;
+  font-family: Poppins;
+  font-weight: 700;
+  background: rgb(255,190,11);;
+  background: linear-gradient(90deg, rgba(255, 190, 11, 0) 0%, rgba(244, 43, 3, 0.178) 100%);/* This will mirror the text */
+  content: "FED";
+  display: flex;
+  margin-left: 03.95rem;
+  margin-top: -7rem;
+  justify-content: center;
+  align-content: center;
+  transform: rotateX(180deg);
+  // -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.fed{
+  margin-left: 2rem;
+}
+
+
+.sidebyside{
+  margin-top: 70rem;
+  margin-left: 12.9rem;
+  display: flex;
+  gap: 10px;
+  width: auto;
+  height: 350px;
+}
+
+.instagramfeed , .instagramfeed2 {
+  flex: 1;
+}
+
+.instagramfeed2{
+  margin-left: -20rem;
+}
+
+.centerColumn {
+  width: 100%;
+  margin-top: 50rem;
+  margin-right: 1rem;
+}
+
+.instagramreel {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.rightColumn {
+  width: 100%;
+  margin-top: 15rem;
+  margin-right: -1.7rem;
+}
+
+.linkedinfeed {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+  
+}
+
+
+
+@media (max-width: 720px) {
+
+ .socialMcontainer{
+  margin-top: 4rem;
+ }
+
+ .text{
+  margin-left: 4rem;
+ }
+
+.text p{
+  width: 600px;
+  margin-left: 23rem;
+  size: 35px;
+  text-wrap: wrap;
+}
+
+.fed{
+  margin-left: -0.1rem;
+  margin-right: 4rem;
+}
+
+.socialMedia {
+  display: flex;
+  justify-content: center;
+  margin-top: -18rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // margin-right: 2rem;
+  z-index: 0;
+}
+
+.leftColumn {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-left: 3rem;
+}
+
+.sidebyside{
+  margin-top: 84rem;
+  margin-left: 12.5rem;
+  display: flex;
+  gap: 50px;
+  width: auto;
+  height: 350px;
+}
+
+.instagramfeed , .instagramfeed2 {
+  flex: 1;
+}
+
+.centerColumn {
+  width: 100%;
+  margin-top: 86rem;
+  margin-left: 2.5rem;
+}
+
+.instagramreel {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.rightColumn {
+  width: 100%;
+  margin-top: -3rem;
+  margin-left: 1rem;
+}
+
+.linkedinfeed {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+  
+}
+
+@media (max-width:600px) {
 
   .socialMcontainer{
     margin-top: 5rem;
   }
 
-  .text .highlight {
-    font-size: 100.84px;
+  .text{
+    margin-left: 3rem;
+    display: flex;
+    // justify-content: center;
+    align-self: center;
+    align-content: center;
+  }
+
+  .text p {
+    font-size: 45.45px;
+    text-align: center;
     font-family: Poppins;
-    font-weight: 700;
-    margin-right: 100rem;
+    font-weight: 500;
+    color: white;
+  }
+
+  .text .highlight {
+    font-size: 90.84px;
+    font-family: Poppins;
+    margin-right: 0.5rem;
+    font-weight: 600;
     background: rgb(255,190,11);
     background: linear-gradient(270deg, rgba(255,190,11,1) 0%, rgba(244,43,3,1) 100%);
     // -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  
-  .fed{
-    margin-left: -70.5px;
-    padding-left: -3rem;
-  }
 
+  
   .text #faded::after {
-    font-size: 100.84px;
+    font-size: 90.84px;
     font-family: Poppins;
-    font-weight: 700;
+    font-weight: 600;
     background: rgb(255,190,11);;
     background: linear-gradient(90deg, rgba(255,190,11,0.06214985994397759) 0%, rgba(244,43,3,0.54) 100%);/* This will mirror the text */
     content: "FED";
     display: flex;
-    margin-right: -0.75rem;
-    margin-top: -5.2rem;
+    margin-right: -0.8rem;
+    margin-top: -4.6rem;
     justify-content: center;
     align-content: center;
     transform: rotateX(180deg);
@@ -607,6 +852,16 @@ background: linear-gradient(270deg, rgba(255,190,11,1) 0%, rgba(244,43,3,1) 100%
     background-clip: text;
   }
 
+  .instalogo{
+    height: 20px;
+    width: 20px;
+  }
+
+  .linkedinlogo{
+    height: 20px;
+    width: 20px;
+    padding-left: 20rem;
+  }  
 
   .instalogo{
     height: 50px;
@@ -621,27 +876,30 @@ background: linear-gradient(270deg, rgba(255,190,11,1) 0%, rgba(244,43,3,1) 100%
   .socialMedia {
     display: flex;
     justify-content: center;
-    margin-top: 60rem;
+    margin-top: 65rem;
   }
   
   .container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 0;
   }
   
+
   .leftColumn {
     margin-top: -110rem;
     display: flex;
     justify-content: space-between;
     width: 100%;
+    margin-right: 5rem;
   }
   
   .sidebyside{
     margin-top: 107rem;
     margin-right: 10rem;
     display: flex;
-    gap: 30px;
+    gap: 40px;
     width: auto;
     height: 350px;
   }
@@ -652,8 +910,8 @@ background: linear-gradient(270deg, rgba(255,190,11,1) 0%, rgba(244,43,3,1) 100%
   
   .centerColumn {
     width: 100%;
-    margin-top: 105rem;
-    margin-right: 2.3rem;
+    margin-top: 108rem;
+    margin-right: 11rem;
   }
   
   .instagramreel {
@@ -665,8 +923,8 @@ background: linear-gradient(270deg, rgba(255,190,11,1) 0%, rgba(244,43,3,1) 100%
   
   .rightColumn {
     width: 100%;
-    margin-top: -5.6rem;
-    margin-right: 2.3rem;
+    margin-top: -3rem;
+    margin-right: 6rem;
   }
   
   .linkedinfeed {
@@ -700,150 +958,480 @@ background: linear-gradient(270deg, rgba(255,190,11,1) 0%, rgba(244,43,3,1) 100%
   z-index: -5;
   // overflow: hidden;
 }
-    
+
+}
+
+@media (max-width: 480px) {
+
+.text{
+  text-wrap: wrap;
+  margin-left: 15rem;
+}
+
+.text p {
+  width: 480px;
+  font-size: 17.45px;
+  text-align: center;
+  text-wrap: wrap;
+  font-family: Poppins;
+  font-weight: 600;
+  color: white;
+  margin-right: 0;
+}
+
+.socialMcontainer{
+  margin-top: 5rem;
+  margin-left: 7rem;
+}
+
+.text .highlight {
+  font-size: 80.84px;
+  font-family: Poppins;
+  font-weight: 700;
+  margin-right: 100rem;
+  background: rgb(255,190,11);
+  background: linear-gradient(270deg, rgba(255,190,11,1) 0%, rgba(244,43,3,1) 100%);
+  // -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.fed{
+  margin-left: -70.5px;
+  padding-left: 3rem;
+}
+
+.text #faded::after {
+  font-size: 80.84px;
+  font-family: Poppins;
+  font-weight: 700;
+  background: rgb(255,190,11);;
+  background: linear-gradient(90deg, rgba(255,190,11,0.06214985994397759) 0%, rgba(244,43,3,0.54) 100%);/* This will mirror the text */
+  content: "FED";
+  display: flex;
+  margin-right: -0.75rem;
+  margin-top: -4.1rem;
+  justify-content: center;
+  align-content: center;
+  transform: rotateX(180deg);
+  // -webkit-background-clip: text;
+  background-clip: text;
+}
+
+
+.instalogo{
+  height: 50px;
+  width: 50px;
+}
+
+.linkedinlogo{
+  height: 50px;
+  width: 50px;
+}
+
+.socialMedia {
+  display: flex;
+  justify-content: center;
+  margin-top: 60rem;
+  margin-left: 10rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 0;
+}
+
+.leftColumn {
+  margin-top: -105rem;
+  margin-right: -12rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.sidebyside{
+  margin-top: 107rem;
+  margin-right: 0rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  width: auto;
+  height: 350px;
+}
+
+.instagramfeed2{
+  margin-top: 2rem;
+  margin-left: 0.1rem;
+  margin-right: 10rem;
+}
+
+.instagramfeed , .instagramfeed2 {
+  flex: 1;
+}
+
+.centerColumn {
+  width: 100%;
+  margin-top: 109rem;
+  margin-right: 18rem;
+}
+
+.instagramreel {
+  width: auto;
+  zoom: -5%;
+  display: flex;
+  justify-content: center;
+}
+
+.rightColumn {
+  width: 100%;
+  margin-top: -6.8rem;
+  margin-right: 16.8rem;
+}
+
+.linkedinfeed {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.circle{
+  height: 50vh;
+  width: 30vh;
+  background-color: #ff5e00;
+  position: absolute;
+  z-index: -1;
+ 
+  top: 95%;
+  left: -59%;
+  border-radius: 50%;
+  filter: blur(80px);
+}
+
+.circle1{
+height: 50vh;
+width: 30vh;
+background-color: #ff5e00;
+position: absolute;
+top: 30%;
+right: -9%;
+border-radius: 50%;
+filter: blur(80px);
+z-index: -5;
+// overflow: hidden;
+}
+  
+}
+
+@media (max-width:390px) {
+
+  .text p {
+    margin-left: 25.6rem;
+    font-size: 23.45px;
+    text-align: center;
+    font-family: Poppins;
+    font-weight: 600;
+    color: white;
+    width: 390px;
   }
 
-  @media (max-width:360px) {
-    .text p {
-      font-size: 30.45px;
-      text-align: center;
-      font-family: Poppins;
-      font-weight: 500;
-      color: white;
-    }
-  
-    .text .highlight {
-      font-size: 90.84px;
-      font-family: Poppins;
-      margin-right: 0.5rem;
-      font-weight: 600;
-      background: rgb(255,190,11);
-      background: linear-gradient(270deg, rgba(255,190,11,1) 0%, rgba(244,43,3,1) 100%);
-      // -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+  .text .highlight {
+    font-size: 60.84px;
+    font-family: Poppins;
+    margin-right: 0.5rem;
+    font-weight: 600;
+    background: rgb(255,190,11);
+    background: linear-gradient(270deg, rgba(255,190,11,1) 0%, rgba(244,43,3,1) 100%);
+    // -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
-    
-    .text #faded::after {
-      font-size: 90.84px;
-      font-family: Poppins;
-      font-weight: 600;
-      background: rgb(255,190,11);;
-      background: linear-gradient(90deg, rgba(255,190,11,0.06214985994397759) 0%, rgba(244,43,3,0.54) 100%);/* This will mirror the text */
-      content: "FED";
-      display: flex;
-      margin-right: -0.8rem;
-      margin-top: -4.6rem;
-      justify-content: center;
-      align-content: center;
-      transform: rotateX(180deg);
-      // -webkit-background-clip: text;
-      background-clip: text;
-    }
   
-    .instalogo{
-      height: 20px;
-      width: 20px;
-    }
-  
-    .linkedinlogo{
-      height: 20px;
-      width: 20px;
-      padding-left: 20rem;
-    }  
-  
-    .instalogo{
-      height: 50px;
-      width: 50px;
-    }
-  
-    .linkedinlogo{
-      height: 50px;
-      width: 50px;
-    }
-  
-    .socialMedia {
-      display: flex;
-      justify-content: center;
-      margin-top: 70rem;
-    }
-    
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .leftColumn {
-      margin-top: -110rem;
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-    }
-    
-    .sidebyside{
-      margin-top: 107rem;
-      margin-right: 10rem;
-      display: flex;
-      gap: 20px;
-      width: auto;
-      height: 350px;
-    }
-  
-    .instagramfeed , .instagramfeed2 {
-      flex: 1;
-    }
-    
-    .centerColumn {
-      width: 100%;
-      margin-top: 105rem;
-      margin-right: 2.3rem;
-    }
-    
-    .instagramreel {
-      width: auto;
-      zoom: -5%;
-      display: flex;
-      justify-content: center;
-    }
-    
-    .rightColumn {
-      width: 100%;
-      margin-top: -5.6rem;
-      margin-right: 2.3rem;
-    }
-    
-    .linkedinfeed {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-  
-    .circle{
-      height: 50vh;
-      width: 30vh;
-      background-color: #ff5e00;
-      position: absolute;
-      z-index: -1;
-     
-      top: 95%;
-      left: -8%;
-      border-radius: 50%;
-      filter: blur(80px);
+  .text #faded::after {
+    font-size: 60.84px;
+    font-family: Poppins;
+    font-weight: 600;
+    background: rgb(255,190,11);;
+    background: linear-gradient(90deg, rgba(255,190,11,0.06214985994397759) 0%, rgba(244,43,3,0.54) 100%);/* This will mirror the text */
+    content: "FED";
+    display: flex;
+    margin-right: -0.8rem;
+    margin-top: -3rem;
+    justify-content: center;
+    align-content: center;
+    transform: rotateX(180deg);
+    // -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .fed{
+    margin-left: -7rem;
+    margin-right: 0.5rem;
+  }
+
+  .instalogo{
+    height: 20px;
+    width: 20px;
+  }
+
+  .linkedinlogo{
+    height: 20px;
+    width: 20px;
+    padding-left: 20rem;
+  }  
+
+  .instalogo{
+    height: 50px;
+    width: 50px;
+  }
+
+  .linkedinlogo{
+    height: 50px;
+    width: 50px;
+  }
+
+  .socialMedia {
+    display: flex;
+    justify-content: center;
+    margin-top: 70rem;
   }
   
-  .circle1{
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 0;
+  }
+  
+  .leftColumn {
+    margin-top: -110rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    z-index: 0;
+  }
+  
+  .sidebyside{
+    margin-top: 107rem;
+    margin-right: 10rem;
+    display: flex;
+    gap: 5px;
+    width: auto;
+    height: 350px;
+  }
+
+  .instagramfeed , .instagramfeed2 {
+    flex: 1;
+  }
+  
+  .centerColumn {
+    width: 100%;
+    margin-top: 109rem;
+    margin-right: 18.8rem;
+  }
+  
+  .instagramreel {
+    width: auto;
+    zoom: -5%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .rightColumn {
+    width: 100%;
+    margin-top: -7rem;
+    margin-right: 16.8rem;
+  }
+  
+  .linkedinfeed {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .circle{
     height: 50vh;
     width: 30vh;
     background-color: #ff5e00;
     position: absolute;
-    top: 30%;
-    right: -6%;
+    z-index: -4;
+   
+    top: 95%;
+    left: -59%;
     border-radius: 50%;
     filter: blur(80px);
-    z-index: -5;
-    // overflow: hidden;
+}
+
+.circle1{
+  height: 50vh;
+  width: 30vh;
+  background-color: #ff5e00;
+  position: absolute;
+  top: 30%;
+  right: -6%;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -5;
+  // overflow: hidden;
+}
+
+}
+
+@media (max-width:360px) {
+
+  .text p {
+    margin-left: 26.6rem;
+    font-size: 21.45px;
+    text-align: center;
+    font-family: Poppins;
+    font-weight: 600;
+    color: white;
+    width: 360px;
+  }
+
+  .text .highlight {
+    font-size: 50.84px;
+    font-family: Poppins;
+    margin-right: 0.5rem;
+    font-weight: 600;
+    background: rgb(255,190,11);
+    background: linear-gradient(270deg, rgba(255,190,11,1) 0%, rgba(244,43,3,1) 100%);
+    // -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  
+  .text #faded::after {
+    font-size: 50.84px;
+    font-family: Poppins;
+    font-weight: 600;
+    background: rgb(255,190,11);;
+    background: linear-gradient(90deg, rgba(255,190,11,0.06214985994397759) 0%, rgba(244,43,3,0.54) 100%);/* This will mirror the text */
+    content: "FED";
+    display: flex;
+    margin-right: -0.8rem;
+    margin-top: -2.6rem;
+    justify-content: center;
+    align-content: center;
+    transform: rotateX(180deg);
+    // -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .fed{
+    margin-left: -7rem;
+    margin-right: 1rem;
+  }
+
+  .instalogo{
+    height: 20px;
+    width: 20px;
+  }
+
+  .linkedinlogo{
+    height: 20px;
+    width: 20px;
+    padding-left: 20rem;
+  }  
+
+  .instalogo{
+    height: 50px;
+    width: 50px;
+  }
+
+  .linkedinlogo{
+    height: 50px;
+    width: 50px;
+  }
+
+  .socialMedia {
+    display: flex;
+    justify-content: center;
+    margin-top: 70rem;
   }
   
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 0;
   }
+  
+  .leftColumn {
+    margin-top: -110rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    z-index: 0;
+  }
+  
+  .sidebyside{
+    margin-top: 107rem;
+    margin-right: 10rem;
+    display: flex;
+    gap: 10px;
+    width: auto;
+    height: 350px;
+  }
+
+  .instagramfeed , .instagramfeed2 {
+    flex: 1;
+  }
+  
+  .centerColumn {
+    width: 100%;
+    margin-top: 109.5rem;
+    margin-right: 17.3rem;
+  }
+  
+  .instagramreel {
+    width: auto;
+    zoom: -5%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .rightColumn {
+    width: 100%;
+    margin-top: -7rem;
+    margin-left: 1rem;
+    margin-right: 15.8rem;
+  }
+  
+  .linkedinfeed {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .circle{
+    height: 50vh;
+    width: 30vh;
+    background-color: #ff5e00;
+    position: absolute;
+    z-index: -4;
+   
+    top: 95%;
+    left: -59%;
+    border-radius: 50%;
+    filter: blur(80px);
+}
+
+.circle1{
+  height: 50vh;
+  width: 30vh;
+  background-color: #ff5e00;
+  position: absolute;
+  top: 30%;
+  right: -6%;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -5;
+  // overflow: hidden;
+}
+
+}
