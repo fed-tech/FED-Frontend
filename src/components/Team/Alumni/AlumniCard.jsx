@@ -1,23 +1,37 @@
+import React, { useState } from "react";
 import styles from "./styles/AlumniCard.module.scss";
-import Button from "../../Core/Button";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 
-function AlumniCard () {
+const AlumniCard = ({ name, image, social }) => {
+  const [showMore, setShowMore] = useState(false);
+
   return (
-    <div className={styles.cards}>
-      <div className={styles.one}>
-        <div className={styles.image}></div>
-        <div className={styles.name}>
-          <p>Krishnanu Roy</p>
+    <div className={styles.Alumni}>
+      <div className={styles.AlumniInner}>
+        <div className={styles.AlumniFront}>
+          <img
+            src={image}
+            alt={`Profile of ${name}`}
+            className={styles.AlumniImg}
+          />
+          <div className={styles.AlumniInfo}>
+            <h4 style={{ color: "#000" }}>{name}</h4>
+          </div>
         </div>
-        <Button
-          variant="secondary"
-          style={{
-            width: "100%",
-            borderColor: "#5550509f",
-          }}
-        >
-          Edit
-        </Button>
+        <div className={styles.AlumniBack}>
+          <div className={styles.socialLinks}>
+            {social.linkedin && (
+              <a href={social.linkedin} target="_blank" rel="social">
+                <FaLinkedin />
+              </a>
+            )}
+            {social.github && (
+              <a href={social.github} target="_blank" rel="social">
+                <FaGithub />
+              </a>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

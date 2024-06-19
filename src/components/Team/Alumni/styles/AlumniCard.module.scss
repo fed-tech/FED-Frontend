@@ -1,35 +1,213 @@
-.cards {
-  height: 50vw;
-  width: 100%;
-  margin-top: 2vw;
+.Alumni {
+  background-color: none;
   border-radius: 10px;
-  position: relative;
-  padding: 0.5vw;
-  display: flex;
-}
-.one {
-  height: 17vw;
-  width: 14vw;
-  padding: 0.1vw;
-  margin: 10px;
-  border-radius: 15px;
-  position: relative;
-  z-index: 100;
-}
-.image {
-  height: 10vw;
+  text-align: center;
+  color: white;
+  height: auto;
+  z-index: 0;
   width: 100%;
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
-  background-color: #555050;
+  cursor: pointer;
 }
-.name {
-  height: 3vw;
+
+.AlumniImg {
+  width: fit-content;
+  border-radius: 10px 10px 0 0;
   width: 100%;
-  background-color: #ffff;
+}
+.AlumniInfo{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+ }
+
+.AlumniInfo h4 {
+  padding: 10px;
+  font-size: 1.2em;
+  padding-top: 5px;
+}
+
+.AlumniInner {
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  border-radius: 10px;
+}
+
+.Alumni:hover .AlumniInner {
+  transform: rotateY(180deg);
+  outline: none;
+  border-color: #FF8A00;
+}
+
+.Alumni:hover .AlumniFront {
+  opacity: 0;
+}
+
+.AlumniBack {
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #333;
-  font-weight: 900;
+  flex-direction: column;
+  background: rgba(10, 10, 10, 0.1);
+  box-shadow: 0 4px 30px rgba(107, 97, 97, 0.292);
+  transform: rotateY(180deg);
+}
+
+.knowPara {
+  padding-top: 30px;
+  height: 200px;
+  width: 200px;
+  overflow-y: scroll; 
+  scrollbar-width: none;
+  margin-bottom: 10px;
+}
+
+.knowPara::-webkit-scrollbar {
+  display: none; 
+}
+
+.knowPara p {
+  margin: 0;
+  padding: 10px;
+}
+
+.AlumniFront {
+  background-color: #fff;
+  z-index: 0;
+  transform: rotateY(0deg);
+  border-radius: 10px;
+  transition: opacity 0.5s ease;
+}
+
+.AlumniBack h5 {
+  font-size: 25px;
+  margin-top: 5px;
+  padding: 0 20px;
+}
+
+.socialLinks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.socialLinks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.socialLinks a{
+  color: #fff;
+  text-decoration: none;
+  font-size: 50px;
+  font-weight: bold;
+  padding: 10px;
+  padding-bottom: 0;
+  margin: 7px;
+}
+
+.socialLinks a:hover{
+  color: #FF8A00;
+  transition: 0.3s ease-in-out;
+}
+
+
+.knowMoreContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.knowMore {
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+button {
+  color: #FF8A00;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 1.2em;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+/* Responsive styles */
+
+@media (max-width: 1024px) {
+  .AlumniInfo h4 {
+    font-size: 1em;
+  }
+  .AlumniBack h3 {
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+  .socialLinks a{
+    font-size: 30px;
+  }
+  button {
+    margin-top: 5px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  
+  .AlumniInfo h4 {
+    font-size: 0.8em;
+  }
+  .AlumniBack h5 {
+    font-size: 18px;
+  }
+  .socialLinks a{
+    font-size: 30px;
+  }
+  .knowPara{
+    height: 125px;
+    width: 170px;
+    font-size: 10px;
+    padding: 0 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  .teamSection h3 {
+    font-size: 2em;
+  }
+
+  .AlumniBack h5{
+    font-size: 16px;
+  }
+  .knowMore{
+    padding: 20px;
+  }
+
+  .knowPara{
+    height: 125px;
+    width: 150px;
+    font-size: 10px;
+    padding: 0 10px;
+  }
+
+  .socialLinks a{
+    font-size: 30px;
+  }
 }
