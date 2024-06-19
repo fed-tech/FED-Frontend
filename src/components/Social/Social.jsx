@@ -68,7 +68,7 @@ const SocialMedia = () => {
         } else if (viewportWidth >= 768) {
         return 330; 
         } else {
-        return 360; 
+        return 315; 
         }
     };
 
@@ -90,13 +90,13 @@ const SocialMedia = () => {
         } else if (viewportWidth >= 768) {
         return 600; 
         } else {
-        return 360; 
+        return 315; 
         }
     };
 
     const calculateInstagramReelHeight = () => {
       if (viewportWidth >= 1200) {
-        return 730;
+        return 700;
       } else if (viewportWidth >= 768) {
         return 730;
       } else {
@@ -112,7 +112,7 @@ const SocialMedia = () => {
         } else if (viewportWidth >= 768) {
         return 600; 
         } else {
-        return 360; 
+        return 315; 
         }
     };
 
@@ -120,7 +120,7 @@ const SocialMedia = () => {
       if (viewportWidth >= 1200) {
         return 730;
       } else if (viewportWidth >= 1024) {
-        return 710;
+        return 730;
       } else if (viewportWidth >= 768) {
         return 730;
       } else {

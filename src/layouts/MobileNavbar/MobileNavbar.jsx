@@ -1,37 +1,23 @@
-import { useState } from "react";
-import {NavLink, Link, useLocation ,useNavigate} from "react-router-dom";
-import style from "./styles/MobileNavbar.module.scss";
-import Headroom from "react-headroom";
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from "react-router-dom";
+import style from './styles/MobileNavbar.module.scss';
+import Headroom from 'react-headroom';
 import { FiMenu } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
 import { MdOutlineLogout } from "react-icons/md";
-import defaultImg from '../../assets/images/defaultImg.jpg';
-import AuthContext from '../../store/AuthContext';
-import { useContext } from "react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
-  const authCtx = useContext(AuthContext);
-  const navigate = useNavigate();
-
-
-
-
-  const handleLogout = () => {
-    console.log(authCtx);
-    navigate('/Login');
-    authCtx.logout(); 
-    console.log(authCtx); 
-
-  
-  };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleAuthClick = () => {
+    setIsLoggedIn(!isLoggedIn);
+  };
 
   const isActive = (path) => {
     return location.pathname === path;
@@ -42,6 +28,18 @@ export default function Navbar() {
       toggleMenu();
     }
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add(style.blur);
+    } else {
+      document.body.classList.remove(style.blur);
+    }
+
+    return () => {
+      document.body.classList.remove(style.blur); // Clean up the effect on unmount
+    };
+  }, [isOpen]);
 
   return (
     <Headroom>
@@ -60,73 +58,31 @@ export default function Navbar() {
           </div>
         </div>
 
-        <ul className={`${style.navItems} ${isOpen ? style.open : ""}`}>
-          {authCtx.isLoggedIn && (
+        <ul className={`${style.navItems} ${isOpen ? style.open : ''}`}>
+          {isLoggedIn && (
             <>
-              <NavLink to="/profile" className="LinkStyle">
-                <img
-                  src={authCtx.user.pic || defaultImg}
-                  alt="Profile"
-                  className={style.profileImg}
-                />
-              </NavLink>
-              <div className={style.name}>{authCtx.user.name}</div>
+              <div className={style.profile}></div>
+              <div className={style.name}>Avinash Pandey</div>
             </>
           )}
           <li className={style.navLink}>
-            <Link
-              to="/"
-              style={{ color: isActive("/") ? "#FF8A00" : "white" }}
-              onClick={handleLinkClick}
-            >
-              Home
-            </Link>
+            <Link to="/" style={{ color: isActive("/") ? "#FF8A00" : "white" }} onClick={handleLinkClick}>Home</Link>
           </li>
           <li className={style.navLink}>
-            <Link
-              to="/Events"
-              style={{ color: isActive("/Events") ? "#FF8A00" : "white" }}
-              onClick={handleLinkClick}
-            >
-              Events
-            </Link>
+            <Link to="/Events" style={{ color: isActive("/Events") ? "#FF8A00" : "white" }} onClick={handleLinkClick}>Events</Link>
           </li>
           <li className={style.navLink}>
-            <Link
-              to="/Social"
-              style={{ color: isActive("/Social") ? "#FF8A00" : "white" }}
-              onClick={handleLinkClick}
-            >
-              Social
-            </Link>
+            <Link to="/Social" style={{ color: isActive("/Social") ? "#FF8A00" : "white" }} onClick={handleLinkClick}>Social</Link>
           </li>
           <li className={style.navLink}>
-            <Link
-              to="/Team"
-              style={{ color: isActive("/Team") ? "#FF8A00" : "white" }}
-              onClick={handleLinkClick}
-            >
-              Team
-            </Link>
+            <Link to="/Team" style={{ color: isActive("/Team") ? "#FF8A00" : "white" }} onClick={handleLinkClick}>Team</Link>
           </li>
-        
-            {authCtx.isLoggedIn ? (
-              <>
-                <button className={style.mobilesignup} onClick={handleLogout}>
-                <MdOutlineLogout size={25} /> Logout
-                </button>
-              </>
-            ) : (
-              <a href="/Login">
-              <button className={style.mobilesignup}>
-              Login/Sign up
-              </button>
-              </a>
-            )}
-        
+          <button className={style.mobilesignup} onClick={handleAuthClick}>
+            {isLoggedIn ? <><MdOutlineLogout size={25} /> Logout</> : 'Login/Sign up'}
+          </button>
         </ul>
 
-        {/* {isOpen && <div className={style.blurBackground}></div>} */}
+        {isOpen && <div className={style.blurBackground}></div>}
       </nav>
     </Headroom>
   );

@@ -1,14 +1,15 @@
 .nav {
   display: flex;
   justify-content: space-between;
-  backdrop-filter: blur(10px);
   gap: 20px;
   font-size: 19px;
-  background-color: $page-color; 
+  background-color: $page-color;
   color: #fff;
   text-align: center;
-  padding: 5px 5px;
+  padding: 20px 56px;
   position: relative;
+  backdrop-filter: blur(90px); // Ensuring backdrop blur is applied here
+  -webkit-backdrop-filter: blur(90px); // Safari support
 
   .logo {
     aspect-ratio: 2.38;
@@ -37,36 +38,36 @@
     border: 1.652px solid rgba(214, 214, 214, 0.81);
     background: linear-gradient(91deg, rgba(217, 217, 217, 0) -147.64%, rgba(217, 217, 217, 0.00) 143.9%);
     display: flex;
-    flex-direction: column;
-    align-items: center; 
-    width: 80%; 
+    justify-content: space-between;
+    align-items: center;
+    width: 25rem;
     gap: 20px;
     font-weight: 500;
     white-space: nowrap;
     padding: 13px 46px;
-    height: max-content;
+    height: 3.5rem;
     list-style: none;
     margin: 0;
-    position: fixed;
-    top: 78px; 
-    left: -100%; 
-    transition: left 0.3s ease-in-out;
 
     &.open {
-      left: 0; 
+      display: flex;
     }
 
     .navLink {
       font-family: Poppins, sans-serif;
+      justify-content: center;
       padding: 8px 0;
       cursor: pointer;
-      text-align: center;
-      width: 100%; 
 
       &:hover {
         color: var(--Tab-Color, #ff8a00);
       }
     }
+  }
+
+  .blur {
+    backdrop-filter: blur(95px);
+    -webkit-backdrop-filter: blur(95px); /* Safari support */
   }
 
   .authButton {
@@ -88,35 +89,36 @@
   }
 
   @media (max-width: 601px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5rem;
+    height: 78px;
+    z-index: 2;
+    width: 100%;
 
     .nav {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 0.5rem;
-      height: 78px;
-      z-index: 2;
-      backdrop-filter: blur(65px);
+      backdrop-filter: blur(90%); // Ensuring backdrop blur is applied here
+  -webkit-backdrop-filter: blur(90%); // Safari support
     }
 
-    .name {
-      display: block;
-      font-size: 2rem;
-      font-weight: 600;
+    .blur{
+      backdrop-filter: blur(50px); // Apply the blur effect
+      -webkit-backdrop-filter: blur(50px); // Safari support
     }
 
     .icon {
       display: block;
       position: relative;
-      height: 30.39px;
+      height: 50px;
       width: 54.85px;
       color: #fff;
       cursor: pointer;
-      margin-top: 2rem;
-      padding-top: 0.5vw;
-      padding-bottom: 9vw;
-      background: rgba(255, 255, 255, 0.064);
-      backdrop-filter: blur(50px);
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      padding-bottom: 0.5rem;
+      background: rgba(255, 255, 255, 0.064); // Add a background for the blur effect
+      backdrop-filter: blur(50px); // Apply the blur effect
+      -webkit-backdrop-filter: blur(50px); // Safari support
       border-radius: 16.35px;
     }
 
@@ -131,10 +133,10 @@
       background-color: white;
       border-radius: 50%;
     }
-
+     
     .logo {
-      height: 60%;
-      margin-top: 1.2rem;
+      height: 65%;
+      margin-top: 1rem;
       margin-right: 1rem;
     }
 
@@ -165,25 +167,45 @@
     }
 
     .navItems {
-      width: 80%;
-      background-color: #202020; 
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-      left: -100%;
-      transition: left 0.3s ease-in-out;
+      flex-direction: column;
+      width: 100%;
+      align-items: flex-start;
+      height: max-content;
+      gap: 0.1vh;
+      align-items: center;
+      display: none;
+      background-color: #202020;
 
       &.open {
-        left: 0;
+        display: flex;
       }
 
       .navLink {
         margin: 0.5rem 0;
         text-align: center;
-        width: 100%;
       }
     }
   }
+}
 
-  @media (min-width: 601px) {
+@media (max-width: 601px) {
+  .blur {
+    backdrop-filter: blur(90px); // Apply the blur effect
+    -webkit-backdrop-filter: blur(90px); // Safari support
+  }
+}
+  
+
+@media screen and (min-width: 601px) {
+  .navItems {
+    display: none;
+  }
+
+  .authButton {
+    display: none;
+  }
+
+  .nav {
     display: none;
   }
 }
