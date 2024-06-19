@@ -27,6 +27,7 @@ body {
 
 .page {
   display: flex;
+  overflow: hidden;
   flex-direction: column;
   justify-content: center;
   align-items: center;
