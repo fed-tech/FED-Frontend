@@ -1,0 +1,29 @@
+[
+    {
+      "email": "22053276@kiit.ac.in",
+      "password": "password123",
+      "name": "Saurav Jha",
+      "pic": "https://i.pinimg.com/736x/54/72/d1/5472d1b09d3d724228109d381d617326.jpg",
+      "rollNo": "12345",
+      "school": "School of Engineering",
+      "college": "Kalinga Institute of Industrial Technology",
+      "mobileNo": "1234567890",
+      "selected": "",
+      "access": "1",
+      "regForm": []
+    },
+    {
+      "email": "admin@example.com",
+      "password": "adminpassword",
+      "name": "Prityanshu Singh",
+      "pic": "",
+      "rollNo": "54321",
+      "school": "School of Management",
+      "college": "Kalinga Institute of Industrial Technology",
+      "mobileNo": "0987654321",
+      "selected": "",
+      "access": "0",
+      "regForm": []
+    }
+  ]
+  

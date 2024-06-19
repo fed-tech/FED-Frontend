@@ -1,0 +1,217 @@
+
+
+.mDiv {
+  position:absolute;
+  width: 100%;
+  right: 0px;
+  top: -20%;
+  bottom: -8%;
+  margin: 2% 0px;
+  border-radius: 8px 0px 0px 8px;
+  background: linear-gradient(
+    to right bottom,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.3)
+  );
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition: all 0.3s;
+  z-index: 3;
+}
+
+.mDivCon {
+  margin-top: 5%;
+  
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+}
+
+#showCreate{
+  width: 100%;
+  display: block;
+}
+
+#hideCreate{
+  width: 0;
+  display: none;
+}
+
+.ArrowBackIcon {
+  position: absolute;
+  top: 10%;
+  left: 30px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.CreateProfile,
+.Please {
+  font-family: "Mulish", sans-serif;
+  text-align: center;
+
+}
+
+.CreateProfile {
+  font-size: 40px;
+  font-weight: 700;
+  color: rgb(255, 107, 0);
+}
+
+.Please {
+  margin: 10px 0px;
+  font-size: 18.5px;
+  font-weight: 300;
+}
+
+.BackGround {
+  flex-direction: column;
+  margin: auto;
+  background-color: #2f2f2f;
+  border: 1px solid #ffffff61;
+  border-radius: 10px;
+  padding: 20px;
+  width: 40vw;
+  max-width: 550px;
+  display: flex;
+  
+  
+  // justify-content: center;
+  // align-items: center;
+  padding: 20px;
+}
+
+.BackGround:hover{
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+ 
+
+}
+
+.FormTag {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  margin-inline: auto;
+  gap: 10px 0px;
+  margin-bottom: 20px;
+  
+}
+
+//
+
+.year {
+
+   display: flex;
+  outline: none;
+  width: 100%;
+
+
+
+
+  border: none;
+  // width: 100%
+  font-size: 12px;
+  background-Color: transparent;
+  border-radius: 4px;
+  color: #fff;
+  margin-bottom: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-top: 4px;
+  position: relative;
+  padding: 9px;
+  border: 1px solid rgba(211, 211, 211, 0.5);
+  box-shadow: none;
+}
+
+.year:hover{
+  border-color: #fff !important;
+
+}
+.year option {
+  color:white;
+  background-color: #2f2f2f;
+  padding: 15px;
+  font-size:15px;
+}
+
+@media (max-width: 500px) {
+  .BackGround {
+    width: 80vw;
+  }
+
+  .CreateProfile {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(255, 107, 0);
+  }
+
+  .Please {
+    margin: 10px 0px;
+    font-size: 12.5px;
+    font-weight: 300;
+  }
+}
+
+@media (max-width: 900px) {
+  .BackGround {
+    width: 60vw;
+  }
+
+  .CreateProfile {
+    font-size: 30px;
+    font-weight: 600;
+    color: rgb(255, 107, 0);
+  }
+
+  .Please {
+    margin: 10px 0px;
+    font-size: 15.5px;
+    font-weight: 300;
+  }
+}
+
+@media (max-width: 500px) {
+  .BackGround {
+    width: 80vw;
+  }
+
+  .CreateProfile {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(255, 107, 0);
+  }
+
+  .Please {
+    margin: 10px 0px;
+    font-size: 12.5px;
+    font-weight: 300;
+  }
+}
+
+@media (max-width: 900px) and (min-width: 501px) {
+  .BackGround {
+    width: 60vw;
+  }
+
+  .CreateProfile {
+    font-size: 30px;
+    font-weight: 600;
+    color: rgb(255, 107, 0);
+  }
+
+  .Please {
+    margin: 10px 0px;
+    font-size: 15.5px;
+    font-weight: 300;
+  }
+}
+
+  

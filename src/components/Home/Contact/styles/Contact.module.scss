@@ -1,4 +1,4 @@
-.contact-form-container {
+.contactFormContainer {
   position: relative;
   display: flex;
   align-items: center;
@@ -10,29 +10,25 @@
   margin-top: 1rem;
 }
 
-.contact-form-container h2 {
+.contactFormContainer h2 {
   font-size: 3.8em;
   margin-bottom: 10px;
   margin-top: 1.5rem;
 }
 
-.bottom_line {
-  width: 10rem;   
+.bottomLine {
+  width: 10rem;
   height: 0.3125rem;
   background: #D87B0C;
   border-radius: 5px;
   margin-bottom: 3rem;
 }
 
-.h2{
-  font-size: 3.8rem;
-  margin-top: 3rem;
-}
 .highlight {
   color: #FF8A00;
 }
 
-.form-section {
+.formSection {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -47,12 +43,12 @@ form {
   padding-right: 60px;
 }
 
-.form-group {
+.formGroup {
   margin-bottom: 15px;
 }
 
-.form-group input,
-.form-group textarea {
+.formGroup input,
+.formGroup textarea {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
@@ -62,11 +58,11 @@ form {
   backdrop-filter: blur(7.5px);
 }
 
-.form-group input {
+.formGroup input {
   height: 60px;
 }
 
-.form-group textarea {
+.formGroup textarea {
   height: 200px;
   resize: none;
 }
@@ -82,7 +78,7 @@ form button {
   width: 100%;
 }
 
-.image-section {
+.imageSection {
   width: 50%;
   position: relative;
   margin-left: 127.48px;
@@ -105,7 +101,7 @@ form button {
   top: 150px;
 }
 
-.contact-form-container img {
+.contactFormContainer img {
   width: 80%;
   height: 70%;
 }
@@ -113,13 +109,13 @@ form button {
 .circle {
   height: 50vh;
   width: 30vh;
-  background-color: #FF5C00;
+  background-color: #FF8A00;
   position: absolute;
   top: 15%;
   right: -10%;
   border-radius: 50%;
   filter: blur(150px);
-  z-index: 0;
+  z-index: 1;
 }
 
 /* Responsive Styles */
@@ -128,66 +124,59 @@ form button {
     padding-left: 20px;
     padding-right: 20px;
     width: 100%;
-    
   }
-  .form-section{
+  .formSection {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     z-index: 0;
   }
-  .circle{
+  .circle {
     top: -5%;
     right: -20%;
   }
-  .form-group input,
-  .form-group textarea{
+  .formGroup input,
+  .formGroup textarea {
     width: 90%;
   }
-  form button{
+  form button {
     width: 90%;
   }
-  .image-section{
+  .imageSection {
     margin-left: 3rem;
   }
-  .circle{
+  .circle {
     margin-top: -30rem;
     margin-right: -6rem;
     z-index: -3;
     visibility: hidden;
   }
-
- .backCircle{
-  position: absolute;
-  left: 2%;
-  top: -10%;
- }
-
+  .backCircle {
+    position: absolute;
+    left: 2%;
+    top: -10%;
+  }
 }
 
 @media (max-width: 768px) {
-  .form-section {
+  .formSection {
     flex-direction: column;
     align-items: center;
   }
-
   form {
     width: 100%;
     padding: 0 20px;
   }
-
-  .image-section {
+  .imageSection {
     width: 100%;
     text-align: center;
     margin-top: 20px;
   }
-
-  .contact-form-container img {
+  .contactFormContainer img {
     width: 50%;
     height: auto;
   }
-
   .backCircle {
     width: 15rem;
     height: 7rem;
@@ -195,65 +184,50 @@ form button {
     top: 10%;
     transform: translateX(50%);
   }
-
   .circle {
     visibility: visible;
   }
 }
 
 @media (max-width: 560px) {
-  .contact-form-container h2 {
+  .contactFormContainer h2 {
     font-size: 40px;
   }
-
-  .bottom_line {
+  .bottomLine {
     width: 10rem;
   }
-
-  .h2{
-    font-size: 45px;
-  }
-
   form {
     padding: 30px 10px;
     padding-right: 30px;
   }
-
-  .form-group input,
-  .form-group textarea {
+  .formGroup input,
+  .formGroup textarea {
     font-size: 14px;
   }
-
-  .form-group input {
+  .formGroup input {
     height: 50px;
   }
-
-  .form-group textarea {
+  .formGroup textarea {
     height: 150px;
   }
-
-  .image-section{
+  .imageSection {
     margin-top: 2rem;
     margin-right: 2rem;
   }
-
   form button {
     font-size: 14px;
     padding: 8px 16px;
     margin-top: 1rem;
   }
-
-  .contact-form-container img {
+  .contactFormContainer img {
     width: 70%;
     height: auto;
     margin-right: 5rem;
   }
-
   .backCircle {
     width: 10rem;
     height: 5rem;
   }
-
   .circle {
     height: 30vh;
     width: 20vh;
@@ -262,9 +236,25 @@ form button {
   }
 }
 
-
 @media (max-width: 480px) {
-  .h2{
+  .contactFormContainer h2 {
     font-size: 45px;
   }
+
+
+  .form-section{
+    margin-top: -3rem;
+  }
+
+  .form-group{
+    width: 120%;
+    margin-left: -2rem;
+  }
+
+  .submitbutton{
+    margin-left: -2rem;
+    width: 110%;
+  }
+  
 }
+

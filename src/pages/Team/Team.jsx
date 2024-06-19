@@ -1,6 +1,8 @@
 import React from 'react';
-import styles from './styles/Team.module.scss'; // Adjust the path to your styles
-import teamMembers from '../../data/MemberCard.json'; // Import the JSON data
+import styles from './styles/Team.module.scss'; 
+import teamMembers from '../../data/MemberCard.json'; 
+import MemberCard from '../../components/Team/Member/MemberCard';
+import { FaRegArrowAltCircleRight } from "react-icons/fa";
 
 const Team = () => {
   const roles = ['Director', 'Technical', 'Creative', 'Marketing', 'Operations', 'Sponsorship & PR'];
@@ -9,41 +11,25 @@ const Team = () => {
     members: teamMembers.filter(member => member.role === role)
   }));
 
-  const TeamMember = ({ name, image, social, title }) => {
-    return (
-      <div className={styles['team-member']}>
-        <div className={styles['team-member-inner']}>
-          <div className={styles['team-member-front']}>
-            <img src={image} alt={name} className={styles['team-member-img']} />
-            <div className={styles['team-member-info']}>
-              <h3 style={{ color: '#FF5C00' }}>{name}</h3>
-            </div>
-          </div>
-          <div className={styles['team-member-back']}>
-            <h3 style={{ color: '#fff' }}>{title}</h3>
-            <div className={styles['social-links']}>
-              {social.linkedin && <a href={social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>}
-              {social.twitter && <a href={social.twitter} target="_blank" rel="noopener noreferrer">Twitter</a>}
-              {social.github && <a href={social.github} target="_blank" rel="noopener noreferrer">GitHub</a>}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
+  console.log('Team by role:', teamByRole);
 
-  const TeamSection = ({ title, members }) => {
+  const TeamSection = ({ title, members, isDirector }) => {
+    console.log('Rendering TeamSection:', title, members);
+
     return (
-      <div className={styles['team-section']}>
+      <div className={`${styles.teamSection} ${isDirector ? styles.directorSection : ''}`}>
         <h3>{title}</h3>
-        <div className={styles['team-grid']}>
+        <div className={`${styles.teamGrid} ${isDirector ? styles.directorGrid : ''}`}>
           {members.map((member, idx) => (
-            <TeamMember
+            <MemberCard
               key={idx}
+              className="teamMember"
               name={member.name}
               image={member.image}
               social={member.social}
               title={member.title}
+              role={member.role}
+              know={member.know}
             />
           ))}
         </div>
@@ -54,27 +40,32 @@ const Team = () => {
   return (
     <div>
       <h2>Meet Our <span>Team</span></h2>
-      <div className={styles['circle']}></div>
+      <div className={styles.para}><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam provident commodi consequatur neque magni, non tempore dolor corporis voluptate animi voluptatibus assumenda illo consectetur voluptatem quam, cum eligendi libero quos.</p></div>
+      <div className={styles.circle}></div>
+      <div className={styles.circle2}></div>
       
       {teamByRole.filter(section => section.role === 'Director').map((section, index) => (
         <TeamSection
           key={index}
-          title={section.role}
+          // title="Director"
           members={section.members}
+          isDirector={true}
         />
       ))}
       
       {teamByRole.filter(section => section.role !== 'Director').map((section, index) => (
         <TeamSection
           key={index}
-          title={<span><span style={{ color: '#fff' }}>Team </span>{section.role}</span>}
+          title={<span><span style={{ color: '#fff' }}>Team </span><strong style={{ color: '#FF8A00' }}>{section.role}</strong></span>}
           members={section.members}
+          isDirector={false}
         />
       ))}
-      
-      <div className={styles['circle2']}></div>
+
+      <div className={styles.alumniBut}><a href='#'><span style={{ color: '#fff' }}>Meet</span> Our Alumni</a><FaRegArrowAltCircleRight /></div>
     </div>
   );
+  
 };
 
 export default Team;

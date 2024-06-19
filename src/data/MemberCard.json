@@ -1,14 +1,15 @@
 [
     {
       "name": "John Doe",
-      "image": "https://via.placeholder.com/150",
+      "image": "https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg",
       "social": {
         "linkedin": "https://www.linkedin.com/in/johndoe",
         "twitter": "https://twitter.com/johndoe",
         "github": "https://github.com/johndoe"
       },
       "role": "Director",
-      "title": "President"
+      "title": "President",
+      "know" : "123"
     },
     {
       "name": "Jane Smith",
@@ -19,18 +20,20 @@
         "github": "https://github.com/janesmith"
       },
       "role": "Director",
-      "title": "Vice President"
+      "title": "Vice President",
+      "know" : "456"
     },
     {
-      "name": "Alice Johnson",
-      "image": "https://via.placeholder.com/150",
+      "name": "Prityanshu Singh",
+      "image": "https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671122.jpg?size=338&ext=jpg&ga=GA1.1.1141335507.1718064000&semt=ais_user",
       "social": {
         "linkedin": "https://www.linkedin.com/in/alicejohnson",
         "twitter": "https://twitter.com/alicejohnson",
         "github": "https://github.com/alicejohnson"
       },
       "role": "Director",
-      "title": "Director of Technical"
+      "title": "Director of Technical",
+      "know" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
     },
     {
       "name": "Bob Brown",
@@ -41,7 +44,8 @@
         "github": "https://github.com/bobbrown"
       },
       "role": "Director",
-      "title": "Director of Marketing"
+      "title": "Director of Marketing",
+      "know" : "abc"
     },
     {
       "name": "Carol Davis",
@@ -52,7 +56,8 @@
         "github": "https://github.com/caroldavis"
       },
       "role": "Director",
-      "title": "Director of Creative"
+      "title": "Director of Creative",
+      "know" : "def"
     },
     {
       "name": "David Wilson",
@@ -63,22 +68,24 @@
         "github": "https://github.com/davidwilson"
       },
       "role": "Director",
-      "title": "Director of Operations"
+      "title": "Director of Operations",
+      "know" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, . "
     },
     {
       "name": "Eve Thompson",
-      "image": "https://via.placeholder.com/150",
+      "image": "https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671122.jpg?size=338&ext=jpg&ga=GA1.1.1141335507.1718064000&semt=ais_user",
       "social": {
         "linkedin": "https://www.linkedin.com/in/evethompson",
         "twitter": "https://twitter.com/evethompson",
         "github": "https://github.com/evethompson"
       },
       "role": "Director",
-      "title": "Director of Sponsorship & PR"
+      "title": "Director of Sponsorship & PR",
+      "know" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
     },
     {
       "name": "Frank Green",
-      "image": "https://via.placeholder.com/150",
+      "image": "https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671122.jpg?size=338&ext=jpg&ga=GA1.1.1141335507.1718064000&semt=ais_user",
       "social": {
         "linkedin": "https://www.linkedin.com/in/frankgreen",
         "twitter": "https://twitter.com/frankgreen",
@@ -89,7 +96,7 @@
     },
     {
       "name": "Grace Hall",
-      "image": "https://via.placeholder.com/150",
+      "image": "https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671122.jpg?size=338&ext=jpg&ga=GA1.1.1141335507.1718064000&semt=ais_user",
       "social": {
         "linkedin": "https://www.linkedin.com/in/gracehall",
         "twitter": "https://twitter.com/gracehall",
@@ -100,7 +107,7 @@
     },
     {
       "name": "Hank King",
-      "image": "https://via.placeholder.com/150",
+      "image": "https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671122.jpg?size=338&ext=jpg&ga=GA1.1.1141335507.1718064000&semt=ais_user",
       "social": {
         "linkedin": "https://www.linkedin.com/in/hankking",
         "twitter": "https://twitter.com/hankking",
@@ -111,7 +118,7 @@
     },
     {
       "name": "Ivy Lee",
-      "image": "https://via.placeholder.com/150",
+      "image": "https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671122.jpg?size=338&ext=jpg&ga=GA1.1.1141335507.1718064000&semt=ais_user",
       "social": {
         "linkedin": "https://www.linkedin.com/in/ivylee",
         "twitter": "https://twitter.com/ivylee",

@@ -1,0 +1,312 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  color: #ffff;
+}
+
+.main {
+  height: 100%;
+  width: 100%;
+  background-color: #1c1c1c;
+  position: relative;
+  overflow: hidden;
+}
+
+.whole {
+  min-height: 150vh;
+  width: 100%;
+  padding-top: 10vh;
+  padding-left: 4vw;
+  padding-right: 4vw;
+  display: flexbox;
+  gap: 3vw;
+}
+
+.eventwhole {
+  height: 100%;
+  width: 100%;
+  border-left: 2px solid white;
+  margin-left: 4.2vw;
+  position: relative;
+}
+
+.ring1 {
+ left: -1.2%;
+ top: -1.69%;
+ position: absolute;
+ background-color: #1c1c1c;
+}
+.ring2 {
+ left: -1.2%;
+ top: 48%;
+ z-index: 10;
+ position: absolute;
+ background-color: #1c1c1c;
+}
+
+.name {
+  height: 6vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.name p {
+  background-color: #1c1c1c;
+  font-size: 3vw;
+  height: 100%;
+  color: #f97507;
+  font-weight: 700;
+  margin-right: 1vw;
+  margin-left: 5vw;
+}
+
+.whole h3 {
+  background-color: #1c1c1c;
+  font-size: 3vw;
+  height: 100%;
+}
+
+.whole h3 p {
+  color: orange;
+}
+
+.eventcard {
+  min-height: 90vh;
+  width: 100%;
+  background-color: #1c1c1c;
+  padding-top: 1vh;
+  margin-top: 1vh;
+  border-radius: 20px;
+}
+
+.SponserCard_image {
+  height: 20vw;
+  width: 35vw;
+  padding: 2vw;
+  margin: 5vw;
+}
+
+.cardsout {
+  height: 100%;
+  width: 100%;
+  background-color: #1c1c1c;
+  padding: 1vw;
+  margin-top: 4vw;
+}
+
+.cardsin {
+  height: 90%;
+  margin-left: 1vw;
+  background-color: #1c1c1c;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 4.5vw;
+  position: relative;
+}
+
+.card {
+  height: 90%;
+  width: 100%;
+  margin: 1vw;
+  margin-right: 1vw;
+  margin-left: 3vw;
+  background-color: #7a7676;
+  border-radius: 20px;
+  position: relative;
+  z-index: 30;
+}
+
+.pasteventcard {
+  height: auto;
+  width: 100%;
+  padding-top: 1vh;
+  margin-top: 8vh;
+  border-radius: 20px;
+  padding-right: 9vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.outcard {
+  height: 95%;
+  width: 100%;
+  background-color: #1c1c1c;
+  padding: 1vw;
+  padding-left: 0vw;
+}
+
+.cardone {
+  height: 40%;
+  margin: 1vw;
+  margin-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.cardtwo {
+  height: 40%;
+  margin: 1vw;
+  margin-top: 3vw;
+  display: flex;
+  justify-content: space-around;
+}
+
+.ca {
+  height: 100%;
+  width: 40%;
+  border-radius: 20px;
+  background-color: #7a7676;
+  position: relative;
+  z-index: 30;
+}
+
+.bottom {
+  height: 10vw;
+  width: 100%;
+  background-color: #1c1c1c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.seeall {
+  height: 4vw;
+  width: 8vw;
+  background-color: #1c1c1c;
+  font-size: 1.5vw;
+  border: none;
+}
+
+.circle {
+  height: 20vw;
+  width: 20vw;
+  background-color: rgba(255, 92, 0, 0.19);
+  filter: blur(120px);
+  position: absolute;
+  top: 15%;
+  right: -15%;
+  z-index: 3;
+}
+
+.circleone {
+  height: 20vw;
+  width: 20vw;
+  background-color: rgba(255, 92, 0, 0.19);
+  filter: blur(120px);
+  position: absolute;
+  top: 70%;
+  left: -15%;
+}
+.circleleft {
+  height: 20vw;
+  width: 20vw;
+  background-color: rgba(255, 92, 0, 0.19);
+  filter: blur(120px);
+  position: absolute;
+  top: 8%;
+  left: -5%;
+}
+
+.circletwo {
+  height: 20vw;
+  width: 20vw;
+  background-color: rgba(255, 92, 0, 0.19);
+  filter: blur(120px);
+  position: absolute;
+  bottom: -10%;
+  right: -15%;
+}
+
+/* Media Query for max 400px */
+@media (max-width: 430px) {
+  .whole {
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 2vw;
+  }
+  .eventwhole {
+    border: none;
+  }
+
+  .eventcard {
+    min-height: 55vh;
+  }
+
+  .name {
+    height: 6vh;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .name p {
+    font-size: 7vw;
+    margin-left: 2vw;
+  }
+
+  .whole h3 {
+    font-size: 7vw;
+  }
+
+  .SponserCard_image {
+    height: 30vw;
+    width: 80vw;
+    padding: 1vw;
+    margin: 2vw;
+  }
+
+  .cardsout {
+    // padding: 2vw;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cardsin {
+    padding-left: 0%;
+    margin-left: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .card {
+    width: 90%;
+    margin: 2vw auto;
+    height: auto;
+  }
+
+  .ca {
+    width: 80%;
+    margin: 2vw auto;
+  }
+
+  .pasteventcard {
+    margin-top: 6vw;
+  }
+
+  .outcard {
+    margin-top: 1vw;
+  }
+
+  .bottom {
+    height: auto;
+    padding: 2vw 0;
+  }
+
+  .seeall {
+    height: 8vw;
+    width: 20vw;
+    font-size: 3vw;
+  }
+
+  .circletwo {
+    height: 30vw;
+    width: 30vw;
+    filter: blur(60px);
+    position: absolute;
+    z-index: 1;
+  }
+}

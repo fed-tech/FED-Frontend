@@ -11,9 +11,10 @@
   font-family: "Open Sans", sans-serif;
 }
 
-.react-date-picker__wrapper{
+.react-date-picker__wrapper {
   border: none !important;
 }
+
 html {
   scroll-behavior: smooth;
 }
@@ -24,14 +25,11 @@ body {
   overflow-x: hidden;
 }
 
-
-
 .page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
   background-color: $page-color;
 }
 
@@ -42,22 +40,20 @@ body {
   overflow: hidden;
 }
 
-
-
 body::-webkit-scrollbar {
   width: 10px;
   height: 0px;
   transition: .2s linear;
+  background-color: #292929;
 }
 
 body::-webkit-scrollbar-thumb {
   border-radius: 22px;
-  background-color:#FF8A00;
-  border: 1.5px solid hwb(0 11% 89%);
+  background-color: #FF8A00;
+  // border: 1.5px solid hwb(0 11% 89%);
 }
-
 
 body::-webkit-scrollbar-track {
   padding: 0px 20px;
-  background-color: $page-color;
+  background-color: transparent;
 }

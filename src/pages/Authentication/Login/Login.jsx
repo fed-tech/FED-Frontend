@@ -1,49 +1,81 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import style from "./styles/Login.module.scss";
 import Input from "../../../components/Core/Input";
 import Button from "../../../components/Core/Button";
 import Text from "../../../components/Core/Text";
 import google from "../../../assets/images/google.png";
+import users from "../../../data/user.json";
+import AuthContext from "../../../store/AuthContext";
+import { useContext } from "react";
+import { useEffect } from "react";
+// import { GoogleOAuthProvider } from "@react-oauth/google";
+import GoogleLogin from "./GoogleLogin";
+import { Link } from "react-router-dom";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 
 const Login = () => {
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const authCtx = useContext(AuthContext);
 
   const handleLogin = () => {
-    if(email === "" || password === ""){
-      alert("Please fill all the fields")
-    }else{
-      console.log({email,password})
+    event.preventDefault();
+    if (email === "" || password === "") {
+      alert("Please fill all the fields");
+      return;
     }
-  }
+
+    const user = users.find(
+      (user) => user.email === email && user.password === password
+    );
+
+    if (user) {
+      authCtx.login(
+        user.name,
+        user.email,
+        user.pic,
+        user.rollNo,
+        user.school,
+        user.college,
+        user.mobileNo,
+        user.selected,
+        user.regForm,
+        user.access,
+        "someToken",
+        3600000
+      );
+      navigate("/");
+      alert("Login successful");
+      console.log(authCtx);
+      // Redirect to profile or dashboard
+    } else {
+      alert("Invalid email or password");
+    }
+  };
   return (
     <div>
       <div className={style.container}>
+        <Link to={'/'}>
+          <div className={style.ArrowBackIcon}>
+            <ArrowBackIcon />
+          </div>
+        </Link>
+        <div className={style.circle}>
+          <div></div>
+        </div>
+
+        <div className={style.circle1}></div>
         <div className={style.login}>
           <h1>Login</h1>
-          <Button
-            style={{
-              width: "100%",
-              backgroundColor: "transparent",
-              color: "#fff",
-              height: "40px",
-              marginTop: "20px",
-              fontSize: ".77rem",
-              cursor: "pointer",
-              border: "1px solid #fff",
-            }}
-          >
-            <img
-              src={google}
-              alt="google"
-              style={{
-                width: "18px",
-                height: "18px",
-                marginRight: "6px",
-              }}
-            />
-            <span>Login with Google</span>
-          </Button>
+
+          <GoogleLogin />
+
           <div
             style={{
               display: "flex",
@@ -63,7 +95,7 @@ const Login = () => {
               label="Email"
               name="email"
               value={email}
-              onChange={(e) => setemail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               required
               style={{
                 width: "98%",
@@ -75,7 +107,7 @@ const Login = () => {
               label="Password"
               name="password"
               value={password}
-              onChange={(e) => setpassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               required
               style={{
                 width: "98%",
@@ -101,7 +133,7 @@ const Login = () => {
                 border: "1px solid #fff",
               }}
               onClick={(e) => {
-                handleLogin()
+                handleLogin();
               }}
             >
               Login

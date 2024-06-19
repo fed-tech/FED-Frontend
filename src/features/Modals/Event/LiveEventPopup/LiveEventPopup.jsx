@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import styles from './styles/EventPopup.module.scss';
+import styles from './styles/LiveEventPopup.module.scss';
 import eventData from '../../../../data/EventCards.json';
 
-const EventPopup = () => {
+let popupCount = 0;
+
+const LiveEventPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isEventOngoing, setIsEventOngoing] = useState(false);
   const [eventImage, setEventImage] = useState('');
 
   useEffect(() => {
-    // Fetch data from the JSON file
     const currentEvent = eventData.find(event => event.IsEventOngoing === "true");
-    if (currentEvent) {
+    if (currentEvent && popupCount === 0) {
       setIsEventOngoing(true);
       setEventImage(currentEvent.imageURL);
 
-      // Show the popup after a delay
       const timer = setTimeout(() => {
         setIsVisible(true);
+        popupCount++;
       }, 100);
 
-      // Cleanup the timer
       return () => clearTimeout(timer);
     } else {
       setIsEventOngoing(false);
@@ -35,7 +35,6 @@ const EventPopup = () => {
       }
     }
 
-    // Cleanup the scroll lock class on unmount or when isEventOngoing changes
     return () => {
       document.body.classList.remove(styles.lockScroll);
     };
@@ -59,4 +58,4 @@ const EventPopup = () => {
   );
 };
 
-export default EventPopup;
+export default LiveEventPopup;

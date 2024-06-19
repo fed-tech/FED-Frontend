@@ -1,27 +1,29 @@
 @import "/src/assets/styles/Global.scss";
 
 .card{
-    height: 620px;
+    height: 650px;
     width: 702px;
     border-top: 2px solid $border-color;
     border-left: 2px solid $border-color;
     border-right: 2px solid $border-color;
     background-color: $bg-color;
-    margin-left: 10px;
+    margin-left: -100px;
     margin-top: 10px;
     border-radius: 20px;
     font-size: 0.75rem;
     color: $text-color;
     text-align: center;
-    position: relative;
-    z-index: 100;
-    top: -530px;
-    left: 350px;
+    position: absolute;
+    top: 0;
+    left:30%;
+    z-index: 5;
+
+    
 }
 
 .img{
-    height: 250px;
-	width: 500px;
+    height: 100%;
+	width: 100%;
     object-fit: cover;
     object-position: center;
     border-radius: 20px;
@@ -29,10 +31,11 @@
 }
 
 .backimg{
-	height: 250px;
-	width: 500px;
-    margin-top: 50px;
-    margin-left: 100px;
+	height: 400px;
+	width: 90%;
+    margin-inline: auto;
+    margin-top: 10px;
+  
 }
 
 .date{
@@ -42,7 +45,7 @@
     border: 1px solid $border-color;
     color: $text-color;
     position: relative;
-    top: -240px;
+    top: -390px;
     left: 15px;
     border-radius: 10px;
     text-align: center;
@@ -57,8 +60,8 @@
     border: 1px solid $border-color;
     color: $orange-color;
     position: relative;
-    top: -295px;
-    left: 425px;
+    top: -450px;
+    left: 550px;
     text-align: center;
     border-radius: 7px;
     font-size: 1rem;
@@ -73,11 +76,12 @@
     padding-right: 100px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    border-bottom: 2px solid $border-color;
+  
     border-top: none;
     text-align: start;
     font-size: 0.8rem;
     padding-top: 40px;
+    margin-top: 2vw;
 }
 
 .backbtn{
@@ -92,7 +96,9 @@
 .eventname{
     height: 70px;
     width: 250px;
+    font-size: 2rem;
     text-align: start;
+    margin-top: 2vh;
 }
 
 .eventname h3{
@@ -103,6 +109,7 @@
 .registerbtn{
     height: 70px;
     width: 250px;
+    margin-top: 15px;
 }
 
 .regbtn{
@@ -124,7 +131,13 @@
     background: none;
     font-size: 30px;
     position: relative;
-    top: -290px;
-    left: 310px;
+    // top: -290px;
+    // left: 310px;
     cursor: pointer;
+    right: -19rem;
+    top:1rem;
+}
+
+.card button {
+    z-index: 10;
 }

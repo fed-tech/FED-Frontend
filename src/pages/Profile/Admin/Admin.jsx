@@ -10,6 +10,7 @@ import ViewEvent from "../../../components/Profile/Admin/View/ViewEvent/VIewEven
 import style from "./styles/Admin.module.scss";
 
 const Profile = () => {
+  
   const [activePage, setactivePage] = useState("Event");
 
   const getActivePage = () => {

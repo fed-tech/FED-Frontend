@@ -1,4 +1,4 @@
-import image from '../assets/images/hero.png'
+import image from '../assets/images/hero.jpg'
 
 const CarouselImg = [
   {
