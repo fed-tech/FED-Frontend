@@ -13,6 +13,28 @@
     }
 }
 
+.popup {
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.fadeIn {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1s ease-in;
+}
+
 .chatbottoggle {
     position: fixed;
     bottom: 30px;
@@ -49,17 +71,15 @@
 
 
  .chatcontainer {
-    width: 360px;
-    margin: 0 auto;
+    width: 340px;
+    height: fit-content;
+    margin: 0;
     position: fixed;
     z-index: 50;
     border: 1px solid #6e6c6a;
     border-radius: 25px;
     font-family: "Poppins", sans-serif;
-    top: 2rem;
-    right: 0;
-    margin-right: 30px;
-    height: 90vh;
+    margin: 0 20px;
     animation: fade-in 1s;
     backdrop-filter: blur(20px);
   }
@@ -106,16 +126,32 @@
   
   .chatbox {
     padding: 10px;
-    height: 390px;
+    padding-bottom: 0;
+    height: 70vh;
     overflow-y: auto;
     color: black;
-    background-color: #1c1c1c98;
-    scrollbar-width: none; 
+    scrollbar-width: none;
+    display: flex;
+    justify-content: space-between;
+    gap: 0;
+    align-items: center;
+    flex-direction: column;
+  }
+
+
+  .messageBox{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+
+  .lockScroll {
+    overflow: hidden;
   }
   
   .usermessage,
   .botmessage {
-    margin-bottom: 20px;
     margin-top: 10px;
     font-size: 0.95rem;
     padding: 0.5rem;
@@ -131,7 +167,7 @@
   .usermessage {
     text-align: right;
     background-color: #e0e0e0;
-    left: 20%;
+    left: 80%;
   }
 
   .usermessage:after {
@@ -166,19 +202,19 @@
   }
   
   .inputArea{
-    height: 4rem;
+    height: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
     color:black;
-    background-color: #1c1c1c98;
     border-radius: 0px 0px 25px 25px;
+    margin-bottom: 10px;
   }
 
   input{
     border: none;
     height: 2.5rem;
-    width: 290px;
+    width: 270px;
     padding:0.5rem;
     padding-left: 1rem ;
     color:black;
@@ -194,7 +230,7 @@
     border: none;
     height: 2.5rem;
     width: 50px;
-    margin-top: 0rem;
+    margin-top: 0.95rem;
     font-size: 1.15rem;
     color:black;
     background-color: white;
@@ -203,9 +239,10 @@
     cursor: pointer;
   }
 
+
     .sendIcon {
         color: #FF8A00;
-        margin-top:.5rem;
+        margin-top:.3rem;
       }
 
       
@@ -213,6 +250,10 @@
   width: 0px; 
 }
 
+.typing{
+  height: 25px;
+  padding-bottom: 20px;
+}
 .typingIndicator {
   font-style: italic;
   color: #fff;
@@ -227,12 +268,26 @@
   }
 }
 
+@media (width >= 480px){
+  .chatcontainer{
+    right: 0;
+  }
+}
+
+@media (max-width: 1024px){
+  .chatcontainer {
+    height: auto;
+  }
+  .chatbox {
+      height: 50vh;
+  }
+}
 
 // Add media query for screens smaller than 768px
 @media (max-width: 768px) {
     .chatcontainer {
         height: auto;
-        right:-20px;
+        margin-top: 30vw;
     }
     .chatbox {
         height: 50vh;
@@ -243,7 +298,7 @@
 @media (max-width: 480px) {
     .chatcontainer {
         height: auto;
-        right:-20px;
+        margin-right: 15px;
     }
     .chatbox {
         height: 50vh;
