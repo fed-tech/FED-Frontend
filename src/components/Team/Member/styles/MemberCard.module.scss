@@ -15,11 +15,11 @@
   border-radius: 10px 10px 0 0;
   width: 100%;
 }
-.teamMemberInfo{
+.teamMemberInfo {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
- }
+}
 
 .teamMemberInfo h4 {
   padding: 10px;
@@ -65,13 +65,13 @@
   padding-top: 30px;
   height: 200px;
   width: 200px;
-  overflow-y: scroll; 
+  overflow-y: scroll;
   scrollbar-width: none;
   margin-bottom: 10px;
 }
 
 .knowPara::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 .knowPara p {
@@ -100,13 +100,7 @@
   flex-direction: row;
 }
 
-.socialLinks {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.socialLinks a{
+.socialLinks a {
   color: #fff;
   text-decoration: none;
   font-size: 50px;
@@ -116,11 +110,10 @@
   margin: 7px;
 }
 
-.socialLinks a:hover{
+.socialLinks a:hover {
   color: #FF8A00;
   transition: 0.3s ease-in-out;
 }
-
 
 .knowMoreContent {
   display: flex;
@@ -157,31 +150,30 @@ button {
     margin-top: 10px;
     margin-bottom: 0;
   }
-  .socialLinks a{
+  .socialLinks a {
     font-size: 30px;
   }
   button {
     margin-top: 5px;
     font-size: 1rem;
   }
-  .teamMember{
+  .teamMember {
     height: 18vw;
     width: 18vw;
   }
 }
 
 @media (max-width: 768px) {
-  
   .teamMemberInfo h4 {
     font-size: 0.8em;
   }
   .teamMemberBack h5 {
     font-size: 18px;
   }
-  .socialLinks a{
+  .socialLinks a {
     font-size: 30px;
   }
-  .knowPara{
+  .knowPara {
     height: 125px;
     width: 170px;
     font-size: 10px;
@@ -194,7 +186,7 @@ button {
     font-size: 2.5rem;
   }
 
-  .teamMember{
+  .teamMember {
     height: 38vw;
     width: 38vw;
     margin-bottom: 10vw;
@@ -204,21 +196,21 @@ button {
     font-size: 2em;
   }
 
-  .teamMemberBack h5{
+  .teamMemberBack h5 {
     font-size: 16px;
   }
-  .knowMore{
+  .knowMore {
     padding: 20px;
   }
 
-  .knowPara{
+  .knowPara {
     height: 125px;
     width: 150px;
     font-size: 10px;
     padding: 0 10px;
   }
 
-  .socialLinks a{
+  .socialLinks a {
     font-size: 30px;
   }
 }
