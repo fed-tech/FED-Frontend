@@ -2,10 +2,9 @@
   {
     "id": "1",
     "eventName": "BIZZ-BATTLE1",
-    "eventDescription": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders.",
-    "eventDetailed": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario.",
+   "description": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario.",
     "eventDate": "17th May",
-    "regDateAndTime": "2024-07-04T18:18:00",
+    "regDateAndTime": "2024-08-04T18:18:00",
     "registrationClosed": true,
     "imageURL": "https://cdn.builder.io/api/v1/image/assets/TEMP/d12862ae94db7f4c1a27971143bd81d9a7fb60f50f4151f6f4b2ed8c1ee3eb23?apiKey=4aa0ae1a0e814437847f3f8ff6c4ef38&width=800",
     "eventPrice": "200",
@@ -15,8 +14,7 @@
   {
     "id": "6",
     "eventName": "BIZZ-BATTLE6",
-    "eventDescription": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders.",
-    "eventDetailed": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario.",
+     "description": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario.",
     "eventDate": "18th May",
     "regDateAndTime": "2024-07-02T19:19:00",
     "registrationClosed": true,
@@ -29,53 +27,49 @@
   {
     "id": "2",
     "eventName": "BIZZ-BATTLE2",
-    "eventDescription": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders.",
+    "description": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario.",
     "eventDate": "17th May",
     "regDateAndTime": "2024-07-03T18:23:00",
     "registrationClosed": true,
     "imageURL": "https://cdn.builder.io/api/v1/image/assets/TEMP/d12862ae94db7f4c1a27971143bd81d9a7fb60f50f4151f6f4b2ed8c1ee3eb23?apiKey=4aa0ae1a0e814437847f3f8ff6c4ef38&width=800",
-    "eventDetailed": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario.",
-    "ongoingEvent": false,
+      "ongoingEvent": false,
     "eventPrice": "",
     "teamSize": "2-4"
   },
   {
     "id": "3",
     "eventName": "BIZZ-BATTLE3",
-    "eventDescription": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders.",
+    "description": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario.",
     "eventDate": "17th May",
     "regDateAndTime": "2024-07-02T16:13:00",
     "registrationClosed": true,
     "imageURL": "https://cdn.builder.io/api/v1/image/assets/TEMP/d12862ae94db7f4c1a27971143bd81d9a7fb60f50f4151f6f4b2ed8c1ee3eb23?apiKey=4aa0ae1a0e814437847f3f8ff6c4ef38&width=800",
     "eventPrice": "250",
     "ongoingEvent": false,
-    "teamSize": "2-4",
-    "eventDetailed": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario."
-  },
+    "teamSize": "2-4"
+     },
   {
     "id": "4",
     "eventName": "BIZZ-BATTLE4",
-    "eventDescription": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders.",
-    "eventDate": "17th May",
+    "description": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario.",
+      "eventDate": "17th May",
     "regDateAndTime": "2024-07-02T16:13:00",
     "registrationClosed": true,
     "imageURL": "https://cdn.builder.io/api/v1/image/assets/TEMP/d12862ae94db7f4c1a27971143bd81d9a7fb60f50f4151f6f4b2ed8c1ee3eb23?apiKey=4aa0ae1a0e814437847f3f8ff6c4ef38&width=800",
     "eventPrice": "",
     "ongoingEvent": false,
-    "teamSize": "2-4",
-    "eventDetailed": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario."
-  },
+    "teamSize": "2-4"
+     },
   {
     "id": "5",
     "eventName": "BIZZ-BATTLE5",
-    "eventDescription": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders.",
-    "eventDate": "17th May",
+    "description": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario.",
+     "eventDate": "17th May",
     "regDateAndTime": "2024-07-02T16:13:00",
     "registrationClosed": true,
     "imageURL": "https://cdn.builder.io/api/v1/image/assets/TEMP/d12862ae94db7f4c1a27971143bd81d9a7fb60f50f4151f6f4b2ed8c1ee3eb23?apiKey=4aa0ae1a0e814437847f3f8ff6c4ef38&width=800",
     "eventPrice": "",
     "ongoingEvent": false,
-    "teamSize": "2-4",
-    "eventDetailed": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario."
-  }
+    "teamSize": "2-4"
+     }
 ]

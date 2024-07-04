@@ -41,5 +41,11 @@
 }
 
 .closebtn:hover {
-  transform: rotate(260deg);
+  scale: 1.2;
+}
+
+.makeStyles-copyUrl-6{
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none; 
 }

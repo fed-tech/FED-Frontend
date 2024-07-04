@@ -27,6 +27,12 @@ const Share = ({ onClose, urlpath }) => {
       borderRadius: '5px',
       padding: '0.5rem',
       margin: '0.5rem 0',
+      overflow: 'hidden',
+    },
+    copyUrl: {
+      overflowY: 'scroll',
+      scrollbarWidth: 'none', // For Firefox
+      msOverflowStyle: 'none', // For Internet Explorer and Edge
     },
     title: {
       color: 'aquamarine',
@@ -34,6 +40,7 @@ const Share = ({ onClose, urlpath }) => {
       marginBottom: '1rem',
     },
   };
+  
 
   return (
     <div className={style.shareContainer}>
@@ -68,6 +75,7 @@ const Share = ({ onClose, urlpath }) => {
         <ShareSocial
           url={urlpath}
           style={sharestyle}
+        
           socialTypes={['facebook', 'twitter', 'whatsapp', 'reddit', 'linkedin']}
           onSocialButtonClicked={data => console.log(data)}
         /></div>

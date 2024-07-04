@@ -1,19 +1,27 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import style from "./styles/Event.module.scss";
-import eventData from "../../data/eventData.json";
+// import eventData from "../../data/eventData.json";
 import EventCard from"../../components/Event/EventCards/EventCard"
 import ring from "../../assets/images/ring.svg";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { Padding } from "@mui/icons-material";
+import FormData from "../../data/FormData.json"
 
 const Event = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const ongoingEvents = eventData.filter((event) => event.ongoingEvent);
-  const pastEvents = eventData.filter((event) => !event.ongoingEvent);
+  // console.log(FormData);
+  const{events}=FormData;
+
+  // const ongoingEvents = eventData.filter((event) => event.ongoingEvent);
+  // const pastEvents = eventData.filter((event) => !event.ongoingEvent);
+
+  const ongoingEvents=events.filter((event)=>event.info.ongoingEvent)
+  const pastEvents=events.filter((event)=>!event.info.ongoingEvent)
+  
 
   const customStyles = {
     eventname: {

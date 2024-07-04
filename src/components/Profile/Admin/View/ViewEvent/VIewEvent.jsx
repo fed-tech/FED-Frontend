@@ -3,13 +3,16 @@ import styles from "./styles/ViewEvent.module.scss";
 import Button from "../../../../Core/Button";
 
 import AddEventForm from "../../Form/EventForm/AddEventForm";
-import eventData from "../../../../../data/eventData.json"
+// import eventData from "../../../../../data/eventData.json"
 import PastEvents from "../../../../../components/Event/EventCards/EventCard";
+import FormData from "../../../../../data/FormData.json"
 
 function ViewEvent () {
 
   const [activepage, setactivepage] = useState("View Events");
-  const pastEvents = eventData.filter(event => !event.ongoingEvent);
+
+  const{events}=FormData;
+  const pastEvents=events.filter((event)=>!event.info.ongoingEvent)
 
   const customStyles = {
     eventname: {
@@ -61,7 +64,7 @@ function ViewEvent () {
                       data={event}
                       customStyles={customStyles}
                       type="past"
-                      modalpath='/Events/pastEvents/'
+                       modalpath='/profile/Events/'
                       isPastpage={true}
                     />
                   </div>

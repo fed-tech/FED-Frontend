@@ -2,8 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles/Preview.module.scss";
 import Button from "../../../../../components/Core/Button";
 import Section from "./Section";
+import { Link } from 'react-router-dom';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack"
+import { X } from "lucide-react";
 
-const PreviewEvent = ({ sections, open, handleClose }) => {
+const PreviewEvent = ({ sections, open, handleClose ,showCloseBtn}) => {
   const [data, setdata] = useState(sections);
   const [activeSection, setactiveSection] = useState(
     data !== undefined ? data[0] : ""
@@ -156,6 +159,13 @@ const PreviewEvent = ({ sections, open, handleClose }) => {
     setdata(newSections);
   };
 
+
+  const handleSubmit = () => {
+    console.log("Form data:", data);
+    alert("Form submitted! Check the console for form data.");
+  
+  };
+
   const areRequiredFieldsFilled = () => {
     if (currentSection) {
       return currentSection.fields.every((field) => {
@@ -234,6 +244,7 @@ const PreviewEvent = ({ sections, open, handleClose }) => {
         validValidations.some((valid) => valid.target === "Submit")
       ) {
         setisCompleted((prev) => [...prev, currentSection._id, "Done"]);
+        handleSubmit(); 
         return true;
       } else {
         const nextSection = getNextSection();
@@ -242,6 +253,7 @@ const PreviewEvent = ({ sections, open, handleClose }) => {
           console.log("232");
         } else {
           setisCompleted((prev) => [...prev, currentSection._id, "Done"]);
+          handleSubmit(); 
         }
       }
     } else {
@@ -251,6 +263,7 @@ const PreviewEvent = ({ sections, open, handleClose }) => {
         setisCompleted((prev) => [...prev, currentSection._id]);
       } else {
         setisCompleted((prev) => [...prev, currentSection._id, "Done"]);
+        handleSubmit();
       }
       return true;
     }
@@ -272,6 +285,12 @@ const PreviewEvent = ({ sections, open, handleClose }) => {
     open && (
       <div className={styles.mainPreview}>
         <div ref={wrapperRef} className={styles.previewContainer}>
+       {showCloseBtn && <Link onClick={handleClose} to={'/Events'}>
+          <div className={styles.closeBtn}>
+            <X/>
+          </div>
+        </Link>
+        }
           {!isCompleted.includes(currentSection._id) ? (
             <Section section={currentSection} handleChange={handleChange} />
           ) : (

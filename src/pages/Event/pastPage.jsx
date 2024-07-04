@@ -1,33 +1,22 @@
 import style from './styles/pastPage.module.scss';
-import eventData from '../../data/eventData.json';
+// import eventData from '../../data/eventData.json';
 import { useEffect,useState } from 'react';
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import EventCard from '../../components/Event/EventCards/EventCard';
+import FormData from "../../data/FormData.json"
 
 
 
 const PastPage = () => {
 
 
-  const [activeEventId, setActiveEventId] = useState(null);
-
-  const handleModalOpen = (eventId) => {
-    setActiveEventId(eventId);
-    document.body.style.overflow = 'hidden'; 
-    
-  };
-
-  const handleModalClose = () => {
-    setActiveEventId(null);
-    document.body.style.overflow = 'unset'; 
-    // document.body.style.backdropFilter='unset'
-  };
-
   useEffect(()=>{
     window.scrollTo(0,0);
   },[]);
-  const pastEvents = eventData.filter(event => !event.ongoingEvent);
+
+  const{events}=FormData;
+  const pastEvents=events.filter((event)=>!event.info.ongoingEvent)
     return(
       <div className={style.main}>
           <Link to={'/Events'}>
@@ -47,12 +36,6 @@ const PastPage = () => {
               <div className={style.cardone}>
                 {pastEvents.map((event, index) => (
                   <div style={{height: "auto", width: "22rem"}} key={index}>
-                     {/* <PastEvents 
-                      data={event}
-                      scrollPosition={200}
-                      isPastpage={true}
-                    /> */}
-                    
                     <EventCard
                     data={event}
                     type="past"

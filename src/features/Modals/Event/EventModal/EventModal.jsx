@@ -4,7 +4,8 @@ import groupIcon from "../../../../assets/images/groups.svg";
 import rupeeIcon from "../../../../assets/images/rupeeIcon.svg";
 import { X } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import eventData from "../../../../data/eventData.json";
+// import eventData from "../../../../data/eventData.json";
+import FormData from "../../../../data/FormData.json"
 import shareOutline from "../../../../assets/images/shareOutline.svg";
 import Share from "../../../../components/ShareContainer/Share";
 import AOS from 'aos';
@@ -16,25 +17,52 @@ const EventModal = (props) => {
     const{onClosePath}=props;
   const navigate = useNavigate();
   const { eventId } = useParams();
-  const data = eventData.find((event) => event.id === eventId);
+  const {events}=FormData;
+  const data = events.find((event) => event.id === eventId);
   // const buttonText=data.ongoingEvent?'Register Now':'Registration closed';
-
+const{info}=data;
 
   const [remainingTime, setRemainingTime] = useState("");
   const [btnTxt, setBtnTxt] = useState("Register Now");
 
-   // Calculate remaining time until registration starts
-   useEffect(() => {
-    if (data.regDateAndTime) {
-      calculateRemainingTime(); // Initial calculation
+  useEffect(() => {
+    if (info.regDateAndTime) {
+      calculateRemainingTime();
       const intervalId = setInterval(calculateRemainingTime, 1000);
       return () => clearInterval(intervalId);
     }
-  }, [data.regDateAndTime]);
+  }, [info.regDateAndTime]);
 
-  // Function to calculate remaining time until registration starts
+
+  //Calculating data of event
+
+  const dateStr = info.eventDate;
+  const date = new Date(dateStr);
+
+  const day = date.getDate();
+
+  const getOrdinalSuffix = (day) => {
+    if (day > 3 && day < 21) return "th"; // Handles 4-20
+    switch (day % 10) {
+      case 1:
+        return "st";
+      case 2:
+        return "nd";
+      case 3:
+        return "rd";
+      default:
+        return "th";
+    }
+  };
+
+  const dayWithSuffix = day + getOrdinalSuffix(day);
+  const month = date.toLocaleDateString("en-GB", { month: "long" });
+
+  const formattedDate = `${dayWithSuffix} ${month}`;
+
+
   const calculateRemainingTime = () => {
-    const regStartDate = new Date(data.regDateAndTime);
+    const regStartDate = new Date(info.regDateAndTime);
     const now = new Date();
     const timeDifference = regStartDate - now;
 
@@ -60,16 +88,14 @@ const EventModal = (props) => {
 
   // Update button text based on registration status and remaining time
   useEffect(() => {
-    if (!remainingTime) {
-      if (data.registrationClosed) {
-        setBtnTxt("Closed");
-      } else {
-        setBtnTxt("Register Now");
-      }
+    if (info.registrationClosed) {
+      setBtnTxt("Closed");
+    } else if (!remainingTime) {
+      setBtnTxt("Register Now");
     } else {
       setBtnTxt(remainingTime);
     }
-  }, [data.registrationClosed, remainingTime]);
+  }, [info.registrationClosed, remainingTime]);
 
 
   const handleModalClose = () => {
@@ -140,12 +166,12 @@ const EventModal = (props) => {
                   </button>
                   <div className={EventCardModal.backimg}>
                     <img
-                      srcSet={data.imageURL}
+                      srcSet={info.imageURL}
                       className={EventCardModal.img}
                       alt="Event"
                     />
-                    <div className={EventCardModal.date}>{data.eventDate}</div>
-                    {data.ongoingEvent && <div className={EventCardModal.share} onClick={handleShare}>
+                    <div className={EventCardModal.date}>{formattedDate}</div>
+                    {info.ongoingEvent && <div className={EventCardModal.share} onClick={handleShare}>
                       <img
                         className={EventCardModal.shareIcon}
                         src={shareOutline}
@@ -156,12 +182,12 @@ const EventModal = (props) => {
                   </div>
                   <div className={EventCardModal.backbtn}>
                     <div className={EventCardModal.eventname}>
-                      {data.eventName}
+                      {info.eventName}
                       <div className={EventCardModal.price}>
-                        {data.eventPrice ? (
+                        {info.eventPrice ? (
                           <p>
                             <img src={rupeeIcon} alt="Rupee" />
-                            {data.eventPrice}
+                            {info.eventPrice}
                           </p>
                         ) : (
                           <p style={{ color: "inherit" }}>Free</p>
@@ -169,13 +195,13 @@ const EventModal = (props) => {
                       </div>
                       <p>
                         <img src={groupIcon} alt="Group" />
-                        Team size: {data.teamSize}
+                        Team size: {info.minSize}{" - "}{info.maxSize}
                       </p>
                     </div>
                     <div className={EventCardModal.registerbtn}>
                       <button className={EventCardModal.regbtn}>
                        {
-                        data.ongoingEvent ?(<>
+                        info.ongoingEvent ?(<>
                                  {btnTxt === "Closed" ? (
                   <>
                    Registration Closed <CiLock style={{ marginLeft: "" }} />
@@ -201,7 +227,7 @@ const EventModal = (props) => {
                     </div>
                   </div>
                   <div className={EventCardModal.backtxt}>
-                    {data.eventDetailed}
+                    {info.description}
                   </div>
                 </div>
               </div>

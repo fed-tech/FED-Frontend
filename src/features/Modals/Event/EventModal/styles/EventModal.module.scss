@@ -16,6 +16,7 @@
   z-index: 5;
   border-radius: 1.26863rem;
   border: 1.2px solid rgba(214, 214, 214, 0.81);
+  overflow: hidden;
 }
 
 .img {
@@ -58,15 +59,25 @@
 
 .backtxt {
   width: 87%;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  height: 6.8rem;
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+
   text-align: start;
-  font-size: 0.73rem;
-  padding-bottom: 4%;
+  font-size: 0.8rem;
+  // padding-bottom: 4%;
   margin-inline: auto;
   // margin-top: 1rem;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 4%;
 }
+
+
+.backtxt::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
 
 .backbtn {
   width: 87%;
@@ -118,6 +129,7 @@
   gap: 0.71575rem;
   outline: none;
   border: none;
+  cursor: pointer;
   font-size: 0.9rem;
 }
 
@@ -160,9 +172,42 @@
   width: 1rem;
 }
 
-@media (max-width: 400px) {
+@media (max-width:361px) {
+  .registerbtn button {
+    border-radius: 0.35788rem;
+    background: var(
+      --Primary,
+      linear-gradient(
+        260deg,
+        rgba(255, 190, 11, 0.84) -29.7%,
+        rgba(244, 43, 3, 0.84) 128.34%
+      )
+    );
+    display: inline-flex;
+    color: #fff;
+    padding: 0.6rem 0.5rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.71575rem;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.5rem;
+  }
+
+  .eventname{
+    font-size: 1.1rem;
+  }
+
+  
+}
+
+
+
+@media(min-width:462px)and (max-width: 400px) {
   .card {
     width: 21rem;
+    margin-top: 1%;
 
     // position: absolute;
     // top: 6rem;
@@ -170,8 +215,38 @@
     z-index: 5;
   }
 
+  .date{
+    font-size: 0.7rem;
+  }
+
   .eventname {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
+  }
+
+  .registerbtn button {
+    border-radius: 0.35788rem;
+    background: var(
+      --Primary,
+      linear-gradient(
+        260deg,
+        rgba(255, 190, 11, 0.84) -29.7%,
+        rgba(244, 43, 3, 0.84) 128.34%
+      )
+    );
+    display: inline-flex;
+    color: #fff;
+    padding: 0.3rem 0.6rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.71575rem;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.7rem;
+  }
+
+  .backtxt{
+    height: 6.7rem;
   }
   
 
@@ -192,13 +267,47 @@
   }
 
   .eventname {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
+  }
+  
+
+  
+  .date{
+    font-size: 0.7rem;
+  }
+
+
+
+  .registerbtn button {
+    border-radius: 0.35788rem;
+    background: var(
+      --Primary,
+      linear-gradient(
+        260deg,
+        rgba(255, 190, 11, 0.84) -29.7%,
+        rgba(244, 43, 3, 0.84) 128.34%
+      )
+    );
+    display: inline-flex;
+    color: #fff;
+    padding: 0.6rem 0.7rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.71575rem;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.7rem;
+  }
+
+  .backtxt{
+    height: 6.72rem;
   }
   
 
   .closeModal{
     top: -1.6rem;
-    right: 0.5rem;
+    right: 0.2rem;
   }
 }
 

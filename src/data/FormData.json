@@ -1,0 +1,702 @@
+{
+    "events": [
+      {
+        "id": "1",
+        "info": {
+          "eventName": "Blitz Battle",
+          "imageURL": "https://cdn.builder.io/api/v1/image/assets/TEMP/d12862ae94db7f4c1a27971143bd81d9a7fb60f50f4151f6f4b2ed8c1ee3eb23?apiKey=4aa0ae1a0e814437847f3f8ff6c4ef38&width=800",
+          "eventDate": "2024-07-27T18:30:00.000Z",
+          "eventType": "Paid",
+          "eventPrice": "500",
+          "regDateAndTime": "2024-07-03T16:05:00",
+          "registrationClosed": false,
+          "ongoingEvent": true,
+          "participationType": "Team",
+          "maxSize": 4,
+          "minSize": 2,
+          "priority": "1",
+          "description": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario.",
+          "successMessage": "Thanks for registering for this event",
+          "maxReg": "4"
+        },
+        "sections": [
+          {
+            "_id": 1719947858693,
+            "name": "Section 1719947858693",
+            "fields": [
+              {
+                "_id": 1719947858693,
+                "name": "courses",
+                "type": "checkbox",
+                "value": "[ml,ai,webdev]",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947858693,
+                "name": "courses",
+                "type": "checkbox",
+                "value": "[ml,ai,webdev]",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947858693,
+                "name": "courses",
+                "type": "checkbox",
+                "value": "[ml,ai,webdev]",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947858693,
+                "name": "courses",
+                "type": "checkbox",
+                "value": "[ml,ai,webdev]",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719948008156,
+                "name": "Enter your group name",
+                "type": "text",
+                "value": "Enter group name",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          },
+          {
+            "_id": 1719947922837,
+            "name": "Team Members",
+            "fields": [
+              {
+                "_id": 1719947922838,
+                "name": "Enter 1st Member Name",
+                "type": "text",
+                "value": "Enter Member Name",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922839,
+                "name": "Enter 1st Member Email",
+                "type": "text",
+                "value": "Enter Email",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922840,
+                "name": "Enter 1st Member Roll Number",
+                "type": "number",
+                "value": "Enter Roll Number",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922841,
+                "name": "Enter 2nd Member Name",
+                "type": "text",
+                "value": "Enter Member Name",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922842,
+                "name": "Enter 2nd Member Email",
+                "type": "text",
+                "value": "Enter Email",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922843,
+                "name": "Enter 2nd Member Roll Number",
+                "type": "number",
+                "value": "Enter Roll Number",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          },
+          {
+            "name": "Section 1719948163847",
+            "_id": 1719948163847,
+            "fields": [
+              {
+                "_id": 1719948163847,
+                "name": "review",
+                "type": "number",
+                "value": "enter the review",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "info": {
+            "eventName": "Blitz Battle2",
+            "imageURL": "https://cdn.builder.io/api/v1/image/assets/TEMP/d12862ae94db7f4c1a27971143bd81d9a7fb60f50f4151f6f4b2ed8c1ee3eb23?apiKey=4aa0ae1a0e814437847f3f8ff6c4ef38&width=800",
+            "eventDate": "2024-07-27T18:30:00.000Z",
+            "eventType": "Paid",
+            "eventPrice": "500",
+            "regDateAndTime": "2024-08-04T18:18:00",
+            "registrationClosed": true,
+            "ongoingEvent": true,
+            "participationType": "Team",
+            "maxSize": 4,
+            "minSize": 2,
+            "priority": "1",
+            "description": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario.",
+            "successMessage": "Thanks for registering for this event",
+            "maxReg": "4"
+        },
+        "sections": [
+          {
+            "_id": 1719947858693,
+            "name": "Section 1719947858693",
+            "fields": [
+              {
+                "_id": 1719947858693,
+                "name": "courses",
+                "type": "checkbox",
+                "value": "[ml,ai,webdev]",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719948008156,
+                "name": "Enter your group name",
+                "type": "text",
+                "value": "Enter group name",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          },
+          {
+            "_id": 1719947922837,
+            "name": "Team Members",
+            "fields": [
+              {
+                "_id": 1719947922838,
+                "name": "Enter 1st Member Name",
+                "type": "text",
+                "value": "Enter Member Name",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922839,
+                "name": "Enter 1st Member Email",
+                "type": "text",
+                "value": "Enter Email",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922840,
+                "name": "Enter 1st Member Roll Number",
+                "type": "number",
+                "value": "Enter Roll Number",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922841,
+                "name": "Enter 2nd Member Name",
+                "type": "text",
+                "value": "Enter Member Name",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922842,
+                "name": "Enter 2nd Member Email",
+                "type": "text",
+                "value": "Enter Email",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922843,
+                "name": "Enter 2nd Member Roll Number",
+                "type": "number",
+                "value": "Enter Roll Number",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          },
+          {
+            "name": "Section 1719948163847",
+            "_id": 1719948163847,
+            "fields": [
+              {
+                "_id": 1719948163847,
+                "name": "review",
+                "type": "number",
+                "value": "enter the review",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "info": {
+          "eventName": "Blitz Battle3",
+          "imageURL": "https://cdn.builder.io/api/v1/image/assets/TEMP/d12862ae94db7f4c1a27971143bd81d9a7fb60f50f4151f6f4b2ed8c1ee3eb23?apiKey=4aa0ae1a0e814437847f3f8ff6c4ef38&width=800",
+          "eventDate": "2024-07-27T18:30:00.000Z",
+          "eventType": "Paid",
+          "eventPrice": "500",
+          "regDateAndTime": "2024-08-04T18:18:00",
+          "registrationClosed": true,
+          "ongoingEvent":false,
+          "participationType": "Team",
+          "maxSize": 4,
+          "minSize": 2,
+          "priority": "1",
+          "description": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario.",
+          "successMessage": "Thanks for registering for this event",
+          "maxReg": "4"
+        },
+        "sections": [
+          {
+            "_id": 1719947858693,
+            "name": "Section 1719947858693",
+            "fields": [
+              {
+                "_id": 1719947858693,
+                "name": "courses",
+                "type": "checkbox",
+                "value": "[ml,ai,webdev]",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719948008156,
+                "name": "Enter your group name",
+                "type": "text",
+                "value": "Enter group name",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          },
+          {
+            "_id": 1719947922837,
+            "name": "Team Members",
+            "fields": [
+              {
+                "_id": 1719947922838,
+                "name": "Enter 1st Member Name",
+                "type": "text",
+                "value": "Enter Member Name",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922839,
+                "name": "Enter 1st Member Email",
+                "type": "text",
+                "value": "Enter Email",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922840,
+                "name": "Enter 1st Member Roll Number",
+                "type": "number",
+                "value": "Enter Roll Number",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922841,
+                "name": "Enter 2nd Member Name",
+                "type": "text",
+                "value": "Enter Member Name",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922842,
+                "name": "Enter 2nd Member Email",
+                "type": "text",
+                "value": "Enter Email",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922843,
+                "name": "Enter 2nd Member Roll Number",
+                "type": "number",
+                "value": "Enter Roll Number",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          },
+          {
+            "name": "Section 1719948163847",
+            "_id": 1719948163847,
+            "fields": [
+              {
+                "_id": 1719948163847,
+                "name": "review",
+                "type": "number",
+                "value": "enter the review",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "info": {
+          "eventName": "Blitz Battle4",
+          "imageURL": "https://cdn.builder.io/api/v1/image/assets/TEMP/d12862ae94db7f4c1a27971143bd81d9a7fb60f50f4151f6f4b2ed8c1ee3eb23?apiKey=4aa0ae1a0e814437847f3f8ff6c4ef38&width=800",
+          "eventDate": "2024-07-27T18:30:00.000Z",
+          "eventType": "Paid",
+          "eventPrice": "500",
+          "regDateAndTime": "2024-08-04T18:18:00",
+          "registrationClosed": true,
+          "ongoingEvent": true,
+          "participationType": "Team",
+          "maxSize": 4,
+          "minSize": 2,
+          "priority": "1",
+          "description": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario.",
+          "successMessage": "Thanks for registering for this event",
+          "maxReg": "4"
+        },
+        "sections": [
+          {
+            "_id": 1719947858693,
+            "name": "Section 1719947858693",
+            "fields": [
+              {
+                "_id": 1719947858693,
+                "name": "courses",
+                "type": "checkbox",
+                "value": "[ml,ai,webdev]",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719948008156,
+                "name": "Enter your group name",
+                "type": "text",
+                "value": "Enter group name",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          },
+          {
+            "_id": 1719947922837,
+            "name": "Team Members",
+            "fields": [
+              {
+                "_id": 1719947922838,
+                "name": "Enter 1st Member Name",
+                "type": "text",
+                "value": "Enter Member Name",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922839,
+                "name": "Enter 1st Member Email",
+                "type": "text",
+                "value": "Enter Email",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922840,
+                "name": "Enter 1st Member Roll Number",
+                "type": "number",
+                "value": "Enter Roll Number",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922841,
+                "name": "Enter 2nd Member Name",
+                "type": "text",
+                "value": "Enter Member Name",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922842,
+                "name": "Enter 2nd Member Email",
+                "type": "text",
+                "value": "Enter Email",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922843,
+                "name": "Enter 2nd Member Roll Number",
+                "type": "number",
+                "value": "Enter Roll Number",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          },
+          {
+            "name": "Section 1719948163847",
+            "_id": 1719948163847,
+            "fields": [
+              {
+                "_id": 1719948163847,
+                "name": "review",
+                "type": "number",
+                "value": "enter the review",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "5",
+        "info": {
+          "eventName": "Blitz Battle5",
+          "imageURL": "https://cdn.builder.io/api/v1/image/assets/TEMP/d12862ae94db7f4c1a27971143bd81d9a7fb60f50f4151f6f4b2ed8c1ee3eb23?apiKey=4aa0ae1a0e814437847f3f8ff6c4ef38&width=800",
+          "eventDate": "2024-07-27T18:30:00.000Z",
+          "eventType": "Paid",
+          "eventPrice": "500",
+          "regDateAndTime": "2024-08-04T18:18:00",
+          "registrationClosed": true,
+          "ongoingEvent": false,
+          "participationType": "Team",
+          "maxSize": 4,
+          "minSize": 2,
+          "priority": "1",
+          "description": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario.",
+          "successMessage": "Thanks for registering for this event",
+          "maxReg": "4"
+        },
+        "sections": [
+          {
+            "_id": 1719947858693,
+            "name": "Section 1719947858693",
+            "fields": [
+              {
+                "_id": 1719947858693,
+                "name": "courses",
+                "type": "checkbox",
+                "value": "[ml,ai,webdev]",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719948008156,
+                "name": "Enter your group name",
+                "type": "text",
+                "value": "Enter group name",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          },
+          {
+            "_id": 1719947922837,
+            "name": "Team Members",
+            "fields": [
+              {
+                "_id": 1719947922838,
+                "name": "Enter 1st Member Name",
+                "type": "text",
+                "value": "Enter Member Name",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922839,
+                "name": "Enter 1st Member Email",
+                "type": "text",
+                "value": "Enter Email",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922840,
+                "name": "Enter 1st Member Roll Number",
+                "type": "number",
+                "value": "Enter Roll Number",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922841,
+                "name": "Enter 2nd Member Name",
+                "type": "text",
+                "value": "Enter Member Name",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922842,
+                "name": "Enter 2nd Member Email",
+                "type": "text",
+                "value": "Enter Email",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922843,
+                "name": "Enter 2nd Member Roll Number",
+                "type": "number",
+                "value": "Enter Roll Number",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          },
+          {
+            "name": "Section 1719948163847",
+            "_id": 1719948163847,
+            "fields": [
+              {
+                "_id": 1719948163847,
+                "name": "review",
+                "type": "number",
+                "value": "enter the review",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "6",
+        "info": {
+          "eventName": "Blitz Battle6",
+          "imageURL": "https://cdn.builder.io/api/v1/image/assets/TEMP/d12862ae94db7f4c1a27971143bd81d9a7fb60f50f4151f6f4b2ed8c1ee3eb23?apiKey=4aa0ae1a0e814437847f3f8ff6c4ef38&width=800",
+          "eventDate": "2024-07-27T18:30:00.000Z",
+          "eventType": "Paid",
+          "eventPrice": "500",
+          "regDateAndTime": "2024-08-04T18:18:00",
+          "registrationClosed": true,
+          "ongoingEvent": false,
+          "participationType": "Team",
+          "maxSize": 4,
+          "minSize": 2,
+          "priority": "1",
+          "description": "BIZZ-BATTLE is an engaging business challenge event designed for aspiring business leaders. It consists of three rounds, each aimed at testing participant's knowledge, agility, and strategic acumen. The event begins with Round 1, a business quiz featuring questions to assess the depth of participant's knowledge. Teams that excel in this round move forward to Round 2, a thrilling treasure hunt where they must find answers to a set of riddles on campus. The most accurate teams then progress to the final round, Round 3, where they are presented with a real-world business scenario.",
+           "successMessage": "Thanks for registering for this event",
+          "maxReg": "4"
+        },
+        "sections": [
+          {
+            "_id": 1719947858693,
+            "name": "Section 1719947858693",
+            "fields": [
+              {
+                "_id": 1719947858693,
+                "name": "courses",
+                "type": "checkbox",
+                "value": "[ml,ai,webdev]",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719948008156,
+                "name": "Enter your group name",
+                "type": "text",
+                "value": "Enter group name",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          },
+          {
+            "_id": 1719947922837,
+            "name": "Team Members",
+            "fields": [
+              {
+                "_id": 1719947922838,
+                "name": "Enter 1st Member Name",
+                "type": "text",
+                "value": "Enter Member Name",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922839,
+                "name": "Enter 1st Member Email",
+                "type": "text",
+                "value": "Enter Email",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922840,
+                "name": "Enter 1st Member Roll Number",
+                "type": "number",
+                "value": "Enter Roll Number",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922841,
+                "name": "Enter 2nd Member Name",
+                "type": "text",
+                "value": "Enter Member Name",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922842,
+                "name": "Enter 2nd Member Email",
+                "type": "text",
+                "value": "Enter Email",
+                "isRequired": true,
+                "validations": []
+              },
+              {
+                "_id": 1719947922843,
+                "name": "Enter 2nd Member Roll Number",
+                "type": "number",
+                "value": "Enter Roll Number",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          },
+          {
+            "name": "Section 1719948163847",
+            "_id": 1719948163847,
+            "fields": [
+              {
+                "_id": 1719948163847,
+                "name": "review",
+                "type": "number",
+                "value": "enter the review",
+                "isRequired": true,
+                "validations": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+
+}
+     
