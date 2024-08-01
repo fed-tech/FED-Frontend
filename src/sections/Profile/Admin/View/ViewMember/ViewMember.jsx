@@ -13,9 +13,7 @@ function ViewMember() {
   const [access, setAccess] = useState([]);
   const [selectedMember, setSelectedMember] = useState(null);
   const authCtx = useContext(AuthContext);
-  const [enablingUpdate,setenbale]=useState(false);
-
-
+  const [enablingUpdate, setEnbale] = useState(false);
 
   useEffect(() => {
     // Fetch member data using axios
@@ -42,7 +40,7 @@ function ViewMember() {
           !["ADMIN", "USER", "PRESIDENT", "VICEPRESIDENT"].includes(accessType) &&
           !accessType.startsWith("DIRECTOR_")
         ));
-        
+
         // Adding "Directors" and "Add Member" to the filteredAccess array
         filteredAccess.push("Directors", "Add Member");
 
@@ -108,13 +106,9 @@ function ViewMember() {
     teamMemberBack: styles.teamMemberBackCustom,
   };
 
-  // const handleUpdate = (name, role, title) => {
-  //   console.log(`Update member: ${name}, ${role}, ${title}`);
-  // };
-
   const handleUpdate = member => {
     setMemberActivePage("Add Member");
-    setenbale(true);
+    setEnbale(true);
   };
 
   const handleRemove = async member => {
@@ -125,10 +119,6 @@ function ViewMember() {
       console.error("Error removing member:", error);
     }
   };
-
-  // const handleRemove = (name, role, title) => {
-  //   console.log(`Remove member: ${name}, ${role}, ${title}`);
-  // };
 
   const membersToDisplay = getMembersByPage();
 
@@ -159,6 +149,7 @@ function ViewMember() {
                   customStyles={customStyles}
                   onUpdate={handleUpdate}
                   onRemove={handleRemove}
+                  showSkeletonLoader={false} // Disable skeleton loader
                 />
               ))}
             </div>

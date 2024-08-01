@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Blurhash } from 'react-blurhash';
 import styles from './styles/LiveEventPopup.module.scss';
 import eventData from '../../../../data/eventData.json';
 
@@ -9,6 +10,8 @@ const LiveEventPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isEventOngoing, setIsEventOngoing] = useState(false);
   const [eventImage, setEventImage] = useState('');
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
 
   useEffect(() => {
     const fetchEventData = async () => {
@@ -25,7 +28,7 @@ const LiveEventPopup = () => {
           const timer = setTimeout(() => {
             setIsVisible(true);
             popupCount++;
-          }, 2500);
+          }, 100);
 
           return () => clearTimeout(timer);
         } else {
@@ -63,7 +66,24 @@ const LiveEventPopup = () => {
         <div className={`${styles.popup} ${isVisible ? styles.fadeIn : ''}`}>
           <div className={styles.popupContent}>
             <button className={styles.closeButton} onClick={closePopup}>×</button>
-            <a href="/Events"><img src={eventImage} alt="Event" /></a>
+            <a href="/Events">
+              {!isImageLoaded && (
+                <Blurhash
+                  hash="L6AcVvDi56n$C,T0IUbF{K-pNG%M"
+                  width={600} // here change will be done...adjust as needed
+                  height={350} // adjust as needed
+                  resolutionX={32}
+                  resolutionY={32}
+                  punch={1}
+                />
+              )}
+              <img
+                src={eventImage}
+                alt="Event"
+                style={{ display: isImageLoaded ? 'block' : 'none' }}
+                onLoad={() => setIsImageLoaded(true)}
+              />
+            </a>
           </div>
         </div>
       )}

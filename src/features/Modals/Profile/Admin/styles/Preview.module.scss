@@ -1,6 +1,5 @@
 .mainPreview {
   display: flex;
-
   flex-direction: column;
   top: 0;
   left: 0;
@@ -16,18 +15,19 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  background: #2e2e2e;
+  background: linear-gradient(90deg, rgba(32, 32, 32, 1) -11.52%, rgba(37, 37, 37, 1) 106.29%);
   border-radius: 10px;
-  width: 70%;
+  width: 40%;
   padding: 1.6em;
-  height: 90%;
+  height: 85%;
   margin: auto;
   z-index: 100;
   overflow-y: scroll;
+  border: 1.2px solid rgba(214, 214, 214, 0.81);
 }
 
 .previewContainer::-webkit-scrollbar {
-  width: 6px;
+  width: 3px;
 }
 .previewContainer::-webkit-scrollbar-thumb {
   background: #888;
@@ -39,7 +39,7 @@
 
 .closeBtn{
   position: absolute;
-  width: 65%;
+  width: 36%;
   display: flex;
   justify-content: flex-end;
   color: #fff;

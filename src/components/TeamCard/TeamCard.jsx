@@ -1,48 +1,61 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
 import { Blurhash } from 'react-blurhash';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import styles from './styles/TeamCard.module.scss';
 import TeamCardSkeleton from '../../layouts/Skeleton/TeamCard/TeamCard';
 import { Button } from '../Core';
-import AuthContext from '../../context/AuthContext';
 
 const TeamCard = ({
   name,
   image,
   social,
   title,
-  data,
   role,
   know,
   customStyles = {},
   onUpdate,
   onRemove,
+  aosDisable,
+  showSkeletonLoader = true, // New prop with default value true
 }) => {
   const [showMore, setShowMore] = useState(false);
-  const [contentLoaded, setContentLoaded] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const [showSkeleton, setShowSkeleton] = useState(true);
+  const [showSkeleton, setShowSkeleton] = useState(showSkeletonLoader);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    if (aosDisable) {
+      AOS.init({ disable: true });
+    } else {
+      AOS.init({ duration: 2000 });
+    }
+  }, [aosDisable]);
+
+  useEffect(() => {
+    if (showSkeletonLoader) {
+      const timer = setTimeout(() => {
+        setShowSkeleton(false);
+      }, 2000); // Show skeleton for 2 seconds
+
+      return () => clearTimeout(timer);
+    } else {
       setShowSkeleton(false);
-    }, 2000); // Show skeleton for 2 seconds
+    }
+  }, [showSkeletonLoader]);
 
-    return () => clearTimeout(timer);
-  }, []);
-  const authCtx = useContext(AuthContext);
-
-  const isDirectorRole =
-    ['PRESIDENT', 'VICEPRESIDENT'].includes(role) || role.startsWith('DIRECTOR_');
+  const isDirectorRole = ['PRESIDENT', 'VICEPRESIDENT'].includes(role) || role.startsWith('DIRECTOR_');
 
   const handleImageLoad = () => {
     setIsImageLoaded(true);
   };
-  console.log(data);
 
   return (
-    <div className={`${styles.teamMember} ${customStyles.teamMember || ''}`}>
+    <div
+      className={`${styles.teamMember} ${customStyles.teamMember || ''}`}
+      data-aos={aosDisable ? '' : 'fade-up'}
+    >
       {showSkeleton && <TeamCardSkeleton customStyles={customStyles} />}
       <div className={styles.teamMemberInner} style={{ display: showSkeleton ? 'none' : 'block' }}>
         <div className={`${styles.teamMemberFront} ${customStyles.teamMemberFront || ''}`}>
@@ -73,7 +86,10 @@ const TeamCard = ({
         <div className={`${styles.teamMemberBack} ${customStyles.teamMemberBack || ''}`}>
           {!showMore ? (
             <>
-              <h5 className={`${styles.teamMemberBackh5} ${customStyles.teamMemberBackh5 || ''}`} style={{ color: '#fff' }}>
+              <h5
+                className={`${styles.teamMemberBackh5} ${customStyles.teamMemberBackh5 || ''}`}
+                style={{ color: '#fff' }}
+              >
                 {title}
               </h5>
               <div className={`${styles.socialLinks} ${customStyles.socialLinks || ''}`}>
@@ -107,19 +123,10 @@ const TeamCard = ({
                   Know More
                 </button>
               )}
-            { onUpdate && authCtx.user.access==="ADMIN"  && <div className={`${styles.updatebtn} ${customStyles.updatebtn || ''}`}>
-                <Button  onClick={(e) => {
-              e.preventDefault();
-              if (onUpdate) {
-              console.log(data);
-                authCtx.memberData = data;
-                onUpdate();
-              }
-            }}>
-                  Update</Button>
+              <div className={`${styles.updatebtn} ${customStyles.updatebtn || ''}`}>
+                <Button onClick={() => onUpdate(name, role, title)}>Update</Button>
                 <Button onClick={() => onRemove(name, role, title)}>Remove</Button>
               </div>
-}
             </>
           ) : (
             <div className={`${styles.knowMoreContent} ${customStyles.knowMoreContent || ''}`}>
@@ -154,6 +161,8 @@ TeamCard.propTypes = {
   customStyles: PropTypes.object,
   onUpdate: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
+  aosDisable: PropTypes.bool,
+  showSkeletonLoader: PropTypes.bool, // New prop type
 };
 
 export default TeamCard;

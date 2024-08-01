@@ -277,7 +277,9 @@ const EventCard = (props) => {
                       {info.eventAmount}
                     </p>
                   ) : (
-                    <p style={{ color: "inherit" }}>Free</p>
+                    <p style={{ color: "inherit", 
+                                
+                    }}>Free</p>
                   )}
                 </div>
               </p>
