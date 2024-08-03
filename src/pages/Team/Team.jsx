@@ -26,7 +26,7 @@ const Team = () => {
         const response = await api.get("/api/user/fetchTeam");
 
         if (response.status === 200) {
-          setTeamMembers(response.data.data);
+          setTeamMembers(response.data);
         } else {
           console.error("Error fetching team members:", response.data.message);
           setError({

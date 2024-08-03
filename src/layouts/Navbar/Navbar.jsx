@@ -89,7 +89,7 @@ const Navbar = () => {
             <NavLink to="/profile" className="LinkStyle" onClick={closeMobileMenu}>
               <div className={styles.profileImgdiv}>
                 <img
-                  src={authCtx.user.img || defaultImg}
+                  src={authCtx.user.pic || defaultImg}
                   alt="Profile"
                   className={styles.profileImg}
                 />
@@ -150,7 +150,7 @@ const Navbar = () => {
               <NavLink to="/profile" className="LinkStyle" onClick={closeMobileMenu}>
                 <div className={styles.profileImgdiv}>
                   <img
-                    src={authCtx.user.img || defaultImg}
+                    src={authCtx.user.pic || defaultImg}
                     alt="Profile"
                     className={styles.profileImg}
                   />
