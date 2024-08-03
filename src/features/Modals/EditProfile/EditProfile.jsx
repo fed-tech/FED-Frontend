@@ -16,11 +16,11 @@ const EditProfile = ({ handleModalClose }) => {
 
   const [data, setData] = useState({
     name: authCtx.user.name,
-    rollNumber: authCtx.user.rollNumber,
+    rollNo: authCtx.user.rollNo,
     year: authCtx.user.year,
     school: authCtx.user.school,
     college: authCtx.user.college,
-    contactNo: authCtx.user.contactNo,
+    mobileNo: authCtx.user.mobileNo,
     github: authCtx.user.github,
     linkedin: authCtx.user.linkedin,
   });
@@ -47,11 +47,11 @@ const EditProfile = ({ handleModalClose }) => {
         authCtx.update(
           data.name,
           authCtx.user.email,
-          authCtx.user.img,
-          data.rollNumber,
+          authCtx.user.pic,
+          data.rollNo,
           data.school,
           data.college,
-          data.contactNo,
+          data.mobileNo,
           data.year,
           data.github,
           data.linkedin,
@@ -173,10 +173,10 @@ const EditProfile = ({ handleModalClose }) => {
                           }}
                           placeholder="Enter your roll"
                           type="number"
-                          value={data.rollNumber}
+                          value={data.rollNo}
                           className={styles.vals}
                           onChange={(e) =>
-                            setData({ ...data, rollNumber: e.target.value })
+                            setData({ ...data, rollNo: e.target.value })
                           }
                         />
                       </div>
@@ -249,9 +249,9 @@ const EditProfile = ({ handleModalClose }) => {
                           }}
                           placeholder="Enter Phone number"
                           type="number"
-                          value={data.contactNo}
+                          value={data.mobileNo}
                           onChange={(e) =>
-                            setData({ ...data, contactNo: e.target.value })
+                            setData({ ...data, mobileNo: e.target.value })
                           }
                           className={styles.vals}
                         />

@@ -54,7 +54,7 @@ const Profile = ({ editmodal }) => {
                 </tr>
                 <tr>
                   <td className={styles.dets}>Roll Number</td>
-                  <td className={styles.vals}>{authCtx.user.rollNumber}</td>
+                  <td className={styles.vals}>{authCtx.user.rollNo}</td>
                 </tr>
                 <tr>
                   <td className={styles.dets}>Year</td>
@@ -70,7 +70,7 @@ const Profile = ({ editmodal }) => {
                 </tr>
                 <tr>
                   <td className={styles.dets}>Mobile No</td>
-                  <td className={styles.vals}>{authCtx.user.contactNo}</td>
+                  <td className={styles.vals}>{authCtx.user.mobileNo}</td>
                 </tr>
                 {authCtx.user.access !== "USER" && (
                   <>
