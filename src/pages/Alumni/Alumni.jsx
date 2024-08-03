@@ -18,13 +18,10 @@ const Alumni = () => {
   useEffect(() => {
     const fetchAlumni = async () => {
       try {
-        const response = await api.get("/api/user/fetchTeam");
+        const response = await api.get("/api/user/fetchAlumni");
 
         if (response.status === 200) {
-          const fileteredAlumni = response.data.filter(
-            (member) => member.access === "ALUMNI"
-          );
-          setAlumni(fileteredAlumni);
+          setAlumni(response.data.data);
         } else {
           console.error("Error fetching our Alumnis:", response.data.message);
           // using local JSON data

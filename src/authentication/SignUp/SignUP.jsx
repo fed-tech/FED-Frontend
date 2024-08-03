@@ -10,6 +10,7 @@ import OtpInputModal from "../../features/Modals/authentication/OtpInputModal";
 import { Alert, MicroLoading } from "../../microInteraction";
 import { RecoveryContext } from "../../context/RecoveryContext";
 import { api } from "../../services";
+import AuthContext from "../../context/AuthContext";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -22,16 +23,17 @@ const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [shouldNavigate, setShouldNavigate] = useState(false);
   const [navigatePath, setNavigatePath] = useState("/");
+  const authCtx = useContext(AuthContext);
 
   const [showUser, setUser] = useState({
     email: "",
     Password: "",
     FirstName: "",
     LastName: "",
-    RollNumber: "",
-    School: "",
-    College: "",
-    MobileNo: "+91",
+    rollNumber: "",
+    school: "",
+    college: "",
+    contactNo: "+91",
     year: "",
   });
 
@@ -67,10 +69,10 @@ const SignUp = () => {
       Password,
       FirstName,
       LastName,
-      RollNumber,
-      School,
-      College,
-      MobileNo,
+      rollNumber,
+      school,
+      college,
+      contactNo,
       year,
     } = showUser;
 
@@ -79,12 +81,12 @@ const SignUp = () => {
 
     if (
       name !== "" &&
-      RollNumber !== "" &&
-      School !== "" &&
-      College !== "" &&
-      MobileNo !== "" &&
-      MobileNo.length <= 12 &&
-      MobileNo.length >= 10 &&
+      rollNumber !== "" &&
+      school !== "" &&
+      college !== "" &&
+      contactNo !== "" &&
+      contactNo.length <= 12 &&
+      contactNo.length >= 10 &&
       email !== "" &&
       Password !== "" &&
       year !== "" &&
@@ -96,54 +98,98 @@ const SignUp = () => {
         name,
         email,
         password,
-        RollNumber,
-        School,
-        College,
-        MobileNo,
+        rollNumber,
+        school,
+        college,
+        contactNo,
         year,
       };
 
       setUserObject(user);
 
-      if (email) {
-        setEmail(email);
-        // if (!emailRegex.test(email)) {
-        // toast.error("please enter a valid email address");
-        //   return;
-        // }
+      try {
+        const response = await api.post('/api/auth/verifyEmail',
+          { email: user.email },
+          { headers: { 'Content-Type': 'application/json' } }
+        );
+
+        if (response.status === 200 || response.status === 201) {
+          console.log("otp generated", response);
+          // setAlert(
+          //   {
+          //   type: "success",
+          //   message: "Otp Sent to Email",
+          //   position: "bottom-right",
+          //   duration: 3000,}
+          // )
+          setShowModal(true);
+        } else {
+          console.log("failed to generate Otp");
+          // setAlert(
+          //   {
+          //   type: "error",
+          //   message:response.data.message|| "error in sending otp",
+          //   position: "bottom-right",
+          //   duration: 3000,}
+          // )
+        }
+
+      } catch (error) {
+        // setAlert(
+        //   {
+        //   type: "error",
+        //   message: "Failed to send OTP. Please try again.",
+        //   position: "bottom-right",
+        //   duration: 3000,}
+        // );
+        console.log("otp from frontend")
         const OTP = Math.floor(Math.random() * 9000 + 1000);
-        console.log(OTP);
-        // setOTP(OTP); // Set OTP in context and local storage
-
-        // setLoading(true);
-
-        // await axios.post('/api/send_otp', { email: user.email, OTP: generatedOTP });
+        setOTP(OTP);
         setShowModal(true);
-        console.log(showModal);
-
-        // navigate('/otp')
-        // setLoading(false);
-
-        // axios
-        //   .post("http://localhost:5000/send_recovery_email", { OTP, recipient_email: email })
-        //   .then(() => {
-        //     setPage("otp");
-        //     toast.success("otp is sent to your email")
-        //     setLoading(false);
-        //   })
-        //   .catch(error => {
-        //     console.error("Error sending recovery email:", error);
-        //     alert("Failed to send recovery email. Please try again later.");
-        //     setLoading(false);
-        //   });
-      } else {
-        setAlert({
-          type: "error",
-          message: "Enter a Valid Email Address",
-          position: "bottom-right",
-          duration: 3000,
-        });
       }
+      finally {
+        setIsLoading(false);
+      }
+
+      // if (email) {
+      //   setEmail(email);
+      //   // if (!emailRegex.test(email)) {
+      //   // toast.error("please enter a valid email address");
+      //   //   return;
+      //   // }
+      //   const OTP = Math.floor(Math.random() * 9000 + 1000);
+      //   console.log(OTP);
+      //   // setOTP(OTP); // Set OTP in context and local storage
+
+      //   // setLoading(true);
+
+      //   // await axios.post('/api/send_otp', { email: user.email, OTP: generatedOTP });
+      //   setShowModal(true);
+      //   console.log(showModal);
+
+      //   // navigate('/otp')
+      //   // setLoading(false);
+
+      //   // axios
+      //   //   .post("http://localhost:5000/send_recovery_email", { OTP, recipient_email: email })
+      //   //   .then(() => {
+      //   //     setPage("otp");
+      //   //     toast.success("otp is sent to your email")
+      //   //     setLoading(false);
+      //   //   })
+      //   //   .catch(error => {
+      //   //     console.error("Error sending recovery email:", error);
+      //   //     alert("Failed to send recovery email. Please try again later.");
+      //   //     setLoading(false);
+      //   //   });
+      // } else {
+      //   setAlert({
+      //     type: "error",
+      //     message: "Enter a Valid Email Address",
+      //     position: "bottom-right",
+      //     duration: 3000,
+      //   });
+      // }
     } else {
       setAlert({
         type: "error",
@@ -163,23 +209,84 @@ const SignUp = () => {
     }
   };
 
+  // const handleVerifyOTP = async (enteredOTP) => {
+  //   console.log(userObject);
+  //   console.log(enteredOTP);
+  //   // console.log(password);
+  //   console.log(enteredOTP === String(OTP));
+  //   setShowModal(false);
+  //   navigate("/profile");
+  //   if (enteredOTP === String(OTP)) {
+  //     try {
+  //       // const response = await axios.post('/api/verify_otp_signup', { email, OTP: enteredOTP, password,data:userObject });
+  //       // console.log(response);
+  //       // if (response.status == 200) {
+  //       //   setLoad(false);
+  //       //   console.log("verifiatin Link has been sent");
+  //       // }
+  //     } catch (error) {
+  //       //  setLoad(false);
+  //       // if (error.response.data.code === 1) {
+  //       //   console.log("user already axist");
+  //       //   return;
+  //       // }
+  //       // if (error.response.data.code === 2) {
+  //       //   console.log("invalid email format");
+  //       //   return;
+  //       // } else {
+  //       //   console.log("An unexpected error occured");
+  //       //   return;
+  //       // }
+  //     }
+
+  //     // Handle successful verification
+  //   } else {
+  //     // Handle incorrect OTP
+  //   }
+  // };
   const handleVerifyOTP = async (enteredOTP) => {
-    console.log(userObject);
-    console.log(enteredOTP);
+    // console.log(userObject);
+    // console.log(enteredOTP);
     // console.log(password);
-    console.log(enteredOTP === String(OTP));
-    setShowModal(false);
-    navigate("/profile");
-    if (enteredOTP === String(OTP)) {
+    // console.log(enteredOTP === String(OTP))
+    // setShowModal(false);
+
+    if (enteredOTP) {
+      console.log(userObject);
+      console.log(enteredOTP);
       try {
-        // const response = await axios.post('/api/verify_otp_signup', { email, OTP: enteredOTP, password,data:userObject });
-        // console.log(response);
-        // if (response.status == 200) {
-        //   setLoad(false);
-        //   console.log("verifiatin Link has been sent");
-        // }
+        const response = await api.post('/api/auth/register', { ...userObject, otp: enteredOTP });
+
+        if (response.status == 200 || response.status == 201) {
+
+          // setLoad(false);
+          console.log(response);
+          authCtx.login(
+            response.data.user.name,
+            response.data.user.email,
+            response.data.user.img,
+            response.data.user.rollNumber,
+            response.data.user.school,
+            response.data.user.college,
+            response.data.user.contactNo,
+            response.data.user.year,
+            response.data.user.extra?.github,
+            response.data.user.extra?.linkedin,
+            response.data.user.extra?.designation,
+            response.data.user.regForm,
+            response.data.user.access,
+            response.data.token,
+            10800000
+          );
+          console.log(authCtx);
+          navigate('/profile');
+
+
+        }
       } catch (error) {
+        console.log(error);
         //  setLoad(false);
+
         // if (error.response.data.code === 1) {
         //   console.log("user already axist");
         //   return;
@@ -195,10 +302,9 @@ const SignUp = () => {
 
       // Handle successful verification
     } else {
-      // Handle incorrect OTP
+      console.log("Enter valid Otp");
     }
   };
-
   const handleModalClose = () => {
     setShowModal(false);
   };
@@ -297,7 +403,7 @@ const SignUp = () => {
                     type="text"
                     placeholder="1234567890"
                     label="Mobile"
-                    name="MobileNo"
+                    name="contactNo"
                     onChange={(e) => DataInp(e.target.name, e.target.value)}
                     required
                     style={{ width: "96%" }}
@@ -316,9 +422,9 @@ const SignUp = () => {
                 <div style={{ width: "46%" }}>
                   <Input
                     type="select"
-                    placeholder="College Name"
-                    label="College"
-                    name="College"
+                    placeholder="college Name"
+                    label="college"
+                    name="college"
                     className={styles.input}
                     options={[
                       {
@@ -326,8 +432,8 @@ const SignUp = () => {
                         value: "Kalinga Institute of Industrial Technology",
                       },
                     ]}
-                    value={showUser.College}
-                    onChange={(value) => DataInp("College", value)}
+                    value={showUser.college}
+                    onChange={(value) => DataInp("college", value)}
                     required
                     style={{ width: "96%" }}
                   />
@@ -337,7 +443,7 @@ const SignUp = () => {
                     type="text"
                     placeholder="School"
                     label="School"
-                    name="School"
+                    name="school"
                     className={styles.input}
                     onChange={(e) => DataInp(e.target.name, e.target.value)}
                     required
@@ -378,7 +484,7 @@ const SignUp = () => {
                     type="text"
                     placeholder="Roll Number"
                     label="Roll Number"
-                    name="RollNumber"
+                    name="rollNumber"
                     onChange={(e) => DataInp(e.target.name, e.target.value)}
                     required
                     style={{ width: "96%" }}

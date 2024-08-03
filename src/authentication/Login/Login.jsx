@@ -60,7 +60,7 @@ const Login = () => {
       const response = await api.post("/api/auth/login", { email, password });
 
       if (response.status === 200 || response.status === 201) {
-        const user = response.data;
+        const user = response.data.user;
 
         setAlert({
           type: "success",
@@ -79,15 +79,15 @@ const Login = () => {
           authCtx.login(
             user.name,
             user.email,
-            user.pic,
-            user.rollNo,
+            user.img,
+            user.rollNumber,
             user.school,
             user.college,
-            user.mobileNo,
+            user.contactNo,
             user.year,
-            user.github,
-            user.linkedin,
-            user.designation,
+            user.extra?.github,
+            user.extra?.linkedin,
+            user.extra?.designation,
             user.regForm,
             user.access,
             "someToken",
@@ -136,11 +136,11 @@ const Login = () => {
           authCtx.login(
             user.name,
             user.email,
-            user.pic,
-            user.rollNo,
+            user.img,
+            user.rollNumber,
             user.school,
             user.college,
-            user.mobileNo,
+            user.contactNo,
             user.year,
             user.github,
             user.linkedin,

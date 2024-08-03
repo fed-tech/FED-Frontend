@@ -19,10 +19,10 @@ function CompleteProfile() {
   const [showUser, setUser] = useState({
     email: "",
     name: "",
-    RollNumber: "",
-    School: "",
-    College: "",
-    MobileNo: "",
+    rollNumber: "",
+    school: "",
+    college: "",
+    contactNo: "",
     img: "",
     year: "",
   });
@@ -36,10 +36,10 @@ function CompleteProfile() {
 
   const validate = () => {
     const newErrors = {};
-    if (!showUser.RollNumber) newErrors.RollNumber = "Roll Number is required";
-    if (!showUser.School) newErrors.School = "School is required";
-    if (!showUser.College) newErrors.College = "College is required";
-    if (!showUser.MobileNo || !/^\d{10}$/.test(showUser.MobileNo)) newErrors.MobileNo = "Enter a valid 10-digit Mobile Number";
+    if (!showUser.rollNumber) newErrors.rollNumber = "Roll Number is required";
+    if (!showUser.school) newErrors.school = "School is required";
+    if (!showUser.college) newErrors.college = "college is required";
+    if (!showUser.contactNo || !/^\d{10}$/.test(showUser.contactNo)) newErrors.contactNo = "Enter a valid 10-digit Mobile Number";
     if (!year) newErrors.year = "Year is required";
 
     setErrors(newErrors);
@@ -77,16 +77,16 @@ function CompleteProfile() {
 
     setIsLoading(true);
 
-    const { RollNumber, School, College, MobileNo } = showUser;
+    const { rollNumber, school, college, contactNo } = showUser;
 
     const userObject = {
       name,
       email,
       img,
-      RollNumber,
-      School,
-      College,
-      MobileNo,
+      rollNumber,
+      school,
+      college,
+      contactNo,
       year,
     };
 
@@ -107,10 +107,10 @@ function CompleteProfile() {
             userObject.name,
             userObject.email,
             userObject.img,
-            userObject.RollNumber,
-            userObject.School,
-            userObject.College,
-            userObject.MobileNo,
+            userObject.rollNumber,
+            userObject.school,
+            userObject.college,
+            userObject.contactNo,
             userObject.year,
             userObject.github,
             userObject.linkedin,
@@ -175,11 +175,11 @@ function CompleteProfile() {
               type="text"
               placeholder="Enter Roll Number"
               label="Roll Number"
-              name="RollNumber"
+              name="rollNumber"
               onChange={(e) => setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }))}
               required
               style={{ width: "100%" }}
-              error={errors.RollNumber}
+              error={errors.rollNumber}
             />
 
             <Input
@@ -199,40 +199,40 @@ function CompleteProfile() {
               type="text"
               placeholder="Enter School"
               label="School"
-              name="School"
+              name="school"
               onChange={(e) => setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }))}
               required
               style={{ width: "100%" }}
-              error={errors.School}
+              error={errors.school}
             />
 
             <Input
               type="select"
-              placeholder="Select College"
+              placeholder="Select college"
               label="College"
-              name="College"
+              name="college"
               options={[
                 {
                   label: "Kalinga Institute of Industrial Technology",
                   value: "Kalinga Institute of Industrial Technology",
                 },
               ]}
-              value={showUser.College}
-              onChange={(value) => setUser((prev) => ({ ...prev, College: value }))}
+              value={showUser.college}
+              onChange={(value) => setUser((prev) => ({ ...prev, college: value }))}
               required
               style={{ width: "96%" }}
-              error={errors.College}
+              error={errors.college}
             />
 
             <Input
               type="number"
               placeholder="Enter Mobile Number"
               label="Mobile"
-              name="MobileNo"
+              name="contactNo"
               onChange={(e) => setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }))}
               required
               style={{ width: "100%" }}
-              error={errors.MobileNo}
+              error={errors.contactNo}
             />
 
             <div style={{ marginLeft: "8px" }}>

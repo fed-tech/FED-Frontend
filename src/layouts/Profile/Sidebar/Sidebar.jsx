@@ -130,7 +130,7 @@ const Sidebar = ({ activepage, handleChange }) => {
             onClick={() => handleChange("Profile")}
           >
             <img
-              src={imagePrv || authCtx.user.pic || defaultImg}
+              src={imagePrv || authCtx.user.img || defaultImg}
               alt="Profile"
               className={styles.profilePhoto}
             />

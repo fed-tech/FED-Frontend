@@ -29,7 +29,7 @@ const ContactForm = () => {
     };
 
     try {
-      const response = await api.post("/api/contact", data);
+      const response = await api.post("/api/form/contact", data);
 
       if (response.status === 200 || response.status === 201) {
         setAlert({
