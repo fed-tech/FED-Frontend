@@ -59,30 +59,79 @@ const Section = (props) => {
   };
 
   const onUpdateField = (field, property) => {
-    console.log("Updating field:", field, "with property:", property);
     const updatedSections = sections.map((sec) => {
       let updatedFields = sec.fields;
       if (section._id === sec._id) {
         updatedFields = sec.fields.map((fld) => {
           if (fld._id === field._id) {
-            // Print the current section ID
-            console.log("Current section ID:", section._id);
             return field;
           }
           return fld;
         });
       }
-      // Additional logic for updating validations...
-  
+      let updatedValidations = sec.validations;
+      if (property === "type") {
+        const { backSection, nextSection } = getOutboundList(
+          sections,
+          section._id
+        );
+
+        updatedValidations = updatedValidations?.map((valid) => {
+          if (valid.onNext === section._id) {
+            const nxtSec = getOutboundList(sections, sec._id)?.nextSection;
+            return {
+              ...valid,
+              onNext: nxtSec?._id || null,
+            };
+          }
+          if (valid.onBack === section._id) {
+            const backSec = getOutboundList(sections, sec._id)?.backSection;
+            return {
+              ...valid,
+              onBack: backSec?._id || null,
+            };
+          }
+          return valid;
+        });
+
+        if (nextSection) {
+          const nxtSec = getOutboundList(
+            sections,
+            nextSection._id
+          )?.nextSection;
+
+          if (nextSection.validations[0]) {
+            nextSection.validations[0].onNext = nxtSec?._id || null;
+          } else {
+            nextSection.validations.push({
+              _id: nanoid(),
+              field_id: null,
+              onNext: nxtSec?._id || null,
+              onBack: backSection?._id || null,
+              values: null,
+            });
+          }
+          // nextSection.validations[0].onNext = nxtSec?._id || null;
+        }
+
+        if (backSection) {
+          const backSec = getOutboundList(
+            sections,
+            backSection._id
+          )?.backSection;
+          backSection.validations[0].onBack = backSec?._id || null;
+        }
+      }
+
       return {
         ...sec,
         fields: updatedFields,
+        validations: updatedValidations,
       };
     });
-  
+
     setsections(updatedSections);
   };
-  
 
   const onRemoveField = (field) => {
     const isConfirm = confirm("Are you sure you want to delete this field?");
@@ -293,21 +342,20 @@ const Section = (props) => {
   };
 
   const handleChangeSectionValidation = (value, property, _id) => {
-    console.log("Changing validation for:", value, property, _id);
     const { backSection, nextSection } = getOutboundList(sections, section._id);
     let previousOnNextValue = null;
-  
+
     const updatedSections = sections.map((sec) => {
       if (sec._id === section._id) {
         if (property === "field_id") {
           const field = section.fields.find((fld) => fld._id === value);
           let secValidations = [section.validations[0]];
-  
+
           const options = field?.value
             ?.split(",")
             .map((val) => val.trim())
             .filter(Boolean);
-  
+
           options.forEach((val) => {
             secValidations.push({
               _id: nanoid(),
@@ -317,10 +365,7 @@ const Section = (props) => {
               values: val,
             });
           });
-  
-          // Print the next section ID when the field is changed
-          console.log("Next section ID:", nextSection?._id);
-  
+
           return {
             ...sec,
             validations: secValidations,
@@ -338,27 +383,46 @@ const Section = (props) => {
             }
             return valid;
           });
-  
-          // Print the section ID when setting onNext
-          if (property === "onNext") {
-            console.log("Next section ID set to:", value);
-          }
-  
+
           return {
             ...sec,
             validations: updatedValidations,
           };
         }
       }
-  
-      // Logic for handling other properties...
-  
-      return sec;
+
+      if (property === "onNext") {
+        if (sec._id === value) {
+          sec.validations[0].onBack = section._id;
+          sec.validations[0].onNext = null;
+        }
+
+        if (previousOnNextValue && sec._id === previousOnNextValue) {
+          const prvSection = getOutboundList(sections, sec._id)?.backSection;
+          sec.validations[0].onBack = prvSection ? prvSection._id : null;
+          sec.validations[0].onNext = null;
+        }
+      }
+
+      const updatedValidations = sec.validations.map((valid) => {
+        if (property === "field_id" && valid.onBack === section._id) {
+          const prvSection = getOutboundList(sections, sec._id)?.backSection;
+          return {
+            ...valid,
+            onBack: prvSection ? prvSection?._id : null,
+          };
+        }
+        return valid;
+      });
+
+      return {
+        ...sec,
+        validations: updatedValidations,
+      };
     });
-  
+
     setsections(updatedSections);
   };
-  
 
   const handleRemoveValidation = (_id) => {
     const newSections = sections.map((sec) => {
