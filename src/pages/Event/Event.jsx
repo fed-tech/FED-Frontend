@@ -272,8 +272,8 @@ const Event = () => {
                       <div>
                         <div className={style.name}>
                           <img className={style.ring2} src={ring} alt="ring" />
-                          <span className={style.w1}>Past</span>
-                          <span className={style.w2}>Events</span>
+                          <span className={style.w1Past}>Past</span>
+                          <span className={style.w2Past}>Events</span>
                         </div>
                         <div className={style.cardone}>
                           {displayedPastEvents.map((event, index) =>
