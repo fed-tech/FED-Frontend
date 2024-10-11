@@ -44,7 +44,7 @@
     cursor: pointer;
     position: absolute;
     right: 1rem;
-    top: 2rem;
+    top: 1rem;
     font-size: 1.2rem;
     color: white;
     z-index: 20;
@@ -82,9 +82,17 @@
 
   .registrationTitle{
     font-weight:bold;
-    margin-left:-3.5rem;
-    margin-top: -0.3rem;
+    margin-left:-2.5rem;
+    margin-top: -1.3rem;
     font-size:1.5rem;
+    background: linear-gradient(
+      260deg,
+      rgba(255, 190, 11, 0.84) -29.7%,
+      rgba(244, 43, 3, 0.84) 128.34%
+  ); 
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
   }
 
   @media (max-width:500px){
