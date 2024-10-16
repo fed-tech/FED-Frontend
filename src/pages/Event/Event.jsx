@@ -32,12 +32,12 @@ const Event = () => {
   const [eventName, setEventName] = useState("");
 
   useEffect(() => {
-    if (recoveryCtx.teamCode && recoveryCtx.teamName) {
+    if (recoveryCtx.teamCode && recoveryCtx.teamName || recoveryCtx.successMessage) {
       if (!isOpen) {
         setOpenModal(true);
       }
     }
-  }, [recoveryCtx.teamCode]);
+  }, [recoveryCtx.teamCode, recoveryCtx.successMessage]);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -100,10 +100,11 @@ const Event = () => {
   }, []);
 
   const handleShare = () => {
-    if (recoveryCtx.teamCode && recoveryCtx.teamName) {
-      const { setTeamCode, setTeamName } = recoveryCtx;
+    if (recoveryCtx.teamCode && recoveryCtx.teamName || recoveryCtx.successMessage) { //if error comes put recoveryCtx.successMessage in or and setSuccessMessage(null)
+      const { setTeamCode, setTeamName, setSuccessMessage } = recoveryCtx;
       setTeamCode(null);
-      setTeamName(null);
+      setTeamName(null); //have to check later on 
+      setSuccessMessage(null);
       setOpenModal(false);
     }
   };
@@ -163,6 +164,11 @@ const Event = () => {
   };
   console.log(teamCodeAndName);
 
+  const successMessage = {
+    successMessage: recoveryCtx.successMessage
+  };
+  console.log(successMessage);
+
   // Slice the pastEvents array to show only the first 4 events
   const displayedPastEvents = pastEvents.slice(0, 4);
 
@@ -170,7 +176,7 @@ const Event = () => {
     <>
       <ChatBot />
       {isOpen && (
-        <ShareTeamData onClose={handleShare} teamData={teamCodeAndName} />
+        <ShareTeamData onClose={handleShare} teamData={teamCodeAndName} successMessage={successMessage} />
       )}
       <div className={style.main}>
         <div style={{ display: "flex" }}>
