@@ -13,7 +13,7 @@ function About() {
         <div className={`${styles.box1} ${styles.boxflex}`}>
           <img className={styles.whyfedimg} src="https://uploads-ssl.webflow.com/663d299655b46de106de40d7/665730072a5e426c487dd8da_Frame%201000001327.svg" alt="" />
           <div className={`${styles.whyfed} ${styles.box}`}>
-              <p className={styles.boxhead}><span style={{ background: "var(--primary)", WebkitBackgroundClip: "text", color: "transparent" }}>Why</span> one should Join FED?</p>
+              <p className={styles.boxhead}><span style={{ background: "var(--primary)", WebkitBackgroundClip: "text", color: "transparent" }}>Why</span> one should join FED?</p>
             <div className={styles.boxinnertext}>
             <p>
             We aim to empower the  next generation of entrepreneurs 
