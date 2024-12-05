@@ -1,7 +1,7 @@
 name: "🐞 Bug Report"
 description: "Help us improve by submitting a detailed bug report."
-title: "Bug Report: [Provide a descriptive title]"
-labels: ["Bug", "Needs Triage"]
+title: "[Bug]: "
+labels: ["bug", "Needs Triage"]
 body:
   - type: textarea
     id: "bug_summary"
