@@ -49,10 +49,11 @@ const PreviewForm = ({
   const [alert, setAlert] = useState(null);
   const wrapperRef = useRef(null);
   const recoveryCtx = useContext(RecoveryContext);
-  const { setTeamCode, setTeamName } = recoveryCtx;
+  const { setTeamCode, setTeamName, setSuccessMessage } = recoveryCtx;
   const [formData, setFormData] = useState(eventData);
   const [code, setcode] = useState(null);
   const [team, setTeam] = useState(null);
+  const [message, setMessage] = useState(null);
 
   let currentSection =
     data !== undefined
@@ -164,12 +165,16 @@ const PreviewForm = ({
     if (isSuccess) {
       
       const participationType = eventData?.participationType;
+      const successMessage = eventData?.successMessage;
       console.log(participationType);
       const handleAutoClose = () => {
         setTimeout(() => {
           if (participationType === "Team") {
             setTeamCode(code);
             setTeamName(team);
+          }
+          if (successMessage){
+            setSuccessMessage(successMessage);
           }
           navigate("/Events");
         }, 1000);
@@ -405,10 +410,14 @@ const PreviewForm = ({
           const { teamName, teamCode } = response.data;
 
           const participationType = eventData?.participationType;
+          const successMessage = eventData?.successMessage;
           if (participationType === "Team") {
             setTeam(teamName);
             setcode(teamCode);
             // console.log("saved context teamCode:",recoveryCtx.teamCode)
+          }
+          if (successMessage){
+            setMessage(successMessage);
           }
           // console.log("consoling teamdata:", teamName, teamCode);
         }
