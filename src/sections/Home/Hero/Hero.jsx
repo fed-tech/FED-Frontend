@@ -3,6 +3,7 @@ import styles from "./styles/Hero.module.scss";
 import CarouselImg from "../../../data/Carousel.json";
 import { Carousel } from "../../../components";
 import { AnimatedBox } from "../../../assets/animations/AnimatedBox";
+import useScroll from "../../../utils/hooks/useScroll";
 
 const titles = [
   "Entrepreneurship.",
@@ -23,6 +24,7 @@ function Hero() {
   const [titleIndex, setTitleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const { ref: heroRef } = useScroll();
 
   useEffect(() => {
     const title = titles[titleIndex];
@@ -49,7 +51,7 @@ function Hero() {
   }, [charIndex, isDeleting, titleIndex]);
 
   return (
-    <div className={styles.main}>
+    <div ref={heroRef} className={styles.main}>
       <div className={styles.hero}>
         <div className={styles.heroTextContainer}>
           <AnimatedBox direction="left">
