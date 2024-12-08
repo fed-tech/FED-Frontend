@@ -5,6 +5,7 @@ import AuthContext from "../../context/AuthContext";
 import styles from "./styles/Navbar.module.scss";
 import logo from "../../assets/images/Logo/logo.svg";
 import defaultImg from "../../assets/images/defaultImg.jpg";
+import useScroll from "../../utils/hooks/useScroll";
 
 const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -16,6 +17,7 @@ const Navbar = () => {
   const authCtx = useContext(AuthContext);
   const location = useLocation(); // Hook to get the current location
   const navigate = useNavigate();
+  const { scrollToElement: scrollToHero } = useScroll();
 
   const handleScroll = () => {
     if (window.scrollY > lastScrollY.current) {
@@ -61,7 +63,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     authCtx.logout();
-    navigate("/")
+    navigate("/");
     closeMobileMenu();
   };
 
@@ -133,7 +135,7 @@ const Navbar = () => {
           )}
 
           <NavLink to="/" className={styles.logoLink} onClick={closeMobileMenu}>
-            <div className={styles.logo_div}>
+              <div onClick={scrollToHero} className={styles.logo_div}>
               <img src={logo} alt="Logo" className={styles.logo} />
               <div className={styles.logo_text}></div>
             </div>
