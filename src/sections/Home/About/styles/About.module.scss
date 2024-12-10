@@ -190,9 +190,6 @@
         margin-top: -5rem;
     }
 
-    .whatfed{
-        // height: 9.5rem;
-    }
 }
 
 @media screen and (max-width: 914px){
@@ -297,7 +294,7 @@
     .box{
         font-size: 1.45rem;
         height: 17rem;
-        width: 45%;
+        width: 35%;
         text-align: center;
         padding: 1rem;
         border-radius: 30px;
@@ -306,6 +303,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+    .boxinnertext{
+        font-size: 0.95rem;
     }
 
     .whyfed{
@@ -372,7 +372,8 @@
         margin-bottom: 20px;
     }
     .box{
-        font-size: 1.05rem;
+        font-size: 1.3rem;
+        width: 95%;
     }
     .box1,.box2,.box3{
         margin-top: 20px;
@@ -456,7 +457,7 @@
         position: relative;
         right: 0px;
         bottom: 250px;
-        height: 150px;
+        height: 260px;
         padding-top: -3rem;
         z-index: 1;
     }
@@ -580,6 +581,9 @@
         padding: 1rem;
         border-radius: 40px;
     }
+    .boxinnertext p{
+        font-size: 1rem;
+    }
     .box1,.box2,.box3{
         margin-top: 20px;
         padding-top: 1rem;
@@ -641,10 +645,6 @@
         height: 253px;
         z-index: 1;
     }
-
-    .boxinnertext p{
-        font-size: 1.15rem;
-    }
 }
 
 @media screen and (max-width: 306px){
@@ -673,7 +673,9 @@
         padding: 1rem;
         padding-top: 4rem;
     }
-    
+    .boxinnertext p{
+        font-size: 1rem;
+    }
     .whatfedimg{
         order: 1;
         position: relative;
