@@ -30,7 +30,8 @@ const Social = lazy(() => import("./pages/Social/Social"));
 const Team = lazy(() => import("./pages/Team/Team"));
 const Alumni = lazy(() => import("./pages/Alumni/Alumni"));
 const Profile = lazy(() => import("./pages/Profile/Profile"));
-const Omega = lazy(() => import("./pages/Omega/Omega"));
+// const Omega = lazy(() => import("./pages/Omega/Omega"));
+const Gsoc = lazy(() => import("./pages/Gsoc/Gsoc"));
 
 const Signup = lazy(() => import("./pages/Authentication/Signup/Signup"));
 const ForgotPassword = lazy(() =>
@@ -97,7 +98,7 @@ function App() {
             <Route path="/Team" element={<Team />} />
             <Route path="/Alumni" element={<Alumni />} />
             {/* <Route path="/Omega" element={<Omega />} /> */}
-
+            <Route path="/Gsoc" element={<Gsoc />}/>
             {/* Route After Login */}
             {authCtx.isLoggedIn && (
               <Route path="/profile" element={<Profile />}>
