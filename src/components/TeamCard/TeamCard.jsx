@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { Blurhash } from "react-blurhash";
@@ -60,6 +60,18 @@ const TeamCard = ({
     );
   };
 
+  
+  //for name overflow
+
+  const nameRef = useRef(null);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+
+  useEffect(() => {
+    if (nameRef.current) {
+      setIsOverflowing(nameRef.current.scrollWidth > nameRef.current.clientWidth);
+    }
+  }, [member.name]);
+
   return (
     <div className={`${styles.teamMember} ${customStyles.teamMember || ""}`}>
       {showSkeleton && <TeamCardSkeleton customStyles={customStyles} />}
@@ -97,7 +109,13 @@ const TeamCard = ({
               customStyles.teamMemberInfo || ""
             }`}
           >
-            <h4 className={styles.memName} style={{ color: "#000"}}>{member?.name}</h4>
+            <h4
+              ref={nameRef}
+              className={`${styles.memName} ${isOverflowing ? styles.responsive : ""}`}
+              style={{ color: "#000" }}
+            >
+              {member?.name}
+            </h4>
           </div>
         </div>
         <div
