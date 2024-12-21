@@ -25,6 +25,7 @@ const Event = () => {
   const [isOpen, setOpenModal] = useState(false);
   const [pastEvents, setPastEvents] = useState([]);
   const [ongoingEvents, setOngoingEvents] = useState([]);
+  const [privateEvents, setPrivateEvents] = useState([]);
   const recoveryCtx = useContext(RecoveryContext);
   const [isOngoingPublic, setIsOngoingPublic] = useState(false);
   const [isRegisteredInRelatedEvents, setIsRegisteredInRelatedEvents] =
@@ -71,6 +72,9 @@ const Event = () => {
           const ongoing = sortedEvents.filter(
             (event) => !event.info.isEventPast
           );
+          const privateEvent = sortedEvents.filter(
+            (event) => !event.info.isPublic
+          );
           const past = sortedEvents.filter((event) => event.info.isEventPast);
           const sortedPastEvents = past.sort((a, b) => {
             return new Date(b.info.eventDate) - new Date(a.info.eventDate);
@@ -79,6 +83,7 @@ const Event = () => {
           // Set state with the sorted events
           setOngoingEvents(ongoing);
           setPastEvents(sortedPastEvents);
+          setPrivateEvents(privateEvent);
         } else {
           setError({
             message:
@@ -165,7 +170,6 @@ const Event = () => {
 
   // Slice the pastEvents array to show only the first 4 events
   const displayedPastEvents = pastEvents.slice(0, 4);
-
   return (
     <>
       <ChatBot />
@@ -192,13 +196,14 @@ const Event = () => {
             <div className={style.error}>{error.message}</div>
           ) : (
             <>
-              {ongoingEvents.length > 0 ? (
-                <div className={style.line}></div>
+              {ongoingEvents.length > 0 && privateEvents.length > 0 ? (
+                <div className={style.line} style={{ marginTop: "4rem" }}></div>
+              ) : privateEvents.length > 0 && ongoingEvents.length === 0 ? (
+                <div className={style.line} style={{ marginTop: "3rem" }}></div>
+              ) : privateEvents.length === 0 && ongoingEvents.length > 0 ? (
+                <div className={style.line} style={{ marginTop: "2rem" }}></div>
               ) : (
-                <div
-                  className={style.line}
-                  style={{ marginTop: "4.5rem" }}
-                ></div>
+                <div className={style.line} style={{ marginTop: "3rem" }}></div>
               )}
 
               <div className={style.eventwhole}>
@@ -206,7 +211,10 @@ const Event = () => {
                   {ongoingEvents.length > 0 && (
                     <div className={style.eventcard}>
                       {isOngoingPublic ? (
-                        <div className={style.name}>
+                        <div
+                          className={style.name}
+                          style={{ marginBottom: "-1rem" }}
+                        >
                           <img className={style.ring1} src={ring} alt="ring" />
                           <span className={style.w1}>Ongoing</span>
                           <span className={style.w2}>Events</span>
@@ -270,7 +278,13 @@ const Event = () => {
                   >
                     {pastEvents.length > 0 && (
                       <div>
-                        <div className={style.name}>
+                        <div
+                          className={style.name}
+                          style={{
+                            marginTop:
+                              privateEvents.length > 0 ? "-3rem" : "-1rem",
+                          }}
+                        >
                           <img className={style.ring2} src={ring} alt="ring" />
                           <span className={style.w1Past}>Past</span>
                           <span className={style.w2Past}>Events</span>

@@ -2,15 +2,15 @@
 * @PrityanshuSingh
 
 # Reviewers for directories
-.github/ @saurav1729 @raazseth
-src/ @saurav1729 @raazseth
+.github/ @saurav1729 @raazseth @PrityanshuSingh
+src/ @saurav1729 @raazseth @PrityanshuSingh
 
 # Reviewers for specific file types
-*.scss @saurav1729 @raazseth
-*.jsx  @saurav1729 @raazseth
-*.json @saurav1729 @raazseth
-PROJECT_STRUCTURE.md @saurav1729 @raazseth
-README.md @saurav1729 @raazseth
-index.html @saurav1729 @raazseth
-vercel.json @saurav1729 @raazseth
-vite.config.js @saurav1729 @raazseth
+*.scss @saurav1729 @raazseth @PrityanshuSingh
+*.jsx  @saurav1729 @raazseth @PrityanshuSingh
+*.json @saurav1729 @raazseth @PrityanshuSingh
+PROJECT_STRUCTURE.md @saurav1729 @raazseth @PrityanshuSingh
+README.md @saurav1729 @raazseth @PrityanshuSingh
+index.html @saurav1729 @raazseth @PrityanshuSingh
+vercel.json @saurav1729 @raazseth @PrityanshuSingh
+vite.config.js @saurav1729 @raazseth @PrityanshuSingh
