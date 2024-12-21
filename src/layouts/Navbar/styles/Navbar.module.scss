@@ -14,8 +14,12 @@
   //   rgba(217, 217, 217, 0) 143.9%
   // );
   // margin-top: 8px;
-
+  // background-color: black;
 }
+
+.bgChange {
+  background-color: black;
+} 
 
 .logo_div {
   display: flex;
@@ -91,6 +95,12 @@
 
 .navLinks .activeLinkGsoc {
   background:  linear-gradient(to right,#F9AB00, #8136fa );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.navLinks .GsocHover:hover {
+  background: linear-gradient(to right,#F9AB00, #8136fa );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -250,6 +260,12 @@
     rgba(244, 43, 3, 0.84) 128.34%
   );
   // background: linear-gradient(to right,#F9AB00, #4B00C6 );
+  background: linear-gradient(
+    260deg,
+    rgba(255, 190, 11, 0.84) -29.7%,
+    rgba(244, 43, 3, 0.84) 128.34%
+  );
+  // background: linear-gradient(to right,#F9AB00, #4B00C6 );
   font-weight: 600;
   padding: 5px 25px;
   padding-bottom: 1vh;
@@ -258,11 +274,11 @@
   cursor: pointer;
 }
 
-.authButton:hover {
-  transition: 0.2s linear;
+// .authButton:hover {
+  // transition: 0.2s linear;
   // background: linear-gradient(to right, #4c208f,#F9AB00);
-   background: linear-gradient(260deg, rgba(255, 190, 11, .9) -29.7%, rgba(244, 43, 3, .9) 128.34%);
-}
+  // background: linear-gradient(260deg, rgba(255, 190, 11, .9) -29.7%, rgba(244, 43, 3, .9) 128.34%);
+// }
 
 .activeLinkOmega {
   color: #38ccff !important;

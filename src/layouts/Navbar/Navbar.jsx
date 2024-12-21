@@ -16,6 +16,7 @@ const Navbar = () => {
   const authCtx = useContext(AuthContext);
   const location = useLocation(); // Hook to get the current location
   const navigate = useNavigate();
+  const [navbarBg, setNavbarBg] = useState(false);
 
   const handleScroll = () => {
     if (window.scrollY > lastScrollY.current) {
@@ -85,7 +86,8 @@ const Navbar = () => {
     <nav
       className={`${styles.navbar} ${
         isVisible ? styles.visible : styles.hidden
-      }`}
+      } ${navbarBg ? styles.bgChanged : ""} ${
+                  activeLink === "/Gsoc" ? styles.bgChange : ""}`}
     >
       <div className={styles.navbarContent} style={{ height: navbarHeight }}>
         <div className={styles.mobNav}>
@@ -166,7 +168,7 @@ const Navbar = () => {
                 Event
               </NavLink>
             </li>
-              {/* <li>
+            {/* <li>
               <NavLink
                 to="/Omega"
                 className={`${styles.link} ${
@@ -220,9 +222,17 @@ const Navbar = () => {
 
           {authCtx.isLoggedIn ? (
             windowWidth <= 768 ? (
+              // <button
+              //   className={`${styles.authButton} ${
+              //     isOmegaActive ? styles.omegaButton : ""
+              //   }`}
+              //   onClick={handleLogout}
+              // >
+              //   Logout <MdOutlineLogout size={25} />
+              // </button>
               <button
                 className={`${styles.authButton} ${
-                  isOmegaActive ? styles.omegaButton : ""
+                  isGsocActive ? styles.GsocButton : ""
                 }`}
                 onClick={handleLogout}
               >
@@ -244,6 +254,15 @@ const Navbar = () => {
               </NavLink>
             )
           ) : (
+            // <NavLink to="/Login" onClick={closeMobileMenu}>
+            //   <button
+            //     className={`${styles.authButton} ${
+            //       isOmegaActive ? styles.omegaButton : ""
+            //     }`}
+            //   >
+            //     Login
+            //   </button>
+            // </NavLink>
             <NavLink to="/Login" onClick={closeMobileMenu}>
               <button
                 className={`${styles.authButton} ${
