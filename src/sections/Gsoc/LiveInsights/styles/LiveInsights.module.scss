@@ -41,6 +41,10 @@ span {
     height: 5rem;
 }
 
+div.flex1 > h2 {
+    text-align: center;
+}
+
 .outerbox {
     height: 36rem;
     width: 75vw;
@@ -147,10 +151,6 @@ span {
         height: 28rem;
     }
 
-    h2 {
-        font-size: 1rem;
-    }
-
     .card_img img {
         height: 350px;
         width: 200px;
@@ -167,10 +167,6 @@ span {
         height: 30rem;
     }
 
-    h2 {
-        font-size: 1rem;
-    }
-
     h1 {
         font-size: 1.6rem;
     }
@@ -178,11 +174,6 @@ span {
     .card_img img {
         height: 340px;
         width: 180px;
-    }
-
-    .flex1 img {
-        width: 3rem;
-        height: 3rem;
     }
 }
 
@@ -192,11 +183,11 @@ span {
     }
 
     h1 {
-        font-size: 1.3rem;
+        font-size: 1.01rem;
     }
 
     h2 {
-        font-size: 0.9rem;
+        font-size: 1.3rem;
     }
 
     .card_img img {
@@ -216,7 +207,8 @@ span {
         flex-direction: column;
         align-items: center;
         padding: 35px;
-        height: 53rem;
+        height: 54rem;
+        width: 90vw;
     }
 
     .flex1 {
@@ -224,29 +216,21 @@ span {
     }
 
     h1 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     h2 {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 
     .card_img img {
-        height: 400px;
-        width: 260px;
-    }
-
-    .flex1 img {
-        width: 3rem;
-        height: 3rem;
+        height: 450px;
+        width: 350px;
     }
 }
 
 @media(max-width: 464px) {
     .outerbox {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         height: 50rem;
         padding: 35px;
     }
@@ -257,29 +241,21 @@ span {
     }
 
     h1 {
-        font-size: 1rem;
+        font-size: 1.01rem;
     }
 
     h2 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 
     .card_img img {
-        height: 320px;
-        width: 200px;
-    }
-
-    .flex1 img {
-        width: 3rem;
-        height: 3rem;
+        height: 380px;
+        width: 300px;
     }
 }
 
 @media(max-width: 420px) {
     .outerbox {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         height: 50rem;
         padding: 38px;
     }
@@ -290,7 +266,7 @@ span {
     }
 
     h1 {
-        font-size: 1rem;
+        font-size: 1.01rem;
     }
 
     h2 {
@@ -298,12 +274,7 @@ span {
     }
 
     .card_img img {
-        height: 320px;
-        width: 200px;
-    }
-
-    .flex1 img {
-        width: 3rem;
-        height: 3rem;
+        height: 350px;
+        width: 250px;
     }
 }

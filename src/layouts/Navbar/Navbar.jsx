@@ -16,6 +16,7 @@ const Navbar = () => {
   const authCtx = useContext(AuthContext);
   const location = useLocation(); // Hook to get the current location
   const navigate = useNavigate();
+  const [navbarBg, setNavbarBg] = useState(false);
 
   const handleScroll = () => {
     if (window.scrollY > lastScrollY.current) {
@@ -79,13 +80,23 @@ const Navbar = () => {
     }
   });
   
-  const isOmegaActive = activeLink === "/Omega";
+  // const isOmegaActive = activeLink === "/Omega";
+  const isGsocActive = activeLink === "/Gsoc";
+
+  const handleLinkClick = (link) => {
+    if (link === "/Gsoc") {
+      setNavbarBg(true); // Change background color on GSOC link click
+    } else {
+      setNavbarBg(false); // Reset background color for other links
+    }
+    closeMobileMenu(); // Close the mobile menu when a link is clicked
+  };
 
   return (
     <nav
       className={`${styles.navbar} ${
         isVisible ? styles.visible : styles.hidden
-      }`}
+      } ${navbarBg ? styles.bgChanged : ""}`}
     >
       <div className={styles.navbarContent} style={{ height: navbarHeight }}>
         <div className={styles.mobNav}>
@@ -140,24 +151,46 @@ const Navbar = () => {
           </NavLink>
 
           <div className={styles.navItems}>
-            <li>
+            {/* <li>
               <NavLink
                 to="/"
                 className={`${styles.link} ${
                   activeLink === "/" ? styles.activeLink : ""
                 } ${activeLink === "/Omega" ? styles.omegaHover : ""}`}
-                onClick={closeMobileMenu}
+                onClick={() => handleLinkClick("/")}
+              >
+                Home
+              </NavLink>
+            </li> */}
+            <li>
+              <NavLink
+                to="/"
+                className={`${styles.link} ${
+                  activeLink === "/" ? styles.activeLink : ""
+                } ${activeLink === "/Gsoc" ? styles.GsocHover : ""}`}
+                onClick={() => handleLinkClick("/")}
               >
                 Home
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 to="/Events"
                 className={`${styles.link} ${
                   activeLink === "/Events" ? styles.activeLink : ""
                 } ${activeLink === "/Omega" ? styles.omegaHover : ""}`}
-                onClick={closeMobileMenu}
+                onClick={() => handleLinkClick("/Events")}
+              >
+                Event
+              </NavLink>
+            </li> */}
+            <li>
+              <NavLink
+                to="/Events"
+                className={`${styles.link} ${
+                  activeLink === "/Events" ? styles.activeLink : ""
+                } ${activeLink === "/Gsoc" ? styles.GsocHover : ""}`}
+                onClick={() => handleLinkClick("/Events")}
               >
                 Event
               </NavLink>
@@ -179,29 +212,51 @@ const Navbar = () => {
                 className={`${styles.linkGsoc} ${
                   activeLink === "/Gsoc" ? styles.activeLinkGsoc : ""
                 } ${activeLink === "/Gsoc" ? styles.GsocHover : ""}`}
-                onClick={closeMobileMenu}
+                onClick={() => handleLinkClick("/Gsoc")}
               >
                 GSOC
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 to="/Social"
                 className={`${styles.link} ${
                   activeLink === "/Social" ? styles.activeLink : ""
                 } ${activeLink === "/Omega" ? styles.omegaHover : ""}`}
-                onClick={closeMobileMenu}
+                onClick={() => handleLinkClick("/Social")}
+              >
+                Social
+              </NavLink>
+            </li> */}
+            <li>
+              <NavLink
+                to="/Social"
+                className={`${styles.link} ${
+                  activeLink === "/Social" ? styles.activeLink : ""
+                } ${activeLink === "/Gsoc" ? styles.Gsoc : ""}`}
+                onClick={() => handleLinkClick("/Social")}
               >
                 Social
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 to="/Team"
                 className={`${styles.link} ${
                   activeLink === "/Team" ? styles.activeLink : ""
                 } ${activeLink === "/Omega" ? styles.omegaHover : ""}`}
-                onClick={closeMobileMenu}
+                onClick={() => handleLinkClick("/Team")}
+              >
+                Team
+              </NavLink>
+            </li> */}
+            <li>
+              <NavLink
+                to="/Team"
+                className={`${styles.link} ${
+                  activeLink === "/Team" ? styles.activeLink : ""
+                } ${activeLink === "/Gsoc" ? styles.GsocHover : ""}`}
+                onClick={() => handleLinkClick("/Team")}
               >
                 Team
               </NavLink>
@@ -210,9 +265,17 @@ const Navbar = () => {
 
           {authCtx.isLoggedIn ? (
             windowWidth <= 768 ? (
+              // <button
+              //   className={`${styles.authButton} ${
+              //     isOmegaActive ? styles.omegaButton : ""
+              //   }`}
+              //   onClick={handleLogout}
+              // >
+              //   Logout <MdOutlineLogout size={25} />
+              // </button>
               <button
                 className={`${styles.authButton} ${
-                  isOmegaActive ? styles.omegaButton : ""
+                  isGsocActive ? styles.GsocButton : ""
                 }`}
                 onClick={handleLogout}
               >
@@ -234,10 +297,19 @@ const Navbar = () => {
               </NavLink>
             )
           ) : (
+            // <NavLink to="/Login" onClick={closeMobileMenu}>
+            //   <button
+            //     className={`${styles.authButton} ${
+            //       isOmegaActive ? styles.omegaButton : ""
+            //     }`}
+            //   >
+            //     Login
+            //   </button>
+            // </NavLink>
             <NavLink to="/Login" onClick={closeMobileMenu}>
               <button
                 className={`${styles.authButton} ${
-                  isOmegaActive ? styles.omegaButton : ""
+                  isGsocActive ? styles.GsocButton : ""
                 }`}
               >
                 Login
