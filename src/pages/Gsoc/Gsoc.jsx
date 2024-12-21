@@ -4,18 +4,17 @@ import AuthContext from "../../context/AuthContext";
 import { motion } from "framer-motion";
 import { Element } from "react-scroll";
 import { useInView } from "react-intersection-observer";
-import styles from "./styles/Omega.module.scss";
-import Hero from "../../sections/Omega/Hero/Hero.jsx";
-import Accordion from "../../components/Accordian/Accordian.jsx";
-import data from "../../data/omega/Accordion.json";
-import Sponsors from "../../sections/Omega/Sponsors/Sponsors";
-import Event from "../../sections/Omega/Event/Event.jsx";
-import FedShow from "../../sections/Omega/FedShow/FedShow.jsx";
-import TeamImage from "../../sections/Omega/TeamImage/TeamImage.jsx";
-import Attend from "../../sections/Omega/Attend/Attend.jsx";
+import styles from "./styles/Gsoc.module.scss";
+import Hero from "../../sections/Gsoc/Hero/Hero.jsx";
+import Speaker from "../../sections/Gsoc/Speaker/Speaker.jsx";
+import Attend from "../../sections/Gsoc/Attend/Attend.jsx";
 import ChatBot from "../../features/ChatBot/ChatBot.jsx";
+import Accordion from "../../components/Accordian/Accordian.jsx";
+import data from "../../data/gsoc/Gsoc.json";
+import LiveInsights from "../../sections/Gsoc/LiveInsights/LiveInsights.jsx";
+import TeamPage from "../../sections/Gsoc/TeamPage/TeamPage.jsx";
 
-function Omega() {
+function Gsoc() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -120,36 +119,17 @@ function Omega() {
         isRegisteredInRelatedEvents={isRegisteredInRelatedEvents}
         eventName={eventName}
       />
-      <FedShow />
-      <Event
-        ongoingEvents={ongoingEvents}
-        isRegisteredInRelatedEvents={isRegisteredInRelatedEvents}
-        eventName={eventName}
-      />
+      <Speaker />
+      <LiveInsights />
       <Attend />
-      <Sponsors />
-
       <Accordion data={data} />
-      <Element name="TeamImage">
-        <motion.div
-          ref={teamImageRef}
-          initial={{ opacity: 0, y: 50, scale: 0.5 }}
-          animate={
-            teamImageInView
-              ? { opacity: 1, y: 0, scale: 1 }
-              : { opacity: 0, y: 50, scale: 0.5 }
-          }
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          style={{ perspective: 1000 }}
-        >
-          <TeamImage />
-        </motion.div>
-      </Element>
+      <TeamPage />
       <div>
         <ChatBot />
+        
       </div>
     </div>
   );
 }
 
-export default Omega;
+export default Gsoc;

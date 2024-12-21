@@ -1,0 +1,16 @@
+# Global owner for all files
+* @PrityanshuSingh
+
+# Reviewers for directories
+.github/ @saurav1729 @raazseth
+src/ @saurav1729 @raazseth
+
+# Reviewers for specific file types
+*.scss @saurav1729 @raazseth
+*.jsx  @saurav1729 @raazseth
+*.json @saurav1729 @raazseth
+PROJECT_STRUCTURE.md @saurav1729 @raazseth
+README.md @saurav1729 @raazseth
+index.html @saurav1729 @raazseth
+vercel.json @saurav1729 @raazseth
+vite.config.js @saurav1729 @raazseth

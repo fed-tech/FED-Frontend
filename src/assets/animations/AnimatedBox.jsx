@@ -12,7 +12,7 @@ const getBoxVariant = (direction) => {
 export const AnimatedBox = ({ children, direction }) => {
   const control = useAnimation();
   const [ref, inView] = useInView({
-    triggerOnce: false,
+    triggerOnce: true,
     threshold: 0.3,
   });
 

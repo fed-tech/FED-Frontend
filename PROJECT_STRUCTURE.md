@@ -1,17 +1,32 @@
-##Code Structure 
+```
 
-    └── src
-        └── assets
-            └── animations
+    └── 📁.github
+        └── CODEOWNERS
+        └── 📁ISSUE_TEMPLATE
+            └── Bug.yml
+            └── Config.yml
+            └── Custom.yml
+            └── DocumentationUpdate.yml
+            └── Feature.yml
+            └── NexPageSection.yml
+        └── PULL_REQUEST_TEMPLATE.md
+        └── 📁scripts
+            └── UpdateStructure.py
+        └── 📁workflows
+            └── AutoCommentOnIssue.yml
+            └── AutoCommentPRMerge.yml
+            └── AutoCommentPRRaise.yml
+            └── CloseIssueOnPRMerge.yml
+            └── codeql.yml
+            └── greetings.yml
+            └── IssueReminder.yml
+    └── 📁src
+        └── App.jsx
+        └── 📁assets
+            └── 📁animations
                 └── AnimatedBox.jsx
                 └── socialPageAnimation.jsx
-            └── images
-                └── Logo
-                    └── FED.svg
-                    └── logo.svg
-                └── SocialMedia
-                    └── instaLogo.svg
-                    └── linkedinLogo.svg
+            └── 📁images
                 └── camera.svg
                 └── Complete.svg
                 └── contact.png
@@ -24,332 +39,341 @@
                 └── googleIcon.svg
                 └── groups.svg
                 └── lock.svg
+                └── 📁Logo
+                    └── FED.svg
+                    └── logo.svg
                 └── quote.png
                 └── ring.svg
                 └── rupeeIcon.svg
                 └── shareOutline.svg
-            └── styles
+                └── 📁SocialMedia
+                    └── instaLogo.svg
+                    └── linkedinLogo.svg
+            └── 📁styles
                 └── Global.scss
-        └── authentication
-            └── Login
-                └── ForgotPassword
-                    └── styles
-                        └── forgotPassword.module.scss
-                        └── OTPInput.module.scss
+        └── 📁authentication
+            └── 📁Login
+                └── 📁ForgotPassword
                     └── OTPInput.jsx
                     └── SendOtp.jsx
-                └── styles
-                    └── Login.module.scss
+                    └── 📁styles
+                        └── forgotPassword.module.scss
+                        └── OTPInput.module.scss
                 └── GoogleLogin.jsx
                 └── Login.jsx
-            └── SignUp
-                └── style
-                    └── CompleteProfile.module.scss
-                    └── Signup.module.scss
+                └── 📁styles
+                    └── Login.module.scss
+            └── 📁SignUp
                 └── CompleteProfile.jsx
                 └── GoogleSignup.jsx
                 └── SignUP.jsx
-        └── components
-            └── Carousel
-                └── styles
-                    └── Carousel.module.scss
+                └── 📁style
+                    └── CompleteProfile.module.scss
+                    └── Signup.module.scss
+        └── 📁components
+            └── 📁Carousel
                 └── Carousel.jsx
-            └── Core
-                └── styles
-                    └── Core.module.scss
+                └── 📁styles
+                    └── Carousel.module.scss
+            └── 📁Core
                 └── Button.jsx
                 └── index.jsx
                 └── Input.jsx
+                └── 📁styles
+                    └── Core.module.scss
                 └── Text.jsx
-            └── EventCard
-                └── styles
-                    └── EventCard.module.scss
+            └── 📁EventCard
                 └── EventCard.jsx
-            └── Form
-                └── styles
-                    └── Form.module.scss
+                └── 📁styles
+                    └── EventCard.module.scss
+            └── 📁Form
                 └── FormField.jsx
                 └── index.jsx
                 └── PopField.jsx
                 └── Section.jsx
                 └── SectionValidation.jsx
-            └── OtpInput
-                └── style
-                    └── otpinput.module.scss
+                └── 📁styles
+                    └── Form.module.scss
+            └── index.jsx
+            └── 📁OtpInput
                 └── OtpInput.jsx
-            └── SocialEmbed
+                └── 📁style
+                    └── otpinput.module.scss
+            └── 📁SocialEmbed
                 └── SocialEmbed.jsx
-            └── TeamCard
-                └── styles
+            └── 📁TeamCard
+                └── 📁styles
                     └── TeamCard.module.scss
                 └── TeamCard.jsx
-            └── index.jsx
-        └── context
+        └── 📁context
             └── AuthContext.jsx
             └── RecoveryContext.jsx
-        └── data
-            └── omega
-                └── Accordion.json
-                └── Event.json
-                └── Sponsor.json
+        └── 📁data
             └── Access.json
             └── Carousel.json
             └── Feedback.json
             └── FormData.json
+            └── 📁omega
+                └── Accordion.json
+                └── Event.json
+                └── Sponsor.json
             └── SocialLink.json
             └── Sponser.json
             └── Team.json
             └── user.json
-        └── features
-            └── ChatBot
-                └── styles
-                    └── ChatBot.module.scss
+        └── 📁features
+            └── 📁ChatBot
                 └── ChatBot.jsx
                 └── index.jsx
-            └── Modals
-                └── authentication
+                └── 📁styles
+                    └── ChatBot.module.scss
+            └── index.jsx
+            └── 📁Modals
+                └── 📁authentication
                     └── OtpInputModal.jsx
-                └── EditProfile
-                    └── styles
-                        └── editImage.module.scss
-                        └── EditProfile.module.scss
+                └── 📁EditProfile
                     └── EditImage.jsx
                     └── EditProfile.jsx
-                └── Event
-                    └── EventModal
-                        └── styles
-                            └── EventModal.module.scss
+                    └── 📁styles
+                        └── editImage.module.scss
+                        └── EditProfile.module.scss
+                └── 📁Event
+                    └── 📁EventModal
                         └── EventModal.jsx
-                    └── EventStats
-                        └── styles
-                            └── EventStats.module.scss
+                        └── 📁styles
+                            └── EventModal.module.scss
+                    └── 📁EventStats
                         └── EventStats.jsx
-                    └── LiveEventPopup
-                        └── styles
-                            └── LiveEventPopup.module.scss
+                        └── 📁styles
+                            └── EventStats.module.scss
+                    └── 📁LiveEventPopup
                         └── LiveEventPopup.jsx
-                    └── ShareModal
-                        └── styles
-                            └── ShareModal.module.scss
-                            └── ShareTeamData.module.scss
+                        └── 📁styles
+                            └── LiveEventPopup.module.scss
+                    └── 📁ShareModal
                         └── ShareModal.jsx
                         └── ShareTeamData.jsx
-                └── Profile
-                    └── Admin
-                        └── styles
-                            └── Preview.module.scss
+                        └── 📁styles
+                            └── ShareModal.module.scss
+                            └── ShareTeamData.module.scss
+                └── index.jsx
+                └── 📁Profile
+                    └── 📁Admin
                         └── PreviewForm.jsx
                         └── SectionModal.jsx
-                └── index.jsx
-            └── index.jsx
-        └── layouts
-            └── Footer
-                └── styles
-                    └── Footer.module.scss
+                        └── 📁styles
+                            └── Preview.module.scss
+        └── index.jsx
+        └── index.scss
+        └── 📁layouts
+            └── 📁Footer
                 └── Footer.jsx
-            └── Navbar
-                └── styles
-                    └── Navbar.module.scss
+                └── 📁styles
+                    └── Footer.module.scss
+            └── index.jsx
+            └── 📁Navbar
                 └── Navbar.jsx
-            └── Profile
-                └── ProfileLayout
-                    └── styles
-                        └── ProfileLayout.module.scss
-                    └── ProfileLayout.jsx
-                └── Sidebar
-                    └── styles
-                        └── Sidebar.module.scss
-                    └── Sidebar.jsx
+                └── 📁styles
+                    └── Navbar.module.scss
+            └── 📁Profile
                 └── index.jsx
-            └── Skeleton
-                └── Carousel
-                    └── styles
-                        └── Carousel.module.scss
+                └── 📁ProfileLayout
+                    └── ProfileLayout.jsx
+                    └── 📁styles
+                        └── ProfileLayout.module.scss
+                └── 📁Sidebar
+                    └── Sidebar.jsx
+                    └── 📁styles
+                        └── Sidebar.module.scss
+            └── 📁Skeleton
+                └── 📁Carousel
                     └── Carousel.jsx
-                └── EventCard
-                    └── styles
-                        └── eventskeleton.module.scss
+                    └── 📁styles
+                        └── Carousel.module.scss
+                └── 📁EventCard
                     └── EventCardSkeleton.jsx
-                └── Sponser
-                    └── styles
-                        └── Sponser.module.scss
+                    └── 📁styles
+                        └── eventskeleton.module.scss
+                └── 📁Sponser
                     └── Sponser.jsx
-                └── TeamCard
-                    └── styles
+                    └── 📁styles
+                        └── Sponser.module.scss
+                └── 📁TeamCard
+                    └── 📁styles
                         └── TeamCard.module.scss
                     └── TeamCard.jsx
-            └── index.jsx
-        └── microInteraction
-            └── Alert
-                └── styles
-                    └── Alert.module.scss
+        └── 📁microInteraction
+            └── 📁Alert
                 └── Alert.jsx
-            └── Load
-                └── styles
-                    └── load.module.scss
-                    └── MicroLoad.module.scss
+                └── 📁styles
+                    └── Alert.module.scss
+            └── index.jsx
+            └── 📁Load
                 └── ComponentLoad.jsx
                 └── Load.jsx
                 └── MicroLoad.jsx
-            └── index.jsx
-        └── pages
-            └── Alumni
-                └── styles
-                    └── Alumni.module.scss
+                └── 📁styles
+                    └── load.module.scss
+                    └── MicroLoad.module.scss
+        └── 📁pages
+            └── 📁Alumni
                 └── Alumni.jsx
-            └── Authentication
-                └── CompleteProfile
+                └── 📁styles
+                    └── Alumni.module.scss
+            └── 📁Authentication
+                └── 📁CompleteProfile
                     └── CompleteProfile.jsx
-                └── ForgotPassword
+                └── 📁ForgotPassword
                     └── ForgotPassword.jsx
-                └── Login
+                └── 📁Login
                     └── Login.jsx
-                └── Signup
+                └── 📁Signup
                     └── Signup.jsx
-            └── Error
-                └── styles
-                    └── Error.module.scss
+            └── 📁Error
                 └── Error.jsx
-            └── Event
-                └── styles
-                    └── Event.module.scss
-                    └── PastEvent.module.scss
+                └── 📁styles
+                    └── Error.module.scss
+            └── 📁Event
                 └── Event.jsx
                 └── EventForm.jsx
                 └── PastEvent.jsx
-            └── Home
+                └── 📁styles
+                    └── Event.module.scss
+                    └── PastEvent.module.scss
+            └── 📁Home
                 └── Home.jsx
-            └── Omega
-                └── styles
-                    └── Omega.module.scss
+            └── index.jsx
+            └── 📁Omega
                 └── Omega.jsx
-            └── PrivacyPolicy
-                └── styles
-                    └── PrivacyPolicy.module.scss
+                └── 📁styles
+                    └── Omega.module.scss
+            └── 📁PrivacyPolicy
                 └── PrivacyPolicy.jsx
-            └──  Profile
-                └── styles
-                    └── Profile.module.scss
+                └── 📁styles
+                    └── PrivacyPolicy.module.scss
+            └── 📁Profile
                 └── Profile.jsx
-            └── Social
-                └── styles
-                    └── Social.module.scss
+                └── 📁styles
+                    └── Profile.module.scss
+            └── 📁Social
                 └── Social.jsx
-            └── Team
-                └── styles
+                └── 📁styles
+                    └── Social.module.scss
+            └── 📁Team
+                └── 📁styles
                     └── Team.module.scss
                 └── Team.jsx
-            └── TermsAndConditions
-                └── styles
+            └── 📁TermsAndConditions
+                └── 📁styles
                     └── T&C.module.scss
                 └── T&C.jsx
-            └── index.jsx
-        └── sections
-            └── Home
-                └── About
-                    └── styles
-                        └── About.module.scss
+        └── 📁sections
+            └── 📁Home
+                └── 📁About
                     └── About.jsx
-                └── Contact
-                    └── styles
-                        └── Contact.module.scss
+                    └── 📁styles
+                        └── About.module.scss
+                └── 📁Contact
                     └── Contact.jsx
-                └── Feedback
-                    └── styles
-                        └── Feedback.module.scss
+                    └── 📁styles
+                        └── Contact.module.scss
+                └── 📁Feedback
                     └── Feedback.jsx
-                └── Hero
-                    └── styles
-                        └── Hero.module.scss
+                    └── 📁styles
+                        └── Feedback.module.scss
+                └── 📁Hero
                     └── Hero.jsx
-                └── Sponser
-                    └── styles
-                        └── Sponser.module.scss
-                    └── Sponser.jsx
+                    └── 📁styles
+                        └── Hero.module.scss
                 └── index.jsx
-            └── Omega
-                └── Accordion
-                    └── styles
-                        └── Accordion.module.scss
+                └── 📁Sponser
+                    └── Sponser.jsx
+                    └── 📁styles
+                        └── Sponser.module.scss
+            └── index.jsx
+            └── 📁Omega
+                └── 📁Accordion
                     └── Accordion.jsx
-                └── Attend
-                    └── styles
-                        └── Attend.module.scss
+                    └── 📁styles
+                        └── Accordion.module.scss
+                └── 📁Attend
                     └── Attend.jsx
-                └── Event
-                    └── styles
-                        └── Event.module.scss
+                    └── 📁styles
+                        └── Attend.module.scss
+                └── 📁Event
                     └── Event.jsx
-                └── FedShow
-                    └── styles
-                        └── FedShow.module.scss
+                    └── 📁styles
+                        └── Event.module.scss
+                └── 📁FedShow
                     └── FedShow.jsx
-                └── Hero
-                    └── styles
-                        └── Hero.module.scss
+                    └── 📁styles
+                        └── FedShow.module.scss
+                └── 📁Hero
                     └── Hero.jsx
-                └── Sponsors
-                    └── styles
-                        └── Sponsors.module.scss
+                    └── 📁styles
+                        └── Hero.module.scss
+                └── 📁Sponsors
                     └── Sponsors.jsx
-                └── TeamImage
-                    └── styles
+                    └── 📁styles
+                        └── Sponsors.module.scss
+                └── 📁TeamImage
+                    └── 📁styles
                         └── TeamImage.module.scss
                     └── TeamImage.jsx
-            └── Profile
-                └── Admin
-                    └── Form
-                        └── EventForm
-                            └── styles
-                                └── AddEventForm.module.scss
+            └── 📁Profile
+                └── 📁Admin
+                    └── 📁Form
+                        └── 📁EventForm
                             └── AddEventForm.jsx
-                        └── MemberForm
-                            └── styles
-                                └── AddMemberForm.module.scss
+                            └── 📁styles
+                                └── AddEventForm.module.scss
+                        └── 📁MemberForm
                             └── AddMemberForm.jsx
-                        └── NewForm
-                            └── styles
-                                └── NewForm.module.scss
+                            └── 📁styles
+                                └── AddMemberForm.module.scss
+                        └── 📁NewForm
                             └── NewForm.jsx
-                    └── View
-                        └── ViewEvent
-                            └── styles
+                            └── 📁styles
+                                └── NewForm.module.scss
+                    └── 📁View
+                        └── 📁ViewEvent
+                            └── 📁styles
                                 └── ViewEvent.module.scss
                             └── VIewEvent.jsx
-                        └── ViewMember
-                            └── styles
+                        └── 📁ViewMember
+                            └── 📁styles
                                 └── ViewMember.module.scss
                             └── ViewMember.jsx
-                └── General
-                    └── EventsView
-                        └── styles
-                            └── EventsView.module.scss
+                └── 📁General
+                    └── 📁EventsView
                         └── EventsView.jsx
-                    └── ProfileView
-                        └── styles
-                            └── ProfileView.module.scss
+                        └── 📁styles
+                            └── EventsView.module.scss
+                    └── 📁ProfileView
                         └── ProfileView.jsx
+                        └── 📁styles
+                            └── ProfileView.module.scss
                 └── index.jsx
-            └── index.jsx
-        └── services
-            └── client
+        └── 📁services
+            └── 📁client
                 └── axiosBotClient.js
                 └── axiosClient.js
             └── index.jsx
-        └── utils
-            └── hooks
+        └── 📁utils
+            └── 📁hooks
                 └── useDimensions.js
                 └── useWindowWidth.js
-        └── App.jsx
-        └── index.jsx
-        └── index.scss
+    └── .env
     └── .eslintrc.cjs
     └── .gitignore
+    └── CODEOWNERS
     └── index.html
     └── package-lock.json
     └── package.json
     └── pnpm-lock.yaml
+    └── PROJECT_STRUCTURE.md
     └── README.md
+    └── repo_structure.txt
     └── vercel.json
     └── vite.config.js
 ```

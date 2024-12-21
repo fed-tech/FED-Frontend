@@ -7,13 +7,14 @@
   justify-content: center;
   z-index: 10;
   top: 0;
-  border-radius: 50px;
+
   // background: linear-gradient(
   //   91deg,
   //   rgba(48, 48, 48, 0.3) -147.64%,
   //   rgba(217, 217, 217, 0) 143.9%
   // );
-  margin-top: 10px;
+  // margin-top: 8px;
+  background-color: black;
 }
 
 .logo_div {
@@ -88,6 +89,14 @@
   color: transparent;
 }
 
+.navLinks .activeLinkGsoc {
+  background:  linear-gradient(to right,#F9AB00, #8136fa );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+
 .navLinks .omegaHover:hover {
   background: #38ccff;
   -webkit-background-clip: text;
@@ -101,8 +110,32 @@
   color: inherit;
 }
 
-.navLinks li a:hover {
+// .navLinks li a:hover {
+//   background: var(--primary);
+//   background-clip: text;
+//   color: transparent;
+//   transition: 0.2s ease-in;
+
+//   &::after {
+//     width: 100%;
+//     left: 0;
+//   }
+// }
+
+.link:hover {
   background: var(--primary);
+  background-clip: text;
+  color: transparent;
+  transition: 0.2s ease-in;
+
+  &::after {
+    width: 100%;
+    left: 0;
+  }
+}
+
+.linkGsoc:hover {
+  background: linear-gradient(to right,#F9AB00, #8136fa );
   background-clip: text;
   color: transparent;
   transition: 0.2s ease-in;
@@ -174,12 +207,13 @@
 
 .navItems {
   border-radius: 1.65rem;
-  border: 1.652px solid rgba(214, 214, 214, 0.81);
+  border: 1.652px solid white;
   background: linear-gradient(
     91deg,
     rgba(217, 217, 217, 0.3) -147.64%,
     rgba(217, 217, 217, 0) 143.9%
   );
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -192,6 +226,8 @@
   padding: 5px;
   margin-top: -5px;
   margin-right: 0rem;
+  position: relative;
+  z-index: 1;
 }
 
 .authButton {
@@ -202,11 +238,12 @@
   border-radius: 1.65rem;
   height: 3.3rem;
   font-size: 1.2rem;
-  background: linear-gradient(
-    260deg,
-    rgba(255, 190, 11, 0.84) -29.7%,
-    rgba(244, 43, 3, 0.84) 128.34%
-  );
+  // background: linear-gradient(
+  //   260deg,
+  //   rgba(255, 190, 11, 0.84) -29.7%,
+  //   rgba(244, 43, 3, 0.84) 128.34%
+  // );
+  background: linear-gradient(to right,#F9AB00, #4B00C6 );
   font-weight: 600;
   padding: 5px 25px;
   padding-bottom: 1vh;
@@ -216,8 +253,9 @@
 }
 
 .authButton:hover {
-  transition: .2s linear;
-  background: linear-gradient(260deg, rgba(255, 190, 11, .9) -29.7%, rgba(244, 43, 3, .9) 128.34%);
+  // transition: 0.2s linear;
+  background: linear-gradient(to right, #4c208f,#F9AB00);
+  // background: linear-gradient(260deg, rgba(255, 190, 11, .9) -29.7%, rgba(244, 43, 3, .9) 128.34%);
 }
 
 .activeLinkOmega {
