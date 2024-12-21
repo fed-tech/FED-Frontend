@@ -80,18 +80,8 @@ const Navbar = () => {
     }
   });
   
-  // const isOmegaActive = activeLink === "/Omega";
-  const isGsocActive = activeLink === "/Gsoc";
-
-  const handleLinkClick = (link) => {
-    if (link === "/Gsoc") {
-      setNavbarBg(true); // Change background color on GSOC link click
-    } else {
-      setNavbarBg(false); // Reset background color for other links
-    }
-    closeMobileMenu(); // Close the mobile menu when a link is clicked
-  };
-
+  const isOmegaActive = activeLink === "/Omega";
+  const isGsocActive = activeLink === "/Gsoc"; 
   return (
     <nav
       className={`${styles.navbar} ${
@@ -156,19 +146,10 @@ const Navbar = () => {
                 to="/"
                 className={`${styles.link} ${
                   activeLink === "/" ? styles.activeLink : ""
-                } ${activeLink === "/Omega" ? styles.omegaHover : ""}`}
-                onClick={() => handleLinkClick("/")}
-              >
-                Home
-              </NavLink>
-            </li> */}
-            <li>
-              <NavLink
-                to="/"
-                className={`${styles.link} ${
-                  activeLink === "/" ? styles.activeLink : ""
-                } ${activeLink === "/Gsoc" ? styles.GsocHover : ""}`}
-                onClick={() => handleLinkClick("/")}
+                } ${activeLink === "/Omega" ? styles.omegaHover : ""} ${
+                  activeLink === "/Gsoc" ? styles.GsocHover : ""
+                }`}
+                onClick={closeMobileMenu}
               >
                 Home
               </NavLink>
@@ -178,19 +159,10 @@ const Navbar = () => {
                 to="/Events"
                 className={`${styles.link} ${
                   activeLink === "/Events" ? styles.activeLink : ""
-                } ${activeLink === "/Omega" ? styles.omegaHover : ""}`}
-                onClick={() => handleLinkClick("/Events")}
-              >
-                Event
-              </NavLink>
-            </li> */}
-            <li>
-              <NavLink
-                to="/Events"
-                className={`${styles.link} ${
-                  activeLink === "/Events" ? styles.activeLink : ""
-                } ${activeLink === "/Gsoc" ? styles.GsocHover : ""}`}
-                onClick={() => handleLinkClick("/Events")}
+                } ${activeLink === "/Omega" ? styles.omegaHover : ""}
+                ${
+                  activeLink === "/Gsoc" ? styles.GsocHover : ""}`}
+                onClick={closeMobileMenu}
               >
                 Event
               </NavLink>
@@ -211,8 +183,10 @@ const Navbar = () => {
                 to="/Gsoc"
                 className={`${styles.linkGsoc} ${
                   activeLink === "/Gsoc" ? styles.activeLinkGsoc : ""
-                } ${activeLink === "/Gsoc" ? styles.GsocHover : ""}`}
-                onClick={() => handleLinkClick("/Gsoc")}
+                } ${activeLink === "/Gsoc" ? styles.GsocHover : ""}
+                ${
+                  activeLink === "/Gsoc" ? styles.GsocHover : ""}`}
+                onClick={closeMobileMenu}
               >
                 GSOC
               </NavLink>
@@ -222,19 +196,10 @@ const Navbar = () => {
                 to="/Social"
                 className={`${styles.link} ${
                   activeLink === "/Social" ? styles.activeLink : ""
-                } ${activeLink === "/Omega" ? styles.omegaHover : ""}`}
-                onClick={() => handleLinkClick("/Social")}
-              >
-                Social
-              </NavLink>
-            </li> */}
-            <li>
-              <NavLink
-                to="/Social"
-                className={`${styles.link} ${
-                  activeLink === "/Social" ? styles.activeLink : ""
-                } ${activeLink === "/Gsoc" ? styles.Gsoc : ""}`}
-                onClick={() => handleLinkClick("/Social")}
+                } ${activeLink === "/Omega" ? styles.omegaHover : ""}
+                ${
+                  activeLink === "/Gsoc" ? styles.GsocHover : ""}`}
+                onClick={closeMobileMenu}
               >
                 Social
               </NavLink>
@@ -244,19 +209,10 @@ const Navbar = () => {
                 to="/Team"
                 className={`${styles.link} ${
                   activeLink === "/Team" ? styles.activeLink : ""
-                } ${activeLink === "/Omega" ? styles.omegaHover : ""}`}
-                onClick={() => handleLinkClick("/Team")}
-              >
-                Team
-              </NavLink>
-            </li> */}
-            <li>
-              <NavLink
-                to="/Team"
-                className={`${styles.link} ${
-                  activeLink === "/Team" ? styles.activeLink : ""
-                } ${activeLink === "/Gsoc" ? styles.GsocHover : ""}`}
-                onClick={() => handleLinkClick("/Team")}
+                } ${activeLink === "/Omega" ? styles.omegaHover : ""}
+                ${
+                  activeLink === "/Gsoc" ? styles.GsocHover : ""}`}
+                onClick={closeMobileMenu}
               >
                 Team
               </NavLink>
@@ -309,8 +265,10 @@ const Navbar = () => {
             <NavLink to="/Login" onClick={closeMobileMenu}>
               <button
                 className={`${styles.authButton} ${
-                  isGsocActive ? styles.GsocButton : ""
-                }`}
+                  isOmegaActive ? styles.omegaButton : ""
+                }
+                ${
+                  activeLink === "/Gsoc" ? styles.GsocHover : ""}`}
               >
                 Login
               </button>
