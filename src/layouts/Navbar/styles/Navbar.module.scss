@@ -105,6 +105,12 @@
   background-clip: text;
   color: transparent;
 }
+.navLinks .GsocHover:hover {
+  background: linear-gradient(to right,#F9AB00, #8136fa );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 
 .navLinks .omegaHover:hover {
@@ -248,6 +254,12 @@
   border-radius: 1.65rem;
   height: 3.3rem;
   font-size: 1.2rem;
+  background: linear-gradient(
+    260deg,
+    rgba(255, 190, 11, 0.84) -29.7%,
+    rgba(244, 43, 3, 0.84) 128.34%
+  );
+  // background: linear-gradient(to right,#F9AB00, #4B00C6 );
   background: linear-gradient(
     260deg,
     rgba(255, 190, 11, 0.84) -29.7%,
