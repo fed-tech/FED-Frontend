@@ -86,7 +86,8 @@ const Navbar = () => {
     <nav
       className={`${styles.navbar} ${
         isVisible ? styles.visible : styles.hidden
-      } ${navbarBg ? styles.bgChanged : ""}`}
+      } ${navbarBg ? styles.bgChanged : ""} ${
+                  activeLink === "/Gsoc" ? styles.bgChange : ""}`}
     >
       <div className={styles.navbarContent} style={{ height: navbarHeight }}>
         <div className={styles.mobNav}>
@@ -141,7 +142,7 @@ const Navbar = () => {
           </NavLink>
 
           <div className={styles.navItems}>
-            {/* <li>
+            <li>
               <NavLink
                 to="/"
                 className={`${styles.link} ${
@@ -154,7 +155,7 @@ const Navbar = () => {
                 Home
               </NavLink>
             </li>
-            {/* <li>
+            <li>
               <NavLink
                 to="/Events"
                 className={`${styles.link} ${
@@ -167,7 +168,7 @@ const Navbar = () => {
                 Event
               </NavLink>
             </li>
-              {/* <li>
+            {/* <li>
               <NavLink
                 to="/Omega"
                 className={`${styles.link} ${
@@ -191,7 +192,7 @@ const Navbar = () => {
                 GSOC
               </NavLink>
             </li>
-            {/* <li>
+            <li>
               <NavLink
                 to="/Social"
                 className={`${styles.link} ${
@@ -204,7 +205,7 @@ const Navbar = () => {
                 Social
               </NavLink>
             </li>
-            {/* <li>
+            <li>
               <NavLink
                 to="/Team"
                 className={`${styles.link} ${
