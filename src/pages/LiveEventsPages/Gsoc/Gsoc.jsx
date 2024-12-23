@@ -1,20 +1,20 @@
 import { useContext, useEffect, useState } from "react";
-import { api } from "../../services";
-import AuthContext from "../../context/AuthContext";
+import { api } from "../../../services/index.jsx";
+import AuthContext from "../../../context/AuthContext.jsx";
 import { motion } from "framer-motion";
 import { Element } from "react-scroll";
 import { useInView } from "react-intersection-observer";
-import styles from "./styles/Omega.module.scss";
-import Hero from "../../sections/Omega/Hero/Hero.jsx";
-import Accordion from "../../sections/Omega/Accordion/Accordion";
-import Sponsors from "../../sections/Omega/Sponsors/Sponsors";
-import Event from "../../sections/Omega/Event/Event.jsx";
-import FedShow from "../../sections/Omega/FedShow/FedShow.jsx"
-import TeamImage from "../../sections/Omega/TeamImage/TeamImage.jsx";
-import Attend from "../../sections/Omega/Attend/Attend.jsx";
-import ChatBot from "../../features/ChatBot/ChatBot.jsx";
+import styles from "./styles/Gsoc.module.scss";
+import Hero from "../../../sections/LiveEventsSections/Gsoc/Hero/Hero.jsx";
+import Speaker from "../../../sections/LiveEventsSections/Gsoc/Speaker/Speaker.jsx";
+import Attend from "../../../sections/LiveEventsSections/Gsoc/Attend/Attend.jsx";
+import ChatBot from "../../../features/ChatBot/ChatBot.jsx";
+import Accordion from "../../../components/LiveEventsComponent/Accordian/Accordian.jsx";
+import Faqs from "../../../sections/LiveEventsSections/Gsoc/Faqs/Faqs.jsx";
+import LiveInsights from "../../../sections/LiveEventsSections/Gsoc/LiveInsights/LiveInsights.jsx";
+import TeamPage from "../../../sections/LiveEventsSections/Gsoc/TeamPage/TeamPage.jsx";
 
-function Omega() {
+function Gsoc() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -90,11 +90,9 @@ function Omega() {
   }, [ongoingEvents]);
 
   useEffect(() => {
-   
     const registeredEventIds = authCtx.user.regForm || [];
-    ("Registered Events", registeredEventIds);
+    "Registered Events", registeredEventIds;
 
-  
     const relatedEventIds = ongoingEvents
       .map((event) => event.info.relatedEvent) // Extract relatedEvent IDs
       .filter((id) => id !== null && id !== undefined && id !== "null") // Filter out null, undefined, and 'null'
@@ -109,8 +107,6 @@ function Omega() {
       );
     }
 
-  
-
     if (isRegisteredInRelatedEvents) {
       setIsRegisteredInRelatedEvents(true);
     }
@@ -123,36 +119,17 @@ function Omega() {
         isRegisteredInRelatedEvents={isRegisteredInRelatedEvents}
         eventName={eventName}
       />
-      <FedShow />
-      <Event
-        ongoingEvents={ongoingEvents}
-        isRegisteredInRelatedEvents={isRegisteredInRelatedEvents}
-        eventName={eventName}
-      />
+      <Speaker />
+      <LiveInsights />
       <Attend />
-      <Sponsors />
-  
-      <Accordion />
-      <Element name="TeamImage">
-        <motion.div
-          ref={teamImageRef}
-          initial={{ opacity: 0, y: 50, scale: 0.5 }}
-          animate={
-            teamImageInView
-              ? { opacity: 1, y: 0, scale: 1 }
-              : { opacity: 0, y: 50, scale: 0.5 }
-          }
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          style={{ perspective: 1000 }}
-        >
-          <TeamImage />
-        </motion.div>
-      </Element>
+      <Faqs />
+      <TeamPage />
       <div>
         <ChatBot />
+        
       </div>
     </div>
   );
 }
 
-export default Omega;
+export default Gsoc;
