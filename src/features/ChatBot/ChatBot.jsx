@@ -22,7 +22,7 @@ export default function ChatBot() {
   const [isEventOngoing, setIsEventOngoing] = useState(true);
   const chatboxRef = useRef(null);
   const location = useLocation();
-  const isOmega = location.pathname.includes("/Omega");
+  const isGsoc = location.pathname.includes("/Gsoc");
   const [alert, setAlert] = useState(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
@@ -274,7 +274,7 @@ export default function ChatBot() {
     <>
       <button
         className={`${styles.chatbottoggle} ${botToggle} ${
-          isOmega ? styles.omegaBackGround : ""
+          isGsoc ? styles.gsocBackGround : ""
         }`}
         onClick={handleClick}
       >
@@ -295,7 +295,7 @@ export default function ChatBot() {
             </div>
             <span
               className={`${styles.close} ${styles.chatBotClose} ${
-                isOmega ? styles.omegaBackGround : ""
+                isGsoc ? styles.gsocBackGround : ""
               }`}
               onClick={handleClick}
             >
@@ -307,7 +307,7 @@ export default function ChatBot() {
             <div className={styles.messageBox}>
               <div
                 className={`${styles.botmessage} ${
-                  isOmega ? styles.omegaBackGround : ""
+                  isGsoc ? styles.gsocBackGround : ""
                 }`}
               >
                 {initialMsg}
@@ -319,7 +319,7 @@ export default function ChatBot() {
                     message.user
                       ? styles.usermessage
                       : `${styles.botmessage} ${
-                          isOmega ? styles.omegaBackGround : ""
+                          isGsoc ? styles.gsocBackGround : ""
                         }`
                   }
                 >
@@ -375,14 +375,14 @@ export default function ChatBot() {
               {isRecording ? (
                 <BsFillMicMuteFill
                   className={`${styles.sendIcon} ${
-                    isOmega ? styles.omegaBackGround : ""
+                    isGsoc ? styles.gsocBackGround : ""
                   }`}
                   size={24}
                 />
               ) : (
                 <BsFillMicFill
                   className={`${styles.sendIcon} ${
-                    isOmega ? styles.omegaBackGround : ""
+                    isGsoc ? styles.gsocBackGround : ""
                   }`}
                   size={24}
                 />
@@ -392,7 +392,7 @@ export default function ChatBot() {
               <BsSend
                 size={20}
                 className={`${styles.sendIcon} ${
-                  isOmega ? styles.omegaBackGround : ""
+                  isGsoc ? styles.gsocBackGround : ""
                 }`}
               />
             </button>

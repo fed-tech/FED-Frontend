@@ -14,7 +14,7 @@
   //   rgba(217, 217, 217, 0) 143.9%
   // );
   // margin-top: 8px;
-  background-color: black;
+
 }
 
 .logo_div {
@@ -90,14 +90,22 @@
 }
 
 .navLinks .activeLinkGsoc {
-  background:  linear-gradient(to right,#F9AB00, #8136fa );
+  background-color: #F48424;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 
-.navLinks .omegaHover:hover {
+.navLinks .gsocHover:hover {
+  background: #F48424;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+
+.navLinks .omegaaHover:hover {
   background: #38ccff;
   -webkit-background-clip: text;
   background-clip: text;
@@ -110,19 +118,7 @@
   color: inherit;
 }
 
-// .navLinks li a:hover {
-//   background: var(--primary);
-//   background-clip: text;
-//   color: transparent;
-//   transition: 0.2s ease-in;
-
-//   &::after {
-//     width: 100%;
-//     left: 0;
-//   }
-// }
-
-.link:hover {
+.navLinks li a:hover {
   background: var(--primary);
   background-clip: text;
   color: transparent;
@@ -134,17 +130,19 @@
   }
 }
 
-.linkGsoc:hover {
-  background: linear-gradient(to right,#F9AB00, #8136fa );
-  background-clip: text;
-  color: transparent;
-  transition: 0.2s ease-in;
+// .link:hover {
+//   background: var(--primary);
+//   background-clip: text;
+//   color: transparent;
+//   transition: 0.2s ease-in;
 
-  &::after {
-    width: 100%;
-    left: 0;
-  }
-}
+//   &::after {
+//     width: 100%;
+//     left: 0;
+//   }
+// }
+
+
 
 .navLinks li a::after {
   content: "";
@@ -238,12 +236,12 @@
   border-radius: 1.65rem;
   height: 3.3rem;
   font-size: 1.2rem;
-  // background: linear-gradient(
-  //   260deg,
-  //   rgba(255, 190, 11, 0.84) -29.7%,
-  //   rgba(244, 43, 3, 0.84) 128.34%
-  // );
-  background: linear-gradient(to right,#F9AB00, #4B00C6 );
+  background: linear-gradient(
+    260deg,
+    rgba(255, 190, 11, 0.84) -29.7%,
+    rgba(244, 43, 3, 0.84) 128.34%
+  );
+  // background: linear-gradient(to right,#F9AB00, #4B00C6 );
   font-weight: 600;
   padding: 5px 25px;
   padding-bottom: 1vh;
@@ -253,33 +251,33 @@
 }
 
 .authButton:hover {
-  // transition: 0.2s linear;
-  background: linear-gradient(to right, #4c208f,#F9AB00);
-  // background: linear-gradient(260deg, rgba(255, 190, 11, .9) -29.7%, rgba(244, 43, 3, .9) 128.34%);
+  transition: 0.2s linear;
+  // background: linear-gradient(to right, #4c208f,#F9AB00);
+   background: linear-gradient(260deg, rgba(255, 190, 11, .9) -29.7%, rgba(244, 43, 3, .9) 128.34%);
 }
 
-.activeLinkOmega {
-  color: #38ccff !important;
+// .activeLinkGsoc {
+//   color:  linear-gradient(
+//     260deg,
+//     #F48424 ,
+//     #2F0048
+//   ) !important;
+// }
+
+.gsocButton {
+ background-color: #fff;
 }
 
-.omegaButton {
-  background-color: #38ccff !important;
-  background: linear-gradient(
-    260deg,
-    rgba(22, 175, 143, 0.84) -29.7%,
-    rgba(1, 113, 227, 0.84) 128.34%
-  );
-}
-
-.omegaButton:hover {
+.GsocButton {
   transition: .2s linear;
-  background: linear-gradient(
-    260deg,
-    rgba(22, 175, 143, 0.9) -29.7%,
-    rgba(1, 113, 227, 0.9) 128.34%
-  );
+  background: linear-gradient(to left,#F48424,#2F0048);
+  
 }
-
+.GsocButton:hover {
+  transition: .2s linear;
+  background: linear-gradient(to left,#f47b24,#4c0c6f);
+  
+}
 
 .profileImgdiv {
   height: 60px;
