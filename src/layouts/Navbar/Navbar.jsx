@@ -6,6 +6,7 @@ import styles from "./styles/Navbar.module.scss";
 import logo from "../../assets/images/Logo/logo.svg";
 import defaultImg from "../../assets/images/defaultImg.jpg";
 
+
 const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -61,7 +62,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     authCtx.logout();
-    navigate("/")
+    navigate("/");
     closeMobileMenu();
   };
 
@@ -80,6 +81,12 @@ const Navbar = () => {
   });
   
   const isOmegaActive = activeLink === "/Omega";
+  const handleLogoClick = () => {
+    window.scroll({
+      top: 0,  // Scroll to the top of the page
+      behavior: "smooth",  // Smooth scrolling
+    });
+  };
 
   return (
     <nav
@@ -132,8 +139,8 @@ const Navbar = () => {
             </NavLink>
           )}
 
-          <NavLink to="/" className={styles.logoLink} onClick={closeMobileMenu}>
-            <div className={styles.logo_div}>
+          <NavLink to="/" className={styles.logoLink} onClick={() => {closeMobileMenu(); handleLogoClick();}}>
+              <div className={styles.logo_div}>
               <img src={logo} alt="Logo" className={styles.logo} />
               <div className={styles.logo_text}></div>
             </div>
