@@ -1,0 +1,19 @@
+name: "Adding New Page Section"
+description: "Help us improve by submitting a detailed bug report."
+title: "[New Page Section]: "
+labels: ["new page section", "UI/UX"]
+body:
+  - type: textarea
+    id: "new_section_summary"
+    attributes:
+      label: "Section Summary"
+      description: "Provide a concise summary of the new section of the page."
+    validations:
+      required: true
+  - type: textarea
+    id: "screenshots_logs"
+    attributes:
+      label: "Screenshots/Logs"
+      description: "Attach any relevant screenshots or logs that could help us understand the issue better. Logs can include error messages or stack traces."
+    validations:
+      required: false
