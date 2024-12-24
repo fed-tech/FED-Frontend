@@ -54,6 +54,7 @@ const EventForm = () => {
 
     fetchEvent();
   }, [id]);
+  // console.log("eventData",eventData);
 
   return (
     <div>
@@ -61,6 +62,7 @@ const EventForm = () => {
         <PreviewForm
           open={showPreview}
           handleClose={() => setShowPreview(false)}
+          eventId = {eventData?.id}
           sections={eventData?.sections || []}
           eventData={eventData?.info || {}}
           form={eventData || {}}

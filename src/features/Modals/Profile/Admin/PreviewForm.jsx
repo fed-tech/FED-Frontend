@@ -35,6 +35,7 @@ const PreviewForm = ({
   meta = [],
   handleClose,
   showCloseBtn,
+  eventId
 }) => {
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
@@ -53,7 +54,8 @@ const PreviewForm = ({
   const [formData, setFormData] = useState(eventData);
   const [code, setcode] = useState(null);
   const [team, setTeam] = useState(null);
-
+  console.log('Data', eventId);
+  
   let currentSection =
     data !== undefined
       ? data.find((section) => section._id === activeSection._id)
@@ -474,8 +476,85 @@ const PreviewForm = ({
 
   const renderPaymentScreen = () => {
     const { eventType, receiverDetails, eventAmount } = formData;
+    const paymentData = {
+     eventId: eventId, 
+     amount : formData.eventAmount
+    };
 
-    if (eventType === "Paid" && currentSection.name === "Payment Details") {
+    const handlePayment = async () => {
+      try {
+        // Initiate payment from the backend
+        console.log("handlePayment", formData);
+        const response = await api.post("/api/form/initiate",paymentData, {
+          headers: { "Content-Type": "application/json" },
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`
+
+        });
+
+        // const response = await api.post("/api/form/register", formData, {
+        //   headers: {
+        //     "Content-Type": "multipart/form-data",
+        //     Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+        //   },
+        // });
+    
+        const { order } = await response.json();
+    
+        if (!order) throw new Error("Order creation failed");
+    
+        const options = {
+          key: "rzp_test_GcZZFDPP0jHtC4",
+          amount: order.amount,
+          currency: order.currency,
+          name: "Event Payment",
+          description: `Payment for ${formData.receiverDetails}`,
+          order_id: order.id, // Order ID from backend
+          handler: async function (response) {
+            const paymentData = {
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+              eventId: formData.eventId,
+            };
+    
+            // Verify payment on the backend
+            const verifyResponse = await fetch("/api/payments/verify", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(paymentData),
+            });
+    
+            const result = await verifyResponse.json();
+            if (result.success) {
+              sessionStorage.setItem("paymentData", result.data); // Save encrypted data
+              alert("Payment successful!");
+              window.location.reload(); // Redirect back to original page
+            } else {
+              alert("Payment verification failed");
+            }
+          },
+          prefill: {
+            name: "Test User",
+            email: "testuser@example.com",
+            contact: "9999999999",
+          },
+          notes: { address: "Test Address" },
+          theme: { color: "#3399cc" },
+        };
+    
+        const rzp = new Razorpay(options);
+        rzp.on("payment.failed", function (response) {
+          alert(`Payment failed: ${response.error.description}`);
+        });
+        rzp.open();
+      } catch (error) {
+        console.error("Payment initiation error:", error);
+        alert("Failed to initiate payment");
+      }
+    };
+    
+  
+    if (formData.eventType === "Paid" && currentSection.name === "Payment Details") {
       return (
         <div
           style={{
@@ -486,50 +565,12 @@ const PreviewForm = ({
             alignItems: "center",
           }}
         >
-          {receiverDetails.media && (
-            <img
-              src={
-                typeof receiverDetails.media === "string"
-                  ? receiverDetails.media
-                  : URL.createObjectURL(receiverDetails.media)
-              }
-              alt={"QR-Code"}
-              style={{
-                width: 200,
-                height: 200,
-                objectFit: "contain",
-              }}
-            />
-          )}
-          <p
-            style={{
-              fontSize: 12,
-              marginTop: 12,
-              color: "lightgray",
-            }}
-          >
-            Make the payment of{" "}
-            <strong
-              style={{
-                color: "#fff",
-              }}
-            >
-              &#8377;{eventAmount}
-            </strong>{" "}
-            using QR-Code or UPI Id{" "}
-            <strong
-              style={{
-                color: "#fff",
-              }}
-            >
-              {receiverDetails.upi}
-            </strong>
-          </p>
+          <Button onClick={handlePayment}>Pay Now</Button>
         </div>
       );
     }
-    return null;
-  };
+  };    
+  
 
   return (
     <>
