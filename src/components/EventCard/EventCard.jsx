@@ -201,7 +201,9 @@ const EventCard = (props) => {
 
         console.log("checking for ", data.id);
         if (data?.info?.relatedEvent === "null") {
-          setBtnTxt("Already Registered");
+          if (authCtx.user.regForm.includes(data.id)) {
+            setBtnTxt("Already Registered");
+          }
         } else {
           if (authCtx.user.regForm.includes(data.id)) {
             setBtnTxt("Already Registered");
