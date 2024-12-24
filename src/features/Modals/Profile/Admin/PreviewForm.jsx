@@ -481,77 +481,186 @@ const PreviewForm = ({
      amount : formData.eventAmount
     };
 
+    // const handlePayment = async () => {
+    //   try {
+    //     // Initiate payment from the backend
+    //     console.log("handlePayment", formData);
+    //     const response = await api.post("/api/form/initiate",paymentData, {
+    //       headers: { "Content-Type": "application/json" },
+    //       Authorization: `Bearer ${window.localStorage.getItem("token")}`
+
+    //     });
+
+    //     // const response = await api.post("/api/form/register", formData, {
+    //     //   headers: {
+    //     //     "Content-Type": "multipart/form-data",
+    //     //     Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+    //     //   },
+    //     // });
+    
+    //     const { order } = await response.json();
+    
+    //     if (!order) throw new Error("Order creation failed");
+    
+    //     const options = {
+    //       key: "rzp_test_GcZZFDPP0jHtC4",
+    //       amount: order.amount,
+    //       currency: order.currency,
+    //       name: "Event Payment",
+    //       description: `Payment for ${formData.receiverDetails}`,
+    //       order_id: order.id, // Order ID from backend
+    //       handler: async function (response) {
+    //         const paymentData = {
+    //           razorpay_payment_id: response.razorpay_payment_id,
+    //           razorpay_order_id: response.razorpay_order_id,
+    //           razorpay_signature: response.razorpay_signature,
+    //           eventId: formData.eventId,
+    //         };
+    
+    //         // Verify payment on the backend
+    //         const verifyResponse = await fetch("/api/payments/verify", {
+    //           method: "POST",
+    //           headers: { "Content-Type": "application/json" },
+    //           body: JSON.stringify(paymentData),
+    //         });
+    
+    //         const result = await verifyResponse.json();
+    //         if (result.success) {
+    //           sessionStorage.setItem("paymentData", result.data); // Save encrypted data
+    //           alert("Payment successful!");
+    //           window.location.reload(); // Redirect back to original page
+    //         } else {
+    //           alert("Payment verification failed");
+    //         }
+    //       },
+    //       prefill: {
+    //         name: "Test User",
+    //         email: "testuser@example.com",
+    //         contact: "9999999999",
+    //       },
+    //       notes: { address: "Test Address" },
+    //       theme: { color: "#3399cc" },
+    //     };
+    
+    //     const rzp = new Razorpay(options);
+    //     rzp.on("payment.failed", function (response) {
+    //       alert(`Payment failed: ${response.error.description}`);
+    //     });
+    //     rzp.open();
+    //   } catch (error) {
+    //     console.error("Payment initiation error:", error);
+    //     alert("Failed to initiate payment");
+    //   }
+    // };
     const handlePayment = async () => {
+      setIsLoading(true);
+      setIsMicroLoading(true);
+      
       try {
-        // Initiate payment from the backend
-        console.log("handlePayment", formData);
-        const response = await api.post("/api/form/initiate",paymentData, {
-          headers: { "Content-Type": "application/json" },
-          Authorization: `Bearer ${window.localStorage.getItem("token")}`
-
-        });
-
-        // const response = await api.post("/api/form/register", formData, {
-        //   headers: {
-        //     "Content-Type": "multipart/form-data",
-        //     Authorization: `Bearer ${window.localStorage.getItem("token")}`,
-        //   },
-        // });
-    
-        const { order } = await response.json();
-    
-        if (!order) throw new Error("Order creation failed");
-    
-        const options = {
-          key: "rzp_test_GcZZFDPP0jHtC4",
-          amount: order.amount,
-          currency: order.currency,
-          name: "Event Payment",
-          description: `Payment for ${formData.receiverDetails}`,
-          order_id: order.id, // Order ID from backend
-          handler: async function (response) {
-            const paymentData = {
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature,
-              eventId: formData.eventId,
-            };
-    
-            // Verify payment on the backend
-            const verifyResponse = await fetch("/api/payments/verify", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(paymentData),
-            });
-    
-            const result = await verifyResponse.json();
-            if (result.success) {
-              sessionStorage.setItem("paymentData", result.data); // Save encrypted data
-              alert("Payment successful!");
-              window.location.reload(); // Redirect back to original page
-            } else {
-              alert("Payment verification failed");
-            }
+        // Initiating payment by making an API call to your backend
+        const response = await api.post("/api/form/initiatePayment", {
+          eventId: eventData.id || "abcd",
+          amount: eventAmount || 100,
+        }, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
           },
-          prefill: {
-            name: "Test User",
-            email: "testuser@example.com",
-            contact: "9999999999",
-          },
-          notes: { address: "Test Address" },
-          theme: { color: "#3399cc" },
-        };
-    
-        const rzp = new Razorpay(options);
-        rzp.on("payment.failed", function (response) {
-          alert(`Payment failed: ${response.error.description}`);
         });
-        rzp.open();
+    
+        if (response.status === 200 || response.status === 201) {
+          const orderId  = response.data.orderId;
+          
+          // Start Razorpay checkout
+          const options = {
+            key: "rzp_test_ChH0b4D5LwCIsA", // Public Razorpay key
+            amount: eventAmount * 100,
+            currency: "INR",
+            // name: "Your App Name",
+            // description: "Payment for Event",
+            order_id: orderId,
+            handler: async (paymentResponse) => {
+              // try {
+              //   // On successful payment, update payment status
+              //   const verifyPayment = await api.post("/api/payment/verify", {
+              //     paymentId: paymentResponse.razorpay_payment_id,
+              //     orderId: order.id,
+              //   });
+    
+              //   if (verifyPayment.status === 200) {
+              //     setAlert({
+              //       type: "success",
+              //       message: "Payment successful and verified!",
+              //       position: "bottom-right",
+              //       duration: 3000,
+              //     });
+              //     setIsSuccess(true);
+              //   } else {
+              //     setAlert({
+              //       type: "error",
+              //       message: "Payment verification failed. Please try again.",
+              //       position: "bottom-right",
+              //       duration: 3000,
+              //     });
+              //     setIsSuccess(false);
+              //   }
+              // } catch (verifyError) {
+              //   console.error("Payment verification error:", verifyError);
+              //   setAlert({
+              //     type: "error",
+              //     message: "There was an error verifying the payment. Please try again.",
+              //     position: "bottom-right",
+              //     duration: 3000,
+              //   });
+              //   setIsSuccess(false);
+              // }
+              try{
+                alert("Payment successful and verified!");
+              }
+              catch(error){
+                alert("Payment verification failed. Please try again.");
+              }
+              setIsSuccess(true);
+            },
+            
+          };
+    
+          const razorpay = new window.Razorpay(options);
+          razorpay.open();
+          razorpay.on("payment.failed", function (response) {
+            alert(`Payment failed: ${response.error.description}`);
+          })
+        } else {
+          setAlert({
+            type: "error",
+            message:
+              response.data.message ||
+              "There was an error initiating the payment. Please try again.",
+            position: "bottom-right",
+            duration: 3000,
+          });
+          setIsSuccess(false);
+          throw new Error("Unexpected response status");
+        }
       } catch (error) {
         console.error("Payment initiation error:", error);
-        alert("Failed to initiate payment");
+        setAlert({
+          type: "error",
+          message:
+            error?.response?.data?.message ||
+            "There was an error initiating the payment. Please try again.",
+          position: "bottom-right",
+          duration: 3000,
+        });
+        setIsSuccess(false);
+      } finally {
+        setIsLoading(false);
+        setIsMicroLoading(false);
       }
     };
+    
+    
+    
     
   
     if (formData.eventType === "Paid" && currentSection.name === "Payment Details") {
