@@ -46,14 +46,12 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
         <div className={styles.closebtn} onClick={onClose}>
           <X />
         </div>
-
         {/* Conditional rendering for successMessage */}
         {successMessage && (
           <span className={styles.registrationTitle}>
             Registration Successful
           </span>
         )}
-
         {/* Conditional rendering for teamData */}
         {teamName && teamCode && (
           <div>
@@ -120,39 +118,60 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
             </div>
           </div>
         )}
-
         {/* Rendering the success message */}
         {successMessage && (
-          <div>
-            <p
-              style={{
-                textAlign: "left",
-                color: "#ffffff90",
-                marginTop: "1rem",
-              }}
-            >
-              {successMessage.successMessage.split(" ").map((word, index) => {
-                const urlPattern = /(https?:\/\/[^\s]+)/;
-                if (urlPattern.test(word)) {
-                  return (
-                    <React.Fragment key={index}>
-                      <a
-                        href={word}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ color: "#FF8A00", textDecoration: "none" }}
-                      >
-                        {word}
-                      </a>
-                      <br /> {/* This ensures the line break */}
-                    </React.Fragment>
-                  );
-                }
-                return <React.Fragment key={index}>{word} </React.Fragment>;
-              })}
-            </p>
-          </div>
-        )}
+  <div>
+    <p
+      style={{
+        textAlign: "left",
+        color: "#ffffff90",
+        marginTop: "1rem",
+        whiteSpace: "pre-wrap", 
+        marginBottom: "0", 
+      }}
+    >
+      {successMessage.successMessage
+        .trim() 
+        .split(/\s+/) 
+        .map((word, index) => {
+          const urlPattern = /(https?:\/\/[^\s]+)/;
+          const match = word.match(urlPattern); 
+
+          if (match) {
+            return (
+              <React.Fragment key={index}>
+                <br /> 
+                <a
+                  href={match[0]} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "#FF8A00", textDecoration: "none" }}
+                >
+                  {match[0]}
+                </a>
+                <br />
+                <br />
+              </React.Fragment>
+            );
+          }
+          return <React.Fragment key={index}>{word} </React.Fragment>;
+        })}
+
+    </p>
+    {/* Add consistent gap between paragraphs */}
+    {/* <p
+      style={{
+        textAlign: "left",
+        color: "#ffffff90",
+        marginTop: "1rem", // Consistent gap above paragraphs
+        marginBottom: "1rem", // Consistent gap below paragraphs
+      }}
+    >
+      This ensures gaps for other content
+    </p> */}
+  </div>
+)}
+
       </div>
     </div>
   );

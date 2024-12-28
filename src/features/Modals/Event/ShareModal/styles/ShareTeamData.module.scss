@@ -35,10 +35,15 @@
   margin-top: 9rem;
   margin-left: auto;
   margin-right: auto;
-  width: 22rem;
+  width: 30rem;
   box-shadow: 0 6px 10px 3px rgba(24, 15, 15, 0.3);
   color: #f97507;
+  word-wrap: break-word; // Handles long words
+  word-break: break-word; // Ensures text breaks within words if needed
+  overflow-wrap: break-word; // For better compatibility
+  white-space: normal; // Prevents single-line text overflow
 }
+
 
 .closebtn {
   cursor: pointer;
@@ -69,9 +74,12 @@
 }
 
 .copyUrl {
-  overflow-y: scroll;
-  scrollbar-width: none;
-  // ms-overflow-style: none;
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  word-wrap: break-word; // Ensure long URLs break properly
+  text-overflow: ellipsis; // Optionally add ellipsis for overflowing text
+  white-space: normal; // Allow text wrapping
 }
 
 .shareTitle{
@@ -82,7 +90,7 @@
 
 .registrationTitle{
   font-weight:bold;
-  margin-left:-2.5rem;
+  margin-left:-9.5rem;
   margin-top: -1.3rem;
   font-size:1.5rem;
   background: linear-gradient(
@@ -94,6 +102,7 @@ color: transparent;
 -webkit-background-clip: text;
 background-clip: text;
 }
+
 
 @media (max-width:500px){
   .maindiv{
@@ -107,6 +116,12 @@ background-clip: text;
   .shareTitle{
       font-size: 1.2rem;
       margin-left: -6rem;
+  }
+
+  .registrationTitle{
+      font-size: 1.4rem;
+      margin-top: -20px;
+      margin-left: -2.5rem;
   }
 
 
