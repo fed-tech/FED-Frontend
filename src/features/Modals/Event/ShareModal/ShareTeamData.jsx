@@ -21,15 +21,22 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
   const { teamName, teamCode } = teamData;
   const [copyText, setCopyText] = useState("Copy");
 
-  const message = `Congratulations! Your team "${teamName}" with code "${teamCode}" has been successfully registered!🎉🎉`;
+  const message = `Congratulations! Your team \"${teamName}\" with code \"${teamCode}\" has been successfully registered!🎉🎉`;
   const websiteUrl = window.location.href; // Replace this with your actual website URL
 
-  // Trigger confetti effect when the modal opens
   useEffect(() => {
+    // Trigger confetti effect when the modal opens
     jsConfetti.addConfetti({
-      // emojis: ["🎉", "✨", "🎈", "🔥"],
       confettiColors: ["#FF8A00", "#FFD700", "#FF4500", "#FF69B4"],
     });
+
+    // Disable scrolling when modal is open
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      // Re-enable scrolling when modal is closed
+      document.body.style.overflow = "";
+    };
   }, []); // Empty dependency array ensures it runs only on component mount
 
   const handleCopy = () => {
@@ -39,11 +46,16 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
     setTimeout(() => setCopyText("Copy"), 4000); // Reset button text after 4 seconds
   };
 
+  const handleClose = () => {
+    document.body.style.overflow = ""; // Re-enable scrolling
+    onClose();
+  };
+
   return (
     <div className={styles.shareContainer}>
-      <div className={styles.overlay} onClick={onClose}></div>
+      <div className={styles.overlay}></div>
       <div className={styles.maindiv}>
-        <div className={styles.closebtn} onClick={onClose}>
+        <div className={styles.closebtn} onClick={handleClose}>
           <X />
         </div>
         {/* Conditional rendering for successMessage */}
@@ -58,11 +70,9 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
             <span className={styles.shareTitle}>Your Team Info</span>
             <div className={styles.copyContainer}>
               <p style={{ color: "#ffffff90", textWrap: "wrap" }}>
-                Your Team Name:{" "}
-                <span style={{ fontWeight: "bold" }}>{teamName}</span>
+                Your Team Name: <span style={{ fontWeight: "bold" }}>{teamName}</span>
                 <br />
-                Your Team Code:{" "}
-                <span style={{ fontWeight: "bold" }}>{teamCode}</span>
+                Your Team Code: <span style={{ fontWeight: "bold" }}>{teamCode}</span>
               </p>
               <button
                 onClick={handleCopy}
@@ -120,58 +130,46 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
         )}
         {/* Rendering the success message */}
         {successMessage && (
-  <div>
-    <p
-      style={{
-        textAlign: "left",
-        color: "#ffffff90",
-        marginTop: "1rem",
-        whiteSpace: "pre-wrap", 
-        marginBottom: "0", 
-      }}
-    >
-      {successMessage.successMessage
-        .trim() 
-        .split(/\s+/) 
-        .map((word, index) => {
-          const urlPattern = /(https?:\/\/[^\s]+)/;
-          const match = word.match(urlPattern); 
+          <div>
+            <p
+              style={{
+                textAlign: "left",
+                color: "#ffffff90",
+                marginTop: "1rem",
+                whiteSpace: "pre-wrap",
+                marginBottom: "0",
+              }}
+            >
+              {successMessage.successMessage
+                .trim()
+                .split(/\s+/)
+                .map((word, index) => {
+                  const urlPattern = /(https?:\/\/[^\s]+)/;
+                  const match = word.match(urlPattern);
 
-          if (match) {
-            return (
-              <React.Fragment key={index}>
-                <br /> 
-                <a
-                  href={match[0]} 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: "#FF8A00", textDecoration: "none" }}
-                >
-                  {match[0]}
-                </a>
-                <br />
-                <br />
-              </React.Fragment>
-            );
-          }
-          return <React.Fragment key={index}>{word} </React.Fragment>;
-        })}
-
-    </p>
-    {/* Add consistent gap between paragraphs */}
-    {/* <p
-      style={{
-        textAlign: "left",
-        color: "#ffffff90",
-        marginTop: "1rem", // Consistent gap above paragraphs
-        marginBottom: "1rem", // Consistent gap below paragraphs
-      }}
-    >
-      This ensures gaps for other content
-    </p> */}
-  </div>
-)}
-
+                  if (match) {
+                    return (
+                      <React.Fragment key={index}>
+                        <br />
+                        <br />
+                        <a
+                          href={match[0]}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ color: "#FF8A00", textDecoration: "none" }}
+                        >
+                          {match[0]}
+                        </a>
+                        <br />
+                        <br />
+                      </React.Fragment>
+                    );
+                  }
+                  return <React.Fragment key={index}>{word} </React.Fragment>;
+                })}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
