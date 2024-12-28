@@ -7,7 +7,7 @@ import styles from "./styles/Hero.module.scss";
 import { parse, differenceInMilliseconds } from "date-fns";
 import { Alert, MicroLoading } from "../../../../microInteraction";
 
-function Hero({ ongoingEvents, isRegisteredInRelatedEvents, eventName }) {
+function Hero({ ongoingEvents, eventName }) {
   const authCtx = useContext(AuthContext);
   const [alert, setAlert] = useState(null);
   const [remainingTime, setRemainingTime] = useState("");
@@ -16,8 +16,9 @@ function Hero({ ongoingEvents, isRegisteredInRelatedEvents, eventName }) {
   const navigate = useNavigate();
   const [isMicroLoading, setIsMicroLoading] = useState(false);
   const [relatedEventId, setRelatedEventId] = useState(null);
-  const [btnTxt, setBtnTxt] = useState("REGISTER NOW");
+  const [btnTxt, setBtnTxt] = useState("Loading...");
 
+  // Display alerts using Alert component
   useEffect(() => {
     if (alert) {
       const { type, message, position, duration } = alert;
@@ -26,51 +27,45 @@ function Hero({ ongoingEvents, isRegisteredInRelatedEvents, eventName }) {
     }
   }, [alert]);
 
+
   const calculateRemainingTime = () => {
     try {
+      if (!info.regDateAndTime) return;
+
       const regStartDate = parse(
-        "December 28, 2024, 11:00:00 PM",
-        "MMMM dd, yyyy, h:mm:ss a",
-        new Date()
-      );
-      const regEndDate = parse(
-        "January 9, 2025, 12:00:00 PM",
-        "MMMM dd, yyyy, h:mm:ss a",
+        info.regDateAndTime,
+        "MMMM do yyyy, h:mm:ss a",
         new Date()
       );
       const now = new Date();
 
-      if (now >= regEndDate) {
+      const timeDifference = differenceInMilliseconds(regStartDate, now);
+
+      if (timeDifference <= 0) {
         setRemainingTime(null);
-        setBtnTxt("Registration Closed");
-        setIsRegistrationClosed(true);
+        setBtnTxt("REGISTER NOW");
         return;
       }
 
-      const timeDifference = differenceInMilliseconds(regStartDate, now);
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
+      const seconds = Math.floor((timeDifference / 1000) % 60);
 
-      if (now < regStartDate) {
-        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
-        const seconds = Math.floor((timeDifference / 1000) % 60);
+      const remaining =
+        days > 0
+          ? `${days} day${days > 1 ? "s" : ""} left`
+          : `${hours}h ${minutes}m ${seconds}s`;
 
-        const remaining =
-          days > 0
-            ? `${days} day${days > 1 ? "s" : ""} left`
-            : `${hours}h ${minutes}m ${seconds}s`;
-
-        setRemainingTime(remaining);
-        setBtnTxt(remaining);
-      } else {
-        setRemainingTime(null);
-      }
+      setRemainingTime(remaining);
+      setBtnTxt(remaining);
     } catch (error) {
       console.error("Date parsing error:", error);
       setRemainingTime(null);
     }
   };
 
+  
   useEffect(() => {
     const ongoingInfo = ongoingEvents.find(
       (e) => e.info.relatedEvent === "null"
@@ -89,7 +84,7 @@ function Hero({ ongoingEvents, isRegisteredInRelatedEvents, eventName }) {
       const intervalId = setInterval(calculateRemainingTime, 1000);
       return () => clearInterval(intervalId);
     }
-  }, [info?.regDateAndTime, ongoingEvents]);
+  }, [ongoingEvents]);
 
   const handleButtonClick = () => {
     if (isRegistrationClosed) return;
@@ -135,21 +130,24 @@ function Hero({ ongoingEvents, isRegisteredInRelatedEvents, eventName }) {
     }
   };
 
+
   useEffect(() => {
     const updateButtonText = () => {
-      if (isRegistrationClosed) {
-        setBtnTxt("CLOSED");
-      } else if (!authCtx.isLoggedIn) {
-        setBtnTxt(remainingTime || "REGISTER NOW");
-      } else if (authCtx.user.access !== "USER") {
-        setBtnTxt("ALREADY MEMBER");
-      } else if (authCtx.user.regForm?.includes(relatedEventId)) {
-        setBtnTxt("ALREADY REGISTERED");
-      } else {
-        setBtnTxt(remainingTime || "REGISTER NOW");
-      }
-
-      setIsMicroLoading(false);
+      setIsMicroLoading(true);
+      setTimeout(() => {
+        if (isRegistrationClosed) {
+          setBtnTxt("CLOSED");
+        } else if (!authCtx.isLoggedIn) {
+          setBtnTxt(remainingTime || "REGISTER NOW");
+        } else if (authCtx.user.access !== "USER") {
+          setBtnTxt("ALREADY MEMBER");
+        } else if (authCtx.user.regForm?.includes(relatedEventId)) {
+          setBtnTxt("ALREADY REGISTERED");
+        } else {
+          setBtnTxt(remainingTime || "REGISTER NOW");
+        }
+        setIsMicroLoading(false);
+      });
     };
 
     updateButtonText();

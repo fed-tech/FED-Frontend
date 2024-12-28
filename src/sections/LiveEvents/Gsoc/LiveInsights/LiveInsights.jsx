@@ -76,67 +76,6 @@ function LiveInsights({ ongoingEvents, isRegisteredInRelatedEvents }) {
 
   //     return () => clearInterval(intervalId);
   //   }, []);
-
-    useEffect(() => {
-      const ongoingInfo = ongoingEvents.find(
-        (e) => e.info.relatedEvent === "null"
-      )?.info;
-  
-      setInfo(ongoingInfo);
-      setIsRegistrationClosed(ongoingInfo?.isRegistrationClosed || false);
-  
-      const relatedId = ongoingEvents.find(
-        (e) => e.info.relatedEvent === "null"
-      )?.id;
-      setRelatedEventId(relatedId);
-
-    }, [ongoingEvents]);
-
-  const calculateRemainingTime = () => {
-    try {
-      const regStartDate = parse(
-        "December 28, 2024, 11:00:00 PM",
-        "MMMM dd, yyyy, h:mm:ss a",
-        new Date()
-      );
-      const regEndDate = parse(
-        "January 9, 2025, 12:00:00 PM",
-        "MMMM dd, yyyy, h:mm:ss a",
-        new Date()
-      );
-      const now = new Date();
-
-      if (now >= regEndDate) {
-        setRemainingTime(null);
-        setBtnTxt("Registration Closed");
-        setIsRegistrationClosed(true);
-        return;
-      }
-
-      const timeDifference = differenceInMilliseconds(regStartDate, now);
-
-      if (now < regStartDate) {
-        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
-        const seconds = Math.floor((timeDifference / 1000) % 60);
-
-        const remaining =
-          days > 0
-            ? `${days} day${days > 1 ? "s" : ""} left`
-            : `${hours}h ${minutes}m ${seconds}s`;
-
-        setRemainingTime(remaining);
-        setBtnTxt(remaining);
-      } else {
-        setRemainingTime(null);
-      }
-    } catch (error) {
-      console.error("Date parsing error:", error);
-      setRemainingTime(null);
-    }
-  };
-
   useEffect(() => {
     const ongoingInfo = ongoingEvents.find(
       (e) => e.info.relatedEvent === "null"
@@ -151,12 +90,49 @@ function LiveInsights({ ongoingEvents, isRegisteredInRelatedEvents }) {
     setRelatedEventId(relatedId);
 
     if (ongoingInfo?.regDateAndTime) {
-      calculateRemainingTime();
-      const intervalId = setInterval(calculateRemainingTime, 1000);
+      calculateRemainingTime(ongoingInfo.regDateAndTime);
+      const intervalId = setInterval(() => calculateRemainingTime(ongoingInfo.regDateAndTime), 1000);
       return () => clearInterval(intervalId);
     }
-  }, [info?.regDateAndTime, ongoingEvents]);
+  }, [ongoingEvents]);
 
+  const calculateRemainingTime = (regDateAndTime) => {
+    try {
+      if (!regDateAndTime) return;
+
+      const regStartDate = parse(
+        regDateAndTime,
+        "MMMM do yyyy, h:mm:ss a",
+        new Date()
+      );
+      const now = new Date();
+
+      const timeDifference = differenceInMilliseconds(regStartDate, now);
+
+      if (timeDifference <= 0) {
+        setRemainingTime(null);
+        setBtnTxt("Registration Closed");
+        setIsRegistrationClosed(true);
+        return;
+      }
+
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
+      const seconds = Math.floor((timeDifference / 1000) % 60);
+
+      const remaining =
+        days > 0
+          ? `${days} day${days > 1 ? "s" : ""} left`
+          : `${hours}h ${minutes}m ${seconds}s`;
+
+      setRemainingTime(remaining);
+      setBtnTxt(remaining);
+    } catch (error) {
+      console.error("Date parsing error:", error);
+      setRemainingTime(null);
+    }
+  };
   const handleButtonClick = () => {
     if (isRegistrationClosed) return;
 
