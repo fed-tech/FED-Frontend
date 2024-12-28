@@ -52,7 +52,7 @@ const OTPInput = lazy(() =>
 
 const MainLayout = () => {
   const location = useLocation();
-  const isGsocPage = location.pathname === "/Gsoc";
+  const isGsocPage = /\/gsoc|\/GSOC|\/GSoC|\/gsoc/i.test(location.pathname);
 
   useEffect(() => {
     if (isGsocPage) {
@@ -98,7 +98,7 @@ function App() {
             <Route path="/Team" element={<Team />} />
             <Route path="/Alumni" element={<Alumni />} />
             {/* <Route path="/Omega" element={<Omega />} /> */}
-            <Route path="/Gsoc" element={<Gsoc />}/>
+            <Route path="/Gsoc" element={<Gsoc />} />
             {/* Route After Login */}
             {authCtx.isLoggedIn && (
               <Route path="/profile" element={<Profile />}>
@@ -165,9 +165,9 @@ function App() {
 
           {/* Routes for Authentication witout Navbar and footer */}
           <Route element={<AuthLayout />}>
-         {!authCtx.isLoggedIn && (
-            <Route path="/profile/*" element={<Navigate to="/Login" />} />
-          )}
+            {!authCtx.isLoggedIn && (
+              <Route path="/profile/*" element={<Navigate to="/Login" />} />
+            )}
             <Route
               path="/Login"
               element={

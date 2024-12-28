@@ -95,7 +95,7 @@ function LiveInsights({ ongoingEvents, isRegisteredInRelatedEvents }) {
   const calculateRemainingTime = () => {
     try {
       const regStartDate = parse(
-        "December 28, 2024, 11:00:00 PM",
+        "December 28, 2024, 08:00:00 PM",
         "MMMM dd, yyyy, h:mm:ss a",
         new Date()
       );

@@ -25,19 +25,15 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
   const websiteUrl = window.location.href; // Replace this with your actual website URL
 
   useEffect(() => {
-    // Trigger confetti effect when the modal opens
     jsConfetti.addConfetti({
       confettiColors: ["#FF8A00", "#FFD700", "#FF4500", "#FF69B4"],
     });
-
-    // Disable scrolling when modal is open
     document.body.style.overflow = "hidden";
 
     return () => {
-      // Re-enable scrolling when modal is closed
       document.body.style.overflow = "";
     };
-  }, []); // Empty dependency array ensures it runs only on component mount
+  }, []); 
 
   const handleCopy = () => {
     const textToCopy = `Team Name: ${teamName}\nTeam Code: ${teamCode}`;
@@ -47,7 +43,7 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
   };
 
   const handleClose = () => {
-    document.body.style.overflow = ""; // Re-enable scrolling
+    document.body.style.overflow = ""; 
     onClose();
   };
 
