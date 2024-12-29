@@ -22,7 +22,7 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
   const [copyText, setCopyText] = useState("Copy");
 
   const message = `Congratulations! Your team \"${teamName}\" with code \"${teamCode}\" has been successfully registered!🎉🎉`;
-  const websiteUrl = window.location.href; // Replace this with your actual website URL
+  const websiteUrl = window.location.href; 
 
   useEffect(() => {
     // Trigger confetti effect when the modal opens
