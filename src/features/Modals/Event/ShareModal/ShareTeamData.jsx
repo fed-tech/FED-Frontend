@@ -22,20 +22,20 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
   const [copyText, setCopyText] = useState("Copy");
 
   const message = `Congratulations! Your team \"${teamName}\" with code \"${teamCode}\" has been successfully registered!🎉🎉`;
-  const websiteUrl = window.location.href; 
+  const websiteUrl = window.location.href; // Replace this with your actual website URL
 
   useEffect(() => {
     // Trigger confetti effect when the modal opens
     jsConfetti.addConfetti({
       confettiColors: ["#FF8A00", "#FFD700", "#FF4500", "#FF69B4"],
     });
+    
     document.body.style.overflow = "hidden";
 
     return () => {
-      
       document.body.style.overflow = "";
     };
-  }, []);
+  }, []); 
 
   const handleCopy = () => {
     const textToCopy = `Team Name: ${teamName}\nTeam Code: ${teamCode}`;
@@ -45,7 +45,7 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
   };
 
   const handleClose = () => {
-    document.body.style.overflow = ""; // Re-enable scrolling
+    document.body.style.overflow = ""; 
     onClose();
   };
 
@@ -172,5 +172,4 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
     </div>
   );
 };
-
 export default ShareTeamData;
