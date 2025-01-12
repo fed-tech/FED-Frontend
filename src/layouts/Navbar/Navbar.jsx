@@ -47,9 +47,9 @@ const Navbar = () => {
 
   useEffect(() => {
     let currentPath = location.pathname;
-    if (/\/gsoc|\/GSOC|\/GSoC|\/gsoc/i.test(currentPath)) {
-      currentPath = "/Gsoc"; // Normalize Gsoc path
-    }
+    // if (/\/gsoc|\/GSOC|\/GSoC|\/gsoc/i.test(currentPath)) {
+    //   currentPath = "/Gsoc"; // Normalize Gsoc path
+    // }
     setActiveLink(currentPath);
   }, [location]);
 
@@ -168,7 +168,7 @@ const Navbar = () => {
                 Event
               </NavLink>
             </li>
-            <li>
+            {/*<li>
               <NavLink
                 to="/Gsoc"
                 className={`${styles.linkGsoc} ${
@@ -178,7 +178,7 @@ const Navbar = () => {
               >
                 GSoC
               </NavLink>
-            </li>
+            </li>*/}
             <li>
               <NavLink
                 to="/Social"
@@ -231,9 +231,9 @@ const Navbar = () => {
           ) : (
             <NavLink to="/Login" onClick={closeMobileMenu}>
               <button
-                className={`${styles.authButton} ${
-                  activeLink === "/Gsoc" ? styles.GsocButton : ""
-                }`}
+                className={`${styles.authButton} /*${
+                  activeLink === "/" ? styles.GsocButton : ""
+                }*/`}
               >
                 Login
               </button>

@@ -588,7 +588,12 @@ const EventModal = (props) => {
                       </div>
                     </div>
                     <div className={EventCardModal.backtxt}>
-                      {info.eventdescription}
+                      {info.eventdescription.split("\n").map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
                     </div>
                   </div>
                 )}

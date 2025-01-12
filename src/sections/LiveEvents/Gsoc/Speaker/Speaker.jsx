@@ -34,12 +34,12 @@ function FedShow() {
   const calculateRemainingTime = () => {
     try {
       const regStartDate = parse(
-        "January 10, 2025, 05:00:00 PM",
+        "January 10, 2025, 07:00:00 PM",
         "MMMM dd, yyyy, h:mm:ss a",
         new Date()
       );
       const endTime = parse(
-        "January 10, 2025, 07:00:00 PM",
+        "January 10, 2025, 09:00:00 PM",
         "MMMM dd, yyyy, h:mm:ss a",
         new Date()
       );
@@ -47,11 +47,11 @@ function FedShow() {
 
       if (now >= endTime) {
         setRemainingTime(null);
-        setBtnTxt("SHOW ENDED");
+        setBtnTxt("ENDED");
         return;
       } else if (now >= regStartDate) {
         setRemainingTime(null);
-        setBtnTxt("SHOW IS LIVE");
+        setBtnTxt("LIVE");
         return;
       }
 
@@ -111,7 +111,7 @@ function FedShow() {
           >
             <img
               className={styles.imgLeft}
-              src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/676d6a56848816903d373118_final%20harshil.png"
+              src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/677b6c158dd2c944d2ea4a85_updated%20ankit.png"
               alt="Hero"
               style={{
                 Width: "100%",
@@ -147,7 +147,7 @@ function FedShow() {
             <div className={styles.speaker}>
             <img
               className={styles.imgMobile}
-              src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/676d6a56848816903d373118_final%20harshil.png"
+              src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/677b6c158dd2c944d2ea4a85_updated%20ankit.png"
               alt="Hero"
               
             />
@@ -171,7 +171,7 @@ function FedShow() {
             </p>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <p>
-                <FaClock className={styles.icon} /> 05:00 PM
+                <FaClock className={styles.icon} /> 07:00 PM
               </p>
               <p style={{ marginLeft: "20px" }}>
                 <FaMapMarkerAlt className={styles.icon} /> ONLINE

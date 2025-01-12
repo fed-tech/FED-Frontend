@@ -682,14 +682,13 @@ function NewForm() {
 
   const onChangeEventType = (value) => {
     setdata({ ...data, eventType: value, eventAmount: "" });
-    // console.log(data); 
 
     if (value === "Paid") {
       setpaymentSection({
         _id: nanoid(),
-        name: "Process Your Payment",
+        name: "Payment Details",
         description:
-          "Please proceed with payment through the provided secure gateway using UPI, debit/credit cards, or other online services. Your registration will be confirmed automatically upon successful payment.",
+          "Make the payment to attached UPI ID or Scan the QR code. In the end, Share the complete detailes with us!",
         isDisabled: true,
         validations: [
           {
@@ -703,46 +702,54 @@ function NewForm() {
         fields: [
           {
             _id: nanoid(),
-            name: "Terms & Conditions",
-            type: "radio",
-            value:
-              "I acknowledge that all payments made are non-refundable once the form is submitted. For assistance with unregistered events after a successful payment contact fedkiit@gmail.com",
+            name: "Enter UPI ID",
+            type: "text",
+            value: "Enter UPI ID",
+            isRequired: true,
+            validations: [],
+          },
+          {
+            _id: nanoid(),
+            name: "Transaction ID (Last 4)",
+            type: "number",
+            value: "Last 4 digits of Transaction ID",
             isRequired: true,
             validations: [
               {
                 _id: nanoid(),
                 type: "length",
-                value: "1",
+                value: 4,
+                operator: "===",
+                message: "Transaction ID should be at most 4 digits long",
+              },
+            ],
+          },
+          {
+            _id: nanoid(),
+            name: "Payment Screenshot",
+            type: "image",
+            value: "Upload Payment Screenshot",
+            isRequired: true,
+            validations: [],
+          },
+          {
+            _id: nanoid(),
+            name: "Terms & Conditions",
+            type: "radio",
+            value:
+              "I acknowledge that all payments made are non-refundable once the form is submitted. For any further assistance contact fedkiit@gmail.com",
+            isRequired: true,
+            validations: [
+              {
+                _id: nanoid(),
+                type: "length",
+                value: 1,
                 operator: "===",
                 message:
                   "You need to agree to the terms and conditions to proceed.",
               },
             ],
           },
-          // {
-          //   _id: nanoid(),
-          //   name: "Transaction ID",
-          //   type: "number",
-          //   value: "Last 4 digits of Transaction ID",
-          //   isRequired: true,
-          //   validations: [
-          //     {
-          //       _id: nanoid(),
-          //       type: "length",
-          //       value: "4",
-          //       operator: "<=",
-          //       message: "Transaction ID should be at most 4 digits long",
-          //     },
-          //   ],
-          // },
-          // {
-          //   _id: nanoid(),
-          //   name: "Payment Screenshot",
-          //   type: "image",
-          //   value: "Upload Payment Screenshot",
-          //   isRequired: true,
-          //   validations: [],
-          // }
         ],
       });
     } else {
