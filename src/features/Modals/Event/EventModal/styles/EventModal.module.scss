@@ -67,8 +67,6 @@
   height: auto;
   max-height: 6.8rem;
   overflow-y: scroll;
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
 
   text-align: start;
   font-size: 0.8rem;
@@ -80,7 +78,18 @@
 }
 
 .backtxt::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+  width: 6px;
+  transition: .2s linear;
+}
+
+.backtxt::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.backtxt::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .backbtn {

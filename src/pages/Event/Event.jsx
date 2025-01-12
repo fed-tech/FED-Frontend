@@ -182,8 +182,11 @@ const Event = () => {
   };
   // console.log(successMessage);
 
-  // Slice the pastEvents array to show only the first 4 events
-  const displayedPastEvents = pastEvents.slice(0, 4);
+  // Slice the public pastEvents array to show only the first 4 events
+  const displayedPastEvents = pastEvents
+  .filter((event)=>event.info.isPublic)
+  .slice(0, 4);
+
   return (
     <>
       <ChatBot />
@@ -211,7 +214,7 @@ const Event = () => {
           ) : (
             <>
               {ongoingEvents.length > 0 && privateEvents.length > 0 ? (
-                <div className={style.line} style={{ marginTop: "4rem" }}></div>
+                <div className={style.line} style={{ marginTop: "3rem" }}></div>
               ) : privateEvents.length > 0 && ongoingEvents.length === 0 ? (
                 <div className={style.line} style={{ marginTop: "3rem" }}></div>
               ) : privateEvents.length === 0 && ongoingEvents.length > 0 ? (
@@ -296,7 +299,7 @@ const Event = () => {
                           className={style.name}
                           style={{
                             marginTop:
-                              privateEvents.length > 0 ? "-3rem" : "-1rem",
+                              privateEvents.length > 0 ? "-1rem" : "-1rem",
                           }}
                         >
                           <img className={style.ring2} src={ring} alt="ring" />

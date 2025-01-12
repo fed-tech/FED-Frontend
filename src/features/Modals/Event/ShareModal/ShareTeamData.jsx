@@ -74,13 +74,7 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
               </p>
               <button
                 onClick={handleCopy}
-                style={{
-                  marginLeft: "10px",
-                  color: "#ffffff60",
-                  background: "#2a2a2a",
-                  padding: "0.3rem",
-                  borderRadius: "10px",
-                }}
+                className={styles.copyButton}
               >
                 {copyText}
               </button>
@@ -131,9 +125,9 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
           <div>
             <p
               style={{
-                textAlign: "left",
+                textAlign: "center",
                 color: "#ffffff90",
-                marginTop: "1rem",
+                marginTop: "0.3rem",
                 whiteSpace: "pre-wrap",
                 marginBottom: "0",
               }}
