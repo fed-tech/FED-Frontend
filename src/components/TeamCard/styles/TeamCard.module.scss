@@ -42,6 +42,28 @@
   font-size: 1.2em;
 }
 
+.memName {
+  margin-top: 5px;
+  font-size: 1.2em; /* Default font size */
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  // text-overflow: ellipsis;
+  width: 100%;
+  display: block;
+}
+
+
+
+.memName.responsive {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  // text-overflow: ellipsis;
+  font-size: 0.7rem; 
+}
+
+
 .teamMemberInner {
   transition: transform 1s;
   transform-style: preserve-3d;

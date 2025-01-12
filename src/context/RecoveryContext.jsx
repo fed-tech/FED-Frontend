@@ -6,7 +6,8 @@ const initialContext = {
   email: '',
   otp: '',
   teamCode: '',
-  teamName: ''
+  teamName: '',
+  successMessage: ''
 };
 
 const RecoveryContextProvider = ({ children }) => {
@@ -18,7 +19,8 @@ const RecoveryContextProvider = ({ children }) => {
       email: storedEmail,
       otp: storedOTP,
       teamCode: '',
-      teamName: ''
+      teamName: '',
+      successMessage: ''
     };
   });
 
@@ -47,8 +49,12 @@ const RecoveryContextProvider = ({ children }) => {
   //   }
   // }, []);
 
+  const setSuccessMessage = (newMessage) => {
+    setState(prevState => ({ ...prevState, successMessage: newMessage }));
+  }
+
   return (
-    <RecoveryContext.Provider value={{ ...state, setEmail, setOTP, setTeamCode, setTeamName }}>
+    <RecoveryContext.Provider value={{ ...state, setEmail, setOTP, setTeamCode, setTeamName, setSuccessMessage }}>
       {children}
     </RecoveryContext.Provider>
   );

@@ -11,7 +11,7 @@ import { Alert } from "../../microInteraction";
 export default function ChatBot() {
   const name = "FedRick";
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
+  const [userInput, setUserInput] = useState("");
   const [isThinking, setIsThinking] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [initialMsg, setInitialMsg] = useState(
@@ -22,7 +22,7 @@ export default function ChatBot() {
   const [isEventOngoing, setIsEventOngoing] = useState(true);
   const chatboxRef = useRef(null);
   const location = useLocation();
-  const isOmega = location.pathname.includes("/Omega");
+  const isGsoc = location.pathname.includes("/Gsoc");
   const [alert, setAlert] = useState(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
@@ -46,7 +46,7 @@ export default function ChatBot() {
       setTimeout(async () => {
         try {
           const response = await apiBot.post("/chat", {
-            message: "Connection Request",
+            input: "Connection Request",
           });
 
           if (response.status === 200 || response.status === 201) {
@@ -96,16 +96,16 @@ export default function ChatBot() {
 
   // Sending user message to the server
   const sendMessage = async () => {
-    if (!input) return;
+    if (!userInput) return;
 
     if (isSpeaking) {
       window.speechSynthesis.cancel();
       setIsSpeaking(false);
     }
 
-    const userMessage = { user: input };
+    const userMessage = { user: userInput };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
-    setInput("");
+    setUserInput("");
 
     setTimeout(() => {
       setIsThinking(true);
@@ -113,7 +113,7 @@ export default function ChatBot() {
 
     setTimeout(async () => {
       try {
-        const response = await apiBot.post("/chat", { message: input });
+        const response = await apiBot.post("/chat", { input: userInput });
 
         if (response.status === 200 || response.status === 201) {
           setMessages((prevMessages) => [
@@ -229,7 +229,7 @@ export default function ChatBot() {
       recognition.interimResults = false;
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
-        setInput(transcript);
+        setUserInput(transcript);
         setLastSpeechTime(Date.now()); // Reset the timer when a result is received
       };
       recognition.onerror = (event) => {
@@ -274,7 +274,7 @@ export default function ChatBot() {
     <>
       <button
         className={`${styles.chatbottoggle} ${botToggle} ${
-          isOmega ? styles.omegaBackGround : ""
+          isGsoc ? styles.gsocBackGround : ""
         }`}
         onClick={handleClick}
       >
@@ -295,7 +295,7 @@ export default function ChatBot() {
             </div>
             <span
               className={`${styles.close} ${styles.chatBotClose} ${
-                isOmega ? styles.omegaBackGround : ""
+                isGsoc ? styles.gsocBackGround : ""
               }`}
               onClick={handleClick}
             >
@@ -306,9 +306,7 @@ export default function ChatBot() {
           <div className={styles.chatbox} ref={chatboxRef}>
             <div className={styles.messageBox}>
               <div
-                className={`${styles.botmessage} ${
-                  isOmega ? styles.omegaBackGround : ""
-                }`}
+                className={`${styles.botmessage}`}
               >
                 {initialMsg}
               </div>
@@ -318,9 +316,7 @@ export default function ChatBot() {
                   className={
                     message.user
                       ? styles.usermessage
-                      : `${styles.botmessage} ${
-                          isOmega ? styles.omegaBackGround : ""
-                        }`
+                      : `${styles.botmessage}`
                   }
                 >
                   {message.user || message.bot}
@@ -363,8 +359,8 @@ export default function ChatBot() {
           <div className={styles.inputArea}>
             <input
               type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
               placeholder="Ask something..."
               onKeyDown={onHandleKey}
             />
@@ -374,16 +370,12 @@ export default function ChatBot() {
             >
               {isRecording ? (
                 <BsFillMicMuteFill
-                  className={`${styles.sendIcon} ${
-                    isOmega ? styles.omegaBackGround : ""
-                  }`}
+                  className={`${styles.sendIcon}`}
                   size={24}
                 />
               ) : (
                 <BsFillMicFill
-                  className={`${styles.sendIcon} ${
-                    isOmega ? styles.omegaBackGround : ""
-                  }`}
+                  className={`${styles.sendIcon}`}
                   size={24}
                 />
               )}
@@ -391,9 +383,7 @@ export default function ChatBot() {
             <button className={styles.sendMessage} onClick={sendMessage}>
               <BsSend
                 size={20}
-                className={`${styles.sendIcon} ${
-                  isOmega ? styles.omegaBackGround : ""
-                }`}
+                className={`${styles.sendIcon}`}
               />
             </button>
           </div>

@@ -62,6 +62,9 @@ importers:
       framer-motion:
         specifier: ^11.2.10
         version: 11.2.11(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      js-confetti:
+        specifier: ^0.12.0
+        version: 0.12.0
       load-script:
         specifier: ^2.0.0
         version: 2.0.0
@@ -2582,6 +2585,9 @@ packages:
 
   jju@1.4.0:
     resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}
+
+  js-confetti@0.12.0:
+    resolution: {integrity: sha512-1R0Akxn3Zn82pMqW65N1V2NwKkZJ75bvBN/VAb36Ya0YHwbaSiAJZVRr/19HBxH/O8x2x01UFAbYI18VqlDN6g==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -7004,6 +7010,8 @@ snapshots:
       - ts-node
 
   jju@1.4.0: {}
+
+  js-confetti@0.12.0: {}
 
   js-tokens@4.0.0: {}
 

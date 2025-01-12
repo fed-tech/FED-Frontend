@@ -7,13 +7,14 @@
   justify-content: center;
   z-index: 10;
   top: 0;
-  border-radius: 50px;
+
   // background: linear-gradient(
   //   91deg,
   //   rgba(48, 48, 48, 0.3) -147.64%,
   //   rgba(217, 217, 217, 0) 143.9%
   // );
-  margin-top: 10px;
+  // margin-top: 8px;
+
 }
 
 .logo_div {
@@ -88,7 +89,23 @@
   color: transparent;
 }
 
-.navLinks .omegaHover:hover {
+.navLinks .activeLinkGsoc {
+  background-color: #F48424;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+
+.navLinks .gsocHover:hover {
+  background: #F48424;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+
+.navLinks .omegaaHover:hover {
   background: #38ccff;
   -webkit-background-clip: text;
   background-clip: text;
@@ -112,6 +129,20 @@
     left: 0;
   }
 }
+
+// .link:hover {
+//   background: var(--primary);
+//   background-clip: text;
+//   color: transparent;
+//   transition: 0.2s ease-in;
+
+//   &::after {
+//     width: 100%;
+//     left: 0;
+//   }
+// }
+
+
 
 .navLinks li a::after {
   content: "";
@@ -174,12 +205,13 @@
 
 .navItems {
   border-radius: 1.65rem;
-  border: 1.652px solid rgba(214, 214, 214, 0.81);
+  border: 1.652px solid white;
   background: linear-gradient(
     91deg,
     rgba(217, 217, 217, 0.3) -147.64%,
     rgba(217, 217, 217, 0) 143.9%
   );
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -192,6 +224,8 @@
   padding: 5px;
   margin-top: -5px;
   margin-right: 0rem;
+  position: relative;
+  z-index: 1;
 }
 
 .authButton {
@@ -207,6 +241,7 @@
     rgba(255, 190, 11, 0.84) -29.7%,
     rgba(244, 43, 3, 0.84) 128.34%
   );
+  // background: linear-gradient(to right,#F9AB00, #4B00C6 );
   font-weight: 600;
   padding: 5px 25px;
   padding-bottom: 1vh;
@@ -216,32 +251,33 @@
 }
 
 .authButton:hover {
+  transition: 0.2s linear;
+  // background: linear-gradient(to right, #4c208f,#F9AB00);
+   background: linear-gradient(260deg, rgba(255, 190, 11, .9) -29.7%, rgba(244, 43, 3, .9) 128.34%);
+}
+
+// .activeLinkGsoc {
+//   color:  linear-gradient(
+//     260deg,
+//     #F48424 ,
+//     #2F0048
+//   ) !important;
+// }
+
+.gsocButton {
+ background-color: #fff;
+}
+
+.GsocButton {
   transition: .2s linear;
-  background: linear-gradient(260deg, rgba(255, 190, 11, .9) -29.7%, rgba(244, 43, 3, .9) 128.34%);
+  background: linear-gradient(to left,#F48424,#2F0048);
+  
 }
-
-.activeLinkOmega {
-  color: #38ccff !important;
-}
-
-.omegaButton {
-  background-color: #38ccff !important;
-  background: linear-gradient(
-    260deg,
-    rgba(22, 175, 143, 0.84) -29.7%,
-    rgba(1, 113, 227, 0.84) 128.34%
-  );
-}
-
-.omegaButton:hover {
+.GsocButton:hover {
   transition: .2s linear;
-  background: linear-gradient(
-    260deg,
-    rgba(22, 175, 143, 0.9) -29.7%,
-    rgba(1, 113, 227, 0.9) 128.34%
-  );
+  background: linear-gradient(to left,#f47b24,#4c0c6f,#2F0048 150%);
+  
 }
-
 
 .profileImgdiv {
   height: 60px;

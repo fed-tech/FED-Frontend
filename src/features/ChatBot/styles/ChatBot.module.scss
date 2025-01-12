@@ -111,19 +111,24 @@ header {
   margin-right: 0.5rem;
 }
 
+.gsocBackGround{
+  transition: .2s linear;
+  background: linear-gradient(to left,#F48424,#2F0048);
+}
+.gsocBackGround:hover{
+  transition: .2s linear;
+  background: linear-gradient(to left,#f47b24,#4c0c6f);
+}
 .close {
   margin-right: 15px;
   margin-top: 5px;
   font-size: 2rem;
   cursor: pointer;
   color: white;
-  &.omegaBackGround {
+  &.gsocBackGround {
     background: transparent;
   }
-  &.omegaBackGround:hover {
-    color: #0d8bd8;
-    background: transparent;
-  }
+  
 }
 
 .close:hover {

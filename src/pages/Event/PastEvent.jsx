@@ -103,6 +103,7 @@ const PastEvent = () => {
                 <div className={style.Outcard}>
                   <div className={style.cardone}>
                     {pastEvents.map((event, index) => (
+                      event.info.isPublic ? (
                       <div
                         style={{ height: "auto", width: "22rem" }}
                         key={index}
@@ -115,6 +116,7 @@ const PastEvent = () => {
                           aosDisable={false}
                         />
                       </div>
+                      ) : null
                     ))}
                   </div>
                 </div>
