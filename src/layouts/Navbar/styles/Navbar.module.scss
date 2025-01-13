@@ -307,6 +307,7 @@
 
   .navbarContent {
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     display: flex;
     align-items: flex-start;
     padding-top: 25px;
@@ -341,6 +342,7 @@
     width: 90%;
     background-color: #202020;
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     position: absolute;
     top: 90px;
     left: 20px;

@@ -74,18 +74,35 @@
   font-weight: 500;
 }
 
+// .circle {
+//   height: 52rem;
+//   width: 50rem;
+//   background-color: rgba(255, 92, 0, 0.29);
+//   filter: blur(100px);
+//   position: absolute;
+//   top: 60%;
+//   opacity: 50%;
+//   left: -35%;
+//   border-radius: 50%;
+//   overflow: hidden;
+//   z-index: -1;
+// }
+
 .circle {
   height: 52rem;
   width: 50rem;
-  background-color: rgba(255, 92, 0, 0.29);
-  filter: blur(100px);
+  flex-shrink: 0;
+  // margin-top: 4rem;
+  z-index: 1;
+  // padding-left: 40px;
+  border-radius: 32.99306rem;
+  opacity: 0.5;
+  background: rgba(255, 92, 0, 0.29);
+  // mix-blend-mode: color-dodge;
+  filter: blur(110.9010238647461px);
   position: absolute;
-  top: 60%; 
-  opacity: 50%;
+  top: 60%;
   left: -35%;
-  border-radius: 50%;
-  overflow: hidden;
-  z-index: -1;
 }
 
 

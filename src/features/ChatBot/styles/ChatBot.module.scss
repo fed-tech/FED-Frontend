@@ -261,8 +261,7 @@ input {
   padding: 0.5rem;
   padding-left: 1rem;
   color: black;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
+  border-radius: 20px 0px 0px 20px;
 }
 
 input:focus {

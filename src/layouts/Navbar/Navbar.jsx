@@ -9,28 +9,60 @@ import defaultImg from "../../assets/images/defaultImg.jpg";
 const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [navbarHeight, setNavbarHeight] = useState("90px");
+  const [navbarHeight, setNavbarHeight] = useState("80px");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [activeLink, setActiveLink] = useState("/");
   const lastScrollY = useRef(0);
   const authCtx = useContext(AuthContext);
-  const location = useLocation();
+  const location = useLocation(); // Hook to get the current location
   const navigate = useNavigate();
 
-  const handleScroll = () => {
-    if (window.scrollY > lastScrollY.current) {
+  // const handleScroll = () => {
+  //   if (window.scrollY > lastScrollY.current) {
+  //     setIsVisible(false);
+  //   } else {
+  //     setIsVisible(true);
+  //   }
+
+  //   if (isMobile) {
+  //     setIsMobile(false);
+  //     setNavbarHeight("80px");
+  //   }
+
+  //   lastScrollY.current = window.scrollY;
+  // };
+
+const SCROLL_THRESHOLD = 5;
+
+const handleScroll = () => {
+  const currentScrollY = window.scrollY;
+
+  if (Math.abs(currentScrollY - lastScrollY.current) > SCROLL_THRESHOLD) {
+    if (currentScrollY === 0) {
+      setIsVisible(true);
+    } else if (currentScrollY > lastScrollY.current) {
       setIsVisible(false);
     } else {
       setIsVisible(true);
     }
 
-    if (isMobile) {
-      setIsMobile(false);
-      setNavbarHeight("90px");
-    }
+    lastScrollY.current = currentScrollY;
+  }
+};
 
-    lastScrollY.current = window.scrollY;
+useEffect(() => {
+  const forceNavbarVisible = () => {
+    if (window.scrollY === 0) {
+      setIsVisible(true);
+    }
   };
+
+  window.addEventListener("scroll", forceNavbarVisible);
+
+  return () => {
+    window.removeEventListener("scroll", forceNavbarVisible);
+  };
+}, []);
 
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
@@ -46,46 +78,40 @@ const Navbar = () => {
   }, [isMobile]);
 
   useEffect(() => {
-    let currentPath = location.pathname;
-    // if (/\/gsoc|\/GSOC|\/GSoC|\/gsoc/i.test(currentPath)) {
-    //   currentPath = "/Gsoc"; // Normalize Gsoc path
-    // }
-    setActiveLink(currentPath);
+    setActiveLink(location.pathname); // Update active link based on current location
   }, [location]);
 
   const toggleMobileMenu = () => {
     setIsMobile(!isMobile);
-    setNavbarHeight(!isMobile ? "500vw" : "90px");
+    setNavbarHeight(!isMobile ? "500vw" : "80px");
   };
 
   const closeMobileMenu = () => {
     setIsMobile(false);
-    setNavbarHeight("90px");
+    setNavbarHeight("80px");
   };
 
   const handleLogout = () => {
     authCtx.logout();
-    navigate("/");
+    navigate("/")
     closeMobileMenu();
   };
 
-  useEffect(() => {
-    const handleNavbarBlur = () => {
-      const navbarElements = document.getElementsByClassName(styles.navbar);
-      const blurValue = window.scrollY > 0 ? "blur(20px)" : "none";
-      Array.from(navbarElements).forEach(
-        (element) => (element.style.backdropFilter = blurValue)
-      );
-    };
-
-    window.addEventListener("scroll", handleNavbarBlur);
-    return () => {
-      window.removeEventListener("scroll", handleNavbarBlur);
-    };
-  }, []);
-
+  window.addEventListener("scroll", () => {
+    const navbarElements = document.getElementsByClassName(styles.navbar);
+    
+    if (window.scrollY > 0) {
+      for (let i = 0; i < navbarElements.length; i++) {
+        navbarElements[i].style.backdropFilter = "blur(20px)";
+      }
+    } else {
+      for (let i = 0; i < navbarElements.length; i++) {
+        navbarElements[i].style.backdropFilter = "none";
+      }
+    }
+  });
+  
   const isOmegaActive = activeLink === "/Omega";
-  const isGsocActive = activeLink === "/Gsoc";
 
   return (
     <nav
@@ -151,7 +177,7 @@ const Navbar = () => {
                 to="/"
                 className={`${styles.link} ${
                   activeLink === "/" ? styles.activeLink : ""
-                } ${activeLink === "/Gsoc" ? styles.gsocHover : ""}`}
+                } ${activeLink === "/Omega" ? styles.omegaHover : ""}`}
                 onClick={closeMobileMenu}
               >
                 Home
@@ -162,29 +188,31 @@ const Navbar = () => {
                 to="/Events"
                 className={`${styles.link} ${
                   activeLink === "/Events" ? styles.activeLink : ""
-                } ${activeLink === "/Gsoc" ? styles.gsocHover : ""}`}
+                } ${activeLink === "/Omega" ? styles.omegaHover : ""}`}
                 onClick={closeMobileMenu}
               >
                 Event
               </NavLink>
             </li>
-            {/*<li>
+            {/*
+              <li>
               <NavLink
-                to="/Gsoc"
-                className={`${styles.linkGsoc} ${
-                  activeLink === "/Gsoc" ? styles.activeLinkGsoc : ""
-                } ${activeLink === "/Gsoc" ? styles.gsocHover : ""}`}
+                to="/Omega"
+                className={`${styles.link} ${
+                  activeLink === "/Omega" ? styles.activeLinkOmega : ""
+                } ${activeLink === "/Omega" ? styles.omegaHover : ""}`}
                 onClick={closeMobileMenu}
               >
-                GSoC
+                Omega
               </NavLink>
-            </li>*/}
+            </li> 
+            */}
             <li>
               <NavLink
                 to="/Social"
                 className={`${styles.link} ${
                   activeLink === "/Social" ? styles.activeLink : ""
-                } ${activeLink === "/Gsoc" ? styles.gsocHover : ""}`}
+                } ${activeLink === "/Omega" ? styles.omegaHover : ""}`}
                 onClick={closeMobileMenu}
               >
                 Social
@@ -195,7 +223,7 @@ const Navbar = () => {
                 to="/Team"
                 className={`${styles.link} ${
                   activeLink === "/Team" ? styles.activeLink : ""
-                } ${activeLink === "/Gsoc" ? styles.gsocHover : ""}`}
+                } ${activeLink === "/Omega" ? styles.omegaHover : ""}`}
                 onClick={closeMobileMenu}
               >
                 Team
@@ -231,9 +259,9 @@ const Navbar = () => {
           ) : (
             <NavLink to="/Login" onClick={closeMobileMenu}>
               <button
-                className={`${styles.authButton} /*${
-                  activeLink === "/" ? styles.GsocButton : ""
-                }*/`}
+                className={`${styles.authButton} ${
+                  isOmegaActive ? styles.omegaButton : ""
+                }`}
               >
                 Login
               </button>
