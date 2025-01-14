@@ -3,21 +3,96 @@ import { Input } from "../../../../components";
 import styles from "./styles/Preview.module.scss";
 
 const Section = ({ section, handleChange }) => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth); // Store the window width
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  // Update the window width on resize
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    window.addEventListener("resize", handleResize); // Add event listener on component mount
+    window.addEventListener("resize", handleResize);
 
-    // Cleanup the event listener when component unmounts
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const renderField = (field, idx) => {
+    return (
+      <div
+        key={idx}
+        style={{
+          width:
+            field.type === "select" || field.type === "radio"
+              ? windowWidth < 370
+                ? "140%"
+                : windowWidth < 400
+                ? "130%"
+                : windowWidth < 413
+                ? "140%"
+                : windowWidth < 500
+                ? "155%"
+                : "245%"
+              : windowWidth < 400
+              ? "115%"
+              : windowWidth < 413
+              ? "125%"
+              : windowWidth < 500
+              ? "145%"
+              : "100%",
+          margin: field.type === "select" || field.type === "radio" ? "1em 0" : "0 auto",
+        }}
+      >
+        <Input
+          placeholder={
+            field.type === "select"
+              ? `Choose ${field.name}`
+              : field.value || ""
+          }
+          label={`${field.name} ${field.isRequired ? "*" : ""}`}
+          type={field.type}
+          name={field.name}
+          value={
+            field.type === "file" || field.type === "image"
+              ? field.onChangeValue?.name || ""
+              : field.onChangeValue || ""
+          }
+          onChange={(e) => {
+            const val = field.type === "select" ? e : e.target.value;
+            handleChange(field, val);
+          }}
+          options={
+            field.type === "select" && field.value
+              ? field.value.split(",").map((option) => ({
+                  value: option,
+                  label: option,
+                }))
+              : []
+          }
+          style={{
+            width:
+              field.type === "select" || field.type === "radio"
+                ? windowWidth < 370
+                  ? "123%"
+                  : windowWidth < 400
+                  ? "115%"
+                  : windowWidth < 413
+                  ? "115%"
+                  : windowWidth < 500
+                  ? "107.5%"
+                  : "122%"
+                : windowWidth < 400
+                ? "115%"
+                : windowWidth < 413
+                ? "125%"
+                : windowWidth < 500
+                ? "145%"
+                : "100%",
+          }}
+        />
+      </div>
+    );
+  };
 
   const getInputFields = (field) => {
     const validTypes = ["checkbox", "radio"];
@@ -35,11 +110,19 @@ const Section = ({ section, handleChange }) => {
             label={value}
             showLabel={false}
             type={field.type}
-            value={field.onChangeValue || ""}
+            value={value} // Each radio button must have a distinct value
+            checked={field.onChangeValue === value} // Check if the current value matches the selected one
             name={field.name}
-            onChange={(e) => handleChange(field, e.target.value)}
+            onChange={(e) => handleChange(field, e.target.value)} // Update the state with the selected value
             style={{
-              width: windowWidth < 481 ? "175%" : "115%", // Dynamically adjust width for smaller screens
+              width:
+                windowWidth < 400
+                  ? "135%"
+                  : windowWidth < 413
+                  ? "145%"
+                  : windowWidth < 500
+                  ? "145%"
+                  : "115%",
             }}
           />
         </div>
@@ -69,7 +152,7 @@ const Section = ({ section, handleChange }) => {
           display: "flex",
           justifyContent: "space-between",
           flexDirection: "row",
-          width: "100%", // Set to 100% to ensure the container is responsive
+          width: "100%",
         }}
         className={styles.teamContainer}
       >
@@ -77,7 +160,7 @@ const Section = ({ section, handleChange }) => {
           <div
             key={idx}
             style={{
-              width: "30%", // Set to 30% to evenly distribute space among team fields
+              width: "30%",
             }}
             className={styles.teamField}
           >
@@ -87,7 +170,14 @@ const Section = ({ section, handleChange }) => {
               type={field.type}
               name={field.name}
               style={{
-                width: windowWidth < 481 ? "135%" : "115%", // Dynamically adjust width for smaller screens
+                width:
+                  windowWidth < 400
+                    ? "115%"
+                    : windowWidth < 413
+                    ? "145%"
+                    : windowWidth < 500
+                    ? "145%"
+                    : "115%",
               }}
               value={
                 field.type === "file" || field.type === "image"
@@ -118,53 +208,38 @@ const Section = ({ section, handleChange }) => {
       {section.name === "Team Members" && renderTeamFields()}
       {section.name !== "Team Members" &&
         section.fields.length > 0 &&
-        section.fields.map((field) => {
+        section.fields.map((field, idx) => {
           if (!field) return null;
+
+          if (field.type === "select" || field.type === "radio") {
+            // Render select and radio fields on a new line
+            return (
+              <div
+                key={field._id}
+                style={{
+                  display: "block",
+                  width: "100%",
+                  marginTop: "1em",
+                }}
+              >
+                {renderField(field, idx)}
+              </div>
+            );
+          }
+
           return (
-            <div key={field._id}>
+            <div
+              key={field._id}
+              style={{
+                display: "inline-block",
+                width: windowWidth < 400 ? "100%" : "30%",
+                marginRight: windowWidth < 400 ? "0" : "1.5%",
+                marginBottom: "1em",
+                verticalAlign: "top",
+              }}
+            >
               {field.type !== "checkbox" && field.type !== "radio" ? (
-                <div
-                  style={{
-                    width:
-                      field.type === "select"
-                        ? windowWidth < 500
-                          ? "135%"  // Adjust width to 80% for select elements on smaller screens
-                          : "245%"   // 35% for larger screens
-                        : "100%", // Default 100% for other fields
-                    margin: "0 auto",
-                  }}
-                >
-                  <Input
-                    placeholder={
-                      field.type === "select"
-                        ? `Choose ${field.name}`
-                        : field.value || ""
-                    }
-                    label={`${field.name} ${field.isRequired ? "*" : ""}`}
-                    type={field.type}
-                    name={field.name}
-                    value={
-                      field.type === "file" || field.type === "image"
-                        ? field.onChangeValue?.name || ""
-                        : field.onChangeValue || ""
-                    }
-                    onChange={(e) => {
-                      const val = field.type === "select" ? e : e.target.value;
-                      handleChange(field, val);
-                    }}
-                    options={
-                      field.type === "select" && field.value
-                        ? field.value.split(",").map((option) => ({
-                            value: option,
-                            label: option,
-                          }))
-                        : []
-                    }
-                    style={{
-                      width: windowWidth < 481 ? "135%" : "122%", // Dynamically adjust width for smaller screens
-                    }}
-                  />
-                </div>
+                renderField(field, idx)
               ) : (
                 <label
                   style={{
