@@ -1,7 +1,24 @@
+import { useState, useEffect } from "react";
 import { Input } from "../../../../components";
 import styles from "./styles/Preview.module.scss";
 
 const Section = ({ section, handleChange }) => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth); // Store the window width
+
+  // Update the window width on resize
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize); // Add event listener on component mount
+
+    // Cleanup the event listener when component unmounts
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const getInputFields = (field) => {
     const validTypes = ["checkbox", "radio"];
     if (validTypes.includes(field.type)) {
@@ -10,7 +27,7 @@ const Section = ({ section, handleChange }) => {
         <div
           key={index}
           style={{
-            marginTop: index === 0 ? ".5em" : "0",
+            marginTop: index === 0 ? "0.5em" : "0",
           }}
         >
           <Input
@@ -21,6 +38,9 @@ const Section = ({ section, handleChange }) => {
             value={field.onChangeValue || ""}
             name={field.name}
             onChange={(e) => handleChange(field, e.target.value)}
+            style={{
+              width: windowWidth < 481 ? "175%" : "115%", // Dynamically adjust width for smaller screens
+            }}
           />
         </div>
       ));
@@ -49,6 +69,7 @@ const Section = ({ section, handleChange }) => {
           display: "flex",
           justifyContent: "space-between",
           flexDirection: "row",
+          width: "100%", // Set to 100% to ensure the container is responsive
         }}
         className={styles.teamContainer}
       >
@@ -56,7 +77,7 @@ const Section = ({ section, handleChange }) => {
           <div
             key={idx}
             style={{
-              width: "30%",
+              width: "30%", // Set to 30% to evenly distribute space among team fields
             }}
             className={styles.teamField}
           >
@@ -65,7 +86,9 @@ const Section = ({ section, handleChange }) => {
               label={`${field.name} ${field.isRequired ? "*" : ""}`}
               type={field.type}
               name={field.name}
-              style={{ width: "100%" }}
+              style={{
+                width: windowWidth < 481 ? "135%" : "115%", // Dynamically adjust width for smaller screens
+              }}
               value={
                 field.type === "file" || field.type === "image"
                   ? field.onChangeValue?.name || ""
@@ -101,16 +124,15 @@ const Section = ({ section, handleChange }) => {
             <div key={field._id}>
               {field.type !== "checkbox" && field.type !== "radio" ? (
                 <div
-                style={{
-                  width:
-                    field.type === "select"
-                      ? window.innerWidth < 500
-                        ? "235px"
-                        : "360px"
-                      : "100%",
-                  margin: "0 auto",
-                }}               
-                
+                  style={{
+                    width:
+                      field.type === "select"
+                        ? windowWidth < 500
+                          ? "135%"  // Adjust width to 80% for select elements on smaller screens
+                          : "245%"   // 35% for larger screens
+                        : "100%", // Default 100% for other fields
+                    margin: "0 auto",
+                  }}
                 >
                   <Input
                     placeholder={
@@ -138,6 +160,9 @@ const Section = ({ section, handleChange }) => {
                           }))
                         : []
                     }
+                    style={{
+                      width: windowWidth < 481 ? "135%" : "122%", // Dynamically adjust width for smaller screens
+                    }}
                   />
                 </div>
               ) : (
