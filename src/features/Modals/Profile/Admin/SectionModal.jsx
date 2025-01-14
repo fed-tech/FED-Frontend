@@ -105,8 +105,8 @@ const Section = ({ section, handleChange }) => {
                   width:
                     field.type === "select"
                       ? window.innerWidth < 500
-                        ? "250px"
-                        : "300px"
+                        ? "235px"
+                        : "360px"
                       : "100%",
                   margin: "0 auto",
                 }}               
