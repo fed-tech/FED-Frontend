@@ -69,6 +69,7 @@ const EventForm = () => {
           showCloseBtn={true}
         />
       )}
+      <div><h2>pay</h2></div>
       <Alert />
     </div>
   );
