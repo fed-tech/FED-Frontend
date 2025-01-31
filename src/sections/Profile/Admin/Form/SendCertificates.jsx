@@ -15,7 +15,7 @@ const Checkbox = ({ id, checked, onCheckedChange }) => {
     );
 };
 
-const SendCertificate = () => {
+const SendCertificates = () => {
     const { eventId } = useParams();
     const [loading, setLoading] = useState(false);
     const [attendees, setAttendees] = useState([]); // Unchecked attendees
@@ -106,7 +106,7 @@ const SendCertificate = () => {
                             value={uncheckedFilterText}
                             onChange={(e) => setUncheckedFilterText(e.target.value)}
                         />
-                        <div style={{ display: "flex", gap: 10, margin: "10px 0" }}>
+                        <div style={{ display: "flex", gap: 10, margin: "10px 0",marginLeft: "10px" }}>
                             <Button onClick={handleSelectAllUnchecked}>Select All</Button>
                             <Button onClick={handleDeselectAllUnchecked}>Deselect All</Button>
                         </div>
@@ -117,7 +117,8 @@ const SendCertificate = () => {
                                 border: "1px solid #ccc",
                                 borderRadius: "5px",
                                 padding: "10px",
-                                marginTop: "10px",
+                                marginTop: "-8px",
+                                marginBottom: "30px",
                             }}
                         >
                             {loading ? (
@@ -142,6 +143,7 @@ const SendCertificate = () => {
                 </div>
                 <div
                     style={{
+                        maxWidth: "100%",
                         padding: 20,
                         border: "1px solid #ccc",
                         borderRadius: 10,
@@ -166,6 +168,7 @@ const SendCertificate = () => {
                             borderRadius: "5px",
                             padding: "10px",
                             marginTop: "10px",
+                            marginBottom: "20px",                  
                         }}
                     >
                         {checkedAttendees.length > 0 ? (
@@ -198,18 +201,15 @@ const SendCertificate = () => {
                     />
 
                     <h3>Description</h3>
-                    <textarea
+                    <Input
+                        type="text"
                         placeholder="Description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         style={{
                             width: "100%",
                             height: 80,
-                            marginTop: 10,
-                            padding: 10,
-                            borderRadius: 5,
-                            border: "1px solid #ccc",
-                            background: "Transparent",
+                            marginTop: -10,
                         }}
                     />
 
@@ -221,8 +221,10 @@ const SendCertificate = () => {
                         onChange={(e) => setMailFrequency(e.target.value)}
                         style={{ marginTop: -10, width: "100%" }}
                     />
-
+                    <div style={{ display: "flex", gap: 10 }}>
+                    <Button onClick={() => console.log("Downloading certificates...")}>Test Mail</Button>
                     <Button onClick={() => console.log("Sending mail...")}>Send Mail</Button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -231,4 +233,4 @@ const SendCertificate = () => {
 };
 
 
-export default SendCertificate;
+export default SendCertificates;

@@ -22,7 +22,7 @@ import {
   CertificatesView,
   CertificatesForm,
   CertificatesPreview,
-  SendCertificate,
+  SendCertificates,
 } from "./sections";
 
 
@@ -132,7 +132,7 @@ function App() {
                 )}
 
                 {authCtx.user.access === "ADMIN" && (
-                    <Route path="events/SendCertificate/:eventId" element={<SendCertificate />} />
+                    <Route path="events/SendCertificates/:eventId" element={<SendCertificates />} />
                  )}
 
                 {authCtx.user.access === "ADMIN" && (

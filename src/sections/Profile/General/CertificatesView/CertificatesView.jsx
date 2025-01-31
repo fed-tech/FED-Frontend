@@ -4,6 +4,7 @@ import AuthContext from "../../../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { api } from "../../../../services";
 import { ComponentLoading } from "../../../../microInteraction";
+import { SendCertificates } from "../..";
 
 const Events = () => {
   const authCtx = useContext(AuthContext);
@@ -12,6 +13,7 @@ const Events = () => {
   const [error, setError] = useState(null);
   const viewPath = "/profile/Events";
   const analyticsPath = "/profile/events/Analytics";
+  const SendCertificatesPath = "/profile/events/SendCertificates";
   const createCertificatesPath = "/profile/events/createCertificates";
   const viewCertificatesPath = "/profile/events/viewCertificates";
 
@@ -156,7 +158,7 @@ const Events = () => {
                       </td>
                       {(analyticsAccessRoles.includes(authCtx.user.access) || authCtx.user.email == "srex@fedkiit.com") && (
                         <td className={styles.mobilewidthtd}>
-                          <Link to={`${analyticsPath}/${event.id}`}>
+                          <Link to={`${SendCertificatesPath}/${event.id}`}>
                             <button
                               className={styles.viewButton}
                               style={{
