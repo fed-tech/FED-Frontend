@@ -465,64 +465,64 @@ const PreviewForm = ({
     }
   };
 
-  const renderPaymentScreen = () => {
-    const { eventType, receiverDetails, eventAmount } = formData;
+  // const renderPaymentScreen = () => {
+  //   const { eventType, receiverDetails, eventAmount } = formData;
 
-    if (eventType === "Paid" && currentSection.name === "Payment Details") {
-      return (
-        <div
-          style={{
-            margin: "8px auto",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {receiverDetails.media && (
-            <img
-              src={
-                typeof receiverDetails.media === "string"
-                  ? receiverDetails.media
-                  : URL.createObjectURL(receiverDetails.media)
-              }
-              alt={"QR-Code"}
-              style={{
-                width: 200,
-                height: 200,
-                objectFit: "contain",
-              }}
-            />
-          )}
-          <p
-            style={{
-              fontSize: 12,
-              marginTop: 12,
-              color: "lightgray",
-            }}
-          >
-            Make the payment of{" "}
-            <strong
-              style={{
-                color: "#fff",
-              }}
-            >
-              &#8377;{eventAmount}
-            </strong>{" "}
-            using QR-Code or UPI Id{" "}
-            <strong
-              style={{
-                color: "#fff",
-              }}
-            >
-              {receiverDetails.upi}
-            </strong>
-          </p>
-        </div>
-      );
-    }
-    return null;
-  };
+  //   if (eventType === "Paid" && currentSection.name === "Payment Details") {
+  //     return (
+  //       <div
+  //         style={{
+  //           margin: "8px auto",
+  //           display: "flex",
+  //           flexDirection: "column",
+  //           justifyContent: "center",
+  //           alignItems: "center",
+  //         }}
+  //       >
+  //         {receiverDetails.media && (
+  //           <img
+  //             src={
+  //               typeof receiverDetails.media === "string"
+  //                 ? receiverDetails.media
+  //                 : URL.createObjectURL(receiverDetails.media)
+  //             }
+  //             alt={"QR-Code"}
+  //             style={{
+  //               width: 200,
+  //               height: 200,
+  //               objectFit: "contain",
+  //             }}
+  //           />
+  //         )}
+  //         <p
+  //           style={{
+  //             fontSize: 12,
+  //             marginTop: 12,
+  //             color: "lightgray",
+  //           }}
+  //         >
+  //           Make the payment of{" "}
+  //           <strong
+  //             style={{
+  //               color: "#fff",
+  //             }}
+  //           >
+  //             &#8377;{eventAmount}
+  //           </strong>{" "}
+  //           using QR-Code or UPI Id{" "}
+  //           <strong
+  //             style={{
+  //               color: "#fff",
+  //             }}
+  //           >
+  //             {receiverDetails.upi}
+  //           </strong>
+  //         </p>
+  //       </div>
+  //     );
+  //   }
+  //   return null;
+  // };
 
   // payment window
   const [isPaymentLocked, setIsPaymentLocked] = useState(true);
@@ -548,27 +548,33 @@ const PreviewForm = ({
 
   const handlePayNow = async () => {
     try {
+      console.log("inside handlePayNow");
       // Create order on backend
-      const response = await api.post("/api/payment/create-order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          registrationId,
-          amount,
-        }),
-      });
+      // const response = await api.post("/api/payment/create-order", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ amount: 100 }),
+      // });
 
-      const { orderId } = await response.json();
+      // Create order on backend
+    const response = await api.post("/api/payment/create-order", { amount: 100 });
+
+    // Ensure response contains data
+    if (!response || !response.data || !response.data.orderId) {
+      throw new Error("Invalid order response from backend");
+    }
+
+    const { orderId } = response.data;
+    console.log("orderId", orderId);
+
 
       // Initialize Razorpay
       const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: amount * 100, // amount in paisa
+        key: import.meta.env.VITE_RAZORPAY_PUBLIC_KEY,
+        amount: 100, // amount in paisa
         currency: "INR",
-        name: "Your Organization Name",
-        description: `Payment for ${teamName}`,
+        // name: "Your Organization Name",
+        // description: `Payment for ${teamName}`,
         order_id: orderId,
         handler: async (response) => {
           try {
@@ -607,13 +613,14 @@ const PreviewForm = ({
           }
         },
         prefill: {
-          email: email,
+          email: authCtx.user.email,
         },
       };
 
       const razorpay = new window.Razorpay(options);
       razorpay.open();
     } catch (error) {
+      console.error("Payment error:", error);
       setAlert({
         type: "error",
         message: "Failed to initiate payment. Please try again.",
@@ -820,7 +827,7 @@ const PreviewForm = ({
                       {currentSection.description}
                     </Text>
                   </div>
-                  {renderPaymentScreen()}
+                  {/* {renderPaymentScreen()} */}
                   <Section
                     section={currentSection}
                     handleChange={handleChange}
