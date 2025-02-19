@@ -14,9 +14,10 @@ const Social = () => {
 
 
   return (
-    
+    <>
+    <ChatBot />
+
     <div className={styles.socialMcontainer}>
-         <ChatBot />
       <div className={styles.text}>
         <div className={styles.circleCenter}></div>
         <p className={styles.content}>
@@ -75,6 +76,7 @@ const Social = () => {
         </div>
       </div>
     </div>
+    </>
     
   );
 };

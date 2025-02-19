@@ -1,32 +1,33 @@
+.Team {
+  h2 {
+    text-align: center;
+    font-size: 50px;
+    margin-top: 20px;
 
-.Team h2 {
-  text-align: center;
-  font-size: 50px;
-  margin-top: 20px;
+    span {
+      color: #FF8A00;
+    }
+  }
 }
 
-.Team h2 span {
-  color: #FF8A00;
-}
-
-.para p{
+.para p,
+.error {
   padding: 30px 70px;
   z-index: 1;
   text-align: center;
+  font-weight: 400;
+}
+
+.para p {
   margin-top: 10px;
   padding-bottom: 0;
   font-size: 20px;
-  font-weight: 400;
   margin-bottom: 15px;
 }
 
-.error{
-  padding: 30px 70px;
-  z-index: 1;
-  text-align: center;
+.error {
   margin-top: 4rem;
   font-size: 1.5rem;
-  font-weight: 400;
   margin-bottom: 1rem;
 }
 
@@ -34,23 +35,18 @@
   text-align: left;
   padding: 30px;
   color: white;
-  // margin-top: 20px;
-}
 
-.teamSection h3 {
-  font-size: 40px;
-  color: #FF8A00;
-  margin-bottom: 60px;
-  margin-left: 50px;
-}
+  h3 {
+    font-size: 40px;
+    color: #FF8A00;
+    margin-bottom: 60px;
+    margin-left: 50px;
+  }
 
-.teamSection span {
-  font-weight: 800;
-}
-
-strong {
-  font-weight: 800;
-  
+  span,
+  strong {
+    font-weight: 800;
+  }
 }
 
 .teamTitle {
@@ -59,11 +55,33 @@ strong {
 
 .teamGrid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(100px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(4, minmax(80px, 1fr));
+  gap: 20px;
   justify-content: center;
-  padding: 10px 50px;
-  z-index: 0;
+  padding: 10px 30px;
+
+  .image-container {
+    width: 100%;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+
+      &[src=""],
+      &:not([src]),
+      &[src="null"] {
+        content: url(""); // Replace with placeholder image path
+      }
+    }
+  }
 }
 
 .directorGrid {
@@ -79,9 +97,6 @@ strong {
   margin-top: -1rem;
 }
 
-
-
-
 .circle {
   height: 50vh;
   width: 30vh;
@@ -93,8 +108,7 @@ strong {
   filter: blur(150px);
 }
 
-
-.alumniBut{
+.alumniBut {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -104,52 +118,46 @@ strong {
   font-size: 25px;
   padding-bottom: 20px;
 
+  a {
+    background: var(--primary);
+    background-clip: text;
+    color: transparent;
+    text-decoration: none;
+  }
+
+  .ulhover {
+    margin-right: 10px;
+    font-weight: 700;
+    padding: 5px;
+    padding-right: 0;
+    font-size: 25px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    &:after {
+      content: "";
+      display: block;
+      height: 2px;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      background: #fff;
+      transition: width 0.3s ease, left 0.3s ease;
+      width: 0;
+    }
+
+    &:hover:after {
+      width: 100%;
+      left: 0;
+    }
+  }
 }
-
-.alumniBut a{
-  background: var(--primary);
-  background-clip: text;
-  color: transparent;
-  text-decoration: none;
-}
-
-
-.alumniBut .ulhover{
-  margin-right: 10px;
-  font-weight: 700;
-  padding: 5px;
-  padding-right: 0;
-  font-size: 25px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-
-.alumniBut .ulhover:after {    
-  background: none repeat scroll 0 0 transparent;
-  bottom: 0;
-  content: "";
-  display: block;
-  height: 2px;
-  left: 50%;
-  position: absolute;
-  background: #fff;
-  transition: width 0.3s ease 0s, left 0.3s ease 0s;
-  width: 0;
-}
-.alumniBut .ulhover:hover:after { 
-  width: 100%; 
-  left: 0; 
-}
-
 
 /* Responsive styles */
-
 @media (max-width: 1024px) {
-
   .circle {
     left: -30%;
   }
@@ -160,14 +168,9 @@ strong {
     left: -20%;
   }
 
-
-  .error{
-    padding: 30px 70px;
-    z-index: 1;
-    text-align: center;
+  .error {
     margin-top: 10px;
     font-size: 1rem;
-    font-weight: 400;
     margin-bottom: 10px;
   }
 
@@ -179,11 +182,9 @@ strong {
     font-size: 2em;
   }
 
-
-  .para p{
+  .para p {
     font-size: 1rem;
     padding: 30px 30px;
-    line-height: auto;
   }
 }
 
@@ -193,62 +194,55 @@ strong {
   }
 }
 
-
 @media (max-width: 480px) {
   .teamGrid {
     grid-template-columns: repeat(2, 1fr);
     padding: 0;
   }
 
-  h3{
+  h3 {
     text-align: center;
     font-size: 1.5rem;
   }
 
-  .para p{
+  .para p {
     margin-bottom: 20px;
   }
 
   .Team h2 {
     font-size: 40px;
   }
+
   .circle {
     left: -30%;
     background-color: rgba(255, 92, 0, 0.59);
   }
 
   .teamSection h3 {
-    margin-left: 0px;
+    margin-left: 0;
   }
 
-  .error{
-    padding: 30px 70px;
-    z-index: 1;
-    text-align: center;
-    margin-top: 10px;
+  .error {
     font-size: 1rem;
-    font-weight: 400;
     margin-bottom: 10px;
   }
 
-  .lastRowCentered{
+  .lastRowCentered {
     margin-top: 1rem;
   }
-
-
-  
 
   .alumniBut {
     margin-right: 10px;
     padding-right: 15px;
-  }
-  .alumniBut a{
-    font-size: 20px;
+
+    a {
+      font-size: 20px;
+    }
   }
 }
 
-@media (max-width: 430px){
-  .lastRowCentered{
+@media (max-width: 430px) {
+  .lastRowCentered {
     margin-bottom: 0;
   }
 }
@@ -258,7 +252,8 @@ strong {
     grid-template-columns: repeat(2, 1fr);
     gap: 5vw;
   }
-  .lastRowCentered{
+
+  .lastRowCentered {
     margin-bottom: 0;
   }
 }
