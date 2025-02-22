@@ -549,6 +549,7 @@ const PreviewForm = ({
   const handlePayNow = async () => {
     try {
       console.log("inside handlePayNow");
+      console.log("Auth ctx", authCtx.user, "eventData", eventData, "form", form);
       // Create order on backend
       // const response = await api.post("/api/payment/create-order", {
       //   method: "POST",
@@ -556,20 +557,29 @@ const PreviewForm = ({
       //   body: JSON.stringify({ amount: 100 }),
       // });
 
-    const eventAmount = formData?.eventAmount;
-    
+      const eventAmount = formData?.eventAmount;
+
       // Create order on backend
-    const response = await api.post("/api/payment/create-order" , {amount: eventAmount});
+      const response = await api.post("/api/payment/create-order",
+        {
+          amount: eventAmount,
+          formId: form.id,
+          email: authCtx.user.email
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+          },
+        });
 
-    // Ensure response contains data
-    if (!response || !response.data || !response.data.orderId) {
-      throw new Error("Invalid order response from backend");
-    }
+      // Ensure response contains data
+      if (!response || !response.data || !response.data.orderId) {
+        throw new Error("Invalid order response from backend");
+      }
 
-    const { orderId } = response.data;
-    console.log("orderId", orderId);
-
-    
+      console.log("response data of razor pay create order", response.data);
+      const { orderId, registrationId } = response.data;
 
       // Initialize Razorpay
       const options = {
@@ -581,32 +591,41 @@ const PreviewForm = ({
         order_id: orderId,
         handler: async (response) => {
           try {
+            console.log("handler :");
             // Verify payment on backend
-            const verifyResponse = await api.post("/api/payment/verify", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
+            const verifyResponse = await api.post("/api/payment/verify",
+              {
                 registrationId,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_signature: response.razorpay_signature,
-              }),
-            });
+              },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${window.localStorage.getItem("token")}`,
+                }
+              }
+            );
 
-            if (verifyResponse.ok) {
+            console.log("verify response ", verifyResponse.data);
+            console.log("verify success ", typeof verifyResponse?.data?.success);
+
+            if (verifyResponse?.data?.success === true) {
+              console.log("Entering if");
               setAlert({
                 type: "success",
                 message: "Payment successful!",
                 position: "bottom-right",
                 duration: 3000,
               });
-              router.push("/registration/success");
+              // router.push("/registration/success");
             } else {
               throw new Error("Payment verification failed");
             }
           } catch (error) {
+            console.log("Catch 1");
+
             setAlert({
               type: "error",
               message: "Payment verification failed. Please contact support.",
@@ -623,6 +642,7 @@ const PreviewForm = ({
       const razorpay = new window.Razorpay(options);
       razorpay.open();
     } catch (error) {
+      console.log("Catch 2");
       console.error("Payment error:", error);
       setAlert({
         type: "error",
@@ -674,35 +694,30 @@ const PreviewForm = ({
             <div className={styles.progressWrapper}>
               <div className={styles.step}>
                 <div
-                  className={`${styles.circle} ${
-                    currentStage >= 1 ? styles.active : ""
-                  }`}
+                  className={`${styles.circle} ${currentStage >= 1 ? styles.active : ""
+                    }`}
                 />
                 <span>Register</span>
               </div>
               <div
-                className={`${styles.line} ${
-                  currentStage >= 2 ? styles.active : ""
-                }`}
+                className={`${styles.line} ${currentStage >= 2 ? styles.active : ""
+                  }`}
               />
               <div className={styles.step}>
                 <div
-                  className={`${styles.circle} ${
-                    currentStage >= 2 ? styles.active : ""
-                  }`}
+                  className={`${styles.circle} ${currentStage >= 2 ? styles.active : ""
+                    }`}
                 />
                 <span>Payment</span>
               </div>
               <div
-                className={`${styles.line} ${
-                  currentStage === 3 ? styles.active : ""
-                }`}
+                className={`${styles.line} ${currentStage === 3 ? styles.active : ""
+                  }`}
               />
               <div className={styles.step}>
                 <div
-                  className={`${styles.circle} ${
-                    currentStage === 3 ? styles.active : ""
-                  }`}
+                  className={`${styles.circle} ${currentStage === 3 ? styles.active : ""
+                    }`}
                 />
                 <span>Successful</span>
               </div>
@@ -871,9 +886,8 @@ const PreviewForm = ({
             {/* Payment Section */}
             {/* Payment Section */}
             <div
-              className={`${styles.paymentSection} ${
-                isPaymentLocked ? styles.locked : styles.unlock
-              }`}
+              className={`${styles.paymentSection} ${isPaymentLocked ? styles.locked : styles.unlock
+                }`}
             >
               <h2>Payment</h2>
               {isPaymentLocked ? (
