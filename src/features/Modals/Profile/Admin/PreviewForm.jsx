@@ -556,8 +556,10 @@ const PreviewForm = ({
       //   body: JSON.stringify({ amount: 100 }),
       // });
 
+    const eventAmount = formData?.eventAmount;
+    
       // Create order on backend
-    const response = await api.post("/api/payment/create-order", { amount: 100 });
+    const response = await api.post("/api/payment/create-order" , {amount: eventAmount});
 
     // Ensure response contains data
     if (!response || !response.data || !response.data.orderId) {
@@ -567,14 +569,15 @@ const PreviewForm = ({
     const { orderId } = response.data;
     console.log("orderId", orderId);
 
+    
 
       // Initialize Razorpay
       const options = {
         key: import.meta.env.VITE_RAZORPAY_PUBLIC_KEY,
-        amount: 100, // amount in paisa
+        amount: eventAmount * 100, // amount in paisa
         currency: "INR",
         // name: "Your Organization Name",
-        // description: `Payment for ${teamName}`,
+        description: `Payment for ${authCtx.user.email}`,
         order_id: orderId,
         handler: async (response) => {
           try {
@@ -631,6 +634,7 @@ const PreviewForm = ({
   };
 
   const handlePayLater = async () => {
+    console.log("test pay later");
     try {
       await api.post("/api/payment/pay-later", {
         method: "POST",
