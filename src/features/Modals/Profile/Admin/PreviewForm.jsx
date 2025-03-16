@@ -55,6 +55,7 @@ const PreviewForm = ({
   const [code, setcode] = useState(null);
   const [team, setTeam] = useState(null);
   const [message, setMessage] = useState(null);
+  const [isPaymentSuccess, setIsPaymentSuccess] = useState(false);
 
   let currentSection =
     data !== undefined
@@ -465,7 +466,7 @@ const PreviewForm = ({
     }
   };
 
-  // const renderPaymentScreen = () => {
+
   //   const { eventType, receiverDetails, eventAmount } = formData;
 
   //   if (eventType === "Paid" && currentSection.name === "Payment Details") {
@@ -550,82 +551,79 @@ const PreviewForm = ({
     try {
       console.log("inside handlePayNow");
       console.log("Auth ctx", authCtx.user, "eventData", eventData, "form", form);
-      // Create order on backend
-      // const response = await api.post("/api/payment/create-order", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ amount: 100 }),
-      // });
-
+  
       const eventAmount = formData?.eventAmount;
-
+  
       // Create order on backend
-      const response = await api.post("/api/payment/create-order",
+      const response = await api.post(
+        "/api/payment/create-order",
         {
           amount: eventAmount,
           formId: form.id,
-          email: authCtx.user.email
+          email: authCtx.user.email,
         },
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${window.localStorage.getItem("token")}`,
           },
-        });
-
-      // Ensure response contains data
+        }
+      );
+  
       if (!response || !response.data || !response.data.orderId) {
         throw new Error("Invalid order response from backend");
       }
-
-      console.log("response data of razor pay create order", response.data);
+  
+      console.log("response data of razorpay create order", response.data);
       const { orderId, registrationId } = response.data;
-
+  
       // Initialize Razorpay
       const options = {
         key: import.meta.env.VITE_RAZORPAY_PUBLIC_KEY,
         amount: eventAmount * 100, // amount in paisa
         currency: "INR",
-        // name: "Your Organization Name",
         description: `Payment for ${authCtx.user.email}`,
         order_id: orderId,
-        handler: async (response) => {
+        handler: async (paymentResponse) => {
           try {
-            console.log("handler :");
+            console.log("handler :", paymentResponse);
+  
             // Verify payment on backend
-            const verifyResponse = await api.post("/api/payment/verify",
+            const verifyResponse = await api.post(
+              "/api/payment/verify",
               {
                 registrationId,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_signature: response.razorpay_signature,
+                razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                razorpay_order_id: paymentResponse.razorpay_order_id,
+                razorpay_signature: paymentResponse.razorpay_signature,
               },
               {
                 headers: {
                   "Content-Type": "application/json",
-                  "Authorization": `Bearer ${window.localStorage.getItem("token")}`,
-                }
+                  Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+                },
               }
             );
-
+  
             console.log("verify response ", verifyResponse.data);
-            console.log("verify success ", typeof verifyResponse?.data?.success);
-
-            if (verifyResponse?.data?.success === true) {
-              console.log("Entering if");
+  
+            if (verifyResponse?.data?.success) {
+              console.log("Payment verified successfully");
               setAlert({
                 type: "success",
                 message: "Payment successful!",
                 position: "bottom-right",
                 duration: 3000,
               });
-              // router.push("/registration/success");
+              setCurrentStage(3); // Ensure it updates state
+              setIsPaymentSuccess(true);
+              
+
             } else {
               throw new Error("Payment verification failed");
             }
           } catch (error) {
-            console.log("Catch 1");
-
+            console.error("Payment verification error:", error);
             setAlert({
               type: "error",
               message: "Payment verification failed. Please contact support.",
@@ -638,12 +636,23 @@ const PreviewForm = ({
           email: authCtx.user.email,
         },
       };
-
+  
       const razorpay = new window.Razorpay(options);
       razorpay.open();
     } catch (error) {
-      console.log("Catch 2");
       console.error("Payment error:", error);
+  
+      // Handle Prisma unique constraint error
+      if (error.response?.data?.error === "Payment already made, contact admin.") {
+        setAlert({
+          type: "error",
+          message: "Payment already made. Contact admin for assistance.",
+          position: "bottom-right",
+          duration: 3000,
+        });
+        return;
+      }
+  
       setAlert({
         type: "error",
         message: "Failed to initiate payment. Please try again.",
@@ -652,6 +661,7 @@ const PreviewForm = ({
       });
     }
   };
+  
 
   const handlePayLater = async () => {
     console.log("test pay later");
@@ -688,257 +698,252 @@ const PreviewForm = ({
     <>
       open && (
       <div className={styles.mainPreview}>
-        <div className={styles.box}>
-          {/* progress bar */}
-          <div className={styles.progressBar}>
-            <div className={styles.progressWrapper}>
-              <div className={styles.step}>
-                <div
-                  className={`${styles.circle} ${currentStage >= 1 ? styles.active : ""
-                    }`}
-                />
-                <span>Register</span>
-              </div>
-              <div
-                className={`${styles.line} ${currentStage >= 2 ? styles.active : ""
-                  }`}
-              />
-              <div className={styles.step}>
-                <div
-                  className={`${styles.circle} ${currentStage >= 2 ? styles.active : ""
-                    }`}
-                />
-                <span>Payment</span>
-              </div>
-              <div
-                className={`${styles.line} ${currentStage === 3 ? styles.active : ""
-                  }`}
-              />
-              <div className={styles.step}>
-                <div
-                  className={`${styles.circle} ${currentStage === 3 ? styles.active : ""
-                    }`}
-                />
-                <span>Successful</span>
-              </div>
-            </div>
-          </div>
+      <div className={styles.box}>
+  {/* progress bar */}
+  <div className={styles.progressBar}>
+    <div className={styles.progressWrapper}>
+      <div className={styles.step}>
+        <div className={`${styles.circle} ${currentStage >= 1 ? styles.active : ""}`} />
+        <span>Register</span>
+      </div>
+      <div className={`${styles.line} ${currentStage >= 2 ? styles.active : ""}`} />
+      <div className={styles.step}>
+        <div className={`${styles.circle} ${currentStage >= 2 ? styles.active : ""}`} />
+        <span>Payment</span>
+      </div>
+      <div className={`${styles.line} ${currentStage === 3 ? styles.active : ""}`} />
+      <div className={styles.step}>
+        <div className={`${styles.circle} ${currentStage === 3 ? styles.active : ""}`} />
+        <span>Successful</span>
+      </div>
+    </div>
+  </div>
 
-          <div className={styles.previewContainerWrapper}>
+  <div className={styles.previewContainerWrapper}>
+    {isPaymentSuccess ? (
+      // Success window (only shown when payment is successful)
+      <div className={styles.successWindow}>
+        {showCloseBtn &&
+            (isEditing ? (
+              <div onClick={handleClose} className={styles.closeBtn}>
+                <X />
+              </div>
+            ) : (
+              <Link to="/Events" onClick={handleClose}>
+                <div className={styles.closeBtn}>
+                  <X />
+                </div>
+              </Link>
+            ))}
+        <img
+          src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/67925b3aee82a92d1d9bac2f_image%20(47).png"
+          alt="Success Logo"
+          style={{ width: "150px", marginBottom: "1rem" }}
+        />
+        <p style={{ fontSize: "1rem", lineHeight: "1.3", marginBottom: "1rem" }}>
+          Payment Successful!
+        </p>
+        <Button onClick={handleClose}>Close</Button>
+      </div>
+    ) : (
+      // Render form and payment section when payment is not successful
+      <>
+        <div
+          ref={wrapperRef}
+          className={styles.previewContainer}
+          style={{
+            backgroundColor: isFormFilled ? "#000" : "initial",
+            width: isFormFilled ? "32%" : "68%",
+          }}
+        >
+          {showCloseBtn &&
+            (isEditing ? (
+              <div onClick={handleClose} className={styles.closeBtn}>
+                <X />
+              </div>
+            ) : (
+              <Link to="/Events" onClick={handleClose}>
+                <div className={styles.closeBtn}>
+                  <X />
+                </div>
+              </Link>
+            ))}
+          <Text
+            style={{
+              marginBottom: "20px",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "25px",
+            }}
+          >
+            {eventData?.eventTitle || "Preview Event"}
+          </Text>
+
+          {isFormFilled ? (
             <div
-              ref={wrapperRef}
-              className={styles.previewContainer}
               style={{
-                backgroundColor: isFormFilled ? "#000" : "initial",
-                width: isFormFilled ? "32%" : "68%",
+                position: "relative",
+                width: "100%",
+                pointerEvents: "none",
+                backgroundPosition: "center",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                color: "white",
               }}
             >
-              {showCloseBtn &&
-                (isEditing ? (
-                  <div onClick={handleClose} className={styles.closeBtn}>
-                    <X />
-                  </div>
-                ) : (
-                  <Link to="/Events" onClick={handleClose}>
-                    <div className={styles.closeBtn}>
-                      <X />
-                    </div>
-                  </Link>
-                ))}
-              <Text
+              <div
                 style={{
-                  marginBottom: "20px",
-                  width: "100%",
+                  position: "relative",
+                  zIndex: 2,
+                  textAlign: "center",
                   display: "flex",
-                  justifyContent: "center",
-                  fontSize: "25px",
+                  flexDirection: "column",
+                  alignItems: "center",
                 }}
               >
-                {eventData?.eventTitle || "Preview Event"}
-              </Text>
-
-              {/* Check if the form is already submitted */}
-              {isFormFilled ? (
-                <div
+                <img
+                  src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/67925b3aee82a92d1d9bac2f_image%20(47).png"
+                  alt="Success Logo"
                   style={{
-                    position: "relative",
-                    width: "100%",
-                    pointerEvents: "none",
-                    // opacity: "0.4",
-                    backgroundPosition: "center",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    color: "white",
-                  }}
-                >
-                  {/* Content */}
-                  <div
-                    style={{
-                      position: "relative",
-                      zIndex: 2,
-                      textAlign: "center",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img
-                      src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/67925b3aee82a92d1d9bac2f_image%20(47).png"
-                      alt="Success Logo"
-                      style={{
-                        width: "150px",
-                        marginBottom: "1rem",
-                        opacity: "0.4",
-                      }}
-                    />
-                    <i
-                      style={{
-                        fontSize: "2rem",
-                        position: "absolute",
-                        top: "20%",
-                        left: "35%",
-                      }}
-                      className={styles.tickIcon}
-                    >
-                      ✅
-                    </i>
-                    {/* <p
-                    style={{
-                      fontSize: "1rem",
-                      lineHeight: "1.3",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    Your form has been submitted Tempuraliry, and the payment section is now
-                    unlocked.
-                  </p> */}
-                    <Button style={{ opacity: "0.4" }}>Registered</Button>
-                  </div>
-                </div>
-              ) : isLoading ? (
-                <ComponentLoading
-                  customStyles={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginLeft: "0rem",
-                    marginTop: "5rem",
+                    width: "150px",
+                    marginBottom: "1rem",
+                    opacity: "0.4",
                   }}
                 />
-              ) : (
-                // Render form and sections here
-                <div style={{ width: "100%" }}>
-                  <div>
-                    <Text style={{ alignSelf: "center" }} variant="secondary">
-                      {currentSection.name}
-                    </Text>
-                    <Text
-                      style={{
-                        cursor: "pointer",
-                        padding: "6px 0",
-                        fontSize: "11px",
-                        opacity: "0.4",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      {currentSection.description}
-                    </Text>
-                  </div>
-                  {/* {renderPaymentScreen()} */}
-                  <Section
-                    section={currentSection}
-                    handleChange={handleChange}
-                  />
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {inboundList() && inboundList().backSection && (
-                      <Button style={{ marginRight: "10px" }} onClick={onBack}>
-                        Back
-                      </Button>
-                    )}
-                    <Button
-                      onClick={
-                        inboundList() && inboundList().nextSection
-                          ? onNext
-                          : handleSubmit
-                      }
-                    >
-                      {inboundList() && inboundList().nextSection ? (
-                        "Next"
-                      ) : isMicroLoading ? (
-                        <MicroLoading />
-                      ) : (
-                        "Submit"
-                      )}
-                    </Button>
-                  </div>
-                </div>
-              )}
+                <i
+                  style={{
+                    fontSize: "2rem",
+                    position: "absolute",
+                    top: "20%",
+                    left: "35%",
+                  }}
+                  className={styles.tickIcon}
+                >
+                  ✅
+                </i>
+                <Button style={{ opacity: "0.4" }}>Registered</Button>
+              </div>
             </div>
-
-            {/* Payment Section */}
-            {/* Payment Section */}
-            <div
-              className={`${styles.paymentSection} ${isPaymentLocked ? styles.locked : styles.unlock
-                }`}
-            >
-              <h2>Payment</h2>
-              {isPaymentLocked ? (
-                <div className={styles.paySec}>
-                  <div className={styles.lockedMessage}>
-                    <img
-                      src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/6790c06ed4f090ff46f80a08_image%20(46).png"
-                      alt=""
-                      height={150}
-                      width={170}
-                    />
-                    <i className={styles.lockIcon}>🔒</i>
-                  </div>
-                  <Button
-                    style={{ fontSize: "12px" }}
-                    className={styles.payNow}
-                  >
-                    Pay Now
+          ) : isLoading ? (
+            <ComponentLoading
+              customStyles={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: "0rem",
+                marginTop: "5rem",
+              }}
+            />
+          ) : (
+            <div style={{ width: "100%" }}>
+              <div>
+                <Text style={{ alignSelf: "center" }} variant="secondary">
+                  {currentSection.name}
+                </Text>
+                <Text
+                  style={{
+                    cursor: "pointer",
+                    padding: "6px 0",
+                    fontSize: "11px",
+                    opacity: "0.4",
+                    marginBottom: "8px",
+                  }}
+                >
+                  {currentSection.description}
+                </Text>
+              </div>
+              <Section section={currentSection} handleChange={handleChange} />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
+              >
+                {inboundList() && inboundList().backSection && (
+                  <Button style={{ marginRight: "10px" }} onClick={onBack}>
+                    Back
                   </Button>
-                </div>
-              ) : (
-                <div className={styles.paySecOpen}>
-                  <div className={styles.unlockedMessage}>
-                    <img
-                      src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/6790c06ed4f090ff46f80a08_image%20(46).png"
-                      alt=""
-                      height={150}
-                      width={170}
-                    />
-                  </div>
-                  <div className={styles.paybtn}>
-                    <Button
-                      style={{ fontSize: "12px" }}
-                      className={styles.payNow}
-                      onClick={handlePayNow}
-                    >
-                      Pay Now
-                    </Button>
-                    <Button
-                      style={{ fontSize: "12px" }}
-                      className={styles.payNow}
-                      onClick={handlePayLater}
-                    >
-                      Pay Later
-                    </Button>
-                  </div>
-                </div>
-              )}
+                )}
+                <Button
+                  onClick={
+                    inboundList() && inboundList().nextSection
+                      ? onNext
+                      : handleSubmit
+                  }
+                >
+                  {inboundList() && inboundList().nextSection ? (
+                    "Next"
+                  ) : isMicroLoading ? (
+                    <MicroLoading />
+                  ) : (
+                    "Submit"
+                  )}
+                </Button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
+
+        {/* Payment Section */}
+        <div
+          className={`${styles.paymentSection} ${
+            isPaymentLocked ? styles.locked : styles.unlock
+          }`}
+        >
+          <h2>Payment</h2>
+          {isPaymentLocked ? (
+            <div className={styles.paySec}>
+              <div className={styles.lockedMessage}>
+                <img
+                  src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/6790c06ed4f090ff46f80a08_image%20(46).png"
+                  alt=""
+                  height={150}
+                  width={170}
+                />
+                <i className={styles.lockIcon}>🔒</i>
+              </div>
+              <Button style={{ fontSize: "12px" }} className={styles.payNow}>
+                Pay Now
+              </Button>
+            </div>
+          ) : (
+            <div className={styles.paySecOpen}>
+              <div className={styles.unlockedMessage}>
+                <img
+                  src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/6790c06ed4f090ff46f80a08_image%20(46).png"
+                  alt=""
+                  height={150}
+                  width={170}
+                />
+              </div>
+              <div className={styles.paybtn}>
+                <Button
+                  style={{ fontSize: "12px" }}
+                  className={styles.payNow}
+                  onClick={handlePayNow}
+                >
+                  Pay Now
+                </Button>
+                <Button
+                  style={{ fontSize: "12px" }}
+                  className={styles.payNow}
+                  onClick={handlePayLater}
+                >
+                  Pay Later
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </>
+    )}
+  </div>
+</div>
+
       </div>
       )
       <Alert />
