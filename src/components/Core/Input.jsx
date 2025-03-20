@@ -63,7 +63,7 @@ const customStyles = {
     color: "#fff",
     marginBottom: "0",
     maxHeight: "40px",
-    marginLeft: "8px",
+    marginLeft: "6px",
     marginRight: "8px",
     marginTop: "4px",
     position: "relative",
@@ -533,9 +533,10 @@ const Input = (props) => {
         <label
           style={{
             color: "#fff",
-            marginBottom: "4px",
+            marginBottom: "8px",
             fontSize: ".8em",
-            marginLeft: "8px",
+            marginLeft: "6px",
+            display: "flex",
           }}
           htmlFor={label}
         >
