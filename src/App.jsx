@@ -19,6 +19,11 @@ import {
   ProfileView,
   ViewEvent,
   ViewMember,
+  CertificatesView,
+  CertificatesForm,
+  CertificatesPreview,
+  SendCertificate,
+  VerifyCertificate,
 } from "./sections";
 
 // Lazy loading pages
@@ -97,6 +102,7 @@ function App() {
             <Route path="/Social" element={<Social />} />
             <Route path="/Team" element={<Team />} />
             <Route path="/Alumni" element={<Alumni />} />
+            <Route path="/verify/certificate" element={<VerifyCertificate />} />
             {/* <Route path="/Omega" element={<Omega />} /> */}
             <Route path="/Pixel_AI_Hack" element={<Pixel_AI_Hack />}/>
             {/* Route After Login */}
@@ -109,12 +115,43 @@ function App() {
                 {authCtx.user.access === "ADMIN" ? (
                   <Route path="events" element={<ViewEvent />} />
                 ) : (
-                  <Route path="events" element={<EventsView />} />
+                  <>
+                    <Route path="events" element={<EventsView />} />
+                    <Route path="certificates" element={<CertificatesView />} />
+                  </>
                 )}
                 <Route path="Form" element={<NewForm />} />
+
                 {authCtx.user.access === "ADMIN" && (
                   <Route path="members" element={<ViewMember />} />
                 )}
+                {/* Certificates Route */}
+
+                {authCtx.user.access === "ADMIN" && (
+                  <Route path="certificates" element={<CertificatesView />} />
+                )}
+
+                {authCtx.user.access === "ADMIN" && (
+                  <Route
+                    path="events/SendCertificate/:eventId"
+                    element={<SendCertificate />}
+                  />
+                )}
+
+                {authCtx.user.access === "ADMIN" && (
+                  <Route
+                    path="events/createCertificates/:eventId"
+                    element={<CertificatesForm />}
+                  />
+                )}
+
+                {authCtx.user.access === "ADMIN" && (
+                  <Route
+                    path="events/viewCertificates/:eventId"
+                    element={<CertificatesPreview />}
+                  />
+                )}
+
                 <Route
                   path="events/:eventId"
                   element={[<EventModal onClosePath="/profile/events" />]}
@@ -151,7 +188,7 @@ function App() {
             />
 
             <Route
-              path="/Events/:eventId/Form"
+              path="/Events/:eventId/"
               element={[<Event />, <EventForm />]}
             />
 
@@ -208,6 +245,7 @@ function App() {
               }
             />
           </Route>
+          
         </Routes>
       </Suspense>
     </div>
