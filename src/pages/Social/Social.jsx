@@ -4,6 +4,7 @@ import linkedinlogo from "../../assets/images/SocialMedia/linkedinLogo.svg";
 import instalogo from "../../assets/images/SocialMedia/instaLogo.svg";
 import styles from "./styles/Social.module.scss";
 import { ComponentLoading } from "../../microInteraction";
+import { ChatBot } from "../../features";
 
 const Social = () => {
   useEffect(() => {
@@ -13,6 +14,9 @@ const Social = () => {
 
 
   return (
+    <>
+    <ChatBot />
+
     <div className={styles.socialMcontainer}>
       <div className={styles.text}>
         <div className={styles.circleCenter}></div>
@@ -72,6 +76,8 @@ const Social = () => {
         </div>
       </div>
     </div>
+    </>
+    
   );
 };
 
