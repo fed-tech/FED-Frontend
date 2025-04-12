@@ -130,7 +130,7 @@ const VerifyCertificate = () => {
                 <td>{certificateData.email}</td>
               </tr>
               <tr>
-                <th>Event Date:</th>
+                <th>Issued Date:</th>
                 <td>
                   {new Date(certificateData.date).toLocaleDateString("en-US", {
                     year: "numeric",
