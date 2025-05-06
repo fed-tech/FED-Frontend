@@ -22,7 +22,7 @@ export default function ChatBot() {
   const [isEventOngoing, setIsEventOngoing] = useState(true);
   const chatboxRef = useRef(null);
   const location = useLocation();
-  const isPixel_AI_Hack = location.pathname.includes("/Pixel_AI_Hack");
+  const isGsoc = location.pathname.includes("/Gsoc");
   const [alert, setAlert] = useState(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
@@ -274,7 +274,7 @@ export default function ChatBot() {
     <>
       <button
         className={`${styles.chatbottoggle} ${botToggle} ${
-          isPixel_AI_Hack ? styles.Pixel_AI_HackBackGround : ""
+          isGsoc ? styles.gsocBackGround : ""
         }`}
         onClick={handleClick}
       >
@@ -295,7 +295,7 @@ export default function ChatBot() {
             </div>
             <span
               className={`${styles.close} ${styles.chatBotClose} ${
-                isPixel_AI_Hack ? styles.Pixel_AI_HackBackGround : ""
+                isGsoc ? styles.gsocBackGround : ""
               }`}
               onClick={handleClick}
             >

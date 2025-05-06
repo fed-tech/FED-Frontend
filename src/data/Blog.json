@@ -1,0 +1,350 @@
+[
+  {
+    "id": 1,
+    "authorName": "Alice Johnson",
+    "authorDepartment": "Technical",
+    "blogImage": "https://spaces-wp.imgix.net/2016/06/coding-in-the-classroom.png?auto=compress,format&q=50",
+    "blogHeading": "Top 5 SEO Strategies for 2025",
+    "blogContent": "<div><p>SEO is the backbone of online visibility in this ever-evolving digital age. ",
+    "dateOfPosting": "2025-01-03T09:30:00Z",
+    "comments": [
+      {
+        "reviewerName": "Tom Harris",
+        "reviewerRole": "SEO Specialist",
+        "comment": "Can you include recent case studies for these strategies?",
+        "date": "2025-01-04T08:00:00Z"
+      }
+    ],
+    "status": "Approved",
+    "approvedBy": {
+      "name": null,
+      "role": null
+    },
+    "publicReaction": {
+      "likes": 10,
+      "comments": [
+        "This is really insightful! Thanks for sharing.",
+        "Looking forward to implementing these tips!"
+      ],
+      "impressions": 250
+    }
+  },
+  
+  
+    {
+      "id": 2,
+      "authorName": "Rahul Verma",
+      "authorDepartment": "Technical",
+      "blogImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/640px-JavaScript-logo.png",
+      "blogHeading": "Mastering JavaScript: Essentials for Beginners",
+      "blogContent": "<div><p>JavaScript is a must-learn programming language. </p></div>",
+      "dateOfPosting": "2024-01-04T14:00:00Z",
+      "comments": [
+        {
+          "reviewerName": "Sneha Patel",
+          "reviewerRole": "Frontend Lead",
+          "comment": "Add more details about ES6 features.",
+          "date": "2025-01-05T09:00:00Z"
+        }
+      ],
+      "status": "Approved",
+      "approvedBy": {
+        "name": "Vikas Gupta",
+        "role": "Technical Head"
+      },
+      "publicReaction": {
+        "likes": 20,
+        "comments": [
+          "Great guide for beginners!",
+          "Could you create a part 2 for advanced topics?"
+        ],
+        "impressions": 500
+      }
+    },
+    {
+      "id": 3,
+      "authorName": "Sophia Lee",
+      "authorDepartment": "Creative",
+      "blogImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc9IVXq6zMJlw0XechoTc84ydVoMZy8R97ZQ&s",
+      "blogHeading": "UI/UX Trends to Watch in 2025",
+      "blogContent": "UI UX Short Description",
+      "dateOfPosting": "2025-01-03T12:00:00Z",
+      "comments": [],
+      "status": "Approved",
+      "approvedBy": {
+        "name": "Aarav Singh",
+        "role": "Creative Director"
+      },
+      "publicReaction": {
+        "likes": 50,
+        "comments": [
+          "These trends are spot on!",
+          "AR integration is definitely the future of UX."
+        ],
+        "impressions": 1000
+      }
+    },
+    {
+      "id": 4,
+      "authorName": "Michael Brown",
+      "authorDepartment": "PR And Finance",
+      "blogImage": "https://example.com/financial-tips.jpg",
+      "blogHeading": "10 Tips for Personal Financial Management",
+      "blogContent": "<div><p>Managing personal finances is crucial...</p></div>",
+      "dateOfPosting": "2025-01-06T10:00:00Z",
+      "comments": [
+        {
+          "reviewerName": "Anna Wilson",
+          "reviewerRole": "Financial Advisor",
+          "comment": "Add examples for budgeting apps.",
+          "date": "2025-01-06T13:00:00Z"
+        }
+      ],
+      "status": "Pending",
+      "approvedBy": { "name": null, "role": null },
+      "publicReaction": {
+        "likes": 15,
+        "comments": ["Helpful tips!", "Budgeting made simple."],
+        "impressions": 300
+      }
+    },
+    {
+      "id": 5,
+      "authorName": "Emily Carter",
+      "authorDepartment": "Human Resource",
+      "blogImage": "https://example.com/fitness-goals.jpg",
+      "blogHeading": "Achieving Your Fitness Goals in 2025",
+      "blogContent": "<div><p>Start the new year with a focus on health...</p></div>",
+      "dateOfPosting": "2025-01-07T08:30:00Z",
+      "comments": [
+        {
+          "reviewerName": "James Lee",
+          "reviewerRole": "Fitness Trainer",
+          "comment": "Include tips for beginners.",
+          "date": "2025-01-07T12:00:00Z"
+        }
+      ],
+      "status": "Approved",
+      "approvedBy": { "name": "Sara Gomez", "role": "Wellness Manager" },
+      "publicReaction": {
+        "likes": 40,
+        "comments": ["Very motivating!", "Perfect way to start the year."],
+        "impressions": 600
+      }
+    },
+    {
+      "id": 6,
+      "authorName": "David Thompson",
+      "authorDepartment": "Technical",
+      "blogImage": "https://example.com/ai-trends.jpg",
+      "blogHeading": "AI Trends to Watch Out for in 2025",
+      "blogContent": "<div><p>Artificial Intelligence is transforming industries...</p></div>",
+      "dateOfPosting": "2025-01-07T14:30:00Z",
+      "comments": [],
+      "status": "Under Review",
+      "approvedBy": { "name": null, "role": null },
+      "publicReaction": {
+        "likes": 30,
+        "comments": ["Exciting insights!", "AI is the future."],
+        "impressions": 800
+      }
+    },{
+      "id": 7,
+      "authorName": "Natalie Cooper",
+      "authorDepartment": "Creative",
+      "blogImage": "https://example.com/budget-travel.jpg",
+      "blogHeading": "How to Travel the World on a Budget",
+      "blogContent": "<div><p>Traveling doesn't have to break the bank...</p></div>",
+      "dateOfPosting": "2025-01-08T09:00:00Z",
+      "comments": [
+        {
+          "reviewerName": "Evan Brooks",
+          "reviewerRole": "Travel Blogger",
+          "comment": "Add tips for finding cheap flights.",
+          "date": "2025-01-08T12:00:00Z"
+        }
+      ],
+      "status": "Approved",
+      "approvedBy": { "name": "Maria White", "role": "Travel Editor" },
+      "publicReaction": {
+        "likes": 35,
+        "comments": ["Very useful tips!", "Budget travel is the way to go!"],
+        "impressions": 700
+      }
+    },
+    {
+      "id": 8,
+      "authorName": "Chris Martin",
+      "authorDepartment": "Operations",
+      "blogImage": "https://example.com/learning-trends.jpg",
+      "blogHeading": "Top Learning Trends for 2025",
+      "blogContent": "<div><p>Education is evolving with technology...</p></div>",
+      "dateOfPosting": "2025-01-08T10:30:00Z",
+      "comments": [],
+      "status": "Under Review",
+      "approvedBy": { "name": null, "role": null },
+      "publicReaction": {
+        "likes": 20,
+        "comments": ["Learning is the future!", "Great insights!"],
+        "impressions": 400
+      }
+    },
+    {
+      "id": 9,
+      "authorName": "Olivia Smith",
+      "authorDepartment": "Operations",
+      "blogImage": "https://example.com/healthy-recipes.jpg",
+      "blogHeading": "10 Healthy Recipes for Busy Professionals,You should Follow",
+      "blogContent": "<div><p>Quick and nutritious meals...</p></div>",
+      "dateOfPosting": "2025-01-08T11:00:00Z",
+      "comments": [
+        {
+          "reviewerName": "Sophia Brown",
+          "reviewerRole": "Nutritionist",
+          "comment": "Include gluten-free options.",
+          "date": "2025-01-08T13:00:00Z"
+        }
+      ],
+      "status": "Pending",
+      "approvedBy": { "name": null, "role": null },
+      "publicReaction": {
+        "likes": 45,
+        "comments": ["Love these recipes!", "Perfect for my busy schedule."],
+        "impressions": 800
+      }
+    },
+    {
+      "id": 10,
+      "authorName": "Liam Davis",
+      "authorDepartment": "Marketing",
+      "blogImage": "https://example.com/home-workouts.jpg",
+      "blogHeading": "Best Home Workouts for 2025",
+      "blogContent": "<div><p>Stay fit without leaving your home...</p></div>",
+      "dateOfPosting": "2025-01-08T12:00:00Z",
+      "comments": [],
+      "status": "Approved",
+      "approvedBy": { "name": "Karen Miller", "role": "Fitness Coordinator" },
+      "publicReaction": {
+        "likes": 50,
+        "comments": ["Home workouts are the best!", "Easy to follow routines!"],
+        "impressions": 900
+      }
+    },
+    {
+      "id": 11,
+      "authorName": "Hannah Green",
+      "authorDepartment": "Human Resource",
+      "blogImage": "https://example.com/sustainability.jpg",
+      "blogHeading": "Sustainable Living Tips for 2025",
+      "blogContent": "<div><p>Go green and reduce your footprint...</p></div>",
+      "dateOfPosting": "2025-01-08T13:30:00Z",
+      "comments": [],
+      "status": "Under Review",
+      "approvedBy": { "name": null, "role": null },
+      "publicReaction": {
+        "likes": 30,
+        "comments": ["Going green is essential!", "Great tips for sustainability!"],
+        "impressions": 600
+      }
+    },
+    {
+      "id": 12,
+      "authorName": "Ethan Carter",
+      "authorDepartment": "Operations",
+      "blogImage": "https://example.com/gaming-trends.jpg",
+      "blogHeading": "Gaming Trends to Watch in 2025",
+      "blogContent": "<div><p>The future of gaming is here...</p></div>",
+      "dateOfPosting": "2025-01-08T14:00:00Z",
+      "comments": [
+        {
+          "reviewerName": "Liam Parker",
+          "reviewerRole": "Game Developer",
+          "comment": "Add details on VR gaming.",
+          "date": "2025-01-08T16:00:00Z"
+        }
+      ],
+      "status": "Approved",
+      "approvedBy": { "name": "Steve King", "role": "Gaming Editor" },
+      "publicReaction": {
+        "likes": 40,
+        "comments": ["VR gaming is exciting!", "Can't wait for the next gen!"],
+        "impressions": 1000
+      }
+    },
+    {
+      "id": 13,
+      "authorName": "Sophia Wilson",
+      "authorDepartment": "Creative",
+      "blogImage": "https://example.com/fashion-trends.jpg",
+      "blogHeading": "Top Fashion Trends for 2025",
+      "blogContent": "<div><p>Stay stylish with the latest trends...</p></div>",
+      "dateOfPosting": "2025-01-08T15:00:00Z",
+      "comments": [],
+      "status": "Approved",
+      "approvedBy": { "name": "Emma Clark", "role": "Fashion Director" },
+      "publicReaction": {
+        "likes": 60,
+        "comments": ["Loving these trends!", "Perfect for the new season."],
+        "impressions": 1200
+      }
+    },
+    {
+      "id": 14,
+      "authorName": "Jack White",
+      "authorDepartment": "Marketing",
+      "blogImage": "https://example.com/electric-cars.jpg",
+      "blogHeading": "Electric Cars: The Future of Driving",
+      "blogContent": "<div><p>Electric vehicles are revolutionizing...</p></div>",
+      "dateOfPosting": "2025-01-08T16:30:00Z",
+      "comments": [],
+      "status": "Under Review",
+      "approvedBy": { "name": null, "role": null },
+      "publicReaction": {
+        "likes": 35,
+        "comments": ["EVs are the future!", "Great read about electric cars."],
+        "impressions": 900
+      }
+    },
+    {
+      "id": 15,
+      "authorName": "Emma Brown",
+      "authorDepartment": "Creative",
+      "blogImage": "https://example.com/art-trends.jpg",
+      "blogHeading": "Exploring Art Trends in 2025",
+      "blogContent": "<div><p>The art world is always evolving...</p></div>",
+      "dateOfPosting": "2025-01-08T17:00:00Z",
+      "comments": [],
+      "status": "Approved",
+      "approvedBy": { "name": "Lily Johnson", "role": "Art Director" },
+      "publicReaction": {
+        "likes": 25,
+        "comments": ["Amazing insights!", "Great for art enthusiasts."],
+        "impressions": 500
+      }
+    },
+    {
+      "id": 16,
+      "authorName": "Lucas Taylor",
+      "authorDepartment": "PR And Finance",
+      "blogImage": "https://example.com/investing-2025.jpg",
+      "blogHeading": "Investment Strategies for 2025",
+      "blogContent": "<div><p>Secure your financial future...</p></div>",
+      "dateOfPosting": "2025-01-08T18:00:00Z",
+      "comments": [
+        {
+          "reviewerName": "Olivia Adams",
+          "reviewerRole": "Investor",
+          "comment": "Include crypto trends for 2025.",
+          "date": "2025-01-08T19:00:00Z"
+        }
+      ],
+      "status": "Pending",
+      "approvedBy": { "name": null, "role": null },
+      "publicReaction": {
+        "likes": 45,
+        "comments": ["Valuable tips!", "Crypto is key!"],
+        "impressions": 750
+      }
+    }
+  ]
+  

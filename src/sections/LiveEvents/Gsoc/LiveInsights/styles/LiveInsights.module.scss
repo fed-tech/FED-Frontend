@@ -1,0 +1,327 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+.container {
+.circle {
+    position: absolute;
+    top: 60px;
+    right: -10%;
+    background: linear-gradient(#e47404, #fbab04, #2F0048);
+    filter: blur(40px);
+    border-radius: 50%;
+    transform: rotate(70deg);
+    height: 50vh;
+    width: 20vw;
+    opacity: 0.4;
+    display: none;
+}
+
+.circle2 {
+    position: absolute;
+    top: 60px;
+    left: -10%;
+    background: linear-gradient(#e47404, #fbab04, #2F0048);
+    filter: blur(40px);
+    border-radius: 50%;
+    transform: rotate(60deg);
+    height: 50vh;
+    width: 10vw;
+    opacity: 0.4;
+}
+
+h1 {
+    margin: 4.4rem 0;
+    
+    text-align: center;
+    color: white;
+    font-size: 35px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+}
+h2{
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+}
+
+span {
+    color: #F48424;
+}
+
+.flex1 img {
+    width: 5rem;
+    height: 5rem;
+}
+
+.outerbox {
+    height: 36rem;
+    width: 75vw;
+    border: 2px solid white;
+    display: flex;
+    
+    padding: 3rem;
+    border-radius: 2%;
+    background-color: #2F0048;
+    z-index: 1;
+}
+
+.mid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    border-radius: 15px;
+}
+
+.card_img img {
+    height: 489px;
+    width: 302px;
+}
+
+.card_img2 img {
+    width: 5rem;
+    height: 5rem;
+    margin-right: 0.5rem;
+}
+
+.card {
+    display: inline-block;
+}
+
+.flex1 {
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.flex1>div {
+    margin-top: 2rem;
+}
+
+.mid {
+    button {
+        margin-top: 40px;
+        --border: 5px;
+        --slant: 0.7em;
+        --color: #fbab04;
+        font-size: 20px;
+        padding: 1rem 1.8rem ;
+        border-radius: 10px;
+        font-weight: bold;
+        min-width: 13rem;
+        transition: ease-in 0.5s, font-size 0.3s ease-in-out;
+  
+  
+        position: relative;
+        color: white;
+        background: #F48424;
+        
+        &:hover {
+          font-size: 22px;
+          transition: border 0.5 ease-out 0.5 , font-size 0.5s ease-in-out 0.5s;
+          border: none;
+
+        }
+    }
+}
+
+@media(max-width: 900px) {
+    .outerbox {
+        height: 40rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media(max-width: 882px) {
+    .outerbox {
+        height: 30rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    .card_img img {
+        height: 400px;
+        width: 250px;
+    }
+}
+
+@media(max-width: 782px) {
+    .outerbox {
+        height: 28rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    .card_img img {
+        height: 350px;
+        width: 200px;
+    }
+
+    .flex1 img {
+        width: 3rem;
+        height: 3rem;
+    }
+}
+
+@media(max-width: 670px) {
+    .outerbox {
+        height: 30rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .card_img img {
+        height: 340px;
+        width: 180px;
+    }
+
+    .flex1 img {
+        width: 3rem;
+        height: 3rem;
+    }
+}
+
+@media(max-width: 613px) {
+    .outerbox {
+        height: 25rem;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 0.9rem;
+    }
+
+    .card_img img {
+        height: 310px;
+        width: 150px;
+    }
+
+    .flex1 img {
+        width: 3rem;
+        height: 3rem;
+    }
+}
+
+@media(max-width: 613px) {
+    .outerbox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 35px;
+        height: 53rem;
+    }
+
+    .flex1 {
+        margin-top: 2rem;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    .card_img img {
+        height: 400px;
+        width: 260px;
+    }
+
+    .flex1 img {
+        width: 3rem;
+        height: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mid button{
+        margin-top: 30px;
+        font-size: 85%;
+    }
+}
+
+@media(max-width: 464px) {
+    .outerbox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 50rem;
+        padding: 35px;
+    }
+
+    .flex1 {
+        margin-top: 2rem;
+        margin-left: 0;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .card_img img {
+        height: 320px;
+        width: 200px;
+    }
+
+    .flex1 img {
+        width: 3rem;
+        height: 3rem;
+    }
+}
+
+@media(max-width: 420px) {
+    .outerbox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 50rem;
+        padding: 38px;
+        width: 20rem;
+    }
+
+    .flex1 {
+        margin-top: 2rem;
+        margin-left: 0;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 1rem;
+        
+    }
+
+    .card_img img {
+        height: 320px;
+        width: 200px;
+    }
+
+    .flex1 img {
+        width: 3rem;
+        height: 3rem;
+    }
+}
+}

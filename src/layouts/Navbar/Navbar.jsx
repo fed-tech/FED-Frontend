@@ -17,20 +17,52 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleScroll = () => {
-    if (window.scrollY > lastScrollY.current) {
+  // const handleScroll = () => {
+  //   if (window.scrollY > lastScrollY.current) {
+  //     setIsVisible(false);
+  //   } else {
+  //     setIsVisible(true);
+  //   }
+
+  //   if (isMobile) {
+  //     setIsMobile(false);
+  //     setNavbarHeight("80px");
+  //   }
+
+  //   lastScrollY.current = window.scrollY;
+  // };
+
+const SCROLL_THRESHOLD = 5;
+
+const handleScroll = () => {
+  const currentScrollY = window.scrollY;
+
+  if (Math.abs(currentScrollY - lastScrollY.current) > SCROLL_THRESHOLD) {
+    if (currentScrollY === 0) {
+      setIsVisible(true);
+    } else if (currentScrollY > lastScrollY.current) {
       setIsVisible(false);
     } else {
       setIsVisible(true);
     }
 
-    if (isMobile) {
-      setIsMobile(false);
-      setNavbarHeight("90px");
-    }
+    lastScrollY.current = currentScrollY;
+  }
+};
 
-    lastScrollY.current = window.scrollY;
+useEffect(() => {
+  const forceNavbarVisible = () => {
+    if (window.scrollY === 0) {
+      setIsVisible(true);
+    }
   };
+
+  window.addEventListener("scroll", forceNavbarVisible);
+
+  return () => {
+    window.removeEventListener("scroll", forceNavbarVisible);
+  };
+}, []);
 
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
@@ -47,8 +79,8 @@ const Navbar = () => {
 
   useEffect(() => {
     let currentPath = location.pathname;
-    if (/\/Pixel_AI_Hack|\/Pixel_AI_Hack|\/Pixel_AI_Hack|\/Pixel_AI_Hack/i.test(currentPath)) {
-      currentPath = "/Pixel_AI_Hack"; // Normalize Pixel_AI_Hack path
+    if (/\/gsoc|\/GSOC|\/GSoC|\/gsoc/i.test(currentPath)) {
+      currentPath = "/Gsoc"; // Normalize Gsoc path
     }
     setActiveLink(currentPath);
   }, [location]);
@@ -83,8 +115,9 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleNavbarBlur);
     };
   }, []);
+
   const isOmegaActive = activeLink === "/Omega";
-  const isPixel_AI_HackActive = activeLink === "/Pixel_AI_Hack";
+  const isGsocActive = activeLink === "/Gsoc";
 
   return (
     <nav
@@ -150,7 +183,7 @@ const Navbar = () => {
                 to="/"
                 className={`${styles.link} ${
                   activeLink === "/" ? styles.activeLink : ""
-                } ${activeLink === "/Pixel_AI_Hack" ? styles.Pixel_AI_HackHover : ""}`}
+                } ${activeLink === "/Gsoc" ? styles.gsocHover : ""}`}
                 onClick={closeMobileMenu}
               >
                 Home
@@ -161,7 +194,7 @@ const Navbar = () => {
                 to="/Events"
                 className={`${styles.link} ${
                   activeLink === "/Events" ? styles.activeLink : ""
-                } ${activeLink === "/Pixel_AI_Hack" ? styles.Pixel_AI_HackHover : ""}`}
+                } ${activeLink === "/Gsoc" ? styles.gsocHover : ""}`}
                 onClick={closeMobileMenu}
               >
                 Event
@@ -169,13 +202,13 @@ const Navbar = () => {
             </li>
             {/* <li>
               <NavLink
-                to="/Pixel_AI_Hack"
-                className={`${styles.linkPixel_AI_Hack} ${
-                  activeLink === "/Pixel_AI_Hack" ? styles.activeLinkPixel_AI_Hack : ""
-                } ${activeLink === "/Pixel_AI_Hack" ? styles.Pixel_AI_HackHover : ""}`}
+                to="/Gsoc"
+                className={`${styles.linkGsoc} ${
+                  activeLink === "/Gsoc" ? styles.activeLinkGsoc : ""
+                } ${activeLink === "/Gsoc" ? styles.gsocHover : ""}`}
                 onClick={closeMobileMenu}
               >
-                Pixel-AI-Hack
+                GSoC
               </NavLink>
             </li> */}
             <li>
@@ -183,7 +216,7 @@ const Navbar = () => {
                 to="/Social"
                 className={`${styles.link} ${
                   activeLink === "/Social" ? styles.activeLink : ""
-                } ${activeLink === "/Pixel_AI_Hack" ? styles.Pixel_AI_HackHover : ""}`}
+                } ${activeLink === "/Gsoc" ? styles.gsocHover : ""}`}
                 onClick={closeMobileMenu}
               >
                 Social
@@ -194,10 +227,21 @@ const Navbar = () => {
                 to="/Team"
                 className={`${styles.link} ${
                   activeLink === "/Team" ? styles.activeLink : ""
-                } ${activeLink === "/Pixel_AI_Hack" ? styles.Pixel_AI_HackHover : ""}`}
+                } ${activeLink === "/Gsoc" ? styles.gsocHover : ""}`}
                 onClick={closeMobileMenu}
               >
                 Team
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/Blog"
+                className={`${styles.link} ${
+                  activeLink === "/Blog" ? styles.activeLink : ""
+                } ${activeLink === "/Gsoc" ? styles.gsocHover : ""}`}
+                onClick={closeMobileMenu}
+              >
+                Blogs
               </NavLink>
             </li>
           </div>
@@ -231,7 +275,7 @@ const Navbar = () => {
             <NavLink to="/Login" onClick={closeMobileMenu}>
               <button
                 className={`${styles.authButton} ${
-                  activeLink === "/Pixel_AI_Hack" ? styles.Pixel_AI_HackButton : ""
+                  activeLink === "/Gsoc" ? styles.GsocButton : ""
                 }`}
               >
                 Login

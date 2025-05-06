@@ -89,26 +89,16 @@
   color: transparent;
 }
 
-.navLinks .activeLinkPixel_AI_Hack {
-  background: linear-gradient( to left,
-    #64b0dd,
-    #e9487b,
-    #FFD389,
-    #B4DFFF
-  );
+.navLinks .activeLinkGsoc {
+  background-color: #F48424;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 
-.navLinks .Pixel_AI_HackHover:hover {
-  background: linear-gradient( to right,
-    #2a6588,
-    #E2084C,
-    #FFD389,
-    #B4DFFF
-  );
+.navLinks .gsocHover:hover {
+  background: #F48424;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -164,8 +154,6 @@
   width: 0;
   background: #fff;
   transition: width 0.3s ease, left 0.3s ease;
-
- 
 }
 
 .hidden {
@@ -268,25 +256,6 @@
    background: linear-gradient(260deg, rgba(255, 190, 11, .9) -29.7%, rgba(244, 43, 3, .9) 128.34%);
 }
 
-.Pixel_AI_HackButton {
-  font-family: 'Pixelify Sans', sans-serif;
-  background: linear-gradient( to left,
-    rgba(17, 44, 60, 0.8),
-    rgba(226, 8, 76, 0.8),
-    rgba(255, 211, 137, 0.8),
-    rgba(180, 223, 255, 0.8)
-  ) !important;
-
-  &:hover {
-    background: linear-gradient( to left,
-      rgb(14, 46, 65),
-      rgb(149, 6, 51),
-      rgba(255, 211, 137, 1),
-      rgba(180, 223, 255, 1)
-    ) !important;
-  }
-}
-
 // .activeLinkGsoc {
 //   color:  linear-gradient(
 //     260deg,
@@ -295,20 +264,20 @@
 //   ) !important;
 // }
 
-// .gsocButton {
-//  background-color: #fff;
-// }
+.gsocButton {
+ background-color: #fff;
+}
 
-// .GsocButton {
-//   transition: .2s linear;
-//   background:linear-gradient(to left,#112C3C, #E2084C, #FFD389, #B4DFFF);
+.GsocButton {
+  transition: .2s linear;
+  background: linear-gradient(to left,#F48424,#2F0048);
   
-// }
-// .GsocButton:hover {
-//   transition: .2s linear;
-//   background: linear-gradient(to left,#f47b24,#4c0c6f,#2F0048 150%);
+}
+.GsocButton:hover {
+  transition: .2s linear;
+  background: linear-gradient(to left,#f47b24,#4c0c6f,#2F0048 150%);
   
-// }
+}
 
 .profileImgdiv {
   height: 60px;
@@ -338,6 +307,7 @@
 
   .navbarContent {
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     display: flex;
     align-items: flex-start;
     padding-top: 25px;
@@ -372,6 +342,7 @@
     width: 90%;
     background-color: #202020;
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     position: absolute;
     top: 90px;
     left: 20px;

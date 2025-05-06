@@ -10,6 +10,9 @@ import { Loading } from "./microInteraction";
 // modals
 import { EventModal } from "./features";
 
+//blog
+import FullBlog from "./pages/Blog/FullBlog";
+
 // state
 import AuthContext from "./context/AuthContext";
 import EventStats from "./features/Modals/Event/EventStats/EventStats";
@@ -17,13 +20,9 @@ import {
   EventsView,
   NewForm,
   ProfileView,
+  BlogForm,
   ViewEvent,
   ViewMember,
-  CertificatesView,
-  CertificatesForm,
-  CertificatesPreview,
-  SendCertificate,
-  VerifyCertificate,
 } from "./sections";
 
 // Lazy loading pages
@@ -35,8 +34,9 @@ const Social = lazy(() => import("./pages/Social/Social"));
 const Team = lazy(() => import("./pages/Team/Team"));
 const Alumni = lazy(() => import("./pages/Alumni/Alumni"));
 const Profile = lazy(() => import("./pages/Profile/Profile"));
+const Blog = lazy(() => import("./pages/Blog/Blog"));
 // const Omega = lazy(() => import("./pages/Omega/Omega"));
-// const Pixel_AI_Hack = lazy(() => import("./pages/LiveEvents/Pixel_AI_Hack/Pixel_AI_Hack"));
+// const Gsoc = lazy(() => import("./pages/LiveEvents/Gsoc/Gsoc"));
 
 const Signup = lazy(() => import("./pages/Authentication/Signup/Signup"));
 const ForgotPassword = lazy(() =>
@@ -57,11 +57,11 @@ const OTPInput = lazy(() =>
 
 const MainLayout = () => {
   const location = useLocation();
-  const isPixel_AI_HackPage = location.pathname === "/Pixel_AI_Hack";
+  // const isGsocPage = /\/gsoc|\/GSOC|\/GSoC|\/gsoc/i.test(location.pathname);
 
   // useEffect(() => {
-  //   if (isPixel_AI_HackPage) {
-  //     document.body.style.backgroundColor = "#000026";
+  //   if (isGsocPage) {
+  //     document.body.style.backgroundColor = "black";
   //   } else {
   //     document.body.style.backgroundColor = "";
   //   }
@@ -69,7 +69,7 @@ const MainLayout = () => {
   //   return () => {
   //     document.body.style.backgroundColor = "";
   //   };
-  // }, [isPixel_AI_HackPage]);
+  // }, [isGsocPage]);
 
   return (
     <div>
@@ -101,10 +101,11 @@ function App() {
             <Route path="/Events/pastEvents" element={<PastEvent />} />
             <Route path="/Social" element={<Social />} />
             <Route path="/Team" element={<Team />} />
+            <Route path="/Blog" element={<Blog />} />
+            <Route path="/Blog/:id" element={<FullBlog />} />
             <Route path="/Alumni" element={<Alumni />} />
-            <Route path="/verify/certificate" element={<VerifyCertificate />} />
             {/* <Route path="/Omega" element={<Omega />} /> */}
-            {/* <Route path="/Pixel_AI_Hack" element={<Pixel_AI_Hack />}/> */}
+            {/* <Route path="/Gsoc" element={<Gsoc />} /> */}
             {/* Route After Login */}
             {authCtx.isLoggedIn && (
               <Route path="/profile" element={<Profile />}>
@@ -115,41 +116,16 @@ function App() {
                 {authCtx.user.access === "ADMIN" ? (
                   <Route path="events" element={<ViewEvent />} />
                 ) : (
-                  <>
-                    <Route path="events" element={<EventsView />} />
-                    <Route path="certificates" element={<CertificatesView />} />
-                  </>
+                  <Route path="events" element={<EventsView />} />
                 )}
                 <Route path="Form" element={<NewForm />} />
-
                 {authCtx.user.access === "ADMIN" && (
                   <Route path="members" element={<ViewMember />} />
                 )}
-                {/* Certificates Route */}
 
+<Route path="BlogForm" element={<BlogForm />} />
                 {authCtx.user.access === "ADMIN" && (
-                  <Route path="certificates" element={<CertificatesView />} />
-                )}
-
-                {authCtx.user.access === "ADMIN" && (
-                  <Route
-                    path="events/SendCertificate/:eventId"
-                    element={<SendCertificate />}
-                  />
-                )}
-
-                {authCtx.user.access === "ADMIN" && (
-                  <Route
-                    path="events/createCertificates/:eventId"
-                    element={<CertificatesForm />}
-                  />
-                )}
-
-                {authCtx.user.access === "ADMIN" && (
-                  <Route
-                    path="events/viewCertificates/:eventId"
-                    element={<CertificatesPreview />}
-                  />
+                  <Route path="members" element={<BlogForm />} />
                 )}
 
                 <Route
@@ -188,7 +164,7 @@ function App() {
             />
 
             <Route
-              path="/Events/:eventId/"
+              path="/Events/:eventId/Form"
               element={[<Event />, <EventForm />]}
             />
 
@@ -245,7 +221,6 @@ function App() {
               }
             />
           </Route>
-          
         </Routes>
       </Suspense>
     </div>
