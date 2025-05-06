@@ -111,13 +111,18 @@ header {
   margin-right: 0.5rem;
 }
 
-.gsocBackGround{
+.Pixel_AI_HackBackGround{
   transition: .2s linear;
-  background: linear-gradient(to left,#F48424,#2F0048);
+  background: linear-gradient( to left,
+    rgba(17, 44, 60, 0.8),
+    rgba(226, 8, 76, 0.8),
+    rgba(255, 211, 137, 0.8),
+    rgba(180, 223, 255, 0.8)
+  );
 }
-.gsocBackGround:hover{
+.Pixel_AI_HackBackGround:hover{
   transition: .2s linear;
-  background: linear-gradient(to left,#f47b24,#4c0c6f);
+  background:  none;
 }
 .close {
   margin-right: 15px;
@@ -125,8 +130,8 @@ header {
   font-size: 2rem;
   cursor: pointer;
   color: white;
-  &.gsocBackGround {
-    background: transparent;
+  &.Pixel_AI_HackBackGround {
+    background: none;
   }
   
 }

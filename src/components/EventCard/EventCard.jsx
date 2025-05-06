@@ -450,6 +450,7 @@ const EventCard = (props) => {
               //   }
               // }}
             >
+              
               <button
                 className={style.registerbtn}
                 style={{
