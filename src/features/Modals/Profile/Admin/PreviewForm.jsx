@@ -57,6 +57,8 @@ const PreviewForm = ({
   const [message, setMessage] = useState(null);
   const [isPaymentSuccess, setIsPaymentSuccess] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [showPaymentOnMobile, setShowPaymentOnMobile] = useState(false);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   let currentSection =
     data !== undefined
@@ -413,7 +415,7 @@ const PreviewForm = ({
           authCtx.user.extra.designation,
           authCtx.user.access,
           authCtx.user.editProfileCount,
-          updatedRegForm // Pass the updated regForm
+          updatedRegForm
         );
 
         setAlert({
@@ -426,6 +428,10 @@ const PreviewForm = ({
         setIsPaymentLocked(false);
         setIsFormFilled(true);
         setCurrentStage(2);
+        setIsFormSubmitted(true);
+        if (isMobile) {
+          setShowPaymentOnMobile(true);
+        }
       } else {
         throw new Error("Unexpected response status");
       }
@@ -454,13 +460,17 @@ const PreviewForm = ({
       setisCompleted((prev) => [...prev, currentSection._id]);
       setactiveSection(nextSection);
 
-      if (isMobile && nextSection.name === "Payment Details") {
-        setShowPaymentOnlyMobile(true);
+      // Show payment section on mobile only after form completion
+      if (isMobile && !nextSection) {
+        setShowPaymentOnMobile(true);
       }
     }
 
     if (!nextSection || nextSection === "submit") {
       setisCompleted((prev) => [...prev, currentSection._id, "Submitted"]);
+      if (isMobile) {
+        setShowPaymentOnMobile(true);
+      }
       return handleSubmit();
     }
   };
@@ -713,7 +723,7 @@ const PreviewForm = ({
       {open && (
         <div
           className={styles.mainPreview}
-          style={{ overflowY: "hidden", height: "100%" }} // Add these styles to hide vertical scrollbar
+          style={{ overflowY: "hidden", height: "100%" }}
         >
           <div className={styles.box}>
             {/* progress bar */}
@@ -796,169 +806,244 @@ const PreviewForm = ({
               ) : (
                 <>
                   {/* Form Section */}
-                   <div
-                    ref={wrapperRef}
-                    className={styles.previewContainer}
-                    style={{
-                      backgroundColor: isFormFilled ? "#000" : "initial",
-                      width:
-                        formData?.eventAmount > 0
-                          ? isFormFilled
-                            ? "32%"
-                            : "68%"
-                          : "100%",
-                      overflowY: "hidden", // Ensure no vertical scroll in this section as well
-                    }}
-                  >
-                    {showCloseBtn &&
-                      (isEditing ? (
-                        <div onClick={handleClose} className={styles.closeBtn}>
-                          <X />
-                        </div>
-                      ) : (
-                        <Link to="/Events" onClick={handleClose}>
-                          <div className={styles.closeBtn}>
-                            <X />
-                          </div>
-                        </Link>
-                      ))}
-                    <Text
+                  {(!isFormSubmitted || !isMobile) && (
+                    <div
+                      ref={wrapperRef}
+                      className={styles.previewContainer}
                       style={{
-                        marginBottom: "20px",
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                        fontSize: "25px",
+                        backgroundColor: isFormFilled ? "#000" : "initial",
+                        width: isMobile 
+                          ? "100%" 
+                          : formData?.eventAmount > 0
+                            ? isFormSubmitted
+                              ? "40%"
+                              : "60%"
+                            : "100%",
                       }}
                     >
-                      {eventData?.eventTitle || "Preview Event"}
-                    </Text>
-
-                    {isFormFilled ? (
-                      <div
+                      {showCloseBtn &&
+                        (isEditing ? (
+                          <div onClick={handleClose} className={styles.closeBtn}>
+                            <X />
+                          </div>
+                        ) : (
+                          <Link to="/Events" onClick={handleClose}>
+                            <div className={styles.closeBtn}>
+                              <X />
+                            </div>
+                          </Link>
+                        ))}
+                      <Text
                         style={{
-                          position: "relative",
+                          marginBottom: "20px",
                           width: "100%",
-                          pointerEvents: "none",
-                          backgroundPosition: "center",
                           display: "flex",
-                          flexDirection: "column",
                           justifyContent: "center",
-                          alignItems: "center",
-                          color: "white",
+                          fontSize: "25px",
                         }}
                       >
+                        {eventData?.eventTitle || "Preview Event"}
+                      </Text>
+
+                      {isFormFilled ? (
                         <div
                           style={{
                             position: "relative",
-                            zIndex: 2,
-                            textAlign: "center",
+                            width: "100%",
+                            pointerEvents: "none",
+                            backgroundPosition: "center",
                             display: "flex",
                             flexDirection: "column",
-                            alignItems: "center",
-                          }}
-                        >
-                          <img
-                            src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/67925b3aee82a92d1d9bac2f_image%20(47).png"
-                            alt="Success Logo"
-                            style={{
-                              width: "150px",
-                              marginBottom: "1rem",
-                              opacity: "0.4",
-                            }}
-                          />
-                          <i
-                            style={{
-                              fontSize: "2rem",
-                              position: "absolute",
-                              top: "20%",
-                              left: "35%",
-                            }}
-                            className={styles.tickIcon}
-                          >
-                            ✅
-                          </i>
-                          <Button style={{ opacity: "0.4" }}>Registered</Button>
-                        </div>
-                      </div>
-                    ) : isLoading ? (
-                      <ComponentLoading
-                        customStyles={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          marginLeft: "0rem",
-                          marginTop: "5rem",
-                        }}
-                      />
-                    ) : (
-                      <div style={{ width: "100%" }}>
-                        <div>
-                          <Text
-                            style={{ alignSelf: "center" }}
-                            variant="secondary"
-                          >
-                            {currentSection.name}
-                          </Text>
-                          <Text
-                            style={{
-                              cursor: "pointer",
-                              padding: "6px 0",
-                              fontSize: "11px",
-                              opacity: "0.4",
-                              marginBottom: "8px",
-                            }}
-                          >
-                            {currentSection.description}
-                          </Text>
-                        </div>
-                        <Section
-                          section={currentSection}
-                          handleChange={handleChange}
-                        />
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
                             justifyContent: "center",
+                            alignItems: "center",
+                            color: "white",
                           }}
                         >
-                          {inboundList() && inboundList().backSection && (
-                            <Button
-                              style={{ marginRight: "10px" }}
-                              onClick={onBack}
-                            >
-                              Back
-                            </Button>
-                          )}
-                          <Button
-                            onClick={
-                              inboundList() && inboundList().nextSection
-                                ? onNext
-                                : handleSubmit
-                            }
+                          <div
+                            style={{
+                              position: "relative",
+                              zIndex: 2,
+                              textAlign: "center",
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                            }}
                           >
-                            {inboundList() && inboundList().nextSection ? (
-                              "Next"
-                            ) : isMicroLoading ? (
-                              <MicroLoading />
-                            ) : (
-                              "Submit"
-                            )}
-                          </Button>
+                            <img
+                              src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/67925b3aee82a92d1d9bac2f_image%20(47).png"
+                              alt="Success Logo"
+                              style={{
+                                width: "150px",
+                                marginBottom: "1rem",
+                                opacity: "0.4",
+                              }}
+                            />
+                            <i
+                              style={{
+                                fontSize: "2rem",
+                                position: "absolute",
+                                top: "20%",
+                                left: "35%",
+                              }}
+                              className={styles.tickIcon}
+                            >
+                              ✅
+                            </i>
+                            <Button style={{ opacity: "0.4" }}>Registered</Button>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
+                      ) : isLoading ? (
+                        <ComponentLoading
+                          customStyles={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            marginLeft: "0rem",
+                            marginTop: "5rem",
+                          }}
+                        />
+                      ) : (
+                        <div style={{ width: "100%" }}>
+                          <div>
+                            <Text
+                              style={{ alignSelf: "center" }}
+                              variant="secondary"
+                            >
+                              {currentSection.name}
+                            </Text>
+                            <Text
+                              style={{
+                                cursor: "pointer",
+                                padding: "6px 0",
+                                fontSize: "11px",
+                                opacity: "0.4",
+                                marginBottom: "8px",
+                              }}
+                            >
+                              {currentSection.description}
+                            </Text>
+                          </div>
+                          <Section
+                            section={currentSection}
+                            handleChange={handleChange}
+                          />
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "center",
+                            }}
+                          >
+                            {inboundList() && inboundList().backSection && (
+                              <Button
+                                style={{ marginRight: "10px" }}
+                                onClick={onBack}
+                              >
+                                Back
+                              </Button>
+                            )}
+                            <Button
+                              onClick={
+                                inboundList() && inboundList().nextSection
+                                  ? onNext
+                                  : handleSubmit
+                              }
+                            >
+                              {inboundList() && inboundList().nextSection ? (
+                                "Next"
+                              ) : isMicroLoading ? (
+                                <MicroLoading />
+                              ) : (
+                                "Submit"
+                              )}
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Payment Section */}
-                  {formData?.eventAmount > 0 && (
+                  {formData?.eventAmount > 0 && !isMobile && (
                     <div
                       className={`${styles.paymentSection} ${
                         isPaymentLocked ? styles.locked : styles.unlock
                       }`}
+                      style={{
+                        width: isFormSubmitted ? "60%" : "40%",
+                      }}
                     >
                       <h2>Payment</h2>
+                      {isPaymentLocked ? (
+                        <div className={styles.paySec}>
+                          <div className={styles.lockedMessage}>
+                            <img
+                              src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/6790c06ed4f090ff46f80a08_image%20(46).png"
+                              alt=""
+                              height={150}
+                              width={170}
+                            />
+                            <i className={styles.lockIcon}>🔒</i>
+                          </div>
+                          <Button
+                            style={{ fontSize: "12px" }}
+                            className={styles.payNow}
+                          >
+                            Pay Now
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className={styles.paySecOpen}>
+                          <div className={styles.unlockedMessage}>
+                            <img
+                              src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/6790c06ed4f090ff46f80a08_image%20(46).png"
+                              alt=""
+                              height={150}
+                              width={170}
+                            />
+                          </div>
+                          <div className={styles.paybtn}>
+                            <Button
+                              style={{ fontSize: "12px" }}
+                              className={styles.payNow}
+                              onClick={handlePayNow}
+                            >
+                              Pay Now
+                            </Button>
+                            <Button
+                              style={{ fontSize: "12px" }}
+                              className={styles.payNow}
+                              onClick={handlePayLater}
+                            >
+                              Pay Later
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Mobile Payment Section */}
+                  {formData?.eventAmount > 0 && isMobile && showPaymentOnMobile && (
+                    <div
+                      className={`${styles.paymentSection} ${
+                        isPaymentLocked ? styles.locked : styles.unlock
+                      }`}
+                      style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        backgroundColor: "rgba(0, 0, 0, 0.9)",
+                        zIndex: 1000,
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <h2 style={{ color: "white", marginBottom: "20px" }}>Payment</h2>
                       {isPaymentLocked ? (
                         <div className={styles.paySec}>
                           <div className={styles.lockedMessage}>
