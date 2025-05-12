@@ -452,9 +452,10 @@ const EventStats = ({ onClosePath }) => {
                           <div
                             style={{
                               display: "grid",
-                              gridTemplateColumns: "repeat(5, 1fr)",
-                              gap: "0.3rem",
-                              marginTop: "0.3rem",
+                              gridTemplateColumns: "repeat(3, 1fr)",
+                              gap: "0.5rem",
+                              marginTop: "0.5rem",
+                              maxWidth: "100%",
                             }}
                           >
                             {Object.keys(yearCounts.paid || {}).length > 0 ? (
@@ -466,6 +467,9 @@ const EventStats = ({ onClosePath }) => {
                                       display: "flex",
                                       alignItems: "center",
                                       color: "#FF8A00",
+                                      padding: "0.3rem",
+                                      // backgroundColor: "rgba(255, 138, 0, 0.1)",
+                                      borderRadius: "4px",
                                     }}
                                   >
                                     <span
@@ -493,6 +497,9 @@ const EventStats = ({ onClosePath }) => {
                                       display: "flex",
                                       alignItems: "center",
                                       color: "#FF8A00",
+                                      padding: "0.3rem",
+                                      // backgroundColor: "rgba(255, 138, 0, 0.1)",
+                                      borderRadius: "4px",
                                     }}
                                   >
                                     <span
