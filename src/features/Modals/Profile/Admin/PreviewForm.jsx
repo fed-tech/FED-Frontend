@@ -400,7 +400,14 @@ const PreviewForm = ({
       });
 
       if (response.status === 200 || response.status === 201) {
+        const { registrationId, paymentStatus } = response.data;
+      
         const updatedRegForm = [...authCtx.user.regForm, form.id];
+        const updatedPaymentStatus = {
+          ...authCtx.user.paymentStatus,
+          [form.id]: paymentStatus || "PENDING",
+        };
+      
         authCtx.update(
           authCtx.user.name,
           authCtx.user.email,
@@ -415,8 +422,10 @@ const PreviewForm = ({
           authCtx.user.extra.designation,
           authCtx.user.access,
           authCtx.user.editProfileCount,
-          updatedRegForm
+          updatedRegForm,
+          updatedPaymentStatus // New addition
         );
+            
 
         setAlert({
           type: "success",
@@ -688,35 +697,40 @@ const PreviewForm = ({
   };
 
   const handlePayLater = async () => {
-    console.log("test pay later");
     try {
-      await api.post("/api/payment/pay-later", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await api.post(
+        "/api/payment/pay-later",
+        {
+          registrationId: formData?.registrationId, // Ensure registrationId is in formData
         },
-        body: JSON.stringify({
-          registrationId,
-        }),
-      });
-
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+          },
+        }
+      );
+  
       setAlert({
         type: "success",
-        message: "Registration completed! Remember to pay before the deadline.",
+        message: "Payment deferred. You can pay later from event card.",
         position: "bottom-right",
         duration: 3000,
       });
-
-      router.push("/dashboard");
+  
+      setIsPaymentLocked(true);
+      setIsPaymentSuccess(false); // explicitly not successful
     } catch (error) {
+      console.error("Pay later error:", error);
       setAlert({
         type: "error",
-        message: "Failed to process request. Please try again.",
+        message: "Could not mark as Pay Later. Try again.",
         position: "bottom-right",
         duration: 3000,
       });
     }
   };
+  
 
   return (
     <>

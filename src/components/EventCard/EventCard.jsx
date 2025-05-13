@@ -78,7 +78,7 @@ const EventCard = (props) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSkeleton(false);
-    }, 500); 
+    }, 500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -198,11 +198,14 @@ const EventCard = (props) => {
       // console.log("Inside Card", isRegisteredInRelatedEvents);
 
       if (isRegisteredInRelatedEvents) {
-
         console.log("checking for ", data.id);
         if (data?.info?.relatedEvent === "null") {
           if (authCtx.user.regForm.includes(data.id)) {
-            setBtnTxt("Already Registered");
+            if (data?.paymentStatus === "PENDING" && info.eventAmount > 0) {
+              setBtnTxt("Payment Pending");
+            } else {
+              setBtnTxt("Already Registered");
+            }
           }
         } else {
           if (authCtx.user.regForm.includes(data.id)) {
@@ -283,7 +286,6 @@ const EventCard = (props) => {
     }
     return true;
   };
-  
 
   const handleForm = () => {
     if (!isValiedState()) {
@@ -325,6 +327,15 @@ const EventCard = (props) => {
       setTimeout(() => {
         setIsMicroLoading(false);
       }, 3000);
+    }
+  };
+
+  const handlePayNow = () => {
+    if (authCtx.isLoggedIn) {
+      navigate(`/Events/${data.id}/Form`); // Navigate to PreviewForm
+    } else {
+      sessionStorage.setItem("prevPage", window.location.pathname);
+      navigate("/login");
     }
   };
 
@@ -453,59 +464,64 @@ const EventCard = (props) => {
               // }}
             >
               <button
-  className={style.registerbtn}
-  style={{
-    ...customStyles.registerbtn,
-    cursor: btnTxt === "Register Now" ? "pointer" : "not-allowed",
-  }}
-  onClick={handleForm}
->
-  {btnTxt === "Closed" ? (
-    <>
-      <div style={{ fontSize: "0.9rem" }}>Closed</div>
-      <IoIosLock
-        alt=""
-        style={{ marginLeft: "0px", fontSize: "1rem" }}
-      />
-    </>
-  ) : btnTxt === "Payment Pending" ? (
-    <>
-      <div style={{ fontSize: "0.9rem" }}>Payment Pending</div>
-    </>
-  ) : btnTxt === "Already Registered" ? (
-    <>
-      <div style={{ fontSize: "0.9rem" }}>Registered </div>
-    </>
-  ) : btnTxt === "Locked" ? (
-    <>
-      <div style={{ fontSize: "0.9rem" }}>Locked</div>
-      <IoIosLock
-        alt=""
-        style={{ marginLeft: "0px", fontSize: "1rem" }}
-      />
-    </>
-  ) : isMicroLoading ? (
-    <div style={{ fontSize: "0.9rem" }}>
-      <MicroLoading />
-    </div>
-  ) : (
-    <>
-      {remainingTime ? (
-        <>
-          <PiClockCountdownDuotone size={20} />
-          <div style={{ fontSize: "0.8rem" }}>{btnTxt}</div>
-        </>
-      ) : btnTxt === "Already Member" ? (
-        <>
-          <div style={{ fontSize: "0.8rem" }}>Already Member</div>
-        </>
-      ) : (
-        <div style={{ fontSize: "0.9rem" }}>Register Now</div>
-      )}
-    </>
-  )}
-</button>
-
+                className={style.registerbtn}
+                style={{
+                  ...customStyles.registerbtn,
+                  cursor: btnTxt === "Register Now" ? "pointer" : "not-allowed",
+                }}
+                onClick={handleForm}
+              >
+                {btnTxt === "Closed" ? (
+                  <>
+                    <div style={{ fontSize: "0.9rem" }}>Closed</div>
+                    <IoIosLock
+                      alt=""
+                      style={{ marginLeft: "0px", fontSize: "1rem" }}
+                    />
+                  </>
+                ) : btnTxt === "Payment Pending" ? (
+                  <>
+                    <div
+                      className={style.registerbtn}
+                      onClick={handlePayNow}
+                      style={{ cursor: "pointer" }}
+                    >
+                      Payment Pending
+                    </div>
+                  </>
+                ) : btnTxt === "Already Registered" ? (
+                  <>
+                    <div style={{ fontSize: "0.9rem" }}>Registered </div>
+                  </>
+                ) : btnTxt === "Locked" ? (
+                  <>
+                    <div style={{ fontSize: "0.9rem" }}>Locked</div>
+                    <IoIosLock
+                      alt=""
+                      style={{ marginLeft: "0px", fontSize: "1rem" }}
+                    />
+                  </>
+                ) : isMicroLoading ? (
+                  <div style={{ fontSize: "0.9rem" }}>
+                    <MicroLoading />
+                  </div>
+                ) : (
+                  <>
+                    {remainingTime ? (
+                      <>
+                        <PiClockCountdownDuotone size={20} />
+                        <div style={{ fontSize: "0.8rem" }}>{btnTxt}</div>
+                      </>
+                    ) : btnTxt === "Already Member" ? (
+                      <>
+                        <div style={{ fontSize: "0.8rem" }}>Already Member</div>
+                      </>
+                    ) : (
+                      <div style={{ fontSize: "0.9rem" }}>Register Now</div>
+                    )}
+                  </>
+                )}
+              </button>
             </div>
           )}
         </div>

@@ -245,7 +245,11 @@ const EventModal = (props) => {
         // console.log("checking for ", data?.id);
         if (data?.info?.relatedEvent === "null") {
           if (authCtx.user.regForm.includes(data.id)) {
-            setBtnTxt("Already Registered");
+            if (data?.paymentStatus === "PENDING" && info.eventAmount > 0) {
+              setBtnTxt("Payment Pending");
+            } else {
+              setBtnTxt("Already Registered");
+            }
           }
         } else {
           if (authCtx.user.regForm.includes(data?.id)) {
