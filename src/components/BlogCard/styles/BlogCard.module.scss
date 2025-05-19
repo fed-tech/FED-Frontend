@@ -13,8 +13,8 @@
 
   
   &:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
-    transform: translateY(-4px);
+    box-shadow: none;
+    transform: none;
   }
 
   .link {
@@ -38,7 +38,7 @@
       transition: transform 0.3s ease;
       
       &:hover {
-        transform: scale(1.05);
+        transform: none;
       }
     }
   }
@@ -52,6 +52,7 @@
 
     h1 {
       background: var(--primary);
+      background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
       margin-bottom: 10px;
