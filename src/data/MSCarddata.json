@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "headerCover": "/images/readers-fleet-header.jpg", 
+    "logo": "/images/readers-fleet-logo.png",
+    "title": "Reader’s Fleet",
+    "subtitle": "Hritika Shankdhar",
+    "description": "Connecting Readers and Authors Like Never Before. What if you could help build the next big thing for readers and authors across India? That’s the mission of Readers’Fleet, a community-driven platform where book lovers can: Connect through genre-based communities, chat directly with their favorite authors, discover books via AI-powered recommendations, track their reading journey with streaks and badges ...and that’s just the beginning. We’re creating a fun, gamified, and deeply personalized experience for readers who are ready for more than just “one more chapter.”"
+  },
+  {
+    "id": 2,
+    "headerCover": "/images/aahar-header.jpg",  
+    "logo": "/images/aahar-logo.png",
+    "title": "Aahar",
+    "subtitle": "Debansh Hota",
+    "description": "Because Ghar Ka Khana Just Got Smarter. Aahar is India’s first hyper-personalized diet recommendation platform that respects your roots. Our goal? To blend technology with tradition by offering diets that: Factor in your health conditions (like PCOD, BP, etc.), Align with what’s available in your local markets, Stay true to family-approved food wisdom. We’re replacing one-size-fits-all diet charts with real, desi, science-backed nutrition – and if you think anda-bread can be a lifestyle, you’re already one of us."
+  }
+]

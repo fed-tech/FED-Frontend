@@ -1,0 +1,37 @@
+.fed-main {
+  padding: 32px;
+  align-items: center;
+  font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+  background: #fafafa;
+  min-height: 100vh;
+  background-color: #ff5c0030;
+}
+
+
+.fed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(600px, 2fr));
+  gap: 32px;
+  justify-items: normal;
+}
+
+.fed-main-container {
+  padding-top: 15px;
+  background: #8d4b0e;
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.fed-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
