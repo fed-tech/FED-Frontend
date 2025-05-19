@@ -35,6 +35,7 @@ const Social = lazy(() => import("./pages/Social/Social"));
 const Team = lazy(() => import("./pages/Team/Team"));
 const Alumni = lazy(() => import("./pages/Alumni/Alumni"));
 const Profile = lazy(() => import("./pages/Profile/Profile"));
+const Microstartup = lazy(() => import("./pages/MicroStartup/MicroStartup"));
 // const Omega = lazy(() => import("./pages/Omega/Omega"));
 // const Pixel_AI_Hack = lazy(() => import("./pages/LiveEvents/Pixel_AI_Hack/Pixel_AI_Hack"));
 
@@ -100,6 +101,7 @@ function App() {
             <Route path="/Events" element={<Event />} />
             <Route path="/Events/pastEvents" element={<PastEvent />} />
             <Route path="/Social" element={<Social />} />
+            <Route path="/MicroStartup" element={<Microstartup />} />
             <Route path="/Team" element={<Team />} />
             <Route path="/Alumni" element={<Alumni />} />
             <Route path="/verify/certificate" element={<VerifyCertificate />} />

@@ -200,6 +200,18 @@ const Navbar = () => {
                 Team
               </NavLink>
             </li>
+
+            <li>
+              <NavLink
+                to="/MicroStartup"
+                className={`${styles.link} ${
+                  activeLink === "/MicroStartup" ? styles.activeLink : ""
+                } ${activeLink === "/Pixel_AI_Hack" ? styles.Pixel_AI_HackHover : ""}`}
+                onClick={closeMobileMenu}
+              >
+                Startup
+              </NavLink>
+            </li>
           </div>
 
           {authCtx.isLoggedIn ? (
