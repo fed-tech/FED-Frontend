@@ -1,18 +1,39 @@
 [
+  
   {
     "id": 1,
-    "headerCover": "/images/readers-fleet-header.jpg", 
-    "logo": "/images/readers-fleet-logo.png",
-    "title": "Reader’s Fleet",
-    "subtitle": "Hritika Shankdhar",
-    "description": "Connecting Readers and Authors Like Never Before. What if you could help build the next big thing for readers and authors across India? That’s the mission of Readers’Fleet, a community-driven platform where book lovers can: Connect through genre-based communities, chat directly with their favorite authors, discover books via AI-powered recommendations, track their reading journey with streaks and badges ...and that’s just the beginning. We’re creating a fun, gamified, and deeply personalized experience for readers who are ready for more than just “one more chapter.”"
+    "headerCover": "https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/682b280a1ffff070500d3aa0_image%20(63).png",
+    "logo": "https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/682b2778cf3f6cbf3d075dd9_image%20(58).png",
+    "title": "AstroNuvi",
+    "subtitle": "Hardik Gupta",
+    "description": "The Future of Astrology is Here\nAstroNuvi is revolutionizing astrology with a modern, tech-first approach rooted in ancient knowledge. Powered by our in-house HUMAI model, RatnAI, we offer: Instant, AI-generated horoscopes, Affordable, certified gemstones, Expert insights you can actually rely on. We’re making astrology accessible, digital, and real — no vague predictions, no drama, just trusted tools to help you navigate life. Rewrite Fate, the Nuvi way.",
+    "link": "https://astronuvi.example.com"
   },
   {
     "id": 2,
-    "headerCover": "/images/aahar-header.jpg",  
-    "logo": "/images/aahar-logo.png",
+    "headerCover": "https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/682b2778ee0d149a668a9104_image%20(59).png",
+    "logo": "https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/682b2778193e886b25cc2291_image%20(60).png",
+    "title": "SphereX",
+    "subtitle": "Deepraj Banerjee",
+    "description": "Choose Your Sphere. Have a great project idea, but no one to build it with? We get it — working alone is tough, and finding like-minded collaborators is even harder. That’s where SphereX comes in: a platform designed to connect thinkers, creators, and builders. Whether you’re looking for teammates, brainstorming partners, or simply a space to start something impactful — SphereX is where your ideas find a team. But here’s the twist — we’re building SphereX, and we need YOU. If you’re excited to shape a community-driven innovation space from scratch, come help us build the next big thing.",
+    "link": "https://spherex.example.com"
+  },
+  {
+    "id": 3,
+    "headerCover": "https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/682b280a04f86e8f92aca455_image%20(62).png",
+    "logo": "https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/682b277882b16a3cb3a9da9c_image%20(57).png",
+    "title": "Reader’s Fleet",
+    "subtitle": "Hritika Shankdhar",
+    "description": "Connecting Readers and Authors Like Never Before.\nWhat if you could help build the next big thing for readers and authors across India? That’s the mission of Readers’ Fleet, a community-driven platform where book lovers can: Connect through genre-based communities, chat directly with their favorite authors, discover books via AI-powered recommendations, track their reading journey with streaks and badges …and that’s just the beginning. We’re creating a fun, gamified, and deeply personalized experience for readers who are ready for more than just “one more chapter.”",
+    "link": "https://readersfleet.example.com"
+  },
+  {
+    "id": 4,
+    "headerCover": "https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/682b2778cf3f6cbf3d075c52_image%20(53).png",
+    "logo": "https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/682b277818f9aabeeb040735_image%20(54).png",
     "title": "Aahar",
     "subtitle": "Debansh Hota",
-    "description": "Because Ghar Ka Khana Just Got Smarter. Aahar is India’s first hyper-personalized diet recommendation platform that respects your roots. Our goal? To blend technology with tradition by offering diets that: Factor in your health conditions (like PCOD, BP, etc.), Align with what’s available in your local markets, Stay true to family-approved food wisdom. We’re replacing one-size-fits-all diet charts with real, desi, science-backed nutrition – and if you think anda-bread can be a lifestyle, you’re already one of us."
+    "description": "Because Ghar Ka Khaana Just Got Smarter\nAahar is India’s first hyper-personalized diet recommendation platform that respects your roots. Our goal? To blend technology with tradition by offering diets that: Factor in your health conditions (like PCOD, BP, etc.), Align with what’s available in your local markets, Stay true to family-approved food wisdom. We’re replacing one-size-fits-all diet charts with real, desi, science-backed nutrition — and if you think anda-bread can be a lifestyle, you’re already one of us.",
+    "link": "https://aahar.example.com"
   }
 ]

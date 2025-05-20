@@ -1,12 +1,7 @@
-import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import StartupCard from "../../components/MSCard/MSCard";
 import data from "../../data/MSCarddata.json";
-import './Style/MicroStartup.module.scss'
-import style from "./Style/Header.module.scss";
-import { ComponentLoading } from "../../microInteraction";
-
-
+import styles from "./styles/MicroStartup.module.scss";
 
 export default function StartupPage() {
   const [startups, setStartups] = useState([]);
@@ -15,32 +10,34 @@ export default function StartupPage() {
     setStartups(data);
   }, []);
 
-   return (
-   
+  return (
+    <div>
+      <div className={styles.name}>
+        <span className={styles.w2}>Introducing FED - </span>
+        <span className={styles.w1}>MicroStartups</span>
+      </div>
 
-      <div className="name">
-                      <div className={style.name}>
-                        <span className={style.w2}>Introducing FED - </span>
-                        <span className={style.w1}>MicroStartups</span>
-       </div>
-        <div className="fed-main-container">
-    <section className="fed-card-grid"> <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px", maxWidth: "1200px", margin: "0 auto"}}>
-      {data.map(card => (
-        <StartupCard key={card.id} {...card} />
-      ))}
-    </div>
-        {startups.map((startup) => (
-          <StartupCard
-          
-            key={startup.id}
-            brandName={startup.brandName}
-            description={startup.description}
-            logo={startup.logo}
-          />
-        ))}
-      </section>
+      <p className={styles.description}>
+        Microstartups under <span className={styles.highlight}>FED</span> are <strong className={styles.bold}>student-led entrepreneurial ventures</strong> nurtured through <strong className={styles.emphasis}>mentorship</strong>, <strong className={styles.emphasis}>guidance</strong>, and <strong className={styles.emphasis}>ecosystem support</strong> by the <strong className={styles.highlight}>Federation of Entrepreneurship and Development, KIIT TBI</strong>.<br />
+        They aim to empower <strong className={styles.emphasis}>innovation</strong>, <strong className={styles.emphasis}>leadership</strong>, and <strong className={styles.emphasis}>real-world experience</strong> among students.
+      </p>
+
+      
+      <div className={styles.container}>
+        <section className={styles.fedCard}>
+          {startups.map((startup) => (
+            <StartupCard
+              key={startup.id}
+              title={startup.title}
+              subtitle={startup.subtitle}
+              description={startup.description}
+              logo={startup.logo}
+              headerCover={startup.headerCover}
+              link={startup.link}
+            />
+          ))}
+        </section>
       </div>
     </div>
   );
 }
-

@@ -1,0 +1,119 @@
+.name {
+  margin-top: 2rem;
+  // margin-left: 12rem;
+  margin-bottom: 6rem;
+  text-align: center;
+
+  // display: flex;
+  // flex-direction: column;
+
+  @media (max-width: 1024px) {
+    margin-left: 4rem;
+  }
+
+  @media (max-width: 768px) {
+    margin: 2rem 1rem;
+    text-align: center;
+    align-items: center;
+  }
+
+  .w1 {
+    font-size: 2.1rem;
+    background: var(
+      --Primary,
+      linear-gradient(
+        260deg,
+        rgba(255, 190, 11, 0.84) -29.7%,
+        rgba(244, 43, 3, 0.84) 128.34%
+      )
+    );
+    font-weight: 700;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+
+  .w2 {
+    color: white;
+    font-weight: 700;
+    font-size: 2.1rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.container {
+  width: 100%;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+}
+
+.fedCard {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  padding-bottom: 4rem;
+
+  @media (max-width: 768px) {
+    gap: 20px;
+    max-width: 100%;
+  }
+}
+.description {
+  color: #e0e0e0;
+  font-size: 1.1rem;
+  max-width: 960px;
+  margin: -3rem auto 3rem auto;
+  padding: 0 1.5rem;
+  text-align: center;
+  line-height: 1.6;
+  @media(max-width: 768px) {
+    font-size: 1rem;
+    padding: 0 1rem;
+    margin-top: 2rem;
+  }
+}
+
+.bold {
+  font-weight: 700;
+  background: var(
+      --Primary,
+      linear-gradient(
+        260deg,
+        rgba(255, 190, 11, 0.84) -29.7%,
+        rgba(244, 43, 3, 0.84) 128.34%
+      )
+    );
+    font-weight: 700;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text; // gold highlight
+}
+
+.emphasis {
+  font-weight: 600;
+  background: var(
+      --Primary,
+      linear-gradient(
+        260deg,
+        rgba(255, 190, 11, 0.84) -29.7%,
+        rgba(244, 43, 3, 0.84) 128.34%
+      )
+    );
+    font-weight: 600;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text; // warm orange
+}
+
+.highlight {
+  font-weight: 700;
+   // bright cyan
+}
