@@ -10,6 +10,7 @@ export { default as CertificatesForm } from "./Admin/Form/CertificatesForm/Certi
 export {default as CertificatesPreview} from "./Admin/View/CertificatePreview/CertificatePreview";
 export {default as SendCertificate} from "./Admin/Form/CertificatesForm/SendCertificate";
 export {default as VerifyCertificate} from "./Admin/View/VerifyCertificate/VerifyCertificate";
+export { default as BlogForm } from "./Admin/Form/BlogForm/AddBlogForm";
 
 //General
 export { default as ProfileView } from "./General/ProfileView/ProfileView";

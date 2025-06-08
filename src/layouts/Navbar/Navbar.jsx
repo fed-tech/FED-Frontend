@@ -17,20 +17,52 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleScroll = () => {
-    if (window.scrollY > lastScrollY.current) {
+  // const handleScroll = () => {
+  //   if (window.scrollY > lastScrollY.current) {
+  //     setIsVisible(false);
+  //   } else {
+  //     setIsVisible(true);
+  //   }
+
+  //   if (isMobile) {
+  //     setIsMobile(false);
+  //     setNavbarHeight("80px");
+  //   }
+
+  //   lastScrollY.current = window.scrollY;
+  // };
+
+const SCROLL_THRESHOLD = 5;
+
+const handleScroll = () => {
+  const currentScrollY = window.scrollY;
+
+  if (Math.abs(currentScrollY - lastScrollY.current) > SCROLL_THRESHOLD) {
+    if (currentScrollY === 0) {
+      setIsVisible(true);
+    } else if (currentScrollY > lastScrollY.current) {
       setIsVisible(false);
     } else {
       setIsVisible(true);
     }
 
-    if (isMobile) {
-      setIsMobile(false);
-      setNavbarHeight("90px");
-    }
+    lastScrollY.current = currentScrollY;
+  }
+};
 
-    lastScrollY.current = window.scrollY;
+useEffect(() => {
+  const forceNavbarVisible = () => {
+    if (window.scrollY === 0) {
+      setIsVisible(true);
+    }
   };
+
+  window.addEventListener("scroll", forceNavbarVisible);
+
+  return () => {
+    window.removeEventListener("scroll", forceNavbarVisible);
+  };
+}, []);
 
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
@@ -198,6 +230,17 @@ const Navbar = () => {
                 onClick={closeMobileMenu}
               >
                 Team
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/Blog"
+                className={`${styles.link} ${
+                  activeLink === "/Blog" ? styles.activeLink : ""
+                } ${activeLink === "/Gsoc" ? styles.gsocHover : ""}`}
+                onClick={closeMobileMenu}
+              >
+                Blogs
               </NavLink>
             </li>
           </div>
