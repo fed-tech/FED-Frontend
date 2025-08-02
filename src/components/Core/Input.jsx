@@ -239,7 +239,6 @@ const Input = (props) => {
               onChange={onChange}
               clearIcon={null}
               style={style || {}}
-              minDate={new Date()}
               calendarIcon={
                 <FaRegCalendarAlt
                   color="#fff"
@@ -264,7 +263,6 @@ const Input = (props) => {
               value={value}
               onChange={onChange}
               clearIcon={null}
-              minDate={new Date()}
               showTimeSelect
               filterTime={filterPassedTime}
               timeFormat="HH:mm"

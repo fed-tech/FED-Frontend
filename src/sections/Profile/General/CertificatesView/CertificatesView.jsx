@@ -1,23 +1,21 @@
 import { useContext, useEffect, useState } from "react";
-import styles from "./styles/EventsView.module.scss";
+import styles from "./styles/CertificatesView.module.scss";
 import AuthContext from "../../../../context/AuthContext";
-// import eventsData from "../../../../data/FormData.json";
 import { Link } from "react-router-dom";
 import { api } from "../../../../services";
-import { ComponentLoading, MicroLoading } from "../../../../microInteraction";
-import { accessOrCreateEventByFormId } from "../../Admin/Form/CertificatesForm/tools/certificateTools.js";
+import { ComponentLoading } from "../../../../microInteraction";
+import { Send } from "lucide-react";
 
 const Events = () => {
   const authCtx = useContext(AuthContext);
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [certificates, setCertificates] = useState([]);
-  const [certMap, setCertMap] = useState({});
-  const [loadingCerts, setLoadingCerts] = useState(true); // New state for certificate loading
-
   const viewPath = "/profile/Events";
+  const SendCertificatePath = "/profile/events/SendCertificate";
   const analyticsPath = "/profile/events/Analytics";
+  const createCertificatesPath = "/profile/events/createCertificates";
+  const viewCertificatesPath = "/profile/events/viewCertificates";
 
   const analyticsAccessRoles = [
     "PRESIDENT",
@@ -69,7 +67,7 @@ const Events = () => {
         //   setEvents(sortEventsByDate(localEvents));
         // } else {
         //   const filteredEvents = localEvents.filter((event) =>
-        // userEvents.includes(event._id);
+             userEvents.includes(event._id)
         //   );
         //   setEvents(sortEventsByDate(filteredEvents));
         // }
@@ -81,42 +79,8 @@ const Events = () => {
     fetchEventsData();
   }, [authCtx.user.email]);
 
-  useEffect(() => {
-    const fetchCertificates = async () => {
-      try {
-        const response = await api.post(
-          "/api/certificate/sendCertificatesAndEvents",
-          {
-            email: authCtx.user.email,
-          },
-          {
-            headers: { Authorization: `Bearer ${authCtx.token}` },
-          }
-        );
-        // console.log(response);
-        if (response.status === 200) {
-          setCertificates(response.data.certandevent); // This will be an array of { cert, event }
-        }
-      } catch (err) {
-        console.error("Error fetching certificates:", err);
-      }
-    };
-
-    fetchCertificates();
-  }, [authCtx.user.email]);
-
-  const getCertificateForEvent = async (eventId) => {
-    const eid = await accessOrCreateEventByFormId(eventId, authCtx.token);
-    // console.log(eid, certificates[0].cert.eventId);
-    const found = certificates.find((item) => item.cert.eventId == eid.id);
-    // console.log(found);
-    return found ? found.cert : null;
-  };
-
   const sortEventsByDate = (events) => {
-    return events.sort(
-      (a, b) => new Date(b.info.eventDate) - new Date(a.info.eventDate)
-    );
+    return events.sort((a, b) => new Date(b.info.eventDate) - new Date(a.info.eventDate));
   };
 
   const formatDate = (dateString) => {
@@ -126,31 +90,7 @@ const Events = () => {
       .replace(/\//g, "-");
   };
 
-  useEffect(() => {
-    const fetchAllCerts = async () => {
-      setLoadingCerts(true); // Start loading
-      const map = {};
-      if (events.length > 0) {
-        for (const event of events) {
-          const cert = await getCertificateForEvent(event.id, authCtx.token);
-          if (cert) {
-            const link = `/verify/certificate?id=${cert.id}`;
-            map[event.id] = link;
-          }
-        }
-      }
-      setCertMap(map);
-      setLoadingCerts(false); // End loading
-    };
-
-    if (events.length > 0 && certificates.length > 0) {
-      fetchAllCerts();
-    } else if (events.length > 0 && !isLoading) {
-      // If events are loaded but no certificates found
-      setLoadingCerts(false);
-    }
-  }, [events, certificates]);
-
+  // console.log("Event Access",authCtx.user.access);
   return (
     <div className={styles.participatedEvents}>
       {authCtx.user.access !== "USER" ? (
@@ -180,36 +120,29 @@ const Events = () => {
                   <tr>
                     <th className={styles.mobilewidth}>Event Name</th>
                     <th className={styles.mobilewidth}>Event Date</th>
-                    <th className={styles.mobilewidth}>Details</th>
-                    <th className={styles.mobilewidth}>Certificate</th>
-                    {(analyticsAccessRoles.includes(authCtx.user.access) ||
-                      authCtx.user.email == "srex@fedkiit.com") && (
-                      <th
-                        className={styles.mobilewidth}
-                        style={{ paddingTop: "1rem" }}
-                      >
-                        Registrations
-                      </th>
+                    <th className={styles.mobilewidth}>Certificates</th>
+                    {(analyticsAccessRoles.includes(authCtx.user.access) || authCtx.user.email == "srex@fedkiit.com") && (
+                        <>
+                      <th className={styles.mobilewidth}>Manage Mail</th>
+                      <th className={styles.mobilewidth}>Create/Edit</th>
+                      </>
                     )}
+                    {/* Add more headers */}
                   </tr>
                 </thead>
 
                 <tbody>
                   {events.map((event) => (
-                    <tr key={event._id || event.id}>
-                      <td
-                        className={styles.mobilewidth}
-                        style={{ fontWeight: "500", paddingRight: "10px" }}
-                      >
+                    <tr key={event._id}>
+                      <td className={styles.mobilewidth} style={{fontWeight:"500",paddingRight:"10px"}}>
                         {event.info.eventTitle}
                       </td>
                       <td style={{ fontWeight: "200" }}>
                         {formatDate(event.info.eventDate)}
                       </td>
 
-                      {/* View Event Details - accessible to all */}
                       <td className={styles.mobilewidthtd}>
-                        <Link to={`${viewPath}/${event.id}`}>
+                        <Link to={`${viewCertificatesPath}/${event.id}`}>
                           <button
                             className={styles.viewButton}
                             style={{
@@ -223,41 +156,9 @@ const Events = () => {
                           </button>
                         </Link>
                       </td>
-
-                      {/* Certificate - only for USERS */}
-                      {authCtx.user.access === "USER" && (
+                      {(analyticsAccessRoles.includes(authCtx.user.access) || authCtx.user.email == "srex@fedkiit.com") && (
                         <td className={styles.mobilewidthtd}>
-                          {loadingCerts ? (
-                            <div className={styles.loadingContainer}>
-                              <MicroLoading />
-                            </div>
-                          ) : certMap[event.id] ? (
-                            <Link
-                              to={certMap[event.id]}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <button className={styles.viewButton}>
-                                View
-                              </button>
-                            </Link>
-                          ) : (
-                            <button
-                              className={styles.viewButton}
-                              disabled
-                              style={{ opacity: 0.5 }}
-                            >
-                              Not Issued
-                            </button>
-                          )}
-                        </td>
-                      )}
-
-                      {/* Analytics - only for admins and specific roles */}
-                      {(analyticsAccessRoles.includes(authCtx.user.access) ||
-                        authCtx.user.email === "srex@fedkiit.com") && (
-                        <td className={styles.mobilewidthtd}>
-                          <Link to={`${analyticsPath}/${event.id}`}>
+                          <Link to={`${SendCertificatePath}/${event.id}`}>
                             <button
                               className={styles.viewButton}
                               style={{
@@ -272,6 +173,24 @@ const Events = () => {
                           </Link>
                         </td>
                       )}
+                      {(analyticsAccessRoles.includes(authCtx.user.access) || authCtx.user.email == "srex@fedkiit.com") && (
+                        <td className={styles.mobilewidthtd}>
+                          <Link to={`${createCertificatesPath}/${event.id}`}>
+                            <button
+                              className={styles.viewButton}
+                              style={{
+                                marginLeft: "auto",
+                                whiteSpace: "nowrap",
+                                height: "fit-content",
+                                color: "orange",
+                              }}
+                            >
+                              View
+                            </button>
+                          </Link>
+                        </td>
+                      )}
+                      
                     </tr>
                   ))}
                 </tbody>

@@ -4,6 +4,7 @@ import { MdLogout } from "react-icons/md";
 import { TbUserEdit } from "react-icons/tb";
 import { SlCalender } from "react-icons/sl";
 import { SiReacthookform } from "react-icons/si";
+import { FaRegNewspaper } from "react-icons/fa";
 import AuthContext from "../../../context/AuthContext";
 import styles from "./styles/Sidebar.module.scss";
 
@@ -61,6 +62,27 @@ const Sidebar = ({ activepage, handleChange }) => {
     setimagePrv(url);
   };
 
+
+  const renderBlogMenu = () => (
+    <div
+        onClick={() => handleChange("Blogs")}
+        style={{
+          background: activepage === "Blogs" ? "var(--primary)" : "transparent",
+          WebkitBackgroundClip: activepage === "Blogs" ? "text" : "initial",
+          backgroundClip: activepage === "Blogs" ? "text" : "initial",
+          color: activepage === "Blogs" ? "transparent" : "inherit",
+        }}
+      >
+        <FaRegNewspaper
+          size={17}
+          style={{
+            color: activepage === "Blogs" ? "#FF8A00" : "white",
+            marginRight: "10px",
+          }}
+        />{" "}
+        <Link to={"/profile/BlogForm"}>Blogs</Link>
+      </div>
+  )
   const renderAdminMenu = () => (
     <>
       <div
@@ -100,6 +122,7 @@ const Sidebar = ({ activepage, handleChange }) => {
         />{" "}
         <Link to={"/profile/Form"}>Form</Link>
       </div>
+      
       <div
         onClick={() => handleChange("Members")}
         style={{
@@ -180,7 +203,8 @@ const Sidebar = ({ activepage, handleChange }) => {
           </div>
         </div>
         <div className={styles.menu}>
-          {designation === "Admin" && renderAdminMenu()}
+          {designation === "Admin" && renderAdminMenu() }
+          {(designation === "Admin" || authCtx.user.access === "SENIOR_EXECUTIVE_CREATIVE") && renderBlogMenu() }
           {designation !== "Admin" && (
             <div
               onClick={() => handleChange("events")}
@@ -189,7 +213,9 @@ const Sidebar = ({ activepage, handleChange }) => {
               <NavLink to={"/profile/events"}>
                 <SlCalender size={17} style={{ marginRight: "10px" }} /> Event
               </NavLink>
+              
             </div>
+            
           )}
           <div
             onClick={handleLogout}

@@ -257,18 +257,19 @@ hr {
   color: black;
   border-radius: 0px 0px 25px 25px;
   margin-bottom: 10px;
+
+  input {
+    border: none;
+    height: 2.5rem;
+    width: 250px;
+    padding: 0.5rem;
+    padding-left: 1rem;
+    color: black;
+    border-radius: 20px 0px 0px 20px;
+  }
 }
 
-input {
-  border: none;
-  height: 2.5rem;
-  width: 250px;
-  padding: 0.5rem;
-  padding-left: 1rem;
-  color: black;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-}
+
 
 input:focus {
   outline: none;
