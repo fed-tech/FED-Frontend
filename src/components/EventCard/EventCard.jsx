@@ -78,7 +78,7 @@ const EventCard = (props) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSkeleton(false);
-    }, 500); // Show skeleton for 2 seconds
+    }, 500); 
 
     return () => clearTimeout(timer);
   }, []);
@@ -262,6 +262,7 @@ const EventCard = (props) => {
     if (
       btnTxt === "Closed" ||
       btnTxt === "Already Registered" ||
+      btnTxt === "Payment Pending" ||
       btnTxt === "Already Member" ||
       btnTxt === `${remainingTime}`
     ) {
@@ -282,6 +283,7 @@ const EventCard = (props) => {
     }
     return true;
   };
+  
 
   const handleForm = () => {
     if (!isValiedState()) {
@@ -452,61 +454,59 @@ const EventCard = (props) => {
             >
               
               <button
-                className={style.registerbtn}
-                style={{
-                  ...customStyles.registerbtn,
-                  cursor: btnTxt === "Register Now" ? "pointer" : "not-allowed",
-                }}
-                onClick={handleForm}
-                // disabled={
-                //   btnTxt === "Closed" ||
-                //   btnTxt === "Locked" ||
-                //   btnTxt === "Already Registered" ||
-                //   btnTxt === "Already Member" ||
-                //   btnTxt === `${remainingTime}`
-                // }
-              >
-                {btnTxt === "Closed" ? (
-                  <>
-                    <div style={{ fontSize: "0.9rem" }}>Closed</div>
-                    <IoIosLock
-                      alt=""
-                      style={{ marginLeft: "0px", fontSize: "1rem" }}
-                    />
-                  </>
-                ) : btnTxt === "Already Registered" ? (
-                  <>
-                    <div style={{ fontSize: "0.9rem" }}>Registered</div>
-                  </>
-                ) : btnTxt === "Locked" ? (
-                  <>
-                    <div style={{ fontSize: "0.9rem" }}>Locked</div>
-                    <IoIosLock
-                      alt=""
-                      style={{ marginLeft: "0px", fontSize: "1rem" }}
-                    />
-                  </>
-                ) : isMicroLoading ? (
-                  <div style={{ fontSize: "0.9rem" }}>
-                    <MicroLoading />
-                  </div>
-                ) : (
-                  <>
-                    {remainingTime ? (
-                      <>
-                        <PiClockCountdownDuotone size={20} />
-                        <div style={{ fontSize: "0.8rem" }}>{btnTxt}</div>
-                      </>
-                    ) : btnTxt === "Already Member" ? (
-                      <>
-                        <div style={{ fontSize: "0.8rem" }}>Already Member</div>
-                      </>
-                    ) : (
-                      <div style={{ fontSize: "0.9rem" }}>Register Now</div>
-                    )}
-                  </>
-                )}
-              </button>
+  className={style.registerbtn}
+  style={{
+    ...customStyles.registerbtn,
+    cursor: btnTxt === "Register Now" ? "pointer" : "not-allowed",
+  }}
+  onClick={handleForm}
+>
+  {btnTxt === "Closed" ? (
+    <>
+      <div style={{ fontSize: "0.9rem" }}>Closed</div>
+      <IoIosLock
+        alt=""
+        style={{ marginLeft: "0px", fontSize: "1rem" }}
+      />
+    </>
+  ) : btnTxt === "Payment Pending" ? (
+    <>
+      <div style={{ fontSize: "0.9rem" }}>Payment Pending</div>
+    </>
+  ) : btnTxt === "Already Registered" ? (
+    <>
+      <div style={{ fontSize: "0.9rem" }}>Registered </div>
+    </>
+  ) : btnTxt === "Locked" ? (
+    <>
+      <div style={{ fontSize: "0.9rem" }}>Locked</div>
+      <IoIosLock
+        alt=""
+        style={{ marginLeft: "0px", fontSize: "1rem" }}
+      />
+    </>
+  ) : isMicroLoading ? (
+    <div style={{ fontSize: "0.9rem" }}>
+      <MicroLoading />
+    </div>
+  ) : (
+    <>
+      {remainingTime ? (
+        <>
+          <PiClockCountdownDuotone size={20} />
+          <div style={{ fontSize: "0.8rem" }}>{btnTxt}</div>
+        </>
+      ) : btnTxt === "Already Member" ? (
+        <>
+          <div style={{ fontSize: "0.8rem" }}>Already Member</div>
+        </>
+      ) : (
+        <div style={{ fontSize: "0.9rem" }}>Register Now</div>
+      )}
+    </>
+  )}
+</button>
+
             </div>
           )}
         </div>
