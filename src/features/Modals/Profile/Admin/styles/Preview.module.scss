@@ -370,4 +370,8 @@
       background-color: #ff6f00;
     }
   }
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }

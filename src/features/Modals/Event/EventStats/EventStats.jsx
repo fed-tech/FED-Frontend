@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import { SkeletonTheme } from "react-loading-skeleton";
@@ -11,6 +11,7 @@ import defaultImg from "../../../../assets/images/defaultImg.jpg";
 import { api } from "../../../../services";
 import styles from "../EventModal/styles/EventModal.module.scss";
 import AuthContext from "../../../../context/AuthContext";
+import PropTypes from 'prop-types';
 
 const EventStats = ({ onClosePath }) => {
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ const EventStats = ({ onClosePath }) => {
     if (alert) {
       const { type, message, position, duration } = alert;
       Alert({ type, message, position, duration });
-      setAlert(null); // Reset alert after displaying it
+      setAlert(null);
     }
   }, [alert]);
 
@@ -140,15 +141,91 @@ const EventStats = ({ onClosePath }) => {
     }
   };
 
-  const filteredUsers = data[0]?.regUserEmails?.filter((user) =>
-    user.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredUsers = (users) => {
+    if (!users) return [];
+    return users.filter((user) =>
+      user.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
 
   const filteredTeams = data[0]?.regTeamNames?.filter((team) =>
     team.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const yearCounts = year || {};
+
+  const renderUserList = (users, title, count) => (
+    <div className={styles.userSection}>
+      <Text
+        style={{
+          color: "#fff",
+          fontSize: "1rem",
+          fontWeight: "600",
+          marginBottom: "0.5rem",
+          marginLeft: "1.5rem",
+        }}
+      >
+        {title} ({count})
+      </Text>
+      <div className={styles.eventEmails}>
+        {isSearching ? (
+          <ComponentLoading
+            customStyles={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "-0.4rem",
+            }}
+          />
+        ) : filteredUsers(users).length > 0 ? (
+          filteredUsers(users).map((user, index) => (
+            <div 
+              key={index} 
+              className={styles.userCard}
+              style={{
+                padding: "0.5rem",
+                marginBottom: "0.5rem",
+                height: "auto",
+                minHeight: "40px",
+              }}
+            >
+              <img
+                src={defaultImg}
+                alt="User"
+                className={styles.userImg}
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  marginRight: "0.8rem",
+                }}
+              />
+              <div 
+                className={styles.userEmail}
+                style={{
+                  fontSize: "0.9rem",
+                }}
+              >
+                {user}
+              </div>
+            </div>
+          ))
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginLeft: "25%",
+            }}
+          >
+            <text style={{ fontSize: "16px" }}>No Users found</text>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <div
@@ -179,28 +256,31 @@ const EventStats = ({ onClosePath }) => {
           style={{
             zIndex: "10",
             borderRadius: "10px",
-            padding: "2rem",
+            padding: "1.5rem",
             position: "relative",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             marginTop: ".3rem",
+            maxHeight: "90vh",
+            overflow: "hidden",
           }}
         >
           {data && (
             <>
               <SkeletonTheme baseColor="#313131" highlightColor="#525252">
-                <Skeleton height={180} style={{ marginBottom: "1rem" }} />
+                <Skeleton height={120} style={{ marginBottom: "0.5rem" }} />
                 <Skeleton
-                  count={3}
-                  height={20}
+                  count={2}
+                  height={15}
                   width="100%"
-                  style={{ marginBottom: "0.5rem" }}
+                  style={{ marginBottom: "0.3rem" }}
                 />
               </SkeletonTheme>
               <div
                 style={{
                   overflowY: "auto",
+                  maxHeight: "calc(90vh - 100px)",
                 }}
                 className={styles.card}
               >
@@ -218,20 +298,49 @@ const EventStats = ({ onClosePath }) => {
                   <div
                     style={{
                       position: "relative",
+                      padding: "1rem",
                     }}
                   >
-                    <button
-                      className={styles.closeModal}
-                      onClick={handleModalClose}
-                      style={{ paddingTop: "42px", paddingRight: "20px" }}
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "0",
+                        right: "0",
+                        padding: "1rem",
+                        zIndex: "20",
+                      }}
                     >
-                      <X />
-                    </button>
+                      <button
+                        onClick={handleModalClose}
+                        style={{
+                          background: "transparent",
+                          border: "none",
+                          cursor: "pointer",
+                          padding: "0.5rem",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "#fff",
+                          transition: "all 0.2s ease",
+                          borderRadius: "50%",
+                          width: "40px",
+                          height: "40px",
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.color = "#FF8A00";
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.color = "#FF8A00";
+                        }}
+                      >
+                        <X size={28} />
+                      </button>
+                    </div>
 
                     <div className={styles.backbtn}>
                       <div
                         className={styles.eventname}
-                        style={{ paddingTop: "15px" }}
+                        style={{ paddingTop: "10px" }}
                       >
                         {info.eventTitle}
                       </div>
@@ -240,17 +349,17 @@ const EventStats = ({ onClosePath }) => {
                           style={{
                             display: "flex",
                             alignItems: "center",
-                            marginTop: "1rem",
-                            padding: "0.5rem",
+                            marginTop: "0.5rem",
+                            padding: "0.3rem",
                             borderRadius: "0.5rem",
                             cursor: "pointer",
                           }}
                           onClick={handleDownload}
                         >
                           <FaDownload
-                            size={18}
+                            size={16}
                             style={{
-                              marginRight: "2rem",
+                              marginRight: "1.5rem",
                               color: "#FF8A00",
                             }}
                           />
@@ -263,12 +372,11 @@ const EventStats = ({ onClosePath }) => {
                         style={{
                           display: "grid",
                           gridTemplateColumns: "1fr 1fr",
-                          gap: "1rem",
+                          gap: "0.8rem",
                           alignItems: "left",
                           textAlign: "left",
                         }}
                       >
-                        {/* First column for the toggle switch and total count */}
                         <div
                           style={{ display: "flex", flexDirection: "column" }}
                         >
@@ -278,16 +386,16 @@ const EventStats = ({ onClosePath }) => {
                               display: "flex",
                               flexDirection: "row",
                               alignItems: "center",
-                              marginBottom: "1rem",
+                              marginBottom: "0.8rem",
                             }}
                           >
                             <Text
                               style={{
                                 color: "#fff",
-                                fontSize: "1rem",
+                                fontSize: "0.9rem",
                                 fontWeight: "500",
-                                marginLeft: "2rem",
-                                marginTop: "0.5rem",
+                                marginLeft: "1.5rem",
+                                marginTop: "0.3rem",
                               }}
                             >
                               {viewTeams ? "Back to Users" : "Switch to Teams"}
@@ -305,11 +413,11 @@ const EventStats = ({ onClosePath }) => {
                           <Text
                             style={{
                               color: "#fff",
-                              fontSize: "1rem",
+                              fontSize: "0.9rem",
                               fontWeight: "500",
                               textAlign: "left",
-                              marginBottom: "1rem",
-                              marginLeft: "2rem",
+                              marginBottom: "0.8rem",
+                              marginLeft: "1.5rem",
                             }}
                           >
                             Total{" "}
@@ -329,29 +437,29 @@ const EventStats = ({ onClosePath }) => {
                           </Text>
                         </div>
 
-                        {/* Second column for year counts and download */}
                         <Text
                           style={{
                             color: "#fff",
-                            fontSize: "1rem",
+                            fontSize: "0.9rem",
                             fontWeight: "500",
                             textAlign: "left",
-                            marginBottom: "1rem",
-                            marginLeft: "1.5rem",
-                            marginTop: "0.5rem",
+                            marginBottom: "0.8rem",
+                            marginLeft: "1.2rem",
+                            marginTop: "0.3rem",
                           }}
                         >
                           Year Counts:
                           <div
                             style={{
                               display: "grid",
-                              gridTemplateColumns: "repeat(5, 1fr)",
+                              gridTemplateColumns: "repeat(3, 1fr)",
                               gap: "0.5rem",
                               marginTop: "0.5rem",
+                              maxWidth: "100%",
                             }}
                           >
-                            {Object.keys(yearCounts).length > 0 ? (
-                              Object.entries(yearCounts).map(
+                            {Object.keys(yearCounts.paid || {}).length > 0 ? (
+                              Object.entries(yearCounts.paid).map(
                                 ([year, count]) => (
                                   <div
                                     key={year}
@@ -359,6 +467,9 @@ const EventStats = ({ onClosePath }) => {
                                       display: "flex",
                                       alignItems: "center",
                                       color: "#FF8A00",
+                                      padding: "0.3rem",
+                                      // backgroundColor: "rgba(255, 138, 0, 0.1)",
+                                      borderRadius: "4px",
                                     }}
                                   >
                                     <span
@@ -370,12 +481,42 @@ const EventStats = ({ onClosePath }) => {
                                     >
                                       {year}:
                                     </span>{" "}
-                                    {count}
+                                    {count} (Paid)
                                   </div>
                                 )
                               )
                             ) : (
-                              <span>No data available</span>
+                              <span>No paid users data available</span>
+                            )}
+                            {Object.keys(yearCounts.pending || {}).length > 0 ? (
+                              Object.entries(yearCounts.pending).map(
+                                ([year, count]) => (
+                                  <div
+                                    key={year}
+                                    style={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                      color: "#FF8A00",
+                                      padding: "0.3rem",
+                                      // backgroundColor: "rgba(255, 138, 0, 0.1)",
+                                      borderRadius: "4px",
+                                    }}
+                                  >
+                                    <span
+                                      style={{
+                                        color: "#fff",
+                                        fontWeight: "bold",
+                                        marginRight: "0.3rem",
+                                      }}
+                                    >
+                                      {year}:
+                                    </span>{" "}
+                                    {count} (Pending)
+                                  </div>
+                                )
+                              )
+                            ) : (
+                              <span>No pending users data available</span>
                             )}
                           </div>
                         </Text>
@@ -388,22 +529,28 @@ const EventStats = ({ onClosePath }) => {
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       className={styles.searchInput}
+                      style={{
+                        marginTop: "0.5rem",
+                        marginBottom: "0.5rem",
+                        padding: "0.5rem",
+                        fontSize: "0.9rem",
+                      }}
                     />
 
-                    <div className={styles.eventEmails}>
-                      {isSearching ? (
-                        <ComponentLoading
-                          customStyles={{
-                            width: "100%",
-                            height: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            marginTop: "-0.4rem",
-                          }}
-                        />
-                      ) : viewTeams ? (
-                        filteredTeams && filteredTeams.length > 0 ? (
+                    {viewTeams ? (
+                      <div className={styles.eventEmails}>
+                        {isSearching ? (
+                          <ComponentLoading
+                            customStyles={{
+                              width: "100%",
+                              height: "100%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              marginTop: "-0.4rem",
+                            }}
+                          />
+                        ) : filteredTeams && filteredTeams.length > 0 ? (
                           filteredTeams.map((team, index) => (
                             <div key={index} className={styles.userCard}>
                               <img
@@ -427,33 +574,22 @@ const EventStats = ({ onClosePath }) => {
                               No Teams found
                             </text>
                           </div>
-                        )
-                      ) : filteredUsers && filteredUsers.length > 0 ? (
-                        filteredUsers.map((user, index) => (
-                          <div key={index} className={styles.userCard}>
-                            <img
-                              src={defaultImg}
-                              alt="User"
-                              className={styles.userImg}
-                            />
-                            <div className={styles.userEmail}>{user}</div>
-                          </div>
-                        ))
-                      ) : (
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            marginLeft: "25%",
-                          }}
-                        >
-                          <text style={{ fontSize: "20px" }}>
-                            No Users found
-                          </text>
-                        </div>
-                      )}
-                    </div>
+                        )}
+                      </div>
+                    ) : (
+                      <>
+                        {renderUserList(
+                          data[0]?.paidUsers,
+                          "Paid Users",
+                          data[0]?.paidUsers?.length || 0
+                        )}
+                        {renderUserList(
+                          data[0]?.pendingUsers,
+                          "Pending Payment Users",
+                          data[0]?.pendingUsers?.length || 0
+                        )}
+                      </>
+                    )}
                   </div>
                 )}
               </div>
@@ -464,6 +600,10 @@ const EventStats = ({ onClosePath }) => {
       <Alert />
     </div>
   );
+};
+
+EventStats.propTypes = {
+  onClosePath: PropTypes.string.isRequired
 };
 
 export default EventStats;

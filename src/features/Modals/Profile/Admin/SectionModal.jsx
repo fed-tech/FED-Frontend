@@ -1,144 +1,100 @@
+import { useState, useEffect } from "react";
 import { Input } from "../../../../components";
 import styles from "./styles/Preview.module.scss";
 
-const Section = ({ section, handleChange }) => {
+const Section = ({ section, handleChange, handleSubmit }) => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const validateForm = () => {
+    let isValid = true;
+    let newErrors = {};
+  
+    section.fields.forEach((field) => {
+      const value = String(field.onChangeValue ?? "").trim(); // Fix applied
+      if (field.isRequired && value === "") {
+        newErrors[field.name] = "This field is required";
+        isValid = false;
+      }
+    });
+  
+    setErrors(newErrors);
+    return isValid;
+  };
+  
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (!validateForm()) {
+      alert("Please fill all required fields!");
+      return;
+    }
+    handleSubmit();
+  };
+
   const getInputFields = (field) => {
-    const valiedTypes = ["checkbox", "radio"];
-    if (valiedTypes.includes(field.type)) {
-      const valueToArray = field.value.split(",");
-      return valueToArray.map((value, index) => (
-        <div
-          key={index}
-          style={{
-            marginTop: index === 0 ? ".5em" : "0",
-          }}
-        >
+    if (field.type === "checkbox" || field.type === "radio") {
+      const options = field.value ? field.value.split(",").map((option) => option.trim()) : [];
+      return options.map((option, index) => (
+        <div key={index} style={{ display: "flex", alignItems: "center", gap: ".5em", marginTop: index === 0 ? "-30px" : "0" }}>
           <Input
-            placeholder={value}
-            label={value}
-            showLabel={false}
             type={field.type}
-            value={value}
+            value={option}
+            checked={String(field.onChangeValue) === option} // Fix applied
             name={field.name}
             onChange={(e) => handleChange(field, e.target.value)}
+            style={{ margin: 0 }}
           />
+          <span style={{ marginTop: "21px" }}>{option}</span>
         </div>
       ));
     }
+    return null;
   };
-
-  const getTeamFields = () => {
-    const data = [];
-    if (section.name === "Team Members") {
-      section.fields.forEach((field, index) => {
-        if (index % 3 === 0) {
-          const team = section.fields.slice(index, index + 3);
-          data.push(team);
-        }
-      });
-      return data;
-    }
-  };
-
-  const renderTeamFields = () => {
-    return getTeamFields().map((team, index) => (
-      <div
-        key={index}
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexDirection: "row",
-        }}
-        className={styles.teamContainer}
-      >
-        {team.map((field, index) => (
-          <div
-            key={index}
-            style={{
-              width: "30%",
-            }}
-            className={styles.teamField}
-          >
+  
+  return (
+    <form onSubmit={handleFormSubmit} className={styles.formFieldContainer}>
+      {section.fields.map((field) => (
+        <div key={field._id} style={{ width: "100%", marginLeft: "-15px" }}>
+          {field.type !== "checkbox" && field.type !== "radio" ? (
             <Input
-              placeholder={field.value}
+              placeholder={field.type === "select" ? `Choose ${field.name}` : field.value}
               label={`${field.name} ${field.isRequired ? "*" : ""}`}
               type={field.type}
               name={field.name}
-              style={{ width: "100%" }}
-              value={
-                field.type === "file" || field.type === "image"
-                  ? field.onChangeValue?.name
-                  : field.onChangeValue
-              }
+              value={String(field.onChangeValue) || ""} // Fix applied
               onChange={(e) => {
                 const val = field.type === "select" ? e : e.target.value;
                 handleChange(field, val);
               }}
               options={
-                field.type === "select"
-                  ? field.value.split(",").map((option) => {
-                      return { value: option, label: option };
-                    })
+                field.type === "select" && field.value
+                  ? field.value.split(",").map((option) => ({ value: option.trim(), label: option.trim() }))
                   : []
               }
+              style={{ width: windowWidth < 500 ? "100%" : "100%" }}
             />
-          </div>
-        ))}
-      </div>
-    ));
-  };
-
-  return (
-    <div key={section._id} className={styles.formFieldContainer}>
-      {section.name === "Team Members" && renderTeamFields()}
-      {section.name !== "Team Members" &&
-        section.fields.length > 0 &&
-        section.fields.map(
-          (field) =>
-            field !== undefined && (
-              <div key={field._id}>
-                {field.type !== "checkbox" && field.type !== "radio" ? (
-                  <Input
-                    placeholder={
-                      field.type === "select"
-                        ? `Choose ${field.name}`
-                        : field.value
-                    }
-                    label={`${field.name} ${field.isRequired ? "*" : ""}`}
-                    type={field.type}
-                    name={field.name}
-                    value={
-                      field.type === "file" || field.type === "image"
-                        ? field.onChangeValue?.name
-                        : field.onChangeValue
-                    }
-                    onChange={(e) => {
-                      const val = field.type === "select" ? e : e.target.value;
-                      handleChange(field, val);
-                    }}
-                    options={
-                      field.type === "select"
-                        ? field.value.split(",").map((option) => {
-                            return { value: option, label: option };
-                          })
-                        : []
-                    }
-                  />
-                ) : (
-                  <label
-                    style={{
-                      color: "#fff",
-                      fontSize: ".8em",
-                    }}
-                  >
-                    {field.name}
-                  </label>
-                )}
+          ) : (
+            field.value && (
+              <div>
+                <label style={{ fontWeight: "bold" }}>{field.name}</label>
                 {getInputFields(field)}
               </div>
             )
-        )}
-    </div>
+          )}
+          {errors[field.name] && <p style={{ color: "red", fontSize: "0.8em" }}>{errors[field.name]}</p>}
+        </div>
+      ))}
+    </form>
   );
 };
 
