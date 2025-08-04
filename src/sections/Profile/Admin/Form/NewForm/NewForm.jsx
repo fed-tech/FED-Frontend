@@ -48,7 +48,7 @@ function NewForm() {
     eventDate: "",
     eventType: "Free",
     receiverDetails: {
-      media: "",
+      paymentLink: "", // Changed from media
       upi: "",
     },
     eventAmount: "",
@@ -132,6 +132,10 @@ function NewForm() {
         isPublic: authCtx.eventData?.info.isPublic,
         isRegistrationClosed: authCtx.eventData?.info.isRegistrationClosed,
         isEventPast: authCtx.eventData?.info.isEventPast,
+        receiverDetails: {
+          paymentLink: authCtx.eventData?.info.receiverDetails?.paymentLink || '',
+          upi: authCtx.eventData?.info.receiverDetails?.upi || ''
+        }
       });
       setsections(authCtx.eventData?.sections);
       setisEditing(true);
@@ -274,10 +278,10 @@ function NewForm() {
         return false;
       }
 
-      if (!data.receiverDetails.media) {
+      if (!data.receiverDetails.paymentLink) {
         setAlert({
           type: "error",
-          message: "Media is required.",
+          message: "Payment link is required.",
           position: "bottom-right",
           duration: 3000,
         });
@@ -347,32 +351,21 @@ function NewForm() {
       if (data.eventImg && data.eventImg instanceof File) {
         form.append("eventImg", data.eventImg);
       }
-      if (
-        data.receiverDetails.media &&
-        data.receiverDetails.media instanceof File
-      ) {
-        form.append("media", data.receiverDetails.media);
-      }
 
-      form.append("upi", data.receiverDetails.upi);
+      // Add payment link and UPI directly to form data
+      form.append("paymentLink", data.receiverDetails.paymentLink || '');
+      form.append("upi", data.receiverDetails.upi || '');
 
+      // Add other form fields
       Object.keys(data).forEach((key) => {
         const value = data[key];
-        if (key !== "eventImg") {
+        if (key !== "eventImg" && key !== "receiverDetails") {
           form.append(key, value);
         }
       });
 
       if (typeof data.eventImg === "string") {
         form.delete("eventImg");
-      }
-
-      if (typeof data.receiverDetails.media === "string") {
-        form.delete("media");
-      }
-
-      if (data.receiverDetails) {
-        form.delete("receiverDetails");
       }
 
       if (sections && sections !== undefined) {
@@ -688,7 +681,7 @@ function NewForm() {
         _id: nanoid(),
         name: "Payment Details",
         description:
-          "Make the payment to attached UPI ID or Scan the QR code. In the end, Share the complete detailes with us!",
+          "Make the payment using the payment link or UPI ID provided. After payment, please enter your transaction details.",
         isDisabled: true,
         validations: [
           {
@@ -702,35 +695,11 @@ function NewForm() {
         fields: [
           {
             _id: nanoid(),
-            name: "Enter UPI ID",
+            name: "Transaction ID",
             type: "text",
-            value: "Enter UPI ID",
+            value: "Enter your complete Transaction ID",
             isRequired: true,
-            validations: [],
-          },
-          {
-            _id: nanoid(),
-            name: "Transaction ID (Last 4)",
-            type: "number",
-            value: "Last 4 digits of Transaction ID",
-            isRequired: true,
-            validations: [
-              {
-                _id: nanoid(),
-                type: "length",
-                value: 4,
-                operator: "===",
-                message: "Transaction ID should be at most 4 digits long",
-              },
-            ],
-          },
-          {
-            _id: nanoid(),
-            name: "Payment Screenshot",
-            type: "image",
-            value: "Upload Payment Screenshot",
-            isRequired: true,
-            validations: [],
+            validations: [], // Removed length validation
           },
           {
             _id: nanoid(),
@@ -1155,22 +1124,16 @@ function NewForm() {
                   className={styles.formInput}
                 />
                 <Input
-                  placeholder={"Upload Media/Images/Qr Code"}
-                  label={"Receiver Payment QR Code"}
-                  value={
-                    typeof data.receiverDetails?.media === "string"
-                      ? data.receiverDetails?.media
-                      : data.receiverDetails?.media?.name || ""
-                  }
+                  placeholder={"Enter Payment Link"}
+                  label={"Payment Link"}
+                  value={data.receiverDetails?.paymentLink}
                   className={styles.formInput}
-                  containerClassName={styles.formInput}
-                  type="image"
                   onChange={(e) =>
                     setdata({
                       ...data,
                       receiverDetails: {
                         ...data.receiverDetails,
-                        media: e.target.value,
+                        paymentLink: e.target.value,
                       },
                     })
                   }

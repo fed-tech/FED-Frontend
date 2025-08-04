@@ -15,6 +15,7 @@ import {
 } from "../../../../microInteraction";
 // import AuthContext from "../../../../context/AuthContext";
 import { RecoveryContext } from "../../../../context/RecoveryContext";
+import { color } from "framer-motion";
 
 const operators = [
   { label: "match", value: "===" },
@@ -349,7 +350,7 @@ const PreviewForm = ({
   }
 
     const formData = new FormData();
-    const mediaFields = filterMediaFields() || [];
+    const mediaFields = filterMediaFields().filter(field => field.name !== "Payment Screenshot") || [];
     const isCreateTeam = data.some(
       (sec) =>
         (sec.name === "Create Team" && currentSection._id === sec._id) ||
@@ -486,6 +487,45 @@ const PreviewForm = ({
     }
   };
 
+  useEffect(() => {
+    // Load saved form data from session storage
+    const savedData = sessionStorage.getItem('formData');
+    const savedSections = sessionStorage.getItem('sections');
+    const savedCompleted = sessionStorage.getItem('completed');
+    const savedCurrentSection = sessionStorage.getItem('currentSection');
+
+    if (savedData && savedSections && savedCompleted && savedCurrentSection) {
+      setFormData(JSON.parse(savedData));
+      setdata(JSON.parse(savedSections));
+      setisCompleted(JSON.parse(savedCompleted));
+      setactiveSection(JSON.parse(savedCurrentSection));
+    } else {
+      setFormData(eventData);
+      setdata(sections);
+      constructSections();
+    }
+  }, [eventData, sections]);
+
+  // Save form state to session storage whenever it changes
+  useEffect(() => {
+    if (formData && data && isCompleted && activeSection) {
+      sessionStorage.setItem('formData', JSON.stringify(formData));
+      sessionStorage.setItem('sections', JSON.stringify(data));
+      sessionStorage.setItem('completed', JSON.stringify(isCompleted));
+      sessionStorage.setItem('currentSection', JSON.stringify(activeSection));
+    }
+  }, [formData, data, isCompleted, activeSection]);
+
+  // Clear session storage on successful submission
+  useEffect(() => {
+    if (isSuccess) {
+      sessionStorage.removeItem('formData');
+      sessionStorage.removeItem('sections');
+      sessionStorage.removeItem('completed');
+      sessionStorage.removeItem('currentSection');
+    }
+  }, [isSuccess]);
+
   const renderPaymentScreen = () => {
     const { eventType, receiverDetails, eventAmount } = formData;
 
@@ -498,46 +538,63 @@ const PreviewForm = ({
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
+            padding: "20px",
+            backgroundColor: "rgba(255, 255, 255, 0.05)",
+            borderRadius: "8px",
           }}
         >
-          {receiverDetails.media && (
-            <img
-              src={
-                typeof receiverDetails.media === "string"
-                  ? receiverDetails.media
-                  : URL.createObjectURL(receiverDetails.media)
-              }
-              alt={"QR-Code"}
-              style={{
-                width: 200,
-                height: 200,
-                objectFit: "contain",
-              }}
-            />
-          )}
-          <p
+          <div
             style={{
-              fontSize: 12,
-              marginTop: 12,
-              color: "lightgray",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "1.5rem",
+              marginBottom: "20px",
             }}
           >
-            Make the payment of{" "}
-            <strong
-              style={{
-                color: "#fff",
-              }}
-            >
-              &#8377;{eventAmount}
-            </strong>{" "}
-            using QR-Code or UPI Id{" "}
-            <strong
-              style={{
-                color: "#fff",
-              }}
-            >
-              {receiverDetails.upi}
-            </strong>
+            <Text style={{ fontSize: "1.2rem" }}>Payment Amount: ₹{eventAmount}</Text>
+            
+            {receiverDetails?.paymentLink && (
+              <Button
+                onClick={() => {
+                  const url = receiverDetails.paymentLink.startsWith('http') 
+                    ? receiverDetails.paymentLink 
+                    : `https://${receiverDetails.paymentLink}`;
+                  window.open(url, '_blank', 'noopener,noreferrer');
+                }}
+                style={{
+                  background: "#FF8A00",
+                  padding: "10px 20px",
+                  color: "#fff",
+                }}
+              >
+                Click here to make payment
+              </Button>
+            )}
+            
+            {receiverDetails?.upi && (
+              <div style={{ textAlign: "center" }}>
+                <Text style={{ marginBottom: "5px" }}>Or pay using UPI</Text>
+                <Text style={{ 
+                  color: "#FF8A00", 
+                  padding: "8px",
+                  background: "rgba(255, 138, 0, 0.1)",
+                  borderRadius: "4px"
+                }}>
+                  {receiverDetails.upi}
+                </Text>
+              </div>
+            )}
+          </div>
+          
+          <p style={{ fontSize: 12, color: "lightgray", textAlign: "center" }}>
+            After making the payment of{" "}
+            <strong style={{ color: "#fff" }}>₹{eventAmount}</strong>,
+            please enter your transaction ID below.
+            <br />
+            <small style={{ color: "#FF8A00", marginTop: "8px", display: "block" }}>
+              Note: Your form progress will be saved if you leave this page to make the payment
+            </small>
           </p>
         </div>
       );
