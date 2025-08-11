@@ -245,6 +245,32 @@ a {
   width: 44%;
 }
 
+.teamDetailsBtn {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  color: white !important;
+  padding: 8px 16px !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  font-size: 0.85rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 auto !important;
+  transition: all 0.2s ease !important;
+  font-family: "Poppins", sans-serif !important;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 600px) {
   .backbtn {
     margin-top: 0.2rem;
