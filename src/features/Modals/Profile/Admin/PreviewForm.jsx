@@ -163,7 +163,6 @@ const PreviewForm = ({
 
   useEffect(() => {
     if (isSuccess) {
-      
       const participationType = eventData?.participationType;
       const successMessage = eventData?.successMessage;
       console.log(participationType);
@@ -173,7 +172,7 @@ const PreviewForm = ({
             setTeamCode(code);
             setTeamName(team);
           }
-          if (successMessage){
+          if (successMessage) {
             setSuccessMessage(successMessage);
           }
           navigate("/Events");
@@ -343,10 +342,9 @@ const PreviewForm = ({
   };
 
   const handleSubmit = async () => {
-
     if (!currentSection || !areRequiredFieldsFilled()) {
-        return;
-  }
+      return;
+    }
 
     const formData = new FormData();
     const mediaFields = filterMediaFields() || [];
@@ -421,7 +419,7 @@ const PreviewForm = ({
             setcode(teamCode);
             // console.log("saved context teamCode:",recoveryCtx.teamCode)
           }
-          if (successMessage){
+          if (successMessage) {
             setMessage(successMessage);
           }
           // console.log("consoling teamdata:", teamName, teamCode);
@@ -487,63 +485,104 @@ const PreviewForm = ({
   };
 
   const renderPaymentScreen = () => {
-    const { eventType, receiverDetails, eventAmount } = formData;
+  const { eventType, receiverDetails, eventAmount } = formData;
 
-    if (eventType === "Paid" && currentSection.name === "Payment Details") {
-      return (
-        <div
+  const handleDownloadQR = async () => {
+    try {
+      let imageUrl =
+        typeof receiverDetails.media === "string"
+          ? receiverDetails.media
+          : URL.createObjectURL(receiverDetails.media);
+
+      let blobUrl = imageUrl;
+
+      if (typeof receiverDetails.media === "string") {
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        blobUrl = URL.createObjectURL(blob);
+      }
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "qr-code.png";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      if (typeof receiverDetails.media !== "string") {
+        URL.revokeObjectURL(blobUrl);
+      }
+    } catch (error) {
+      console.error("Error downloading QR code:", error);
+      alert("Failed to download QR code.");
+    }
+  };
+
+  const handleCopyUPIID = () => {
+    if (receiverDetails.upi) {
+      navigator.clipboard.writeText(receiverDetails.upi)
+        .then(() => {
+          alert("UPI ID copied to clipboard!");
+        })
+        .catch(() => {
+          alert("Failed to copy UPI ID.");
+        });
+    }
+  };
+
+  if (eventType === "Paid" && currentSection.name === "Payment Details") {
+    return (
+      <div
+        style={{
+          margin: "8px auto",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {receiverDetails.media && (
+          <img
+            src={
+              typeof receiverDetails.media === "string"
+                ? receiverDetails.media
+                : URL.createObjectURL(receiverDetails.media)
+            }
+            alt={"QR-Code"}
+            style={{
+              width: 200,
+              height: 200,
+              objectFit: "contain",
+            }}
+          />
+        )}
+
+        {/* ✅ Download & Copy Buttons */}
+        <div style={{ display: "flex", gap: "10px", marginTop: 10 }}>
+          <Button onClick={handleDownloadQR}>Download QR</Button>
+          <Button onClick={handleCopyUPIID}>Copy UPI ID</Button>
+        </div>
+
+        <p
           style={{
-            margin: "8px auto",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
+            fontSize: 12,
+            marginTop: 12,
+            color: "lightgray",
+            textAlign: "center",
           }}
         >
-          {receiverDetails.media && (
-            <img
-              src={
-                typeof receiverDetails.media === "string"
-                  ? receiverDetails.media
-                  : URL.createObjectURL(receiverDetails.media)
-              }
-              alt={"QR-Code"}
-              style={{
-                width: 200,
-                height: 200,
-                objectFit: "contain",
-              }}
-            />
-          )}
-          <p
-            style={{
-              fontSize: 12,
-              marginTop: 12,
-              color: "lightgray",
-            }}
-          >
-            Make the payment of{" "}
-            <strong
-              style={{
-                color: "#fff",
-              }}
-            >
-              &#8377;{eventAmount}
-            </strong>{" "}
-            using QR-Code or UPI Id{" "}
-            <strong
-              style={{
-                color: "#fff",
-              }}
-            >
-              {receiverDetails.upi}
-            </strong>
-          </p>
-        </div>
-      );
-    }
-    return null;
-  };
+          Make the payment of{" "}
+          <strong style={{ color: "#fff" }}>&#8377;{eventAmount}</strong>{" "}
+          using QR-Code or Pay using UPI ID:{" "}
+          <strong style={{ color: "#fff" }}>{receiverDetails.upi} (No Refund Policy)</strong>
+        </p>
+      </div>
+    );
+  }
+
+  return null;
+};
+
 
   return (
     <>

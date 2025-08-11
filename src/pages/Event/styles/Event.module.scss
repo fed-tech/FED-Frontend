@@ -261,6 +261,10 @@
   right: -15%;
 }
 
+.noScroll {
+  overflow: hidden;
+}
+
 @media (max-width: 768px) {
   .line,
   .ring1,

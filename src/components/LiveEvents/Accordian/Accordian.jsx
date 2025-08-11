@@ -38,7 +38,7 @@ const Accordion = ({ data }) => {
     return (
       <motion.div
         key={index}
-        className={styles.card}
+        className={`${styles.card} ${activeIndex === index ? styles.activeCard : ""}`}
         ref={ref}
         initial={{ opacity: 0, y: 50, scale: 0.5 }}
         animate={
@@ -48,7 +48,8 @@ const Accordion = ({ data }) => {
         }
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        {/* <div className={styles.cut}></div> */}
+        
+        
         <div
           className={`${styles["accordion-item"]} ${
             activeIndex === index ? styles.active : ""
@@ -69,10 +70,10 @@ const Accordion = ({ data }) => {
             {item.content}
           </div>
         </div>
-        {/* <div
-          className={styles.cut2}
+        <div
+         
           style={{ display: activeIndex === index ? "none" : "block" }}
-        ></div> */}
+        ></div>
       </motion.div>
     );
   };

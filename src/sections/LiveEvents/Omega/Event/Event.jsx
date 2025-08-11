@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
 import { parse, differenceInMilliseconds } from "date-fns";
-import AuthContext from "../../../context/AuthContext";
+import AuthContext from "../../../../context/AuthContext";
 import styles from "./styles/Event.module.scss";
-import { Alert, MicroLoading } from "../../../microInteraction"; // Ensure this import path is correct
+import { Alert, MicroLoading } from "../../../../microInteraction"; // Ensure this import path is correct
 
 function EventCard({ data, isRegisteredInRelatedEvents, ongoingEvents }) {
   const authCtx = useContext(AuthContext);

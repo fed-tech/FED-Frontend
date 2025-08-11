@@ -16,6 +16,20 @@ const Navbar = () => {
   const authCtx = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+    const isOmegaActive = activeLink === "/omega";
+
+useEffect(() => {
+    if (isOmegaActive) {
+      document.body.style.backgroundColor = "#000000";
+    } else {
+      document.body.style.backgroundColor = "";
+    }
+
+    return () => {
+      document.body.style.backgroundColor = "";
+    };
+  }, [isOmegaActive]);
+
 
   // const handleScroll = () => {
   //   if (window.scrollY > lastScrollY.current) {
@@ -79,8 +93,8 @@ useEffect(() => {
 
   useEffect(() => {
     let currentPath = location.pathname;
-    if (/\/Pixel_AI_Hack|\/Pixel_AI_Hack|\/Pixel_AI_Hack|\/Pixel_AI_Hack/i.test(currentPath)) {
-      currentPath = "/Pixel_AI_Hack"; // Normalize Pixel_AI_Hack path
+    if (/\/omega|\/omega|\/omega|\/omega/i.test(currentPath)) {
+      currentPath = "/omega"; // Normalize omega path
     }
     setActiveLink(currentPath);
   }, [location]);
@@ -115,8 +129,7 @@ useEffect(() => {
       window.removeEventListener("scroll", handleNavbarBlur);
     };
   }, []);
-  const isOmegaActive = activeLink === "/Omega";
-  const isPixel_AI_HackActive = activeLink === "/Pixel_AI_Hack";
+ 
 
   return (
     <nav
@@ -182,7 +195,7 @@ useEffect(() => {
                 to="/"
                 className={`${styles.link} ${
                   activeLink === "/" ? styles.activeLink : ""
-                } ${activeLink === "/Pixel_AI_Hack" ? styles.Pixel_AI_HackHover : ""}`}
+                } ${activeLink === "/omega" ? styles.omegaHover : ""}`}
                 onClick={closeMobileMenu}
               >
                 Home
@@ -193,29 +206,29 @@ useEffect(() => {
                 to="/Events"
                 className={`${styles.link} ${
                   activeLink === "/Events" ? styles.activeLink : ""
-                } ${activeLink === "/Pixel_AI_Hack" ? styles.Pixel_AI_HackHover : ""}`}
+                } ${activeLink === "/omega" ? styles.omegaHover : ""}`}
                 onClick={closeMobileMenu}
               >
                 Event
               </NavLink>
             </li>
-            {/* <li>
+            <li>
               <NavLink
-                to="/Pixel_AI_Hack"
-                className={`${styles.linkPixel_AI_Hack} ${
-                  activeLink === "/Pixel_AI_Hack" ? styles.activeLinkPixel_AI_Hack : ""
-                } ${activeLink === "/Pixel_AI_Hack" ? styles.Pixel_AI_HackHover : ""}`}
+                to="/omega"
+                className={`${styles.linkomega} ${
+                  activeLink === "/omega" ? styles.activeLink : ""
+                } ${activeLink === "/omega" ? styles.omegaHover : ""}`}
                 onClick={closeMobileMenu}
               >
-                Pixel-AI-Hack
+                Omega
               </NavLink>
-            </li> */}
+            </li>
             <li>
               <NavLink
                 to="/Social"
                 className={`${styles.link} ${
                   activeLink === "/Social" ? styles.activeLink : ""
-                } ${activeLink === "/Pixel_AI_Hack" ? styles.Pixel_AI_HackHover : ""}`}
+                } ${activeLink === "/omega" ? styles.omegaHover : ""}`}
                 onClick={closeMobileMenu}
               >
                 Social
@@ -226,7 +239,7 @@ useEffect(() => {
                 to="/Team"
                 className={`${styles.link} ${
                   activeLink === "/Team" ? styles.activeLink : ""
-                } ${activeLink === "/Pixel_AI_Hack" ? styles.Pixel_AI_HackHover : ""}`}
+                } ${activeLink === "/omega" ? styles.omegaHover : ""}`}
                 onClick={closeMobileMenu}
               >
                 Team
@@ -274,7 +287,7 @@ useEffect(() => {
             <NavLink to="/Login" onClick={closeMobileMenu}>
               <button
                 className={`${styles.authButton} ${
-                  activeLink === "/Pixel_AI_Hack" ? styles.Pixel_AI_HackButton : ""
+                  activeLink === "/omega" ? styles.omegaButton : ""
                 }`}
               >
                 Login

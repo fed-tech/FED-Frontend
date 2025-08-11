@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import sponsorsData from '../../../data/omega/Sponsor.json';
+import sponsorsData from '../../../../data/liveEvents/omega/Sponsor.json';
 import styles from './styles/Sponsors.module.scss';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';

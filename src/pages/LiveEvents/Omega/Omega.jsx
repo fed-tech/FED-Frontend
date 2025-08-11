@@ -5,19 +5,29 @@ import { motion } from "framer-motion";
 import { Element } from "react-scroll";
 import { useInView } from "react-intersection-observer";
 import styles from "./styles/Omega.module.scss";
-import Hero from "../../../sections/LiveEventsSections/Omega/Hero/Hero.js";
-import Accordion from "../../components/Accordian/Accordian.jsx";
-import data from "../../../data/omega/Accordion.json";
-import Sponsors from "../../../sections/LiveEventsSections/Omega/Sponsors/Sponsors.js";
-import Event from "../../../sections/LiveEventsSections/Omega/Event/Event.js";
-import FedShow from "../../../sections/LiveEventsSections/Omega/FedShow/FedShow.js";
-import TeamImage from "../../../sections/LiveEventsSections/Omega/TeamImage/TeamImage.jsx";
-import Attend from "../../../sections/LiveEventsSections/Omega/Attend/Attend.js";
+import Hero from "../../../sections/LiveEvents/Omega/Hero/Hero.jsx";
+import Accordion from "../../../components/LiveEvents/Accordian/Accordian.jsx";
+import data from "../../../data/liveEvents/omega/Accordion.json";
+import Sponsors from "../../../sections/LiveEvents/Omega/Sponsors/Sponsors.jsx";
+import Event from "../../../sections/LiveEvents/Omega/Event/Event.jsx";
+import FedShow from "../../../sections/LiveEvents/Omega/FedShow/FedShow.jsx";
+import TeamImage from "../../../sections/LiveEvents/Omega/TeamImage/TeamImage.jsx";
+import Attend from "../../../sections/LiveEvents/Omega/Attend/Attend.jsx";
 import ChatBot from "../../../features/ChatBot/ChatBot.jsx";
 
 function Omega() {
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    const originalBackgroundColor = document.body.style.backgroundColor;
+    document.body.style.backgroundColor = "#000000";
+    
+
+    return () => {
+      document.body.style.backgroundColor = originalBackgroundColor;
+    };
   }, []);
 
   const authCtx = useContext(AuthContext);
@@ -115,12 +125,26 @@ function Omega() {
 
   return (
     <div className={styles.body}>
+     <div className={styles.imageContainer}>
+
+      <motion.div
+          ref={teamImageRef}
+          initial={{ opacity: 0, y: 50, scale: 0.5 }}
+          animate={
+            teamImageInView
+              ? { opacity: 1, y: 0, scale: 1 }
+              : { opacity: 0, y: 50, scale: 0.5 }
+          }
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        
+        ></motion.div>
       <Hero
         ongoingEvents={ongoingEvents}
         isRegisteredInRelatedEvents={isRegisteredInRelatedEvents}
         eventName={eventName}
       />
       <FedShow />
+      </div> 
       <Event
         ongoingEvents={ongoingEvents}
         isRegisteredInRelatedEvents={isRegisteredInRelatedEvents}
@@ -140,7 +164,7 @@ function Omega() {
               : { opacity: 0, y: 50, scale: 0.5 }
           }
           transition={{ duration: 0.6, ease: "easeOut" }}
-          style={{ perspective: 1000 }}
+        
         >
           <TeamImage />
         </motion.div>

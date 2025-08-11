@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { Element } from "react-scroll";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../../../context/AuthContext";
+import AuthContext from "../../../../context/AuthContext";
 import styles from "./styles/Hero.module.scss";
 import { parse, differenceInMilliseconds } from "date-fns";
-import { Alert, MicroLoading } from "../../../microInteraction"; // Ensure this import path is correct
+import { Alert, MicroLoading } from "../../../../microInteraction"; // Ensure this import path is correct
 
 function Hero({ ongoingEvents, isRegisteredInRelatedEvents, eventName }) {
   const authCtx = useContext(AuthContext);
@@ -64,7 +64,7 @@ function Hero({ ongoingEvents, isRegisteredInRelatedEvents, eventName }) {
           (e) => e.info.relatedEvent === "null"
         )?.id;
         if (relatedEventId) {
-          setNavigatePath(`/Events/${relatedEventId}/Form`);
+          setNavigatePath(`/Events/6890fd2b2ee5496826b3a5a9/Form`); //hardcoded path for Omega 5.0
           setShouldNavigate(true);
         }
         setTimeout(() => {
@@ -184,9 +184,10 @@ function Hero({ ongoingEvents, isRegisteredInRelatedEvents, eventName }) {
   ]);
 
   return (
+    
     <div className={styles.hero}>
-      <div className={styles.circle}></div>
-      <div className={styles.circle2}></div>
+
+   
       <Element name="p">
         <motion.div
           initial={{ opacity: 0, y: -10, scale: 0.5 }}
@@ -194,7 +195,8 @@ function Hero({ ongoingEvents, isRegisteredInRelatedEvents, eventName }) {
           transition={{ duration: 0.6, ease: "easeOut" }}
           style={{ perspective: 1000 }}
         >
-          <p className={styles.head}>FED PRESENTS</p>
+
+          <p className={styles.head}> FEDKIIT PRESENTS</p>
         </motion.div>
       </Element>
       <Element name="img">
@@ -205,10 +207,59 @@ function Hero({ ongoingEvents, isRegisteredInRelatedEvents, eventName }) {
           style={{ perspective: 1000 }}
         >
           <img
-            src="https://uploads-ssl.webflow.com/663d1907e337de23e83c30b2/66b237c23cd94e1878fff70a_image%20(7).png"
+            src="https://cdn.prod.website-files.com/6891df87cfba687a7fd80202/6891e0b089a56fcddcf969e2_omega5.png"
             alt="Hero"
           />
+              
+<div style={{ 
+  display: "flex", 
+  flexDirection: "column", 
+  alignItems: "center", 
+  textAlign: "center"
+}}>
+  
+
+  <span style={{ 
+    fontSize: "12px", 
+    fontWeight: "500", 
+    marginBottom: "4px", 
+    color: "#9d9b9bff" 
+  }}>
+    POWERED BY
+  </span>
+
+
+  <div style={{ 
+    display: "flex", 
+    alignItems: "center", 
+    justifyContent: "center",
+    gap: "6px", 
+    flexWrap: "wrap",
+    transform: "translateX(15px)" 
+  }}>
+    <img
+      src="https://cdn.prod.website-files.com/6898a84f39288fa31fb19eb3/6898a87e80f51af6ea827159_e6160607db8448dd75eaa46ae28afe7c717b1adc%20(1).png"
+      alt="Remax Logo"
+      style={{ width: "30px", height: "30px", objectFit: "contain"}}
+      
+    />
+
+    
+   
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", lineHeight: "1.1" }}>
+      <strong style={{ fontSize: "16px", fontWeight: "bold" }}>REMAX</strong>
+      <span style={{ fontSize: "12px", fontWeight: "500" }}>TEMPLE CITY</span>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
         </motion.div>
+        
       </Element>
       <div className={styles.text}>
         <p>Empowering Entrepreneurs, Energizing the Future</p>

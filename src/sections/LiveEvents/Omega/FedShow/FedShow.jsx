@@ -4,8 +4,10 @@ import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 import { FaCalendarAlt, FaClock, FaMapMarkerAlt } from "react-icons/fa";
 import { parse, differenceInMilliseconds } from "date-fns";
-import fedShowImg from "../../../assets/images/fedShow.svg";
+import fedShowImg from "../../../../assets/images/fedShow.svg";
 import styles from "./styles/FedShow.module.scss";
+import speakersData from "../../../../data/liveEvents/omega/Speakers.json";
+
 
 function FedShow() {
   const [remainingTime, setRemainingTime] = useState("");
@@ -35,12 +37,12 @@ function FedShow() {
   const calculateRemainingTime = () => {
     try {
       const regStartDate = parse(
-        "August 25, 2024, 10:00:00 AM",
+        "August 16, 2025, 10:00:00 AM",
         "MMMM dd, yyyy, h:mm:ss a",
         new Date()
       );
       const endTime = parse(
-        "August 25, 2024, 2:00:00 PM",
+        "August 17, 2025, 2:00:00 PM",
         "MMMM dd, yyyy, h:mm:ss a",
         new Date()
       );
@@ -90,26 +92,7 @@ function FedShow() {
       <div className={styles.fedshowcircle2}></div>
 
       <div className={styles.imageContainer}>
-        <Element name="img">
-          <motion.div
-            ref={refImg1}
-            initial={{ opacity: 0, y: -10, scale: 0.5 }}
-            animate={{
-              opacity: inViewImg1 ? 1 : 0,
-              y: inViewImg1 ? 0 : -10,
-              rotate: inViewImg1 ? 0 : 0,
-              scale: inViewImg1 ? 1 : 0.5,
-            }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            style={{ perspective: 1000 }}
-          >
-            <img
-              className={styles.imgLeft}
-              src="https://uploads-ssl.webflow.com/645fbc01f38b6fb6255c240c/66c1446130125423df86f7a3_image_2024-08-18_06-15-12.png"
-              alt="Hero"
-            />
-          </motion.div>
-        </Element>
+        
         <Element name="p">
           <p className={styles.head}>WHERE IDEAS MEET</p>
           <span className={styles.subHead}>INNOVATION</span>
@@ -136,20 +119,20 @@ function FedShow() {
 
           <div className={styles.info}>
             <p>
-              <FaCalendarAlt className={styles.icon} size={20} /> August 25,
-              2024
+              <FaCalendarAlt className={styles.icon} size={20} /> 16 th AUG ,
+              2025
             </p>
             <div style={{ display: "flex", alignItems: "center" }}>
               <p>
                 <FaClock className={styles.icon} /> 10:00 AM
               </p>
               <p style={{ marginLeft: "20px" }}>
-                <FaMapMarkerAlt className={styles.icon} /> Campus - 14
+                <FaMapMarkerAlt className={styles.icon} /> CAMPUS - 7
               </p>
             </div>
           </div>
 
-          <button
+          <button 
             className={styles.registerBtn}
             disabled={
               btnTxt === "SHOW ENDED" ||
@@ -161,34 +144,29 @@ function FedShow() {
             {remainingTime ? `${remainingTime}` : btnTxt}
           </button>
         </Element>
-        <Element name="img">
-          <motion.div
-            ref={refImg3}
-            initial={{ opacity: 0, y: -10, scale: 0.5 }}
-            animate={{
-              opacity: inViewImg3 ? 1 : 0,
-              y: inViewImg3 ? 0 : -10,
-              rotate: inViewImg3 ? 0 : 0,
-              scale: inViewImg3 ? 1 : 0.5,
-            }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            style={{ perspective: 1000 }}
-          >
-            <img
-              className={styles.imgRight}
-              src="https://uploads-ssl.webflow.com/645fbc01f38b6fb6255c240c/66c144619c2cf228fd915e28_image_2024-08-18_06-15-39.png"
-              alt="Hero"
-            />
-
-            <img
-              className={styles.mobileFedShowImg}
-              src="https://uploads-ssl.webflow.com/663d1907e337de23e83c30b2/66c2330cdc17d5b6d4bb5a0d_Screenshot%202024-08-18%20231413.png"
-              alt=""
-            />
-          </motion.div>
-        </Element>
+       
+        
       </div>
+      
+                 <h2 className={styles.heading}>
+        <span className={styles.our}>OUR</span> <span className={styles.speakers}>SPEAKERS</span>
+      </h2>
+       <div className={styles.speakersContainer}>
+
+      {speakersData.map((speaker, index) => (
+        <div key={index} className={styles.speakerCard}>
+          <img
+            src={speaker.image}
+            alt={speaker.name}
+            className={styles.speakerImage}
+          />
+          <h3 className={styles.speakerName}>{speaker.name}</h3>
+          <p className={styles.speakerDesignation}>{speaker.designation}</p>
+        </div>
+      ))}
     </div>
+    </div>
+    
   );
 }
 

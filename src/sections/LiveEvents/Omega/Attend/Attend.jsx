@@ -34,15 +34,14 @@ function Attend() {
         </div>
 
         <div className={style.boxmain}>
-          <Card img="https://uploads-ssl.webflow.com/663d1907e337de23e83c30b2/66b5fc073c4fe7b17fd35209_image%20(14).png"  title="Inspiration and Knowledge" />
-          <Card img="https://uploads-ssl.webflow.com/663d1907e337de23e83c30b2/66b5faa63c233fc6529719c3_image%20(10).png" title="Networking Opportunities" />
-          <Card img="https://uploads-ssl.webflow.com/663d1907e337de23e83c30b2/66b5faa776cf7e0c97524f2b_image%20(9).png" title="Hands-on Experience" />
-          <Card img="https://uploads-ssl.webflow.com/663d1907e337de23e83c30b2/66b5faa63c233fc6529719c3_image%20(10).png" title="Exposure and Recognition" />
+          <Card img="https://cdn.prod.website-files.com/6891df87cfba687a7fd80202/6894c217368c50eb981ffb0f_bulb.png"  title="Inspiration and Knowledge" />
+          <Card img="https://cdn.prod.website-files.com/6891df87cfba687a7fd80202/6894c23b7cf4455ecfb7006b_network.png" title="Networking Opportunities" />
+          <Card img="https://cdn.prod.website-files.com/6891df87cfba687a7fd80202/6894c23b97a8cc5333a2cd8a_tools.png" title="Hands-on Experience" />
+          <Card img="https://cdn.prod.website-files.com/6891df87cfba687a7fd80202/6894c23b4ecdb46153de2974_fire.png" title="Exposure and Recognition" />
         </div>
       </div>
 
-      <div className={style.circle1}></div>
-      <div className={style.circle2}></div>
+     
     </>
   );
 }

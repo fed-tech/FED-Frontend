@@ -1,52 +1,48 @@
+
 .hero {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    overflow: hidden;
-    margin-top: 20px;
-  }
-  .circle{
-    position: absolute;
-    top: 60px;
-    right: -10%;
-    background: linear-gradient(#4B00C6 , #0047FF , #50FF34 ,#00D1FF );
-    filter:blur(40px);
-    border-radius: 50%;
-    transform: rotate(60deg);
-    height: 50vh;
-    width:20vw;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+  margin-top: 20px;
+ 
+  
 }
 
-.circle2{
-    position: absolute;
-    top: 60px;
-    left: -10%;
-    background: linear-gradient(#4B00C6 , #0047FF , #50FF34 ,#00D1FF );
-    filter:blur(40px);
-    border-radius: 50%;
-    transform: rotate(60deg);
-    height: 50vh;
-    width:20vw;
-}
+
   .heroImage {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    
   }
-
-  .head{
-    border: 1px solid #fff;
-    padding: 10px;
-    border-radius: 20px;
+  .head {
+    color: rgb(255, 255, 255);
+  font-weight: bold;
+  padding: 10px;
+  
+  background: linear-gradient(
+    to bottom,
+    rgba(244, 43, 3, 0.84) 0%,
+    rgba(255, 190, 11, 0.84) 100%
+  );
+  border-radius: 20px;
+  width: 12rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
   }
+  
 
   .hero img {
     margin-left: -2.5rem;
     height: 300px;
-    margin-top: -2rem;
+    margin-top: 0rem;
   //   width: 70%;
   }
   
@@ -71,78 +67,67 @@
     }
   
     button {
-        margin-top: 20px;
-      --border: 5px;
-      --slant: 0.7em;
-      --color: blue;
-      font-size: 80%;
-      padding: 1em 1.8em;
-      border-bottom: rgb(0, 136, 255) solid 5px;
-      border-right: rgb(0, 136, 255) solid 5px;
-      font-weight: bold;
-      width: 14rem;
-      transition: ease-in 0.5s, font-size 0.3s ease-in-out;
+      margin-top: 20px;
+    --border: 10px;
+    --slant: 0.4rem;
+    
+    font-size: 80%;
+    padding: 1em 1.8em;
+
+    border-bottom:  rgba(244, 43, 3, 0.84) solid 8px;
+    
+     border-right:  rgba(244, 43, 3, 0.84) solid 8px;
+    
+    font-weight: bold;
+    width: 14rem;
+    transition: ease-in 0.5s, font-size 0.3s ease-in-out;
 
 
-      position: relative;
-      color: black;
-      background: #e9e5e5;
-      box-shadow: 0 0 0 0px inset var(--s, #0000),
-                  0 var(--border) 0 0 var(--color),
-                  var(--border) 0 0 0 var(--color);
-      clip-path: polygon(var(--slant) 0, 100% 0, 100% calc(100% - var(--slant)), 
-                         calc(100% - var(--slant)) 100%, 0 100%, 0 var(--slant));
+    position: relative;
+    color: black;
+
+    background: #e9e5e5;
+
+    clip-path: polygon(
+      var(--slant) 0,
+      100% 0,
+      100% calc(100% - var(--slant)),
+      calc(100% - var(--slant)) 100%,
+      0 100%,
+      0 var(--slant)
+    );
+    
+    
+    &:hover {
+      font-size: 15px;
+      transition: border 0.5 ease-out 0.5 , font-size 0.5s ease-in-out 0.5s;
+      border: none;
       
-      &:hover {
-        font-size: 15px;
-        transition: border 0.5 ease-out 0.5 , font-size 0.5s ease-in-out 0.5s;
-        border: none;
-        
-      }
-  
-      &::after {
-        content: "";
-        position: absolute;
-        transform: rotate(135deg);
-        bottom: -30px;
-        right: -16px;
-        width: 70px;
-        height: 15.5px;
-        background-color: rgb(0, 136, 255);
-        border-bottom-right-radius: 12px;
-        z-index: -1;
-      }
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      transform: rotate(135deg);
+      bottom: -30px;
+      right: -16px;
+      width: 100px;
+      height: 20.5px;
+      border-bottom-right-radius: 1px;
+      z-index: -1;
     }
   }
+}
 
   @media (max-width: 480px){
-    .circle2{
-      position: absolute;
-      top: 6%;
-      right: 47%;
-      background: linear-gradient(#4B00C6, #0047FF, #50FF34, #00D1FF);
-      filter: blur(40px);
-      border-radius: 50%;
-      transform: rotate(108deg);
-      height: 32vh;
-      width: 44vw;
-      margin-left: -16%;
-    }
-
-    .circle{
-      top: 62%;
-      margin-left: 213%;
-      margin-right: -1%;
-      width: 27%;
-      height: 32%;
-    }
-
+   
     .head{
       margin-top: 50px;
     }
 
     .hero{
       margin-top: 0px;
+         
     }
     .hero img{
         height: 200px;
@@ -161,7 +146,7 @@
     }
 
     .text button{
-      margin-top: 40px;
+      margin-top: 0px;
       font-size: 85%;
     }
   }

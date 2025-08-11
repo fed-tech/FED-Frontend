@@ -688,7 +688,7 @@ function NewForm() {
         _id: nanoid(),
         name: "Payment Details",
         description:
-          "Make the payment to attached UPI ID or Scan the QR code. In the end, Share the complete detailes with us!",
+          "Make the payment to attached UPI ID or Scan the QR code. In the end, Share the complete details with us!",
         isDisabled: true,
         validations: [
           {
@@ -702,51 +702,43 @@ function NewForm() {
         fields: [
           {
             _id: nanoid(),
-            name: "Enter UPI ID",
-            type: "text",
-            value: "Enter UPI ID",
-            isRequired: true,
-            validations: [],
-          },
-          {
-            _id: nanoid(),
-            name: "Transaction ID (Last 4)",
+            name: "UTR Number / Transaction ID",
             type: "number",
-            value: "Last 4 digits of Transaction ID",
+            value: "Enter 12-digit UTR Number or Transaction ID",
             isRequired: true,
             validations: [
               {
                 _id: nanoid(),
                 type: "length",
-                value: 4,
-                operator: "===",
-                message: "Transaction ID should be at most 4 digits long",
-              },
-            ],
-          },
-          {
-            _id: nanoid(),
-            name: "Payment Screenshot",
-            type: "image",
-            value: "Upload Payment Screenshot",
-            isRequired: true,
-            validations: [],
-          },
-          {
-            _id: nanoid(),
-            name: "Terms & Conditions",
-            type: "radio",
-            value:
-              "I acknowledge that all payments made are non-refundable once the form is submitted. For any further assistance contact fedkiit@gmail.com",
-            isRequired: true,
-            validations: [
-              {
-                _id: nanoid(),
-                type: "length",
-                value: 1,
+                value: 12,
                 operator: "===",
                 message:
-                  "You need to agree to the terms and conditions to proceed.",
+                  "UTR Number/Transaction ID must be exactly 12 digits long",
+              },
+              {
+                _id: nanoid(),
+                type: "pattern",
+                value: "^[0-9]{12}$",
+                operator: "match",
+                message: "UTR Number/Transaction ID must contain only numbers",
+              },
+              {
+                _id: nanoid(),
+                name: "Terms & Conditions",
+                type: "radio",
+                value:
+                  "I acknowledge that all payments made are non-refundable once the form is submitted. For any further assistance contact fedkiit@gmail.com",
+                isRequired: true,
+                validations: [
+                  {
+                    _id: nanoid(),
+                    type: "length",
+                    value: 1,
+                    operator: "===",
+                    message:
+                      "You need to agree to the terms and conditions to proceed.",
+                  },
+                ],
               },
             ],
           },

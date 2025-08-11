@@ -190,6 +190,7 @@ const Event = () => {
   return (
     <>
       <ChatBot />
+      <p style={{ textAlign: "center", fontSize: "1rem", marginTop: "1rem" }}>Register Yourself for OMEGA 5.0 to Unlock All Three Events Under OMEGA</p>
       {isOpen && (
         <ShareTeamData onClose={handleShare} teamData={teamCodeAndName} successMessage={successMessage} />
       )}
@@ -224,6 +225,7 @@ const Event = () => {
               )}
 
               <div className={style.eventwhole}>
+                
                 <>
                   {ongoingEvents.length > 0 && (
                     <div className={style.eventcard}>
@@ -233,8 +235,10 @@ const Event = () => {
                           style={{ marginBottom: "-1rem" }}
                         >
                           <img className={style.ring1} src={ring} alt="ring" />
+                          
                           <span className={style.w1}>Ongoing</span>
-                          <span className={style.w2}>Events</span>
+                          <span className={style.w2}>Events</span><br />
+                          
                         </div>
                       ) : (
                         <div> </div>

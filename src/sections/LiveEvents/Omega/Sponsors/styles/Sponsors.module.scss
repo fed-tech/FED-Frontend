@@ -16,7 +16,12 @@
 }
 
 .heading {
-  color: #00D1FF;
+  background: linear-gradient(
+    rgba(244, 43, 3, 0.84) 0%,
+    rgba(255, 190, 11, 0.84) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-size: 50px;
   display: inline-block;
 }
@@ -29,11 +34,11 @@
 }
 
 .sponsor {
-  margin: 20px;
+  margin: 40px;
 }
 
 .sponsor img {
-  max-width: 100px;
+  max-width: 90px;
   height: auto;
 }
 

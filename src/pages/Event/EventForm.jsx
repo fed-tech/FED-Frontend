@@ -56,6 +56,16 @@ const EventForm = () => {
   }, [id]);
   // console.log("eventData",eventData);
 
+  // Add scroll lock effect when form opens
+  useEffect(() => {
+    if (showPreview) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showPreview]);
+
   return (
     <div>
       {!isLoading && showPreview && (

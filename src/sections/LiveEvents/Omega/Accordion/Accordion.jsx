@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./styles/Accordion.module.scss";
-import data from "../../../data/omega/Accordion.json";
+import data from "../../../../data/liveEvents/omega/Accordion.json";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
