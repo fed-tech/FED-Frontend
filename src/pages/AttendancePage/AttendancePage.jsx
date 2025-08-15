@@ -22,6 +22,7 @@ const AttendancePage = () => {
   const [attendedUser, setAttendedUser] = useState(null);
   const [hasShownAlert, setHasShownAlert] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [alertShown, setAlertShown] = useState(false);
   const authCtx = useContext(AuthContext);
 
   useEffect(() => {
@@ -82,19 +83,24 @@ const AttendancePage = () => {
       setScanner(qrScanner);
     } catch (error) {
       console.error("Error initializing scanner:", error);
-      if (!hasShownAlert) {
+      if (!alertShown) {
         Alert({
           type: "error",
           message: "Failed to initialize QR scanner",
           position: "top-right",
         });
-        setHasShownAlert(true);
+        setAlertShown(true);
       }
       setShowScanner(false);
     }
   };
 
   const onScanSuccess = async (decodedText) => {
+    // Prevent multiple scans if already processing or alert shown
+    if (isScanning || alertShown) {
+      return;
+    }
+    
     setIsScanning(true);
     console.log("QR Code scanned successfully:", decodedText);
     console.log("Selected Event ID:", selectedEventId);
@@ -118,18 +124,28 @@ const AttendancePage = () => {
         // store user details
         setAttendedUser(response.data.user || response.data);
         setIsSuccess(true);
+        
+        // Stop scanner and clear it
         if (scanner) {
-          scanner.clear();
+          try {
+            scanner.clear();
+          } catch (error) {
+            console.error("Error clearing scanner:", error);
+          }
         }
+        
         setShowSuccessModal(true);
         setIsScanning(false);
         
-        // show success alert
-        Alert({
-          type: "success",
-          message: "Attendance marked successfully!",
-          position: "top-right",
-        });
+        // show success alert only if no alert has been shown
+        if (!alertShown) {
+          Alert({
+            type: "success",
+            message: "Attendance marked successfully!",
+            position: "top-right",
+          });
+          setAlertShown(true);
+        }
         
         return; // exit early
       }
@@ -149,14 +165,23 @@ const AttendancePage = () => {
         errorMessage = error.response.data.message;
       }
       
-      // show error alert
-      if (!hasShownAlert) {
+      // show error alert only if no alert has been shown
+      if (!alertShown) {
         Alert({
           type: "error",
           message: errorMessage,
           position: "top-right",
         });
-        setHasShownAlert(true);
+        setAlertShown(true);
+      }
+      
+      // Stop scanner after error to prevent multiple scans
+      if (scanner) {
+        try {
+          scanner.clear();
+        } catch (error) {
+          console.error("Error clearing scanner:", error);
+        }
       }
     } finally {
       setIsScanning(false);
@@ -170,7 +195,7 @@ const AttendancePage = () => {
   const handleScanQR = (eventId) => {
     setSelectedEventId(eventId);
     setShowScanner(true);
-    setHasShownAlert(false); // reset alert state
+    setAlertShown(false); // reset alert state
     setIsSuccess(false); // reset success state
   };
 
@@ -180,7 +205,7 @@ const AttendancePage = () => {
     // auto open scanner for next scan
     setTimeout(() => {
       setShowScanner(true);
-      setHasShownAlert(false); // reset alert state
+      setAlertShown(false); // reset alert state
       setIsSuccess(false); // reset success state
     }, 100);
   };
@@ -189,15 +214,15 @@ const AttendancePage = () => {
 
   const handleDownloadAttendance = async (eventId) => {
     try {
-      const response = await api.get(`/api/form/export-attendance/${eventId}?format=xlsx`, {
+      const response = await api.get(`/api/form/download/${eventId}`, {
         headers: { Authorization: `Bearer ${authCtx.token}` },
         responseType: "blob",
       });
-      const blob = new Blob([response.data], { type: "text/xlsx" });
+      const blob = new Blob([response.data], { type: "text/csv" });
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", `attendance_${eventId}.xlsx`);
+      link.setAttribute("download", `attendance_${eventId}.csv`);
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -219,14 +244,14 @@ const AttendancePage = () => {
         errorMessage = error.response.data.message;
       }
       
-      // show error alert
-      if (!isSuccess && !hasShownAlert) {
+      // show error alert only if no alert has been shown
+      if (!alertShown) {
         Alert({
           type: "error",
           message: errorMessage,
           position: "top-right",
         });
-        setHasShownAlert(true);
+        setAlertShown(true);
       }
       console.error("Download error:", error);
     }
@@ -263,7 +288,6 @@ const AttendancePage = () => {
         style={{ padding: "8px 16px", backgroundColor: "rgba(255, 138, 0, 0.9)" }}
       >
         <FaDownload size={18} />
-         Attendance
       </Button>
     </div>
   );
@@ -322,6 +346,7 @@ const AttendancePage = () => {
                 }
                 setShowScanner(false);
                 setScanner(null);
+                setAlertShown(false); // reset alert state when closing scanner
               }}
             >
               <IoClose />
