@@ -274,6 +274,26 @@ const Team = () => {
           Entrepreneurship. The pillars of our crew are the Marketing group, the
           Creative group, the Technical group, and the Operations group.
         </p>
+        <div className={styles.fic}>
+          <div className={styles.ficContainer}>
+            <div className={styles.ficImage}>
+              <img 
+                src="https://cdn.prod.website-files.com/663d1907e337de23e83c30b2/692c37f9ff87b3d30a302905_IMG-20251129-WA0016.jpg" 
+                alt="Dr. Vishal Pradhan"
+              />
+            </div>
+            <div className={styles.ficContent}>
+              <h4 className={styles.ficName}>Dr. Vishal Pradhan</h4>
+              <p className={styles.ficDesignation}>Faculty In Charge</p>
+              <p className={styles.ficIntro}>
+                Dr. Vishal Pradhan is an exceptional academician and researcher at KIIT, known for his clarity of thought, deep subject expertise, and commitment to student success. His ability to connect advanced concepts with real-world applications makes him a truly inspiring educator.
+              </p>
+              <p className={styles.ficVision}>
+                My vision is to ignite curiosity, nurture confidence, and inspire students to rise beyond limits—so they walk into KIIT as learners and grow into innovators who shape the world.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
       <div className={styles.circle}></div>
       {/* <div className={styles.circle2}></div> */}

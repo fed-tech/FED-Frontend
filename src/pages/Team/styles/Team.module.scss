@@ -145,6 +145,130 @@ strong {
   left: 0; 
 }
 
+/* FIC Section Styles */
+.fic {
+  display: flex;
+  justify-content: center;
+  padding: 40px 30px;
+  margin: 30px 0; 
+}
+
+.ficContainer {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  max-width: 1200px;
+  background: rgba(255, 138, 0, 0.1);
+  border: 2px solid rgba(255, 138, 0, 0.3);
+  border-radius: 15px;
+  padding: 40px 80px;
+  backdrop-filter: blur(10px);
+}
+
+.ficImage {
+  flex-shrink: 0;
+}
+
+.ficImage img {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  border: 3px solid #FF8A00;
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(255, 138, 0, 0.5);
+}
+
+.ficContent {
+  flex: 1;
+  color: white;
+}
+
+.ficName {
+  font-size: 28px;
+  font-weight: 700;
+  background: var(--primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 0 0;
+}
+
+.ficDesignation {
+  font-size: 16px;
+  color: #FF8A00;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+
+.ficVision {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  font-weight: 400;
+  padding: 30 70 0 0;
+}
+
+/* Responsive Styles for FIC */
+@media (max-width: 768px) {
+  .ficContainer {
+    flex-direction: column;
+    text-align: center;
+    gap: 25px;
+    padding: 30px;
+  }
+
+  .ficImage img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .ficName {
+    font-size: 22px;
+  }
+
+  .ficDesignation {
+    font-size: 14px;
+  }
+
+  .ficVision {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fic {
+    padding: 20px 15px;
+  }
+
+  .ficContainer {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .ficImage img {
+    width: 130px;
+    height: 130px;
+  }
+
+  .ficName {
+    font-size: 18px;
+  }
+
+  .ficDesignation {
+    font-size: 12px;
+  }
+
+  .ficVision {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+}
 
 /* Responsive styles */
 
