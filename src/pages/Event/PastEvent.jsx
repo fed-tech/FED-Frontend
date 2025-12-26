@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import style from "./styles/PastEvent.module.scss";
-import { ChatBot } from "../../features";
 import { EventCard } from "../../components";
 import { api } from "../../services";
 import FormData from "../../data/FormData.json";
@@ -32,7 +31,7 @@ const PastEvent = () => {
             message: "Sorry for the inconvenience, we are having issues fetching our Events",
           });
           console.error("Error fetching events:", response.data.message);
-  
+
           const sortedPastEvents = events
             .filter((event) => event.info.isEventPast)
             .sort((a, b) => new Date(b.info.eventDate) - new Date(a.info.eventDate));
@@ -71,7 +70,6 @@ const PastEvent = () => {
 
   return (
     <>
-      <ChatBot />
       <div className={style.main}>
         <Link to={"/Events"}>
           <div className={style.ArrowBackIcon}>
@@ -104,18 +102,18 @@ const PastEvent = () => {
                   <div className={style.cardone}>
                     {pastEvents.map((event, index) => (
                       event.info.isPublic ? (
-                      <div
-                        style={{ height: "auto", width: "22rem" }}
-                        key={index}
-                      >
-                        <EventCard
-                          data={event}
-                          type="past"
-                          customStyles={customStyles}
-                          modalpath="/pastEvents/"
-                          aosDisable={false}
-                        />
-                      </div>
+                        <div
+                          style={{ height: "auto", width: "22rem" }}
+                          key={index}
+                        >
+                          <EventCard
+                            data={event}
+                            type="past"
+                            customStyles={customStyles}
+                            modalpath="/pastEvents/"
+                            aosDisable={false}
+                          />
+                        </div>
                       ) : null
                     ))}
                   </div>

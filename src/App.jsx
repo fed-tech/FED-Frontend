@@ -16,6 +16,10 @@ import FullBlog from "./pages/Blog/FullBlog";
 // state
 import AuthContext from "./context/AuthContext";
 import EventStats from "./features/Modals/Event/EventStats/EventStats";
+
+// Chatbot
+import Chatbot from "./components/Chatbot/Chatbot";
+
 import {
   EventsView,
   NewForm,
@@ -97,8 +101,12 @@ const AuthLayout = () => (
 function App() {
   const authCtx = useContext(AuthContext);
   console.log(authCtx.user.access);
+
   return (
     <div>
+      {/* Global Chatbot Component */}
+      <Chatbot />
+
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route element={<MainLayout />}>
@@ -138,8 +146,8 @@ function App() {
 
                 {(authCtx.user.access === "ADMIN" ||
                   authCtx.user.access === "SENIOR_EXECUTIVE_CREATIVE") && (
-                  <Route path="BlogForm" element={<BlogForm />} />
-                )}
+                    <Route path="BlogForm" element={<BlogForm />} />
+                  )}
                 {/* Certificates Route */}
 
                 {authCtx.user.access === "ADMIN" && (

@@ -4,7 +4,6 @@ import { api } from "../../services";
 import style from "./styles/Event.module.scss";
 import AuthContext from "../../context/AuthContext";
 import { EventCard } from "../../components";
-import { ChatBot } from "../../features";
 import FormData from "../../data/FormData.json";
 import ring from "../../assets/images/ring.svg";
 import { MdKeyboardArrowRight } from "react-icons/md";
@@ -184,13 +183,12 @@ const Event = () => {
 
   // Slice the public pastEvents array to show only the first 4 events
   const displayedPastEvents = pastEvents
-  .filter((event)=>event.info.isPublic)
-  .slice(0, 4);
+    .filter((event) => event.info.isPublic)
+    .slice(0, 4);
 
   return (
     <>
-      <ChatBot />
-      
+
       {isOpen && (
         <ShareTeamData onClose={handleShare} teamData={teamCodeAndName} successMessage={successMessage} />
       )}
@@ -225,7 +223,7 @@ const Event = () => {
               )}
 
               <div className={style.eventwhole}>
-                
+
                 <>
                   {ongoingEvents.length > 0 && (
                     <div className={style.eventcard}>
@@ -235,15 +233,15 @@ const Event = () => {
                           style={{ marginBottom: "-1rem" }}
                         >
                           <img className={style.ring1} src={ring} alt="ring" />
-                          
+
                           <span className={style.w1}>Ongoing</span>
                           <span className={style.w2}>Events</span><br />
-                          
+
                         </div>
                       ) : (
                         <div> </div>
                       )}
-                      {!isRegisteredInRelatedEvents && parentEventCount==0 &&
+                      {!isRegisteredInRelatedEvents && parentEventCount == 0 &&
                         authCtx.isLoggedIn &&
                         authCtx.user.access === "USER" && (
                           <div className={style.notify}>

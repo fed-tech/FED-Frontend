@@ -5,10 +5,9 @@ import { motion } from "framer-motion";
 import { Element } from "react-scroll";
 import { useInView } from "react-intersection-observer";
 import styles from "./styles/Pixel_AI_Hack.module.scss";
-import Hero from "../../../sections/LiveEvents/Pixel_AI_Hack/Hero/Hero.jsx"; 
+import Hero from "../../../sections/LiveEvents/Pixel_AI_Hack/Hero/Hero.jsx";
 import Sponsor from "../../../sections/LiveEvents/Pixel_AI_Hack/Sponsor/Sponsor.jsx";
 import Attend from "../../../sections/LiveEvents/Pixel_AI_Hack/Attend/Attend.jsx";
-import ChatBot from "../../../features/ChatBot/ChatBot.jsx";
 import Accordion from "../../../components/LiveEvents/Accordian/Accordian.jsx";
 import Faqs from "../../../sections/LiveEvents/Pixel_AI_Hack/Faqs/Faqs.jsx";
 import LiveInsights from "../../../sections/LiveEvents/Pixel_AI_Hack/LiveInsights/LiveInsights.jsx";
@@ -120,7 +119,7 @@ function Pixel_AI_Hack() {
         eventName={eventName}
       />
       <Sponsor />
-      <LiveInsights 
+      <LiveInsights
         ongoingEvents={ongoingEvents}
         isRegisteredInRelatedEvents={isRegisteredInRelatedEvents}
         eventName={eventName}
@@ -128,10 +127,6 @@ function Pixel_AI_Hack() {
       <Attend />
       <Faqs />
       <TeamPage />
-      <div>
-        <ChatBot />
-        
-      </div>
     </div>
   );
 }

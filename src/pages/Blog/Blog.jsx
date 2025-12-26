@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 import styles from "./styles/Blog.module.scss";
-import { ChatBot } from "../../features";
 import { api } from "../../services";
 import { ComponentLoading } from "../../microInteraction";
 import BlogCard from "../../components/BlogCard/BlogCard";
@@ -91,7 +90,7 @@ const Blog = () => {
                   ? JSON.parse(blog.author)
                   : blog.author;
               if (authorObj.department) uniqueDepts.add(authorObj.department);
-            } catch {}
+            } catch { }
           });
           setDepartments(["All", ...Array.from(uniqueDepts)]);
         } else {
@@ -151,7 +150,7 @@ const Blog = () => {
             ? JSON.parse(blog.author)
             : blog.author;
         authorName = authorObj?.name || "";
-      } catch {}
+      } catch { }
       const authorMatch = authorName
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
@@ -199,9 +198,8 @@ const Blog = () => {
                 {departments.map((dept, i) => (
                   <li
                     key={i}
-                    className={`${styles.dropdownItem} ${
-                      selectedDepartment === dept ? styles.activeItem : ""
-                    }`}
+                    className={`${styles.dropdownItem} ${selectedDepartment === dept ? styles.activeItem : ""
+                      }`}
                     onClick={() => {
                       setSelectedDepartment(dept);
                       setShowFilter(false);
@@ -223,9 +221,8 @@ const Blog = () => {
           <>
             {filteredBlogs.length > 0 ? (
               <div
-                className={`${styles.featuredGrid} ${
-                  searchQuery !== "" || showAllBlogs ? styles.searchGrid : ""
-                }`}
+                className={`${styles.featuredGrid} ${searchQuery !== "" || showAllBlogs ? styles.searchGrid : ""
+                  }`}
               >
                 {filteredBlogs.map((blog) => (
                   <div key={blog.id} className={styles.featuredCard}>
@@ -319,8 +316,6 @@ const Blog = () => {
           </>
         )}
       </div>
-
-      <ChatBot />
     </div>
   );
 };

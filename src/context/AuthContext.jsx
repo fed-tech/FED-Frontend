@@ -14,7 +14,7 @@ const AuthContext = React.createContext({
     college: "",
     contactNo: "",
     year: "",
-    extra:{
+    extra: {
       github: "",
       linkedin: "",
       designation: "",
@@ -27,10 +27,10 @@ const AuthContext = React.createContext({
   },
   target: null,
   isAdmin: false,
-  login: async (token) => {},
-  logout: () => {},
-  settarget: () => {},
-  update: () => {},
+  login: async (token) => { },
+  logout: () => { },
+  settarget: () => { },
+  update: () => { },
   eventData: null,
   memberData: null,
   croppedImageFile: null,
@@ -86,7 +86,19 @@ export const AuthContextProvider = (props) => {
     setTarget(t);
   };
 
-  const logoutHandler = useCallback(() => {
+  const logoutHandler = useCallback(async () => {
+    // Call backend to clear auth cookie
+    try {
+      const baseURL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      await fetch(`${baseURL}/api/auth/logout`, {
+        method: 'POST',
+        credentials: 'include'  // Important: send cookies with request
+      });
+    } catch (error) {
+      console.error('Logout API error:', error);
+    }
+
+    // Clear local state
     setToken(null);
     setUserIsLoggedIn(false);
     localStorage.removeItem("token");
@@ -127,9 +139,9 @@ export const AuthContextProvider = (props) => {
       college: college,
       contactNo: contactNo,
       year: year,
-      extra:{
+      extra: {
         github: github,
-        linkedin:linkedin,
+        linkedin: linkedin,
         designation: designation,
       },
       access: access,
@@ -181,9 +193,9 @@ export const AuthContextProvider = (props) => {
       college: college,
       contactNo: contactNo,
       year: year,
-      extra:{
+      extra: {
         github: github,
-        linkedin:linkedin,
+        linkedin: linkedin,
         designation: designation,
       },
       access: access,
