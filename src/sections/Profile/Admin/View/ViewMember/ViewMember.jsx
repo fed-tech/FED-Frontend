@@ -160,8 +160,16 @@ function ViewMember() {
           .replace(/_/g, " ") // Replace all underscores with spaces
           .toLowerCase();
   
-        // Compare with memberActivePage in lowercase
-        return accessCategory === memberActivePage.toLowerCase();
+        // Convert department name to match format (e.g., "operations" -> "operations")
+        const activeDepartment = memberActivePage.toLowerCase();
+        
+        // Check for exact match (e.g., "operations" === "operations")
+        // OR match senior executive (e.g., "senior executive operations" ends with "operations")
+        const seniorExecutivePrefix = "senior executive ";
+        const isSeniorExecutive = accessCategory.startsWith(seniorExecutivePrefix) && 
+          accessCategory.substring(seniorExecutivePrefix.length) === activeDepartment;
+        
+        return accessCategory === activeDepartment || isSeniorExecutive;
       });
     }
 
