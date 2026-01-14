@@ -81,6 +81,7 @@ const Chatbot = () => {
         '[NAV:/Blog]': '/Blog',
         '[NAV:/Blogs]': '/Blog', // Handle both for backwards compatibility
         '[NAV:/pastEvents]': '/pastEvents',
+        '[NAV:/alumni]': '/Alumni',
     };
 
     // Auto-scroll to bottom
