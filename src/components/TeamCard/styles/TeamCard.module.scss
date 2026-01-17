@@ -15,10 +15,11 @@
 
 
 .teamMemberImg {
-  width: fit-content;
   border-radius: 10px 10px 0 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .ImgDiv{
@@ -27,6 +28,9 @@
   background-color: #aeaeae;
   border-radius: 10px 10px 0 0;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .ImgDiv span{
   margin-left: 0;
