@@ -1,11 +1,11 @@
-import { Suspense, lazy, useContext, useEffect } from "react";
+import { Suspense, lazy, useContext, useEffect, useRef } from "react";
 import { Routes, Route, Outlet, Navigate, useLocation } from "react-router-dom";
 
 // layouts
 import { Footer, Navbar, ProfileLayout } from "./layouts";
 
 // microInteraction
-import { Loading } from "./microInteraction";
+import { Loading, Alert } from "./microInteraction";
 
 // modals
 import { EventModal } from "./features";
@@ -19,6 +19,12 @@ import EventStats from "./features/Modals/Event/EventStats/EventStats";
 
 // Chatbot
 import Chatbot from "./components/Chatbot/Chatbot";
+
+// services
+import { api } from "./services";
+
+// Fox Mascot - DISABLED (react-three version incompatibility)
+// import FoxMascot from "./components/FoxMascot";
 
 import {
   EventsView,
@@ -64,6 +70,7 @@ const OTPInput = lazy(() =>
   import("./authentication/Login/ForgotPassword/OTPInput")
 );
 const AttendancePage = lazy(() => import('./pages/AttendancePage/AttendancePage'));
+const TeamManagement = lazy(() => import('./pages/TeamManagement/TeamManagement'));
 
 const MainLayout = () => {
   const location = useLocation();
@@ -102,10 +109,69 @@ function App() {
   const authCtx = useContext(AuthContext);
   console.log(authCtx.user.access);
 
+  // [v2] Check for unseen join request updates globally on login
+  const hasCheckedUpdates = useRef(false);
+  useEffect(() => {
+    if (!authCtx.isLoggedIn || hasCheckedUpdates.current) return;
+    hasCheckedUpdates.current = true;
+
+    const checkGlobalUpdates = async () => {
+      try {
+        const response = await api.get("/api/form/allJoinRequestUpdates");
+        const updates = response.data?.data?.updates;
+        if (!updates || updates.length === 0) return;
+
+        // Small delay so the page renders first
+        setTimeout(() => {
+          for (const update of updates) {
+            const teamLabel = update.teamName ? `"${update.teamName}"` : "a team";
+            switch (update.status) {
+              case "ACCEPTED":
+                Alert({
+                  type: "success",
+                  message: `🎉 Your request to join ${teamLabel} was accepted!`,
+                  position: "top-right",
+                  duration: 5000,
+                });
+                break;
+              case "REJECTED":
+                Alert({
+                  type: "error",
+                  message: `Your request to join ${teamLabel} was declined by the team leader.`,
+                  position: "top-right",
+                  duration: 6000,
+                });
+                break;
+              case "AUTO_EXPIRED":
+              case "EXPIRED":
+                Alert({
+                  type: "info",
+                  message: `Your request to join ${teamLabel} has expired.`,
+                  position: "top-right",
+                  duration: 4000,
+                });
+                break;
+              default:
+                break;
+            }
+          }
+        }, 1500);
+      } catch (err) {
+        // Silent — don't break app startup
+        console.error("Error checking global join request updates:", err);
+      }
+    };
+
+    checkGlobalUpdates();
+  }, [authCtx.isLoggedIn]);
+
   return (
     <div>
       {/* Global Chatbot Component */}
       <Chatbot />
+
+      {/* Fox Mascot Animation - DISABLED */}
+      {/* <FoxMascot /> */}
 
       <Suspense fallback={<Loading />}>
         <Routes>
@@ -215,6 +281,13 @@ function App() {
               path="/Events/:eventId/Form"
               element={[<Event />, <EventForm />]}
             />
+
+            {authCtx.isLoggedIn && (
+              <Route
+                path="/Events/:eventId/team/:formId"
+                element={<TeamManagement />}
+              />
+            )}
 
             <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
             <Route

@@ -35,6 +35,7 @@ const PreviewForm = ({
   meta = [],
   handleClose,
   showCloseBtn,
+  teamCode, // [v2] invite link team code
 }) => {
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
@@ -166,7 +167,33 @@ const PreviewForm = ({
       const participationType = eventData?.participationType;
       const successMessage = eventData?.successMessage;
       console.log(participationType);
-      const handleAutoClose = () => {
+      const handleAutoClose = async () => {
+        // [v2] If teamCode is present (invite link), auto-join the team after registration
+        if (teamCode && participationType === "Team") {
+          try {
+            const joinResponse = await api.post("/api/form/joinTeam", {
+              formId: form.id,
+              teamCode: teamCode,
+            });
+            if (joinResponse.data?.success) {
+              Alert({
+                type: "success",
+                message: joinResponse.data.message || `Joined team successfully!`,
+                position: "bottom-right",
+                duration: 3000,
+              });
+              const eventId = joinResponse.data.data?.eventId || form.id;
+              setTimeout(() => {
+                navigate(`/Events/${eventId}/team/${form.id}`, { replace: true });
+              }, 1000);
+              return;
+            }
+          } catch (joinErr) {
+            console.error("Auto-join failed:", joinErr);
+            // Fall through to normal flow if join fails
+          }
+        }
+
         setTimeout(() => {
           if (participationType === "Team") {
             setTeamCode(code);
@@ -485,103 +512,103 @@ const PreviewForm = ({
   };
 
   const renderPaymentScreen = () => {
-  const { eventType, receiverDetails, eventAmount } = formData;
+    const { eventType, receiverDetails, eventAmount } = formData;
 
-  const handleDownloadQR = async () => {
-    try {
-      let imageUrl =
-        typeof receiverDetails.media === "string"
-          ? receiverDetails.media
-          : URL.createObjectURL(receiverDetails.media);
+    const handleDownloadQR = async () => {
+      try {
+        let imageUrl =
+          typeof receiverDetails.media === "string"
+            ? receiverDetails.media
+            : URL.createObjectURL(receiverDetails.media);
 
-      let blobUrl = imageUrl;
+        let blobUrl = imageUrl;
 
-      if (typeof receiverDetails.media === "string") {
-        const response = await fetch(imageUrl);
-        const blob = await response.blob();
-        blobUrl = URL.createObjectURL(blob);
+        if (typeof receiverDetails.media === "string") {
+          const response = await fetch(imageUrl);
+          const blob = await response.blob();
+          blobUrl = URL.createObjectURL(blob);
+        }
+
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = "qr-code.png";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        if (typeof receiverDetails.media !== "string") {
+          URL.revokeObjectURL(blobUrl);
+        }
+      } catch (error) {
+        console.error("Error downloading QR code:", error);
+        alert("Failed to download QR code.");
       }
+    };
 
-      const link = document.createElement("a");
-      link.href = blobUrl;
-      link.download = "qr-code.png";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      if (typeof receiverDetails.media !== "string") {
-        URL.revokeObjectURL(blobUrl);
+    const handleCopyUPIID = () => {
+      if (receiverDetails.upi) {
+        navigator.clipboard.writeText(receiverDetails.upi)
+          .then(() => {
+            alert("UPI ID copied to clipboard!");
+          })
+          .catch(() => {
+            alert("Failed to copy UPI ID.");
+          });
       }
-    } catch (error) {
-      console.error("Error downloading QR code:", error);
-      alert("Failed to download QR code.");
-    }
-  };
+    };
 
-  const handleCopyUPIID = () => {
-    if (receiverDetails.upi) {
-      navigator.clipboard.writeText(receiverDetails.upi)
-        .then(() => {
-          alert("UPI ID copied to clipboard!");
-        })
-        .catch(() => {
-          alert("Failed to copy UPI ID.");
-        });
-    }
-  };
-
-  if (eventType === "Paid" && currentSection.name === "Payment Details") {
-    return (
-      <div
-        style={{
-          margin: "8px auto",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {receiverDetails.media && (
-          <img
-            src={
-              typeof receiverDetails.media === "string"
-                ? receiverDetails.media
-                : URL.createObjectURL(receiverDetails.media)
-            }
-            alt={"QR-Code"}
-            style={{
-              width: 200,
-              height: 200,
-              objectFit: "contain",
-            }}
-          />
-        )}
-
-        {/* ✅ Download & Copy Buttons */}
-        <div style={{ display: "flex", gap: "10px", marginTop: 10 }}>
-          <Button onClick={handleDownloadQR}>Download QR</Button>
-          <Button onClick={handleCopyUPIID}>Copy UPI ID</Button>
-        </div>
-
-        <p
+    if (eventType === "Paid" && currentSection.name === "Payment Details") {
+      return (
+        <div
           style={{
-            fontSize: 12,
-            marginTop: 12,
-            color: "lightgray",
-            textAlign: "center",
+            margin: "8px auto",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          Make the payment of{" "}
-          <strong style={{ color: "#fff" }}>&#8377;{eventAmount}</strong>{" "}
-          using QR-Code or Pay using UPI ID:{" "}
-          <strong style={{ color: "#fff" }}>{receiverDetails.upi} (No Refund Policy)</strong>
-        </p>
-      </div>
-    );
-  }
+          {receiverDetails.media && (
+            <img
+              src={
+                typeof receiverDetails.media === "string"
+                  ? receiverDetails.media
+                  : URL.createObjectURL(receiverDetails.media)
+              }
+              alt={"QR-Code"}
+              style={{
+                width: 200,
+                height: 200,
+                objectFit: "contain",
+              }}
+            />
+          )}
 
-  return null;
-};
+          {/* ✅ Download & Copy Buttons */}
+          <div style={{ display: "flex", gap: "10px", marginTop: 10 }}>
+            <Button onClick={handleDownloadQR}>Download QR</Button>
+            <Button onClick={handleCopyUPIID}>Copy UPI ID</Button>
+          </div>
+
+          <p
+            style={{
+              fontSize: 12,
+              marginTop: 12,
+              color: "lightgray",
+              textAlign: "center",
+            }}
+          >
+            Make the payment of{" "}
+            <strong style={{ color: "#fff" }}>&#8377;{eventAmount}</strong>{" "}
+            using QR-Code or Pay using UPI ID:{" "}
+            <strong style={{ color: "#fff" }}>{receiverDetails.upi} (No Refund Policy)</strong>
+          </p>
+        </div>
+      );
+    }
+
+    return null;
+  };
 
 
   return (

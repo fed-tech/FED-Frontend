@@ -11,7 +11,7 @@ import { PiClockCountdownDuotone } from "react-icons/pi";
 import { IoIosLock, IoIosStats } from "react-icons/io";
 import { MdGroups } from "react-icons/md";
 
-import { FaUser, FaRupeeSign,FaEye} from "react-icons/fa";
+import { FaUser, FaRupeeSign, FaEye } from "react-icons/fa";
 import { QrCode } from "lucide-react";
 import { parse, differenceInMilliseconds, formatDistanceToNow } from "date-fns";
 import { Button } from "../Core";
@@ -19,7 +19,7 @@ import AuthContext from "../../context/AuthContext";
 import EventCardSkeleton from "../../layouts/Skeleton/EventCard/EventCardSkeleton";
 import { Blurhash } from "react-blurhash";
 import { Alert, MicroLoading } from "../../microInteraction";
-import { TeamDetailsModal } from "../../features/Modals";
+
 // import useUnixTimestamp from "../../utils/hooks/useUnixTimeStamp";
 
 const EventCard = (props) => {
@@ -56,7 +56,7 @@ const EventCard = (props) => {
   const [navigatePath, setNavigatePath] = useState("/");
   const [isLocked, setIsLocked] = useState(false);
   const [alert, setAlert] = useState(null);
-  const [isTeamDetailsOpen, setIsTeamDetailsOpen] = useState(false);
+
 
   useEffect(() => {
     if (shouldNavigate) {
@@ -369,7 +369,7 @@ const EventCard = (props) => {
         onMouseLeave={() => setisHovered(false)}
         className={style.card}
         style={customStyles.card}
-        // data-aos={aosDisable ? "" : "fade-up"}
+      // data-aos={aosDisable ? "" : "fade-up"}
       >
         <div
           className={style.backimg}
@@ -486,16 +486,16 @@ const EventCard = (props) => {
           {type === "ongoing" && showRegisterButton && (
             <div
               style={{ fontSize: ".9rem", color: "white" }}
-              // onMouseEnter={() => {
-              //   if (
-              //     btnTxt === "Locked" &&
-              //     authCtx.isLoggedIn &&
-              //     authCtx.user.access === "USER"
-              //   ) {
-              //   }
-              // }}
+            // onMouseEnter={() => {
+            //   if (
+            //     btnTxt === "Locked" &&
+            //     authCtx.isLoggedIn &&
+            //     authCtx.user.access === "USER"
+            //   ) {
+            //   }
+            // }}
             >
-              
+
               <button
                 className={style.registerbtn}
                 style={{
@@ -503,37 +503,40 @@ const EventCard = (props) => {
                   cursor: btnTxt === "Register Now" ? "pointer" : "not-allowed",
                 }}
                 onClick={handleForm}
-                // disabled={
-                //   btnTxt === "Closed" ||
-                //   btnTxt === "Locked" ||
-                //   btnTxt === "Already Registered" ||
-                //   btnTxt === "Already Member" ||
-                //   btnTxt === `${remainingTime}`
-                // }
+              // disabled={
+              //   btnTxt === "Closed" ||
+              //   btnTxt === "Locked" ||
+              //   btnTxt === "Already Registered" ||
+              //   btnTxt === "Already Member" ||
+              //   btnTxt === `${remainingTime}`
+              // }
               >
                 {btnTxt === "Closed" ? (
-  <>
-    <div style={{ fontSize: "0.9rem" }}>Closed</div>
-    <IoIosLock
-      alt=""
-      style={{ marginLeft: "0px", fontSize: "1rem" }}
-    />
-  </>
-) : btnTxt === "Already Registered" ? (
-  info.participationType === "Team" ? ( // Show Team Details only for team events
-    <>
-      <div
-        style={{ fontSize: "0.9rem", cursor: "pointer" }}
-        onClick={() => setIsTeamDetailsOpen(true)}
-      >
-        Team Details
-      </div>
-    </>
-  ) : (
-    <>
-      <div style={{ fontSize: "0.9rem" }}>Registered</div>
-    </>
-  )
+                  <>
+                    <div style={{ fontSize: "0.9rem" }}>Closed</div>
+                    <IoIosLock
+                      alt=""
+                      style={{ marginLeft: "0px", fontSize: "1rem" }}
+                    />
+                  </>
+                ) : btnTxt === "Already Registered" ? (
+                  info.participationType === "Team" ? ( // Navigate to Team Management page
+                    <>
+                      <div
+                        style={{ fontSize: "0.9rem", cursor: "pointer" }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/Events/${data.id}/team/${data.id}`);
+                        }}
+                      >
+                        Team Details
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div style={{ fontSize: "0.9rem" }}>Registered</div>
+                    </>
+                  )
 
 
                 ) : btnTxt === "Locked" ? (
@@ -567,7 +570,7 @@ const EventCard = (props) => {
               </button>
             </div>
           )}
-          
+
 
         </div>
         <div className={style.backtxt} style={customStyles.backtxt}>
@@ -641,15 +644,9 @@ const EventCard = (props) => {
           />
         </div>
       )}
-      
-      {/* Team Details Modal */}
-      <TeamDetailsModal
-        isOpen={isTeamDetailsOpen}
-        onClose={() => setIsTeamDetailsOpen(false)}
-        formId={data.id}
-        eventTitle={info.eventTitle}
-      />
-      
+
+
+
       <Alert />
     </div>
   );
