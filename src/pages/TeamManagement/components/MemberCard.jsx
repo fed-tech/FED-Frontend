@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "../styles/TeamManagement.module.scss";
-import { FaCrown } from "react-icons/fa";
+import { FaCrown, FaTrash } from "react-icons/fa";
 
-const MemberCard = ({ member, isLeader, isCurrentUser }) => {
+const MemberCard = ({ member, isCurrentUserLeader, isCardLeader, isCurrentUser, onRemove, isRegistrationOpen }) => {
     // Generate initials for avatar fallback
     const initials = member.name
         ? member.name
@@ -23,7 +23,7 @@ const MemberCard = ({ member, isLeader, isCurrentUser }) => {
                 ) : (
                     <div className={styles.avatarFallback}>{initials}</div>
                 )}
-                {isLeader && (
+                {isCardLeader && (
                     <span className={styles.leaderBadge} title="Team Leader">
                         <FaCrown />
                     </span>
@@ -42,6 +42,16 @@ const MemberCard = ({ member, isLeader, isCurrentUser }) => {
                     </span>
                 )}
             </div>
+
+            {isCurrentUserLeader && !isCurrentUser && isRegistrationOpen && onRemove && (
+                <button
+                    className={styles.removeMemberButton}
+                    onClick={() => onRemove(member.email, member.name)}
+                    title="Remove member"
+                >
+                    <FaTrash />
+                </button>
+            )}
         </div>
     );
 };

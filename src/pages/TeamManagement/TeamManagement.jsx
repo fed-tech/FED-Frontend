@@ -177,6 +177,29 @@ const TeamManagement = () => {
         });
     };
 
+    // Remove member
+    const handleRemoveMember = (memberEmail, memberName) => {
+        setConfirmDialog({
+            isOpen: true,
+            title: "Remove Team Member",
+            message: `Remove ${memberName} from the team?`,
+            confirmText: "Remove Member",
+            onConfirm: async () => {
+                try {
+                    const response = await api.post("/api/form/removeTeamMember", { formId, memberEmail });
+                    if (response.data?.success) {
+                        Alert({ type: "success", message: response.data.message, position: "top-right" });
+                        fetchTeamDetails();
+                    }
+                } catch (err) {
+                    const msg = err.response?.data?.message || "Failed to remove member";
+                    Alert({ type: "error", message: msg, position: "top-right" });
+                }
+                setConfirmDialog((prev) => ({ ...prev, isOpen: false }));
+            },
+        });
+    };
+
     // Invite email
     const handleInviteEmail = async (inviteeEmail) => {
         try {
@@ -354,8 +377,11 @@ const TeamManagement = () => {
                         <MemberCard
                             key={member.email}
                             member={member}
-                            isLeader={member.email === teamData.leaderEmail}
+                            isCurrentUserLeader={isLeader} // Use derived isLeader for the current user to show remove buttons
+                            isCardLeader={member.email === teamData.leaderEmail} // To show the crown badge
                             isCurrentUser={member.email === authCtx.user?.email}
+                            onRemove={handleRemoveMember}
+                            isRegistrationOpen={isRegistrationOpen}
                         />
                     ))}
                 </div>
