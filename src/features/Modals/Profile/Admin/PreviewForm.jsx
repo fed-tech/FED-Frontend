@@ -184,7 +184,7 @@ const PreviewForm = ({
               });
               const eventId = joinResponse.data.data?.eventId || form.id;
               setTimeout(() => {
-                navigate(`/Events/${eventId}/team/${form.id}`, { replace: true });
+                navigate(`/Events/${form.id}/team`, { replace: true });
               }, 1000);
               return;
             }

@@ -44,9 +44,7 @@ const EventForm = () => {
           position: "bottom-right",
           duration: 3000,
         });
-        // Navigate to team management page
-        const eventId = response.data.data?.eventId || formId;
-        navigate(`/Events/${eventId}/team/${formId}`, { replace: true });
+        navigate(`/Events/${formId}/team`, { replace: true });
         return true;
       }
     } catch (err) {
@@ -58,7 +56,7 @@ const EventForm = () => {
         duration: 3000,
       });
       // If already on another team or error, redirect to team management
-      navigate(`/Events/${formId}/team/${formId}`, { replace: true });
+      navigate(`/Events/${formId}/team`, { replace: true });
       return false;
     }
   }, [navigate]);

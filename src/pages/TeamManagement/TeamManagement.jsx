@@ -13,7 +13,7 @@ import { IoArrowBack, IoCopyOutline, IoCheckmark } from "react-icons/io5";
 import { FiEdit2, FiCheck, FiX } from "react-icons/fi";
 
 const TeamManagement = () => {
-    const { eventId, formId } = useParams();
+    const { eventId: formId } = useParams();
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const authCtx = useContext(AuthContext);

@@ -526,8 +526,7 @@ const EventCard = (props) => {
                         style={{ fontSize: "0.9rem", cursor: "pointer" }}
                         onClick={(e) => {
                           e.stopPropagation();
-                          const eventId = data.info.relatedEvent !== "null" ? data.info.relatedEvent : data.id;
-                          navigate(`/Events/${eventId}/team/${data.id}`);
+                          navigate(`/Events/${data.id}/team`);
                         }}
                       >
                         Team Details

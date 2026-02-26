@@ -284,7 +284,7 @@ function App() {
 
             {authCtx.isLoggedIn && (
               <Route
-                path="/Events/:eventId/team/:formId"
+                path="/Events/:eventId/team"
                 element={<TeamManagement />}
               />
             )}
