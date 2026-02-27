@@ -11,9 +11,15 @@ const Button = ({
   ...rest
 }) => {
   const combinedStyle = {
-    color: variant === "primary" ? "#FF8A00" : "#fff",
-    backgroundColor: variant === "primary" ? "#2D2D2D" : "transparent",
-    borderColor: variant === "primary" ? "#2D2D2D" : "#fff",
+    color: "#fff",
+    background:
+      variant === "primary"
+        ? "linear-gradient(135deg, #FF8A00 0%, #d03e21 100%)"
+        : "transparent",
+    border:
+      variant === "primary"
+        ? "none"
+        : "1px solid rgba(255, 255, 255, 0.3)",
     opacity: disabled || isLoading ? 0.5 : 1,
     cursor: disabled || isLoading ? "not-allowed" : "pointer",
     ...style,

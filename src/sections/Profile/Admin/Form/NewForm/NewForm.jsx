@@ -33,6 +33,17 @@ const TEAM_SIZE = [
   { label: "7", value: "7" },
 ];
 
+const DOMAINS = [
+  "Technical",
+  "Marketing",
+  "Creative",
+  "PR&Finance",
+  "Operations",
+  "Podcasting",
+  "Microstartups",
+  "Other",
+];
+
 function NewForm() {
   const scrollRef = useRef(null);
   const [isVisibility, setisVisibility] = useState(false);
@@ -62,7 +73,7 @@ function NewForm() {
     successMessage: "",
     isPublic: false,
     isRegistrationClosed: false,
-    isEventPast: true,
+    isEventPast: false,
 
     // eventName:"",
     // logoLink: "",
@@ -124,6 +135,9 @@ function NewForm() {
   ]);
   const [paymentSection, setpaymentSection] = useState(null);
   const [showPreview, setshowPreview] = useState(false);
+  const [domainMode, setDomainMode] = useState(false);
+  const [selectedDomains, setSelectedDomains] = useState([]);
+  const [showDomainModal, setShowDomainModal] = useState(false);
 
   useEffect(() => {
     if (authCtx.eventData) {
@@ -133,8 +147,18 @@ function NewForm() {
         isRegistrationClosed: authCtx.eventData?.info.isRegistrationClosed,
         isEventPast: authCtx.eventData?.info.isEventPast,
       });
-      setsections(authCtx.eventData?.sections);
+      const loadedSections = authCtx.eventData?.sections;
+      setsections(loadedSections);
       setisEditing(true);
+
+      // Detect domain sections and restore domain mode
+      if (loadedSections) {
+        const domainSecs = loadedSections.filter((sec) => sec.isDomainSection);
+        if (domainSecs.length > 0) {
+          setDomainMode(true);
+          setSelectedDomains(domainSecs.map((sec) => sec.domainName));
+        }
+      }
     }
   }, []);
 
@@ -160,9 +184,9 @@ function NewForm() {
         if (["radio", "checkbox", "select"].includes(field.type)) {
           return field.validations && field.validations.length > 0
             ? field.validations.every(
-                (validation) =>
-                  validation.type && validation.value && validation.operator
-              )
+              (validation) =>
+                validation.type && validation.value && validation.operator
+            )
             : true;
         }
         return true;
@@ -531,6 +555,164 @@ function NewForm() {
     }
   };
 
+  const toggleDomainSelection = (domain) => {
+    setSelectedDomains((prev) =>
+      prev.includes(domain)
+        ? prev.filter((d) => d !== domain)
+        : [...prev, domain]
+    );
+  };
+
+  const onAddDomainSections = () => {
+    const allDomains = DOMAINS;
+
+    // Find the last non-domain section (the section where we add the dept field)
+    const baseSectionIndex = sections.findIndex(
+      (sec) => !sec.isDomainSection
+    );
+    const baseSection =
+      baseSectionIndex !== -1
+        ? sections[baseSectionIndex]
+        : sections[sections.length - 1];
+
+    if (!baseSection) {
+      setAlert({
+        type: "error",
+        message: "Please add at least one section first",
+        position: "bottom-right",
+        duration: 3000,
+      });
+      return;
+    }
+
+    // Create the department selector field
+    const deptFieldId = nanoid();
+    const deptField = {
+      _id: deptFieldId,
+      name: "Select Your Department",
+      type: "select",
+      value: allDomains.join(","),
+      isRequired: true,
+      validations: [],
+    };
+
+    // Create one section per domain
+    const domainSections = allDomains.map((domain) => {
+      return {
+        _id: nanoid(),
+        name: `${domain} Questions`,
+        description: `Answer the questions specific to the ${domain} domain`,
+        isDisabled: false,
+        isDomainSection: true,
+        domainName: domain,
+        validations: [
+          {
+            _id: nanoid(),
+            field_id: null,
+            onNext: null,
+            onBack: baseSection._id,
+            values: null,
+          },
+        ],
+        fields: [
+          {
+            _id: nanoid(),
+            name: "",
+            type: "",
+            value: "",
+            isRequired: true,
+            validations: [],
+          },
+        ],
+      };
+    });
+
+    // Build section validations for the base section:
+    // - Default validation (index 0) keeps existing onBack, onNext goes to first domain section
+    // - One validation per domain value routing to its section
+    const baseSectionValidations = [
+      {
+        _id: nanoid(),
+        field_id: null,
+        onNext: domainSections[0]._id,
+        onBack: baseSection.validations[0]?.onBack || null,
+        values: null,
+      },
+      ...allDomains.map((domain, index) => ({
+        _id: nanoid(),
+        field_id: deptFieldId,
+        onNext: domainSections[index]._id,
+        onBack: baseSection.validations[0]?.onBack || null,
+        values: domain,
+      })),
+    ];
+
+    // Update the base section: add dept field + set validations
+    const updatedBaseSection = {
+      ...baseSection,
+      fields: [...baseSection.fields, deptField],
+      validations: baseSectionValidations,
+    };
+
+    // Remove any existing domain sections, then add the new ones
+    const nonDomainSections = sections.filter((sec) => !sec.isDomainSection);
+    const updatedSections = nonDomainSections.map((sec) =>
+      sec._id === baseSection._id ? updatedBaseSection : sec
+    );
+
+    setsections([...updatedSections, ...domainSections]);
+    setDomainMode(true);
+    setSelectedDomains(allDomains);
+
+    setAlert({
+      type: "success",
+      message: `Domain sections created for all ${allDomains.length} domains`,
+      position: "bottom-right",
+      duration: 3000,
+    });
+
+    setTimeout(() => {
+      scrollRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }, 100);
+  };
+
+  const onRemoveDomainSections = () => {
+    const isConfirm = confirm(
+      "Are you sure you want to remove all domain sections? All domain-specific questions will be lost."
+    );
+    if (!isConfirm) return;
+
+    // Remove domain sections
+    const nonDomainSections = sections.filter((sec) => !sec.isDomainSection);
+
+    // Remove the department selector field from the base section
+    const updatedSections = nonDomainSections.map((sec) => {
+      const fieldsWithoutDept = sec.fields.filter(
+        (field) => field.name !== "Select Your Department"
+      );
+      return {
+        ...sec,
+        fields: fieldsWithoutDept,
+        validations: [
+          {
+            _id: nanoid(),
+            field_id: null,
+            onNext: null,
+            onBack: sec.validations[0]?.onBack || null,
+            values: null,
+          },
+        ],
+      };
+    });
+
+    setsections(updatedSections);
+    setDomainMode(false);
+    setSelectedDomains([]);
+  };
+
   // const handleChangeTeamSize = (value) => {
   //   if (value < 1 || !value) {
   //     setdata({ ...data, maxTeamSize: "" });
@@ -855,45 +1037,22 @@ function NewForm() {
   };
 
   return (
-    <div
-      style={{
-        width: "100%",
-        marginLeft: "70px",
-      }}
-    >
+    <div className={styles.formPage}>
       <div className={styles.formHeader}>
         <div className={styles.buttonContainer}>
           <h3 className={styles.headInnerText}>
-            <span>New</span> Form
+            <span>{isEditing ? "Edit" : "New"}</span> Form
           </h3>
         </div>
-        <div
-          style={{
-            display: "flex",
-            gap: "10px",
-          }}
-        >
+        <div className={styles.headerActions}>
           <div
-            style={{
-              marginTop: "auto",
-              marginBottom: "auto",
-              marginRight: "12px",
-            }}
+            className={styles.settingsIcon}
+            onClick={() => setisVisibility(!isVisibility)}
           >
             {isVisibility ? (
-              <IoSettingsSharp
-                size={20}
-                color="#FF8A00"
-                style={{ cursor: "pointer", marginTop: "10px" }}
-                onClick={() => setisVisibility(!isVisibility)}
-              />
+              <IoSettingsSharp size={20} color="#FF8A00" />
             ) : (
-              <IoSettingsOutline
-                size={20}
-                style={{ cursor: "pointer", marginTop: "10px" }}
-                color="#fff"
-                onClick={() => setisVisibility(!isVisibility)}
-              />
+              <IoSettingsOutline size={20} color="#fff" />
             )}
           </div>
 
@@ -912,186 +1071,73 @@ function NewForm() {
         </div>
       </div>
       {isVisibility && (
-        <div
-          style={{
-            backgroundColor: "rgba(128, 127, 126, 0.066)",
-            width: "86%",
-            margin: ".5em 0",
-            padding: "1.6em",
-            borderRadius: "8px",
-            marginBottom: "1em",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <label
-              style={{
-                color: "#fff",
-                margin: "4px 0",
-                fontSize: ".8em",
-                opacity: data.isPublic ? "1" : ".6",
-                transition: "all .4s",
-              }}
-            >
-              Event Form Privacy (
-              <span style={{ color: !data.isPublic ? "#FF8A00" : "white" }}>
-                Private
-              </span>
-              /
-              <span style={{ color: data.isPublic ? "#FF8A00" : "white" }}>
-                Public
-              </span>
-              )
+        <div className={styles.settingsPanel}>
+          <div className={styles.settingsPanelTitle}>Form Settings</div>
+
+          <div className={styles.settingsToggleRow}>
+            <label className={`${styles.toggleLabel} ${data.isPublic ? styles.toggleLabelActive : styles.toggleLabelInactive}`}>
+              Visibility:{" "}
+              <span className={!data.isPublic ? styles.toggleValueActive : styles.toggleValueInactive}>Private</span>
+              {" / "}
+              <span className={data.isPublic ? styles.toggleValueActive : styles.toggleValueInactive}>Public</span>
             </label>
             <Switch
               checked={data.isPublic}
               width={36}
               height={18}
               onColor="#FF8A00"
+              offColor="#3a3a3a"
               checkedIcon={false}
-              placeholder="Mode (Public/Private)"
               uncheckedIcon={false}
               title="Mode (Public/Private)"
-              onChange={() => {
-                setdata({
-                  ...data,
-                  isPublic: !data.isPublic,
-                });
-              }}
+              onChange={() => setdata({ ...data, isPublic: !data.isPublic })}
             />
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              margin: "1em 0",
-            }}
-          >
-            <label
-              style={{
-                color: "#fff",
-                margin: "4px 0",
-                fontSize: ".8em",
-                opacity: data.isRegistrationClosed ? "1" : ".6",
-                transition: "all .4s",
-              }}
-            >
-              Event Form Registration (
-              <span
-                style={{
-                  color: !data.isRegistrationClosed ? "#FF8A00" : "white",
-                }}
-              >
-                Open
-              </span>
-              /
-              <span
-                style={{
-                  color: data.isRegistrationClosed ? "#FF8A00" : "white",
-                }}
-              >
-                Close
-              </span>
-              )
+          <div className={styles.settingsToggleRow}>
+            <label className={`${styles.toggleLabel} ${data.isRegistrationClosed ? styles.toggleLabelActive : styles.toggleLabelInactive}`}>
+              Registration:{" "}
+              <span className={!data.isRegistrationClosed ? styles.toggleValueActive : styles.toggleValueInactive}>Open</span>
+              {" / "}
+              <span className={data.isRegistrationClosed ? styles.toggleValueActive : styles.toggleValueInactive}>Closed</span>
             </label>
             <Switch
               checked={data.isRegistrationClosed}
               width={36}
               height={18}
               onColor="#FF8A00"
+              offColor="#3a3a3a"
               checkedIcon={false}
-              placeholder="Close Event Registration"
               uncheckedIcon={false}
               title="Close Event Registration"
-              onChange={() => {
-                setdata({
-                  ...data,
-                  isRegistrationClosed: !data.isRegistrationClosed,
-                });
-              }}
+              onChange={() => setdata({ ...data, isRegistrationClosed: !data.isRegistrationClosed })}
             />
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <label
-              style={{
-                color: "#fff",
-                margin: "4px 0",
-                fontSize: ".8em",
-                opacity: data.isEventPast ? "1" : ".6",
-                transition: "all .4s",
-              }}
-            >
-              Event Form Status (
-              <span
-                style={{
-                  color: !data.isEventPast ? "#FF8A00" : "white",
-                }}
-              >
-                Ongoing
-              </span>
-              /
-              <span
-                style={{
-                  color: data.isEventPast ? "#FF8A00" : "white",
-                }}
-              >
-                Past
-              </span>
-              )
+          <div className={styles.settingsToggleRow}>
+            <label className={`${styles.toggleLabel} ${!data.isEventPast ? styles.toggleLabelActive : styles.toggleLabelInactive}`}>
+              Status:{" "}
+              <span className={!data.isEventPast ? styles.toggleValueActive : styles.toggleValueInactive}>Ongoing</span>
+              {" / "}
+              <span className={data.isEventPast ? styles.toggleValueActive : styles.toggleValueInactive}>Past</span>
             </label>
             <Switch
               checked={data.isEventPast}
               width={36}
               height={18}
               onColor="#FF8A00"
+              offColor="#3a3a3a"
               checkedIcon={false}
-              placeholder="Event Past/Ongoing"
               uncheckedIcon={false}
               title="Event Past/Ongoing"
-              onChange={() => {
-                setdata({
-                  ...data,
-                  isEventPast: !data.isEventPast,
-                });
-              }}
+              onChange={() => setdata({ ...data, isEventPast: !data.isEventPast })}
             />
           </div>
         </div>
       )}
-      <div
-        style={{
-          height: "90vh",
-          width: "90%",
-          overflow: "hidden scroll",
-          scrollbarWidth: "none",
-          marginBottom: "50px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          <div
-            style={{
-              width: "45%",
-            }}
-          >
+      <div className={styles.contentArea}>
+        <div className={styles.formFieldsRow}>
+          <div className={styles.formFieldsCol}>
             <Input
               placeholder="Enter Event Title or Name"
               label="Event Title"
@@ -1264,11 +1310,7 @@ function NewForm() {
               }}
             />
           </div>
-          <div
-            style={{
-              width: "45%",
-            }}
-          >
+          <div className={styles.formFieldsCol}>
             <Input
               placeholder="Enter Event Description"
               label="Event Description"
@@ -1304,21 +1346,8 @@ function NewForm() {
           </div>
         </div>
         {sections && sections !== undefined ? (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              width: "86%",
-              marginBottom: "12px",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: "14px",
-                margin: "auto 6px",
-                marginRight: "auto",
-              }}
-            >
+          <div className={styles.sectionsHeader}>
+            <Text className={styles.sectionsLabel}>
               Sections
             </Text>
             <Button
@@ -1328,22 +1357,53 @@ function NewForm() {
             >
               Add Section
             </Button>
+            {!domainMode ? (
+              <Button
+                variant="secondary"
+                onClick={onAddDomainSections}
+                style={{
+                  background: "linear-gradient(135deg, #FF8A00, #d03e21)",
+                  color: "#fff",
+                  border: "none",
+                }}
+              >
+                Add Domain Sections
+              </Button>
+            ) : (
+              <Button
+                variant="secondary"
+                onClick={onRemoveDomainSections}
+                style={{
+                  borderColor: "#ff4444",
+                  color: "#ff4444",
+                }}
+              >
+                Remove Domain Sections
+              </Button>
+            )}
           </div>
         ) : null}
 
         {sections && sections !== undefined
           ? sections.map((section) => (
-              <div key={section._id} ref={scrollRef}>
-                <Section
-                  section={section}
-                  sections={sections}
-                  setsections={setsections}
-                  meta={paymentSection ? [paymentSection] : []}
-                  showAddButton={!section.isDisabled}
-                  disabled={section.isDisabled}
-                />
-              </div>
-            ))
+            <div key={section._id} ref={scrollRef}>
+              {section.isDomainSection && (
+                <div className={styles.domainSectionLabel}>
+                  <span className={styles.domainBadge}>
+                    {section.domainName}
+                  </span>
+                </div>
+              )}
+              <Section
+                section={section}
+                sections={sections}
+                setsections={setsections}
+                meta={paymentSection ? [paymentSection] : []}
+                showAddButton={!section.isDisabled}
+                disabled={section.isDisabled}
+              />
+            </div>
+          ))
           : null}
 
         {paymentSection && (

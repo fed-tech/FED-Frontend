@@ -1,68 +1,242 @@
+.formPage {
+  width: 100%;
+  margin-left: 70px;
+}
+
 .formHeader {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1.6em;
-    width: 86%;
-    height: fit-content;
-    align-items: center;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.6em;
+  width: 86%;
+  height: fit-content;
+  align-items: center;
+}
+
 .buttonContainer {
-  font-size: 30px;
+  font-size: 28px;
   letter-spacing: 0.02em;
   line-height: 30px;
   display: flex;
   align-items: center;
+  gap: 12px;
 }
-  
-.headInnerText span{
+
+.headInnerText span {
   margin-right: 3px;
-  background: linear-gradient(to right , #d03e21 40%, #FF8A00 );
+  background: linear-gradient(to right, #d03e21 40%, #FF8A00);
   -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
-  
 }
-  .formInput {
-    width: 90% !important;
-    margin-bottom: 1.4em;
+
+.headerActions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.settingsIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 138, 0, 0.1);
+    transform: rotate(30deg);
   }
-  .formInputTxtArea {
-    width: 90% !important;
-    height: 31vh !important;
+}
+
+// Settings Panel
+.settingsPanel {
+  width: 86%;
+  margin: 0.6em 0;
+  padding: 1.4em 1.6em;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
-  
-  .formFieldContainer {
-    display: flex;
-    flex-direction: column;
-    width: 86%;
-    padding: 1em;
-    border-radius: 8px;
-    border: 0.5px solid transparent;
-    background-color: rgba(128, 127, 126, 0.066);
-    margin-bottom: 1em;
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  .formFieldContainer:hover {
-    border: 0.5px solid #ff88008c;
-    transition: 0.5s ease-in-out;
+}
+
+.settingsPanelTitle {
+  font-size: 0.7em;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 1.2em;
+}
+
+.settingsToggleRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7em 0.8em;
+  border-radius: 10px;
+  margin-bottom: 0.5em;
+  transition: all 0.25s ease;
+
+  &:last-child {
+    margin-bottom: 0;
   }
-  .formFieldContainer:active {
-    border: 0.5px solid #ff88008c;
-    transition: 0.5s ease-in-out;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.03);
   }
-  .mainFieldForm {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: relative;
-    width: 100%;
-    margin-bottom: 8px;
-  }
-  .fieldInput {
-    width: 90% !important;
-  }
-  .containerInput {
-    display: flex;
-    flex-direction: column;
-    width: 30%;
-  }
-  
+}
+
+.toggleLabel {
+  color: #fff;
+  font-size: 0.82em;
+  font-weight: 500;
+  transition: opacity 0.4s ease;
+}
+
+.toggleLabelActive {
+  opacity: 1;
+}
+
+.toggleLabelInactive {
+  opacity: 0.5;
+}
+
+.toggleValueActive {
+  color: #FF8A00;
+  font-weight: 600;
+}
+
+.toggleValueInactive {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+// Content Area
+.contentArea {
+  height: 90vh;
+  width: 90%;
+  overflow: hidden scroll;
+  scrollbar-width: none;
+  margin-bottom: 50px;
+}
+
+.formFieldsRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.formFieldsCol {
+  width: 45%;
+}
+
+.formInput {
+  width: 90% !important;
+  margin-bottom: 1.4em;
+}
+
+.formInputTxtArea {
+  width: 90% !important;
+  height: 31vh !important;
+}
+
+.formFieldContainer {
+  display: flex;
+  flex-direction: column;
+  width: 86%;
+  padding: 1.2em 1.4em;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 3px solid rgba(255, 138, 0, 0.35);
+  background: rgba(255, 255, 255, 0.02);
+  margin-bottom: 1.2em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.formFieldContainer:hover {
+  border-color: rgba(255, 138, 0, 0.2);
+  border-left-color: #FF8A00;
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.mainFieldForm {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.mainFieldForm:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.fieldInput {
+  width: 90% !important;
+}
+
+.containerInput {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+// Sections Area
+.sectionsHeader {
+  display: flex;
+  flex-direction: row;
+  width: 86%;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sectionsLabel {
+  font-size: 14px;
+  margin: auto 6px;
+  margin-right: auto;
+}
+
+// Domain Section Labels
+.domainSectionLabel {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  margin-top: 10px;
+}
+
+.domainBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 16px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(255, 138, 0, 0.15), rgba(208, 62, 33, 0.15));
+  border: 1px solid rgba(255, 138, 0, 0.25);
+  color: #FF8A00;
+  font-size: 0.75em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}

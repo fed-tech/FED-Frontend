@@ -136,6 +136,24 @@ const PreviewForm = ({
       };
     });
 
+    // Collect all section IDs that are targets of matched field validations
+    const enabledTargetIds = new Set();
+    updatedSections.forEach((section) => {
+      const fieldValidations = section?.validations?.filter(
+        (valid) => valid.field_id
+      );
+      if (fieldValidations && fieldValidations.length > 0) {
+        fieldValidations.forEach((valid) => {
+          const isMatch = section.fields.some((fld) => {
+            return fld.onChangeValue === valid.values;
+          });
+          if (isMatch && valid.onNext) {
+            enabledTargetIds.add(valid.onNext);
+          }
+        });
+      }
+    });
+
     const newSections = updatedSections.map((section) => {
       const isHavingFieldValidations = section?.validations?.filter(
         (valid) => valid.field_id
@@ -150,11 +168,15 @@ const PreviewForm = ({
         });
       }
 
+      // A section is enabled if:
+      // 1. It has matched field validations and a next section, OR
+      // 2. It is the target of a matched validation from another section
       const nextSection = getOutboundList(data, section._id)?.nextSection;
+      const isTarget = enabledTargetIds.has(section._id);
 
       return {
         ...section,
-        isDisabled: !(isMatched && nextSection),
+        isDisabled: !(isMatched && nextSection) && !isTarget,
       };
     });
 
@@ -485,103 +507,103 @@ const PreviewForm = ({
   };
 
   const renderPaymentScreen = () => {
-  const { eventType, receiverDetails, eventAmount } = formData;
+    const { eventType, receiverDetails, eventAmount } = formData;
 
-  const handleDownloadQR = async () => {
-    try {
-      let imageUrl =
-        typeof receiverDetails.media === "string"
-          ? receiverDetails.media
-          : URL.createObjectURL(receiverDetails.media);
+    const handleDownloadQR = async () => {
+      try {
+        let imageUrl =
+          typeof receiverDetails.media === "string"
+            ? receiverDetails.media
+            : URL.createObjectURL(receiverDetails.media);
 
-      let blobUrl = imageUrl;
+        let blobUrl = imageUrl;
 
-      if (typeof receiverDetails.media === "string") {
-        const response = await fetch(imageUrl);
-        const blob = await response.blob();
-        blobUrl = URL.createObjectURL(blob);
+        if (typeof receiverDetails.media === "string") {
+          const response = await fetch(imageUrl);
+          const blob = await response.blob();
+          blobUrl = URL.createObjectURL(blob);
+        }
+
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = "qr-code.png";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        if (typeof receiverDetails.media !== "string") {
+          URL.revokeObjectURL(blobUrl);
+        }
+      } catch (error) {
+        console.error("Error downloading QR code:", error);
+        alert("Failed to download QR code.");
       }
+    };
 
-      const link = document.createElement("a");
-      link.href = blobUrl;
-      link.download = "qr-code.png";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      if (typeof receiverDetails.media !== "string") {
-        URL.revokeObjectURL(blobUrl);
+    const handleCopyUPIID = () => {
+      if (receiverDetails.upi) {
+        navigator.clipboard.writeText(receiverDetails.upi)
+          .then(() => {
+            alert("UPI ID copied to clipboard!");
+          })
+          .catch(() => {
+            alert("Failed to copy UPI ID.");
+          });
       }
-    } catch (error) {
-      console.error("Error downloading QR code:", error);
-      alert("Failed to download QR code.");
-    }
-  };
+    };
 
-  const handleCopyUPIID = () => {
-    if (receiverDetails.upi) {
-      navigator.clipboard.writeText(receiverDetails.upi)
-        .then(() => {
-          alert("UPI ID copied to clipboard!");
-        })
-        .catch(() => {
-          alert("Failed to copy UPI ID.");
-        });
-    }
-  };
-
-  if (eventType === "Paid" && currentSection.name === "Payment Details") {
-    return (
-      <div
-        style={{
-          margin: "8px auto",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {receiverDetails.media && (
-          <img
-            src={
-              typeof receiverDetails.media === "string"
-                ? receiverDetails.media
-                : URL.createObjectURL(receiverDetails.media)
-            }
-            alt={"QR-Code"}
-            style={{
-              width: 200,
-              height: 200,
-              objectFit: "contain",
-            }}
-          />
-        )}
-
-        {/* ✅ Download & Copy Buttons */}
-        <div style={{ display: "flex", gap: "10px", marginTop: 10 }}>
-          <Button onClick={handleDownloadQR}>Download QR</Button>
-          <Button onClick={handleCopyUPIID}>Copy UPI ID</Button>
-        </div>
-
-        <p
+    if (eventType === "Paid" && currentSection.name === "Payment Details") {
+      return (
+        <div
           style={{
-            fontSize: 12,
-            marginTop: 12,
-            color: "lightgray",
-            textAlign: "center",
+            margin: "8px auto",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          Make the payment of{" "}
-          <strong style={{ color: "#fff" }}>&#8377;{eventAmount}</strong>{" "}
-          using QR-Code or Pay using UPI ID:{" "}
-          <strong style={{ color: "#fff" }}>{receiverDetails.upi} (No Refund Policy)</strong>
-        </p>
-      </div>
-    );
-  }
+          {receiverDetails.media && (
+            <img
+              src={
+                typeof receiverDetails.media === "string"
+                  ? receiverDetails.media
+                  : URL.createObjectURL(receiverDetails.media)
+              }
+              alt={"QR-Code"}
+              style={{
+                width: 200,
+                height: 200,
+                objectFit: "contain",
+              }}
+            />
+          )}
 
-  return null;
-};
+          {/* ✅ Download & Copy Buttons */}
+          <div style={{ display: "flex", gap: "10px", marginTop: 10 }}>
+            <Button onClick={handleDownloadQR}>Download QR</Button>
+            <Button onClick={handleCopyUPIID}>Copy UPI ID</Button>
+          </div>
+
+          <p
+            style={{
+              fontSize: 12,
+              marginTop: 12,
+              color: "lightgray",
+              textAlign: "center",
+            }}
+          >
+            Make the payment of{" "}
+            <strong style={{ color: "#fff" }}>&#8377;{eventAmount}</strong>{" "}
+            using QR-Code or Pay using UPI ID:{" "}
+            <strong style={{ color: "#fff" }}>{receiverDetails.upi} (No Refund Policy)</strong>
+          </p>
+        </div>
+      );
+    }
+
+    return null;
+  };
 
 
   return (
@@ -602,85 +624,97 @@ const PreviewForm = ({
                   </div>
                 </Link>
               ))}
-            <Text
-              style={{
-                marginBottom: "20px",
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "25px",
-              }}
-            >
+            <h1 className={styles.formTitle}>
               {eventData?.eventTitle || "Preview Event"}
-            </Text>
+            </h1>
+            {/* Progress Stepper */}
+            {data && data.length > 1 && (
+              <div className={styles.progressStepper}>
+                {data
+                  .filter((sec) => !sec.isDomainSection ||
+                    (currentSection?.isDomainSection && sec._id === currentSection._id) ||
+                    isCompleted.includes(sec._id))
+                  .map((section, index, arr) => (
+                    <div key={section._id} className={styles.stepItem}>
+                      <div
+                        className={`${styles.stepDot} ${isCompleted.includes(section._id)
+                          ? styles.stepDotCompleted
+                          : currentSection?._id === section._id
+                            ? styles.stepDotActive
+                            : ""
+                          }`}
+                        title={section.name}
+                      />
+                      {index < arr.length - 1 && (
+                        <div
+                          className={`${styles.stepLine} ${isCompleted.includes(section._id)
+                            ? styles.stepLineCompleted
+                            : ""
+                            }`}
+                        />
+                      )}
+                    </div>
+                  ))}
+              </div>
+            )}
             {isLoading ? (
               <ComponentLoading
                 customStyles={{
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  marginLeft: "0rem",
                   marginTop: "5rem",
                 }}
               />
             ) : !isCompleted.includes("Submitted") ? (
-              <div style={{ width: "100%" }}>
-                <div>
-                  <Text style={{ alignSelf: "center" }} variant="secondary">
+              <div className={styles.sectionContent} key={currentSection._id}>
+                <div className={styles.sectionHeader}>
+                  <div className={styles.sectionName}>
                     {currentSection.name}
-                  </Text>
-                  <Text
-                    style={{
-                      cursor: "pointer",
-                      padding: "6px 0",
-                      fontSize: "11px",
-                      opacity: "0.4",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    {currentSection.description}
-                  </Text>
+                  </div>
+                  {currentSection.description && (
+                    <div className={styles.sectionDescription}>
+                      {currentSection.description}
+                    </div>
+                  )}
                 </div>
                 {renderPaymentScreen()}
                 <Section section={currentSection} handleChange={handleChange} />
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                  }}
-                >
-                  {inboundList() && inboundList().backSection && (
-                    <Button style={{ marginRight: "10px" }} onClick={onBack}>
-                      Back
-                    </Button>
-                  )}
-                  <Button
-                    onClick={
-                      inboundList() && inboundList().nextSection
-                        ? onNext
-                        : handleSubmit
-                    }
-                  >
-                    {inboundList() && inboundList().nextSection ? (
-                      "Next"
-                    ) : isMicroLoading ? (
-                      <MicroLoading />
-                    ) : (
-                      "Submit"
-                    )}
-                  </Button>
+                <div className={styles.buttonGroup}>
+                  {(() => {
+                    const navigation = inboundList();
+                    return (
+                      <>
+                        {navigation && navigation.backSection && (
+                          <Button
+                            variant="secondary"
+                            onClick={onBack}
+                          >
+                            Back
+                          </Button>
+                        )}
+                        <Button
+                          onClick={
+                            navigation && navigation.nextSection
+                              ? onNext
+                              : handleSubmit
+                          }
+                        >
+                          {navigation && navigation.nextSection ? (
+                            "Next"
+                          ) : isMicroLoading ? (
+                            <MicroLoading />
+                          ) : (
+                            "Submit"
+                          )}
+                        </Button>
+                      </>
+                    );
+                  })()}
                 </div>
               </div>
             ) : isSuccess ? (
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                }}
-              >
+              <div className={styles.successScreen}>
                 <img
                   src={Complete}
                   alt="Complete"
@@ -701,14 +735,7 @@ const PreviewForm = ({
                 </Text>
               </div>
             ) : (
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                }}
-              >
+              <div className={styles.successScreen}>
                 <Text
                   variant="secondary"
                   style={{
