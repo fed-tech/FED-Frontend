@@ -105,6 +105,33 @@ const AuthLayout = () => (
   </div>
 );
 
+// [v2] Protected route wrapper — redirects to login with return URL
+const ProtectedRoute = ({ children }) => {
+  const authCtx = useContext(AuthContext);
+  const location = useLocation();
+
+  if (!authCtx.isLoggedIn) {
+    // Store full URL (path + search params) so login can redirect back
+    sessionStorage.setItem("prevPage", location.pathname + location.search);
+    Alert({
+      type: "info",
+      message: "Please log in first to access this page.",
+      position: "bottom-right",
+      duration: 3000,
+    });
+    return <Navigate to="/Login" replace />;
+  }
+
+  return children;
+};
+
+// [v2] Redirect after login — uses prevPage from sessionStorage if available
+const LoginRedirect = () => {
+  const redirectTo = sessionStorage.getItem("prevPage") || "/profile";
+  sessionStorage.removeItem("prevPage");
+  return <Navigate to={redirectTo} replace />;
+};
+
 function App() {
   const authCtx = useContext(AuthContext);
   console.log(authCtx.user.access);
@@ -279,15 +306,22 @@ function App() {
 
             <Route
               path="/Events/:eventId/Form"
-              element={[<Event />, <EventForm />]}
+              element={
+                <ProtectedRoute>
+                  <Event />
+                  <EventForm />
+                </ProtectedRoute>
+              }
             />
 
-            {authCtx.isLoggedIn && (
-              <Route
-                path="/Events/:eventId/team"
-                element={<TeamManagement />}
-              />
-            )}
+            <Route
+              path="/Events/:eventId/team"
+              element={
+                <ProtectedRoute>
+                  <TeamManagement />
+                </ProtectedRoute>
+              }
+            />
 
             <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
             <Route
@@ -305,13 +339,13 @@ function App() {
             <Route
               path="/Login"
               element={
-                authCtx.isLoggedIn ? <Navigate to="/profile" /> : <Login />
+                authCtx.isLoggedIn ? <LoginRedirect /> : <Login />
               }
             />
             <Route
               path="/SignUp"
               element={
-                authCtx.isLoggedIn ? <Navigate to="/profile" /> : <Signup />
+                authCtx.isLoggedIn ? <LoginRedirect /> : <Signup />
               }
             />
             <Route
