@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { MdClose, MdGroups, MdPerson, MdEmail, MdSchool, MdCalendarToday } from "react-icons/md";
+import { MdClose, MdGroups, MdPerson, MdEmail, MdSchool, MdCalendarToday, MdPersonRemove } from "react-icons/md";
 import { FaCopy, FaCheck } from "react-icons/fa";
 import { api } from "../../../../services";
 import { Alert, MicroLoading } from "../../../../microInteraction";
+import AuthContext from "../../../../context/AuthContext";
 import styles from "./style/TeamDetailsModal.module.scss";
 
 const TeamDetailsModal = ({ isOpen, onClose, formId, eventTitle }) => {
@@ -11,6 +12,8 @@ const TeamDetailsModal = ({ isOpen, onClose, formId, eventTitle }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [copiedCode, setCopiedCode] = useState(false);
+  const [removingMember, setRemovingMember] = useState(null);
+  const authCtx = useContext(AuthContext);
 
   useEffect(() => {
     if (isOpen && formId) {
@@ -61,7 +64,7 @@ const TeamDetailsModal = ({ isOpen, onClose, formId, eventTitle }) => {
       await navigator.clipboard.writeText(teamDetails.teamCode);
       setCopiedCode(true);
       setTimeout(() => setCopiedCode(false), 2000);
-      
+
       Alert({
         type: "success",
         message: "Team code copied to clipboard!",
@@ -72,6 +75,59 @@ const TeamDetailsModal = ({ isOpen, onClose, formId, eventTitle }) => {
       console.error("Failed to copy team code:", err);
       setError("Failed to copy team code to clipboard");
     }
+  };
+
+  const handleRemoveMember = async (memberEmail, memberName) => {
+    // Confirm removal
+    const confirmed = window.confirm(
+      `Are you sure you want to remove ${memberName} from the team?`
+    );
+
+    if (!confirmed) return;
+
+    try {
+      setRemovingMember(memberEmail);
+
+      const response = await api.delete(`/api/form/removeMember/${formId}`, {
+        data: { memberEmail },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (response.status === 200) {
+        Alert({
+          type: "success",
+          message: "Member removed successfully!",
+          position: "bottom-right",
+          duration: 3000,
+        });
+
+        // Update team details with the response data
+        setTeamDetails(response.data.data);
+      } else {
+        setError(response.data.message || "Failed to remove member");
+      }
+    } catch (err) {
+      console.error("Error removing member:", err);
+      setError(
+        err.response?.data?.message || "Failed to remove member. Please try again."
+      );
+    } finally {
+      setRemovingMember(null);
+    }
+  };
+
+  // Check if current user is team creator or admin
+  const canRemoveMembers = () => {
+    if (!teamDetails || !authCtx.user) return false;
+
+    // Get the team creator email (first member who registered)
+    const teamCreatorEmail = teamDetails.members[0]?.email;
+    const currentUserEmail = authCtx.user.email;
+    const isAdmin = authCtx.user.access === "ADMIN";
+
+    return currentUserEmail === teamCreatorEmail || isAdmin;
   };
 
   const handleBackdropClick = (e) => {
@@ -109,19 +165,19 @@ const TeamDetailsModal = ({ isOpen, onClose, formId, eventTitle }) => {
                   <MdGroups size={24} color="#f97507" />
                   <h4>Team Information</h4>
                 </div>
-                
+
                 <div className={styles.teamDetails}>
                   <div className={styles.teamDetailItem}>
                     <span className={styles.label}>Team Name:</span>
                     <span className={styles.value}>{teamDetails.teamName}</span>
                   </div>
-                  
+
                   <div className={styles.teamDetailItem}>
                     <span className={styles.label}>Team Code:</span>
                     <div className={styles.teamCodeContainer}>
                       <span className={styles.teamCode}>{teamDetails.teamCode}</span>
-                      <button 
-                        className={styles.copyButton} 
+                      <button
+                        className={styles.copyButton}
                         onClick={copyTeamCode}
                         title="Copy team code"
                       >
@@ -129,7 +185,7 @@ const TeamDetailsModal = ({ isOpen, onClose, formId, eventTitle }) => {
                       </button>
                     </div>
                   </div>
-                  
+
                   <div className={styles.teamDetailItem}>
                     <span className={styles.label}>Team Size:</span>
                     <span className={styles.value}>
@@ -144,10 +200,10 @@ const TeamDetailsModal = ({ isOpen, onClose, formId, eventTitle }) => {
                   <MdPerson size={24} color="#f97507" />
                   <h4>Team Members ({teamDetails.members.length})</h4>
                 </div>
-                
+
                 <div className={styles.membersList}>
                   {teamDetails.members.map((member, index) => (
-                    <div key={member.id} className={styles.memberCard}>
+                    <div key={member.id || member.email} className={styles.memberCard}>
                       <div className={styles.memberAvatar}>
                         {member.img ? (
                           <img src={member.img} alt={member.name} />
@@ -157,30 +213,30 @@ const TeamDetailsModal = ({ isOpen, onClose, formId, eventTitle }) => {
                           </div>
                         )}
                       </div>
-                      
+
                       <div className={styles.memberInfo}>
                         <h5 className={styles.memberName}>{member.name || "Unknown"}</h5>
-                        
+
                         <div className={styles.memberDetails}>
                           <div className={styles.memberDetail}>
                             <MdEmail size={16} />
                             <span>{member.email}</span>
                           </div>
-                          
+
                           {member.rollNumber && (
                             <div className={styles.memberDetail}>
                               <MdPerson size={16} />
                               <span>Roll: {member.rollNumber}</span>
                             </div>
                           )}
-                          
+
                           {member.college && (
                             <div className={styles.memberDetail}>
                               <MdSchool size={16} />
                               <span>{member.college}</span>
                             </div>
                           )}
-                          
+
                           {member.year && (
                             <div className={styles.memberDetail}>
                               <MdCalendarToday size={16} />
@@ -189,6 +245,21 @@ const TeamDetailsModal = ({ isOpen, onClose, formId, eventTitle }) => {
                           )}
                         </div>
                       </div>
+
+                      {canRemoveMembers() && teamDetails.members.length > 1 && (
+                        <button
+                          className={styles.removeMemberBtn}
+                          onClick={() => handleRemoveMember(member.email, member.name)}
+                          disabled={removingMember === member.email}
+                          title="Remove member from team"
+                        >
+                          {removingMember === member.email ? (
+                            <MicroLoading customStyles={{ width: "20px", height: "20px" }} />
+                          ) : (
+                            <MdPersonRemove size={20} />
+                          )}
+                        </button>
+                      )}
                     </div>
                   ))}
                 </div>
