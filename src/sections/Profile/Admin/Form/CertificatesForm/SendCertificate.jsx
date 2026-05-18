@@ -248,15 +248,15 @@ const SendCertificate = () => {
         token: authCtx.token,
       });
 
-      if (response?.status === 200) {
+      if (response?.status === 200 || response?.status === 207) {
         setAlert({
-          type: "success",
-          message: "Certificates sent successfully!",
+          type: response.status === 200 ? "success" : "warning",
+          message: response.data?.message || "Certificates processed.",
           position: "top-right",
-          duration: 3000,
+          duration: 4000,
         });
       } else {
-        throw new Error("Failed to send certificates");
+        throw new Error(response?.data?.error || "Failed to send certificates");
       }
     } catch (error) {
       console.error("Error in handleSendBatchMail:", error);
