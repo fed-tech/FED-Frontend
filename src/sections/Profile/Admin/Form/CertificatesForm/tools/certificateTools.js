@@ -111,8 +111,10 @@ const generatedAndSendCertificate = async ({
     } else {
       console.error("Error:", response.data);
     }
+    return response;
   } catch (error) {
     console.error("Failed to generate and send certificates:", error);
+    return error.response;
   }
 };
 
