@@ -118,9 +118,31 @@ const generatedAndSendCertificate = async ({
   }
 };
 
+const testCertificateSending = async ({ eventId, email, name, subject, token }) => {
+  try {
+    const response = await api.post(
+      "/api/certificate/testCertificateSending",
+      {
+        eventId,
+        email,
+        name,
+        subject,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error("Error sending test certificate:", error);
+    return error.response;
+  }
+};
+
 export {
   accessOrCreateEventByFormId,
   getCertificatePreview,
   sendBatchMail,
   generatedAndSendCertificate,
+  testCertificateSending,
 };
