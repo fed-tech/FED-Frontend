@@ -42,6 +42,7 @@ const SendCertificate = () => {
   const [certificatePreview, setCertificatePreview] = useState("Loading...");
   const [alert, setAlert] = useState(null);
   const [failedEmails, setFailedEmails] = useState([]);
+  const [isFailedMinimized, setIsFailedMinimized] = useState(false);
 
   useEffect(() => {
     const fetchCertificatePreview = async () => {
@@ -610,13 +611,19 @@ const SendCertificate = () => {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                marginBottom: 10,
+                marginBottom: isFailedMinimized ? 0 : 10,
               }}
             >
               <h3 style={{ color: "#e74c3c", margin: 0 }}>
                 ⚠ Failed Emails ({failedEmails.length})
               </h3>
               <div style={{ display: "flex", gap: 10 }}>
+                <Button
+                  onClick={() => setIsFailedMinimized((prev) => !prev)}
+                  style={{ backgroundColor: "transparent", color: "#e74c3c", fontSize: "0.85em" }}
+                >
+                  {isFailedMinimized ? "▼ Expand" : "▲ Minimize"}
+                </Button>
                 <Button
                   onClick={() => {
                     const failedAttendeeEmails = failedEmails.map((f) => f.email);
@@ -648,43 +655,45 @@ const SendCertificate = () => {
                 </Button>
               </div>
             </div>
-            <div
-              style={{
-                maxHeight: 200,
-                overflowY: "auto",
-                border: "1px solid rgba(231, 76, 60, 0.3)",
-                borderRadius: 5,
-                padding: 10,
-              }}
-            >
-              {failedEmails.map((item, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    padding: "6px 0",
-                    borderBottom:
-                      idx < failedEmails.length - 1
-                        ? "1px solid rgba(231, 76, 60, 0.15)"
-                        : "none",
-                  }}
-                >
-                  <span style={{ fontWeight: 500 }}>{item.email}</span>
-                  <span
+            {!isFailedMinimized && (
+              <div
+                style={{
+                  maxHeight: 200,
+                  overflowY: "auto",
+                  border: "1px solid rgba(231, 76, 60, 0.3)",
+                  borderRadius: 5,
+                  padding: 10,
+                }}
+              >
+                {failedEmails.map((item, idx) => (
+                  <div
+                    key={idx}
                     style={{
-                      color: "#e74c3c",
-                      fontSize: "0.85em",
-                      maxWidth: "50%",
-                      textAlign: "right",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      padding: "6px 0",
+                      borderBottom:
+                        idx < failedEmails.length - 1
+                          ? "1px solid rgba(231, 76, 60, 0.15)"
+                          : "none",
                     }}
                   >
-                    {item.error || "Unknown error"}
-                  </span>
-                </div>
-              ))}
-            </div>
+                    <span style={{ fontWeight: 500 }}>{item.email}</span>
+                    <span
+                      style={{
+                        color: "#e74c3c",
+                        fontSize: "0.85em",
+                        maxWidth: "50%",
+                        textAlign: "right",
+                      }}
+                    >
+                      {item.error || "Unknown error"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
