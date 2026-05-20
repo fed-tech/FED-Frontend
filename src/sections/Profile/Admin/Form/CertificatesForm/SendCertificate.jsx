@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom";
 import { Button, Input } from "../../../../../components";
 import { api } from "../../../../../services";
 import * as XLSX from "xlsx";
-import { sendBatchMail } from "./tools/certificateTools";
-import { Alert, MicroLoading } from "../../../../../microInteraction";
 import {
   getCertificatePreview,
   generatedAndSendCertificate,
   accessOrCreateEventByFormId,
-} from "../CertificatesForm/tools/certificateTools";
+  testCertificateSending,
+} from "./tools/certificateTools";
+import { Alert, MicroLoading } from "../../../../../microInteraction";
 import AuthContext from "../../../../../context/AuthContext.jsx";
 
 const Checkbox = ({ id, checked, onCheckedChange }) => {
@@ -284,20 +284,23 @@ const SendCertificate = () => {
 
     setSendingMail(true);
     try {
-      await sendBatchMail({
-        batchSize: 1,
-        formId: eventId,
+      const eventData = await accessOrCreateEventByFormId(
+        eventId,
+        authCtx.token
+      );
+      if (!eventData || !eventData.id) {
+        throw new Error("Event data retrieval failed");
+      }
+
+      const response = await testCertificateSending({
+        eventId: eventData.id,
+        email: checkedAttendees[0].email,
+        name: checkedAttendees[0].name || "",
         subject: `[TEST] ${subject}`,
-        htmlContent: description,
-        recipients: [
-          {
-            email: checkedAttendees[0].email,
-            name: checkedAttendees[0].name || "",
-          },
-        ],
+        token: authCtx.token,
       });
 
-      if (response.status === 200) {
+      if (response && response.status === 200) {
         setAlert({
           type: "success",
           message: "Test mail sent successfully!",
@@ -305,7 +308,7 @@ const SendCertificate = () => {
           duration: 3000,
         });
       } else {
-        throw new Error(response.data?.error || "Failed to send test mail");
+        throw new Error(response?.data?.error || "Failed to send test mail");
       }
     } catch (error) {
       setAlert({
