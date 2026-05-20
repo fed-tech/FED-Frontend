@@ -1,16 +1,18 @@
 # Global owner for all files
-* @PrityanshuSingh
+* @fed-tech
 
 # Reviewers for directories
-.github/ @saurav1729 @raazseth
-src/ @saurav1729 @raazseth
+.github/ @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+src/ @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
 
 # Reviewers for specific file types
-*.scss @saurav1729 @raazseth
-*.jsx  @saurav1729 @raazseth
-*.json @saurav1729 @raazseth
-PROJECT_STRUCTURE.md @saurav1729 @raazseth
-README.md @saurav1729 @raazseth
-index.html @saurav1729 @raazseth
-vercel.json @saurav1729 @raazseth
-vite.config.js @saurav1729 @raazseth
+*.scss @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+*.jsx  @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+*.json @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+PROJECT_STRUCTURE.md @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+README.md @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+index.html @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+vercel.json @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+vite.config.js @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+
+
