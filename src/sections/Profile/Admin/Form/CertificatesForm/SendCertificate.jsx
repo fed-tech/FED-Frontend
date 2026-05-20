@@ -41,6 +41,7 @@ const SendCertificate = () => {
   const [fileUploading, setFileUploading] = useState(false);
   const [certificatePreview, setCertificatePreview] = useState("Loading...");
   const [alert, setAlert] = useState(null);
+  const [failedEmails, setFailedEmails] = useState([]);
 
   useEffect(() => {
     const fetchCertificatePreview = async () => {
@@ -211,6 +212,7 @@ const SendCertificate = () => {
     }
 
     setSendingMail(true);
+    setFailedEmails([]);
 
     try {
       const eventData = await accessOrCreateEventByFormId(
@@ -248,12 +250,21 @@ const SendCertificate = () => {
         token: authCtx.token,
       });
 
-      if (response?.status === 200 || response?.status === 207) {
+      if (response?.status === 200) {
         setAlert({
-          type: response.status === 200 ? "success" : "warning",
-          message: response.data?.message || "Certificates processed.",
+          type: "success",
+          message: response.data?.message || "All certificates sent successfully!",
           position: "top-right",
           duration: 4000,
+        });
+      } else if (response?.status === 207) {
+        const failed = response.data?.failed || [];
+        setFailedEmails(failed);
+        setAlert({
+          type: "warning",
+          message: response.data?.message || "Some certificates failed to send.",
+          position: "top-right",
+          duration: 5000,
         });
       } else {
         throw new Error(response?.data?.error || "Failed to send certificates");
@@ -583,6 +594,99 @@ const SendCertificate = () => {
             </Button>
           </div>
         </div>
+
+        {failedEmails.length > 0 && (
+          <div
+            style={{
+              padding: 20,
+              border: "1px solid #e74c3c",
+              borderRadius: 10,
+              backgroundColor: "rgba(231, 76, 60, 0.08)",
+              marginTop: 20,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: 10,
+              }}
+            >
+              <h3 style={{ color: "#e74c3c", margin: 0 }}>
+                ⚠ Failed Emails ({failedEmails.length})
+              </h3>
+              <div style={{ display: "flex", gap: 10 }}>
+                <Button
+                  onClick={() => {
+                    const failedAttendeeEmails = failedEmails.map((f) => f.email);
+                    const failedAttendees = failedAttendeeEmails
+                      .map((email) => {
+                        const existing = attendees.find((a) => a.email === email);
+                        return existing || { email, name: "" };
+                      })
+                      .filter(
+                        (fa) =>
+                          !checkedAttendees.some((ca) => ca.email === fa.email)
+                      );
+                    setCheckedAttendees((prev) => [...prev, ...failedAttendees]);
+                    setAlert({
+                      type: "info",
+                      message: `${failedAttendees.length} failed recipient(s) added back for retry`,
+                      position: "top-right",
+                      duration: 3000,
+                    });
+                  }}
+                >
+                  Retry Failed
+                </Button>
+                <Button
+                  onClick={() => setFailedEmails([])}
+                  style={{ backgroundColor: "transparent", color: "#e74c3c" }}
+                >
+                  Dismiss
+                </Button>
+              </div>
+            </div>
+            <div
+              style={{
+                maxHeight: 200,
+                overflowY: "auto",
+                border: "1px solid rgba(231, 76, 60, 0.3)",
+                borderRadius: 5,
+                padding: 10,
+              }}
+            >
+              {failedEmails.map((item, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "6px 0",
+                    borderBottom:
+                      idx < failedEmails.length - 1
+                        ? "1px solid rgba(231, 76, 60, 0.15)"
+                        : "none",
+                  }}
+                >
+                  <span style={{ fontWeight: 500 }}>{item.email}</span>
+                  <span
+                    style={{
+                      color: "#e74c3c",
+                      fontSize: "0.85em",
+                      maxWidth: "50%",
+                      textAlign: "right",
+                    }}
+                  >
+                    {item.error || "Unknown error"}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
