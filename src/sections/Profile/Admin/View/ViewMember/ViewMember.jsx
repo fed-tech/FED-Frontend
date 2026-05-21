@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import styles from "./styles/ViewMember.module.scss";
 import { Button, TeamCard } from "../../../../../components";
 import AddMemberForm from "../../Form/MemberForm/AddMemberForm";
@@ -13,12 +12,14 @@ function ViewMember() {
   const [memberActivePage, setMemberActivePage] = useState("Board");
   const [members, setMembers] = useState([]);
   const [access, setAccess] = useState([]);
-  const [selectedMember, setSelectedMember] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
-  const authCtx = useContext(AuthContext);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [enablingUpdate, setEnable] = useState(false);
   const [alert, setAlert] = useState(null);
+
+  const authCtx = useContext(AuthContext);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     if (alert) {
@@ -28,15 +29,23 @@ function ViewMember() {
   }, [alert]);
 
   useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
     const fetchMemberData = async () => {
       try {
         setLoading(true);
         const response = await api.get("/api/user/fetchTeam");
-        const fetchedMembers = response.data.data;
-        setMembers(fetchedMembers);
+        setMembers(response.data.data);
       } catch (error) {
-        console.error("Error fetching member data:", error);
-        setMembers(localTeamMembers); // Fallback to test data
+        setMembers(localTeamMembers);
       } finally {
         setLoading(false);
       }
@@ -44,58 +53,29 @@ function ViewMember() {
 
     const fetchAccessTypes = async () => {
       try {
-        const response = await api.get("/api/user/fetchAccessTypes");
-        const fetchedAccess = response.data.data;
-
         const testAccess = [
-          "ADMIN",
-          "USER",
-
-          "PRESIDENT",
-          "VICEPRESIDENT",
-          "DIRECTOR_TECHNICAL",
-          "DIRECTOR_CREATIVE",
-          "DIRECTOR_MARKETING",
-          "DIRECTOR_OPERATIONS",
-          "DIRECTOR_PR_AND_FINANCE",
-          "DIRECTOR_HUMAN_RESOURCE",
-          "DEPUTY_DIRECTOR_TECHNICAL",
-          "DEPUTY_DIRECTOR_CREATIVE",
-          "DEPUTY_DIRECTOR_MARKETING",
-          "DEPUTY_DIRECTOR_OPERATIONS",
-          "DEPUTY_DIRECTOR_PR_AND_FINANCE",
-          "DEPUTY_DIRECTOR_HUMAN_RESOURCE",
+          "BOARD",
           "TECHNICAL",
           "CREATIVE",
           "MARKETING",
           "OPERATIONS",
           "PR_AND_FINANCE",
           "HUMAN_RESOURCE",
-
           "ALUMNI",
           "EX_MEMBER",
+          "ADD_MEMBER",
         ];
 
-        const filteredAccess = testAccess.filter(
-          (accessType) =>
-            !["ADMIN", "USER", "PRESIDENT", "VICEPRESIDENT"].includes(
-              accessType
-            ) &&
-            !accessType.startsWith("DIRECTOR_") &&
-            !accessType.startsWith("DEPUTY_")
-        ).map((accessType) => {
-          return accessType
-            .split("_")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join(" ");
-        });
+        const formatted = testAccess.map((item) =>
+          item
+            .replace(/_/g, " ")
+            .toLowerCase()
+            .replace(/\b\w/g, (l) => l.toUpperCase())
+        );
 
-        // Adding "Directors" and "Add Member" to the filteredAccess array
-        filteredAccess.push("Board", "Add Member");
-        setAccess(filteredAccess);
+        setAccess(formatted);
       } catch (error) {
-        console.error("Error fetching Access Types:", error);
-        setAccess(AccessTypes.data); // Fallback to test data
+        setAccess(AccessTypes.data);
       }
     };
 
@@ -103,176 +83,100 @@ function ViewMember() {
     fetchMemberData();
   }, []);
 
-  const handleButtonClick = (menu) => {
-    if (menu === "add member" && enablingUpdate) {
-      authCtx.memberData = null;
-      authCtx.croppedImageFile = null;
-      setEnable(false);
-      setMemberActivePage("");
-      setTimeout(() => {
-        setMemberActivePage("add member");
-      }, 0);
-    } else {
-      setMemberActivePage(menu);
-    }
+  const handleSelect = (value) => {
+    setMemberActivePage(value);
+    setDropdownOpen(false);
   };
-
-  const headerMenu = access.map((accessType) => accessType.toLowerCase());
-
-  const renderButtons = () =>
-    headerMenu.map((menu) => (
-      <Button
-        key={menu}
-        className={styles.buttonMember}
-        variant={
-          menu === memberActivePage.toLowerCase() ? "primary" : "secondary"
-        }
-        onClick={() => {
-          handleButtonClick(menu);
-        }}
-        style={{
-          borderRadius: menu !== "add member" ? "20px" : "10px",
-          marginLeft: menu === "add member" ? "0px" : "0px",
-        }}
-      >
-        {menu}
-      </Button>
-    ));
 
   const getMembersByPage = () => {
-    if (memberActivePage.toLowerCase() === "add member" && !enablingUpdate) {
-      authCtx.memberData = null;
-    }
+    if (memberActivePage === "Add Member") return [];
 
-    let filteredMembers = [];
-    if (memberActivePage.toLowerCase() === "board") {
-      filteredMembers = members.filter(
-        (member) =>
-          member.access.startsWith("DIRECTOR_") ||
-          member.access.startsWith("DEPUTY_") ||
-          member.access === "PRESIDENT" ||
-          member.access === "VICEPRESIDENT"
+    let filtered = [];
+
+    if (memberActivePage === "Board") {
+      filtered = members.filter(
+        (m) =>
+          m.access.startsWith("DIRECTOR_") ||
+          m.access.startsWith("DEPUTY_") ||
+          m.access === "PRESIDENT" ||
+          m.access === "VICEPRESIDENT"
       );
     } else {
-      filteredMembers = members.filter((member) => {
-        // Convert accessCategory to lowercase for case-insensitive comparison
-        const accessCategory = member.access
-          .replace(/_/g, " ") // Replace all underscores with spaces
-          .toLowerCase();
-  
-        // Convert department name to match format (e.g., "operations" -> "operations")
-        const activeDepartment = memberActivePage.toLowerCase();
-        
-        // Check for exact match (e.g., "operations" === "operations")
-        // OR match senior executive (e.g., "senior executive operations" ends with "operations")
-        const seniorExecutivePrefix = "senior executive ";
-        const isSeniorExecutive = accessCategory.startsWith(seniorExecutivePrefix) && 
-          accessCategory.substring(seniorExecutivePrefix.length) === activeDepartment;
-        
-        return accessCategory === activeDepartment || isSeniorExecutive;
-      });
-    }
-
-    // Apply search query filter
-    if (searchQuery) {
-      filteredMembers = filteredMembers.filter((member) =>
-        member.name.toLowerCase().includes(searchQuery.toLowerCase())
+      const active = memberActivePage.toLowerCase();
+      filtered = members.filter((m) =>
+        m.access.replace(/_/g, " ").toLowerCase().includes(active)
       );
     }
 
-    // Sort filtered members alphabetically
-    filteredMembers.sort((a, b) => a.name.localeCompare(b.name));
-    return filteredMembers;
-  };
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, [searchQuery]);
-
-  const customStyles = {
-    teamMember: styles.teamMemberCustom,
-    teamMemberBackh5: styles.teamMemberBackh5Custom,
-    socialLinksa: styles.socialLinksaCustom,
-    button: styles.buttonCustom,
-    knowPara: styles.knowParaCustom,
-    updatebtn: styles.updatebtnCustom,
-    teamMemberBack: styles.teamMemberBackCustom,
-  };
-
-  const handleUpdate = (member) => {
-    setMemberActivePage("Add Member");
-    setEnable(true);
-  };
-
-  const handleRemove = async () => {
-    try {
-      const id = authCtx.memberData.id;
-      const response = await api.delete(`/api/user/deleteMember/${id}`, {
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
-        },
-      });
-      if (response.status === 200 || response.status === 201) {
-        setAlert({
-          type: "success",
-          message: "Member deleted successfully.",
-          position: "bottom-right",
-          duration: 3000,
-        });
-        setMembers((members) =>
-          members.filter((m) => m.id !== response.data.user.id)
-        );
-      }
-    } catch (error) {
-      console.error("Error removing member:", error);
+    if (searchQuery) {
+      filtered = filtered.filter((m) =>
+        m.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
     }
+
+    return filtered.sort((a, b) => a.name.localeCompare(b.name));
   };
 
   const membersToDisplay = getMembersByPage();
 
   return (
     <div className={styles.mainMember}>
-      <div className={styles.eventmember}>
-        <div className={styles.right}>
-          <div className={styles.buttonContainer}>
-            <h3 className={styles.headInnerText}>
-              <span>View</span> Member
-            </h3>
-            <div className={styles.searchContainer}>
-              <input
-                type="text"
-                placeholder="Search by name..."
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setLoading(true); // Show loading when searching
-                }}
-                className={styles.searchInput}
-              />
+      <div className={styles.header}>
+        <div className={styles.titleSection}>
+          <h3 className={styles.headInnerText}>
+            <span>View</span> Member
+          </h3>
+
+          <div className={styles.dropdownWrapper} ref={dropdownRef}>
+            <div
+              className={styles.dropdownHeader}
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              {memberActivePage}
+              <span className={styles.arrow}>{dropdownOpen ? "▲" : "▼"}</span>
             </div>
+
+            {dropdownOpen && (
+              <div className={styles.dropdownMenu}>
+                {access.map((item, i) => (
+                  <div
+                    key={i}
+                    className={`${styles.dropdownItem} ${
+                      memberActivePage === item ? styles.activeItem : ""
+                    }`}
+                    onClick={() => handleSelect(item)}
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-          <div className={styles.buttons}>{renderButtons()}</div>
-          {loading ? (
-            <ComponentLoading /> // Show loading component
-          ) : memberActivePage.toLowerCase() === "add member" ? (
-            <AddMemberForm />
-          ) : (
-            <div className={styles.teamGrid}>
-              {membersToDisplay.map((member, idx) => (
-                <TeamCard
-                  key={idx}
-                  member={member}
-                  customStyles={customStyles}
-                  onUpdate={handleUpdate}
-                  onRemove={handleRemove}
-                />
-              ))}
-            </div>
-          )}
+        </div>
+
+        <div className={styles.searchContainer}>
+          <input
+            type="text"
+            placeholder="Search by name..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className={styles.searchInput}
+          />
         </div>
       </div>
+
+      {loading ? (
+        <ComponentLoading />
+      ) : memberActivePage === "Add Member" ? (
+        <AddMemberForm />
+      ) : (
+        <div className={styles.teamGrid}>
+          {membersToDisplay.map((member, idx) => (
+            <TeamCard key={idx} member={member} />
+          ))}
+        </div>
+      )}
+
       <Alert />
     </div>
   );

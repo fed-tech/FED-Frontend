@@ -1,0 +1,44 @@
+@import "/src/assets/styles/Global.scss";
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 4rem;
+}
+
+.backBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 0.95rem;
+    cursor: pointer;
+    align-self: flex-start;
+    margin-bottom: 1.5rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    transition: background 0.2s ease, color 0.2s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #f97507;
+    }
+}
+
+// Let PreviewForm's own styles handle the form container
+// .formWrapper just provides the max-width centering
+.formWrapper {
+    width: 100%;
+    max-width: 1100px;
+}
+
+.error {
+    color: white;
+    opacity: 0.7;
+    font-size: 1rem;
+    margin-top: 3rem;
+}

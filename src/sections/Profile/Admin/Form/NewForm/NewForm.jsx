@@ -1072,70 +1072,63 @@ function NewForm() {
           </div>
         </div>
       )}
-      <div
-        style={{
-          height: "90vh",
-          width: "90%",
-          overflow: "hidden scroll",
-          scrollbarWidth: "none",
-          marginBottom: "50px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          <div
-            style={{
-              width: "45%",
-            }}
-          >
-            <Input
-              placeholder="Enter Event Title or Name"
-              label="Event Title"
-              value={data.eventTitle}
-              className={styles.formInput}
-              onChange={(e) => setdata({ ...data, eventTitle: e.target.value })}
-            />
-            <Input
-              placeholder="Attach Event Image"
-              label="Event Image"
-              type={"image"}
-              value={
-                typeof data.eventImg === "string"
-                  ? data.eventImg
-                  : data.eventImg?.name || ""
-              }
-              containerClassName={styles.formInput}
-              onChange={(e) => setdata({ ...data, eventImg: e.target.value })}
-              className={styles.formInput}
-            />
-            <Input
-              placeholder="Select Date"
-              className={styles.formInput}
-              label="Event Date"
-              type="date"
-              style={{ width: "88%" }}
-              value={data.eventDate}
-              onChange={(date) => setdata({ ...data, eventDate: date })}
-            />
-            <Input
-              placeholder="Select Event Type"
-              label="Event Type"
-              type="select"
-              className={styles.formInput}
-              options={[
-                { label: "Paid", value: "Paid" },
-                { label: "Free", value: "Free" },
-              ]}
-              style={{ width: "88%" }}
-              value={data.eventType}
-              onChange={(value) => onChangeEventType(value)}
-            />
+      <div className={styles.formBody}>
+        <div className={styles.detailsGrid}>
+          <div className={styles.detailsColumn}>
+            <div style={{ position: "relative", zIndex: 12, width: "100%" }}>
+              <Input
+                placeholder="Enter Event Title or Name"
+                label="Event Title"
+                value={data.eventTitle}
+                className={styles.formInput}
+                onChange={(e) => setdata({ ...data, eventTitle: e.target.value })}
+              />
+            </div>
+            
+            <div style={{ position: "relative", zIndex: 11, width: "100%" }}>
+              <Input
+                placeholder="Attach Event Image"
+                label="Event Image"
+                type={"image"}
+                value={
+                  typeof data.eventImg === "string"
+                    ? data.eventImg
+                    : data.eventImg?.name || ""
+                }
+                containerClassName={styles.formInput}
+                onChange={(e) => setdata({ ...data, eventImg: e.target.value })}
+                className={styles.formInput}
+              />
+            </div>
+
+            <div style={{ position: "relative", zIndex: 10, width: "100%" }}>
+              <Input
+                placeholder="Select Date"
+                className={styles.formInput}
+                label="Event Date"
+                type="date"
+                value={data.eventDate}
+                onChange={(date) => setdata({ ...data, eventDate: date })}
+              />
+            </div>
+
+            <div style={{ position: "relative", zIndex: 9, width: "100%" }}>
+              <Input
+                placeholder="Select Event Type"
+                label="Event Type"
+                type="select"
+                className={styles.formInput}
+                options={[
+                  { label: "Paid", value: "Paid" },
+                  { label: "Free", value: "Free" },
+                ]}
+                value={data.eventType}
+                onChange={(value) => onChangeEventType(value)}
+              />
+            </div>
+
             {data.eventType === "Paid" && (
-              <div>
+              <div style={{ position: "relative", zIndex: 8, width: "100%" }}>
                 <Input
                   placeholder="Enter Event Registration Amount"
                   label="Event Registration Fee"
@@ -1167,7 +1160,6 @@ function NewForm() {
                     })
                   }
                 />
-
                 <Input
                   placeholder={"Enter UPI ID"}
                   label={"Receiver UPI ID"}
@@ -1185,122 +1177,141 @@ function NewForm() {
                 />
               </div>
             )}
-            <Input
-              placeholder="Enter Event Name"
-              label="Related Event Name"
-              value={data.relatedEvent}
-              className={styles.formInput}
-              onChange={(e) =>
-                setdata({ ...data, relatedEvent: e.target.value })
-              }
-            />
-            <Input
-              label="Participation Type"
-              placeholder="Select Type"
-              className={styles.formInput}
-              type="select"
-              options={[
-                { label: "Individual", value: "Individual" },
-                { label: "Team", value: "Team" },
-              ]}
-              style={{ width: "88%" }}
-              value={data.participationType}
-              onChange={(value) => {
-                handleChangeParticipantType(value);
-              }}
-            />
+            
+            <div style={{ position: "relative", zIndex: 7, width: "100%" }}>
+              <Input
+                placeholder="Enter Event Name"
+                label="Related Event Name"
+                value={data.relatedEvent}
+                className={styles.formInput}
+                onChange={(e) =>
+                  setdata({ ...data, relatedEvent: e.target.value })
+                }
+              />
+            </div>
+
+            <div style={{ position: "relative", zIndex: 6, width: "100%" }}>
+              <Input
+                label="Participation Type"
+                placeholder="Select Type"
+                className={styles.formInput}
+                type="select"
+                options={[
+                  { label: "Individual", value: "Individual" },
+                  { label: "Team", value: "Team" },
+                ]}
+                value={data.participationType}
+                onChange={(value) => {
+                  handleChangeParticipantType(value);
+                }}
+              />
+            </div>
+
             {data.participationType === "Team" && (
-              <div>
-                <Input
-                  placeholder="Enter Team Size "
-                  label="Team Size (Min)"
-                  type="select"
-                  options={TEAM_SIZE.filter(
-                    (item) => item.value <= (data.maxTeamSize || 7)
-                  )}
-                  className={styles.formInput}
-                  value={data.minTeamSize}
-                  onChange={(value) => setdata({ ...data, minTeamSize: value })}
-                />
-                {data.minTeamSize && (
+              <div style={{ position: "relative", zIndex: 5, width: "100%" }}>
+                <div style={{ position: "relative", zIndex: 2, width: "100%" }}>
                   <Input
                     placeholder="Enter Team Size "
-                    label="Team Size (Max)"
+                    label="Team Size (Min)"
                     type="select"
                     options={TEAM_SIZE.filter(
-                      (item) => item.value >= (data.minTeamSize || 1)
+                      (item) => item.value <= (data.maxTeamSize || 7)
                     )}
                     className={styles.formInput}
-                    value={data.maxTeamSize}
-                    onChange={(value) =>
-                      setdata({ ...data, maxTeamSize: value })
-                    }
+                    value={data.minTeamSize}
+                    onChange={(value) => setdata({ ...data, minTeamSize: value })}
                   />
+                </div>
+                {data.minTeamSize && (
+                  <div style={{ position: "relative", zIndex: 1, width: "100%" }}>
+                    <Input
+                      placeholder="Enter Team Size "
+                      label="Team Size (Max)"
+                      type="select"
+                      options={TEAM_SIZE.filter(
+                        (item) => item.value >= (data.minTeamSize || 1)
+                      )}
+                      className={styles.formInput}
+                      value={data.maxTeamSize}
+                      onChange={(value) =>
+                        setdata({ ...data, maxTeamSize: value })
+                      }
+                    />
+                  </div>
                 )}
               </div>
             )}
-            <Input
-              placeholder="Enter Priority Number"
-              className={styles.formInput}
-              label="Event Priority"
-              value={data.eventPriority}
-              onChange={(e) =>
-                setdata({ ...data, eventPriority: e.target.value })
-              }
-            />
-            <Input
-              placeholder="Open Date & Time"
-              className={styles.formInput}
-              label="Event Registration Open Date & Time"
-              type="datetime-local"
-              value={data.regDateAndTime}
-              onChange={(date) => {
-                setdata({
-                  ...data,
-                  regDateAndTime: moment(date).format(
-                    "MMMM Do YYYY, h:mm:ss a"
-                  ),
-                });
-              }}
-            />
+            
+            <div style={{ position: "relative", zIndex: 4, width: "100%" }}>
+              <Input
+                placeholder="Enter Priority Number"
+                className={styles.formInput}
+                label="Event Priority"
+                value={data.eventPriority}
+                onChange={(e) =>
+                  setdata({ ...data, eventPriority: e.target.value })
+                }
+              />
+            </div>
+
+            <div style={{ position: "relative", zIndex: 3, width: "100%" }}>
+              <Input
+                placeholder="Open Date & Time"
+                className={styles.formInput}
+                label="Event Registration Open Date & Time"
+                type="datetime-local"
+                value={data.regDateAndTime}
+                onChange={(date) => {
+                  setdata({
+                    ...data,
+                    regDateAndTime: moment(date).format(
+                      "MMMM Do YYYY, h:mm:ss a"
+                    ),
+                  });
+                }}
+              />
+            </div>
           </div>
-          <div
-            style={{
-              width: "45%",
-            }}
-          >
-            <Input
-              placeholder="Enter Event Description"
-              label="Event Description"
-              type="textArea"
-              className={` ${styles.formInputTxtArea}`}
-              value={data.eventdescription}
-              onChange={(e) =>
-                setdata({ ...data, eventdescription: e.target.value })
-              }
-            />
-            <Input
-              placeholder="Enter Message"
-              label="Registration Success Message"
-              type="textArea"
-              className={` ${styles.formInputTxtArea}`}
-              value={data.successMessage}
-              containerStyle={{ marginTop: "12px" }}
-              onChange={(e) =>
-                setdata({ ...data, successMessage: e.target.value })
-              }
-            />
-            <Input
-              placeholder="Enter Number"
-              className={styles.formInput}
-              label="Maximum Registrations Allowed"
-              type="number"
-              value={data.eventMaxReg}
-              containerStyle={{ marginTop: "12px" }}
-              onChange={(e) =>
-                setdata({ ...data, eventMaxReg: e.target.value })
-              }
-            />
+          
+          <div className={`${styles.detailsColumn} ${styles.detailsRight}`}>
+            <div style={{ position: "relative", zIndex: 12, width: "100%" }}>
+              <Input
+                placeholder="Enter Event Description"
+                label="Event Description"
+                type="textArea"
+                className={` ${styles.formInputTxtArea}`}
+                value={data.eventdescription}
+                onChange={(e) =>
+                  setdata({ ...data, eventdescription: e.target.value })
+                }
+              />
+            </div>
+            
+            <div style={{ position: "relative", zIndex: 11, width: "100%" }}>
+              <Input
+                placeholder="Enter Message"
+                label="Registration Success Message"
+                type="textArea"
+                className={` ${styles.formInputTxtArea}`}
+                value={data.successMessage}
+                onChange={(e) =>
+                  setdata({ ...data, successMessage: e.target.value })
+                }
+              />
+            </div>
+            
+            <div style={{ position: "relative", zIndex: 10, width: "100%" }}>
+              <Input
+                placeholder="Enter Number"
+                className={styles.formInput}
+                label="Maximum Registrations Allowed"
+                type="number"
+                value={data.eventMaxReg}
+                onChange={(e) =>
+                  setdata({ ...data, eventMaxReg: e.target.value })
+                }
+              />
+            </div>
           </div>
         </div>
         {sections && sections !== undefined ? (

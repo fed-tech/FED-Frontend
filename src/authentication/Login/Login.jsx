@@ -1,28 +1,30 @@
 /* eslint-disable react/no-unescaped-entities */
-/* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useGoogleLogin } from "@react-oauth/google";
 import style from "./styles/Login.module.scss";
 import Input from "../../components/Core/Input";
 import Button from "../../components/Core/Button";
 import Text from "../../components/Core/Text";
-import users from "../../data/user.json";
 import { api } from "../../services";
 import AuthContext from "../../context/AuthContext";
 import { RecoveryContext } from "../../context/RecoveryContext";
-import GoogleLogin from "./GoogleLogin";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import GoogleIcon from "@mui/icons-material/Google";
 import { Alert, MicroLoading } from "../../microInteraction";
+import heroBgImage from "../../assets/images/herobgimage.png";
 
 const Login = () => {
   const navigate = useNavigate();
   const { setEmail } = useContext(RecoveryContext);
   const authCtx = useContext(AuthContext);
+
+  const [mode, setMode] = useState("select");
   const [alert, setAlert] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [shouldNavigate, setShouldNavigate] = useState(false);
-  const [navigatePath, setNavigatePath] = useState("/");
-  const [email, setemail] = useState("");
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [email, setEmailState] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
@@ -30,102 +32,144 @@ const Login = () => {
   }, []);
 
   useEffect(() => {
-    if (alert) {
-      const { type, message, position, duration } = alert;
-      Alert({ type, message, position, duration });
-    }
+    if (alert) Alert(alert);
   }, [alert]);
 
-  useEffect(() => {
-    if (shouldNavigate) {
-      navigate(navigatePath);
-      setShouldNavigate(false); 
-    }
-  }, [shouldNavigate, navigatePath, navigate]);
+  /* ---------------- GOOGLE LOGIN ---------------- */
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    setIsLoading(true);
+  const handleGoogleLogin = async (tokenResponse) => {
+    setIsGoogleLoading(true);
 
-    if (email === "" || password === "") {
+    try {
+      const response = await api.post("/api/auth/googleAuth", {
+        access_token: tokenResponse.access_token,
+      });
+
+      const user = response.data.user;
+
+      localStorage.setItem("token", response.data.token);
+
+      authCtx.login(
+        user.name,
+        user.email,
+        user.img,
+        user.rollNumber,
+        user.school,
+        user.college,
+        user.contactNo,
+        user.year,
+        user.extra?.github,
+        user.extra?.linkedin,
+        user.extra?.designation,
+        user.access,
+        user.editProfileCount,
+        user.regForm,
+        user.blurhash,
+        response.data.token,
+        9600000
+      );
+
+      setAlert({
+        type: "success",
+        message: "Login successful",
+        position: "bottom-right",
+        duration: 2400,
+      });
+
+      const nextPath = sessionStorage.getItem("prevPage") || "/";
+      sessionStorage.removeItem("prevPage");
+
+      setTimeout(() => navigate(nextPath), 600);
+    } catch (error) {
       setAlert({
         type: "error",
-        message: "Please fill all the fields",
+        message: "There was an error logging in. Please try again.",
         position: "bottom-right",
-        duration: 3000,
+        duration: 2500,
       });
-      setIsLoading(false);
+    } finally {
+      setIsGoogleLoading(false);
+    }
+  };
+
+  const loginWithGoogle = useGoogleLogin({
+    onSuccess: handleGoogleLogin,
+    onError: () => {
+      setAlert({
+        type: "error",
+        message: "Google login failed. Please try again.",
+        position: "bottom-right",
+        duration: 2500,
+      });
+    },
+  });
+
+  /* ---------------- EMAIL LOGIN ---------------- */
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      setAlert({
+        type: "error",
+        message: "Fill all fields",
+        position: "bottom-right",
+        duration: 2500,
+      });
       return;
     }
 
+    setIsLoading(true);
+
     try {
-      const response = await api.post("/api/auth/login", {
+      const res = await api.post("/api/auth/login", {
         email: email.toLowerCase(),
         password,
       });
 
-      // console.log("incoming response", response.data);
+      const user = res.data.user;
 
-      if (response.status === 200 || response.status === 201) {
-        const user = response.data.user;
-        // console.log("user is ", user);
+      localStorage.setItem("token", res.data.token);
 
-        setAlert({
-          type: "success",
-          message: "Login successful",
-          position: "bottom-right",
-          duration: 2800,
-        });
+      authCtx.login(
+        user.name,
+        user.email,
+        user.img,
+        user.rollNumber,
+        user.school,
+        user.college,
+        user.contactNo,
+        user.year,
+        user.extra?.github,
+        user.extra?.linkedin,
+        user.extra?.designation,
+        user.access,
+        user.editProfileCount,
+        user.regForm,
+        user.blurhash,
+        res.data.token,
+        9600000
+      );
 
-        setNavigatePath(sessionStorage.getItem("prevPage") || "/");
+      setAlert({
+        type: "success",
+        message: "Login successful",
+        position: "bottom-right",
+        duration: 2000,
+      });
 
-        setTimeout(() => {
-          setShouldNavigate(true);
-        }, 750);
+      const nextPath = sessionStorage.getItem("prevPage") || "/";
+      sessionStorage.removeItem("prevPage");
 
-        setTimeout(() => {
-          localStorage.setItem("token", response.data.token);
-          authCtx.login(
-            user.name,
-            user.email,
-            user.img,
-            user.rollNumber,
-            user.school,
-            user.college,
-            user.contactNo,
-            user.year,
-            user.extra?.github,
-            user.extra?.linkedin,
-            user.extra?.designation,
-            user.access,
-            user.editProfileCount,
-            user.regForm,
-            user.blurhash,
-            response.data.token,
-            9600000
-          );
-        }, 800);
-        // console.log(authCtx);
-
-        sessionStorage.removeItem("prevPage"); 
-      } else {
-        setAlert({
-          type: "error",
-          message: response.data.message || "Invalid email or password",
-          position: "bottom-right",
-          duration: 3000,
-        });
-      }
-    } catch (error) {
+      setTimeout(() => navigate(nextPath), 600);
+    } catch (err) {
       setAlert({
         type: "error",
         message:
-          error?.response?.data?.message ||
-          "There was an error logging in. Please try again.",
+          err?.response?.data?.message || "Invalid email or password",
         position: "bottom-right",
-        duration: 3000,
+        duration: 2500,
       });
-      console.error("Error logging in:", error?.response?.data?.message);
     } finally {
       setIsLoading(false);
     }
@@ -136,132 +180,113 @@ const Login = () => {
     navigate("/ForgotPassword");
   };
 
+  /* ---------------- UI ---------------- */
+
   return (
-    <div>
-      <div className={style.container}>
-        <Link to={"/"}>
-          <div className={style.ArrowBackIcon}>
-            <ArrowBackIcon />
-          </div>
-        </Link>
-        <div className={style.circle}>
-          <div></div>
-        </div>
-        <div className={style.circle1}></div>
-        <div className={style.login}>
-          <h1
-            style={{
-              paddingTop: "10px",
-              background: "var(--primary)",
-              width: "20%",
-              WebkitBackgroundClip: "text",
-              color: "transparent",
-            }}
-          >
-            Login
-          </h1>
-          <GoogleLogin />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "1rem",
-            }}
-          >
-            <div className={style.divider} />
-            <p
-              style={{
-                color: "#fff",
-                textAlign: "center",
-                marginBottom: "0.2rem",
-              }}
+    <div
+      className={style.authShell}
+      style={{ "--auth-bg-image": `url(${heroBgImage})` }}
+    >
+      <Link to="/" className={style.backBtn}>
+        <ArrowBackIcon />
+      </Link>
+
+      <div className={style.card}>
+        <h1 className={style.title}>Welcome Back</h1>
+        <p className={style.subtitle}>Sign in to continue</p>
+
+        {/* -------- SELECT MODE -------- */}
+        {mode === "select" && (
+          <div className={style.options}>
+            <button
+              className={style.socialButton}
+              onClick={() => loginWithGoogle()}
+              type="button"
+              disabled={isGoogleLoading}
             >
-              or
-            </p>
-            <div className={style.divider} />
-          </div>
-          <form className={style.form} onSubmit={handleLogin}>
-            <Input
-              type="text"
-              placeholder="eg:something@gmail.com"
-              label="Email"
-              name="email"
-              value={email}
-              onChange={(e) => setemail(e.target.value)}
-              required
-              style={{
-                width: "98%",
-              }}
-            />
-            <Input
-              type="password"
-              placeholder="Enter your password"
-              label="Password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              style={{
-                width: "98%",
-              }}
-            />
-            <Text
-              onClick={handleForgot}
-              variant="secondary"
-              style={{
-                fontSize: "0.7rem",
-                cursor: "pointer",
-                width: "40%",
-                marginLeft: "0.4rem",
-                background: "var(--primary)",
-                WebkitBackgroundClip: "text",
-                color: "transparent",
-              }}
+              {isGoogleLoading ? (
+                <MicroLoading />
+              ) : (
+                <>
+                  <GoogleIcon className={style.socialIcon} />
+                  Continue with Google
+                </>
+              )}
+            </button>
+
+            <div className={style.dividerRow}>
+              <span className={style.line}></span>
+              <span className={style.or}>OR</span>
+              <span className={style.line}></span>
+            </div>
+
+            <button
+              className={style.emailOption}
+              onClick={() => setMode("email")}
+              type="button"
             >
-              Forget Password?
-            </Text>
-            <Button
-              type="submit"
-              style={{
-                width: "98%",
-                background: "var(--primary)",
-                color: "#fff",
-                height: "40px",
-                marginTop: "20px",
-                fontSize: "1rem",
-                cursor: "pointer",
-                marginLeft: "0.4rem",
-              }}
-              disabled={isLoading}
-            >
-              {isLoading ? <MicroLoading /> : "Login"}
-            </Button>
-            <Text
-              style={{
-                fontSize: "0.8rem",
-                textAlign: "center",
-                marginTop: "14px",
-              }}
-            >
-              Don't have an account?{" "}
-              <Link
-                to="/signup"
-                onClick={(e) => {
-                  sessionStorage.setItem("prevPage", window.location.pathname);
-                }}
-                style={{
-                  background: "var(--primary)",
-                  WebkitBackgroundClip: "text",
-                  color: "transparent",
-                }}
-              >
+              <MailOutlineIcon className={style.mailIcon} />
+              Continue with Email
+            </button>
+
+            <Text className={style.bottomText}>
+              Don't have an account{" "}
+              <Link to="/signup" className={style.linkAccent}>
                 Sign Up
               </Link>
             </Text>
-          </form>
-        </div>
+          </div>
+        )}
+
+        {/* -------- EMAIL MODE -------- */}
+        {mode === "email" && (
+          <div className={style.emailFormWrapper}>
+            <button
+              className={style.switchBack}
+              onClick={() => setMode("select")}
+              type="button"
+            >
+              <ArrowBackIcon className={style.backIcon} />
+              <span>Back</span>
+            </button>
+
+            <form onSubmit={handleLogin} className={style.form}>
+              <Input
+                type="email"
+                label="Email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmailState(e.target.value)}
+                required
+              />
+
+              <Input
+                type="password"
+                label="Password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+
+              <div className={style.formFooter}>
+                <Text onClick={handleForgot} className={style.forgot}>
+                  Forgot password?
+                </Text>
+              </div>
+
+              <Button
+                type="submit"
+                className={style.submitBtn}
+                disabled={isLoading}
+              >
+                {isLoading ? <MicroLoading /> : "Login"}
+              </Button>
+            </form>
+          </div>
+        )}
       </div>
+
       <Alert />
     </div>
   );

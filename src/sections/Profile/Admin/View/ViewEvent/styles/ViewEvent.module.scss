@@ -1,15 +1,21 @@
 .container {
   background-color: transparent;
   color: #fff;
-  padding: 20px;
+  padding: 2rem 3rem;
   border-radius: 8px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
+/* ================= HEADER ================= */
+
 .buttonContainer {
-  font-size: 30px;
+  font-size: 2rem;
   letter-spacing: 0.02em;
-  line-height: 40px;
-  padding-bottom: 50px;
+  line-height: 2.5rem;
+  padding-bottom: 2.5rem;
   width: 100%;
   display: flex;
   align-items: center;
@@ -17,41 +23,40 @@
 }
 
 .headInnerText {
-  margin-left: 3.5rem;
-  margin-top: 12px;
+  margin-left: 1rem;
+  margin-top: 0.5rem;
 }
 
 .headInnerText span {
-  margin-right: 3px;
+  margin-right: 4px;
   background: linear-gradient(to right, #d03e21 40%, #FF8A00);
   -webkit-background-clip: text;
   color: transparent;
 }
 
+/* ================= FORM ================= */
+
 .form {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
   width: 100%;
 }
 
-.eventListContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
+/* ================= TABS ================= */
 
 .tabContainer {
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
+  gap: 3rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
 }
 
 .tabHeading {
   cursor: pointer;
-  margin: 0 4rem;
-  margin-top: -1rem;
-  padding: 0.5rem;
-  font-size: 1.4rem;
+  padding: 0.5rem 0;
+  font-size: 1.2rem;
   user-select: none;
   transition: color 0.3s ease, border-bottom 0.3s ease;
 }
@@ -62,87 +67,115 @@
 
 .activeTab {
   border-bottom: 2px solid #dc5e14;
-  font-weight: bold;
+  font-weight: 600;
+}
+
+/* ================= EVENT SECTION ================= */
+
+.eventListContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .eventSectionContainer {
   display: flex;
   flex-direction: column;
+  gap: 2rem;
 }
 
 .eventSection {
   display: flex;
   flex-direction: column;
-  margin: 0 4rem 2rem 4rem;
+  margin: 0 2rem 2rem 2rem;
 }
+
+/* ================= GRID FIX ================= */
 
 .eventGrid {
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 2rem;
+  align-items: stretch;
 }
 
 .eventCardContainer {
-  margin-bottom: 1rem;
+  width: 100%;
+  max-width: none; /* removed restriction causing 1 per line */
   position: relative;
-  max-width: 24rem;
 }
 
+/* ================= SCROLLBAR ================= */
+
 .eventList::-webkit-scrollbar {
-  width: 10px;
-  height: 0px;
-  transition: .2s linear;
+  width: 8px;
   background-color: #292929;
 }
 
 .eventList::-webkit-scrollbar-thumb {
-  border-radius: 22px;
+  border-radius: 20px;
   background: var(--primary);
 }
 
 .eventList::-webkit-scrollbar-track {
-  padding: 0px 20px;
   background-color: transparent;
 }
 
-@media (max-width: 768px) {
-  .buttonContainer {
-    display: none;
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 2rem;
+  }
+
+  .eventSection {
+    margin: 0 1rem 2rem 1rem;
   }
 }
 
-
 @media (max-width: 768px) {
+  .buttonContainer {
+    display: none;
+  }
+
   .topSection {
     flex-direction: column;
+    gap: 1rem;
   }
-  .topSectionInputContainer:nth-child(1) {
-    margin-right: 0;
-  }
-  .EventInput {
-    width: 100%;
-  }
-  .EventInputArea {
-    width: 100%;
-  }
+
+  .EventInput,
+  .EventInputArea,
   .posterPreview {
     width: 100%;
   }
-  .buttonContainer {
-    display: none;
+
+  .eventGrid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 }
 
 @media (max-width: 540px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+
   .eventSection {
-    margin: 0rem;
+    margin: 0 0 2rem 0;
+  }
+
+  .tabContainer {
+    gap: 1.5rem;
   }
 }
 
 @media (max-width: 390px) {
   .container {
-    padding-left: 0rem;
-    padding-right: 0rem;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+
+  .eventGrid {
+    grid-template-columns: 1fr; /* single column only for very small screens */
   }
 }

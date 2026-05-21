@@ -1,25 +1,16 @@
 import { useState, useContext, useEffect } from "react";
-import { ProfileLayout, Sidebar } from "../../layouts";
-import {
-  ProfileView,
-  EventsView,
-  NewForm,
-  ViewMember,
-  ViewEvent,
-} from "../../sections";
+import { ProfileLayout, ProfileTopbar, Sidebar } from "../../layouts";
 import AuthContext from "../../context/AuthContext";
 import { api } from "../../services";
 import style from "./styles/Profile.module.scss";
 import { Loading } from "../../microInteraction";
-import { Outlet, useNavigate } from "react-router-dom";
-import {Navbar,Footer} from "../../layouts";
+import { Outlet } from "react-router-dom";
 
 const Profile = () => {
   const [activePage, setActivePage] = useState("Profile");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const authCtx = useContext(AuthContext);
-  const [designation, setDesignation] = useState("Admin");
   const [isLoading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (authCtx.isLoggedIn && window.localStorage.getItem("token")) {
@@ -73,32 +64,40 @@ const Profile = () => {
     }
   };
 
-  useEffect(() => {
-    const access = authCtx.user.access;
-    if (access === "ADMIN") {
-      setDesignation("Admin");
-    } else if (access === "ALUMNI") {
-      setDesignation("Alumni");
-    } else if (access === "USER") {
-      setDesignation("User");
-    } else {
-      setDesignation("Member");
-    }
-  }, [authCtx.user.access]);
-
- 
-
   return (
     <ProfileLayout>
-      <div className={style.profile}>
-        <Sidebar
-          activepage={activePage}
-          handleChange={(page) => {
-            setActivePage(page);
-            authCtx.eventData = null;
-          }}
+      <div className={style.profileShell}>
+        <ProfileTopbar
+          isSidebarOpen={isSidebarOpen}
+          onToggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
+          showSidebarToggle
         />
-        {isLoading ? <Loading /> : <div className={style.profile__content}>   <Outlet/> </div>}
+        <div className={style.profile}>
+          <Sidebar
+            activepage={activePage}
+            isMobileOpen={isSidebarOpen}
+            closeMobileSidebar={() => setIsSidebarOpen(false)}
+            handleChange={(page) => {
+              setActivePage(page);
+              authCtx.eventData = null;
+            }}
+          />
+          {isSidebarOpen && (
+            <button
+              type="button"
+              className={style.sidebarBackdrop}
+              onClick={() => setIsSidebarOpen(false)}
+              aria-label="Close menu"
+            />
+          )}
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <div className={style.profile__content}>
+              <Outlet />
+            </div>
+          )}
+        </div>
       </div>
     </ProfileLayout>
   );

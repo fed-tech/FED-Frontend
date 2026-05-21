@@ -1,53 +1,49 @@
 import React from "react";
 import OtpInput from "../../../components/OtpInput/OtpInput";
 import { X } from "lucide-react";
+import { Dialog } from "../../../components";
+import modalCard from "../../../components/ui/ModalCard.module.scss";
 
 const OtpInputModal = (props) => {
   const { onVerify, handleClose } = props;
+
   return (
-    <div
-      style={{
-        position: "fixed",
-        width: "100%",
-        height: "100%",
-
-        zIndex: "10",
-
-        left: "0",
-        top: "0",
+    <Dialog
+      open
+      size="sm"
+      onOpenChange={(next) => {
+        if (!next) handleClose();
+      }}
+      contentStyle={{
+        "--dialog-padding": "0",
+        "--dialog-surface": "transparent",
+        "--dialog-border": "none",
+        "--dialog-shadow": "none",
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: "0",
-          left: "0",
-          width: "100%",
-          height: "100%",
-          background: "rgba(0, 0, 0, 0.5)",
-          backdropFilter: "blur(4px)",
-          zIndex: "5",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            width: "auto",
-            height: "27rem",
-            borderRadius: "20px",
-            marginTop: "5rem",
-            position: "relative",
-          }}
-        >
-          <OtpInput
-            isSignUp={true}
-            onHandleVerfiy={onVerify}
-            handleClose={handleClose}
-          />
+      <div className={`${modalCard.card} ${modalCard.cardLg}`}>
+        <div className={modalCard.header}>
+          <div>
+            <div className={modalCard.title}>OTP Verification</div>
+            <div className={modalCard.subtitle}>Enter the code to continue</div>
+          </div>
+          <button
+            type="button"
+            onClick={handleClose}
+            className={modalCard.closeBtn}
+            aria-label="Close"
+          >
+            <X size={18} />
+          </button>
         </div>
+        <div className={modalCard.divider} />
+        <OtpInput
+          isSignUp={true}
+          onHandleVerfiy={onVerify}
+          handleClose={handleClose}
+        />
       </div>
-    </div>
+    </Dialog>
   );
 };
 

@@ -77,8 +77,11 @@ function ViewEvent({ handleChangePage }) {
     },
   };
 
-  const handleDeleteEvent = async () => {
-    const id = authCtx.eventData.id;
+  const handleDeleteEvent = async (id) => {
+    if (!id) {
+      console.error("Missing event id for delete.");
+      return;
+    }
     try {
       const response = await api.delete(`/api/form/deleteForm/${id}`, {
         headers: {

@@ -1,9 +1,7 @@
 import Login from '../../../authentication/Login/Login';
 
 const LoginMain = () => {
-  return (
-    <div><Login /></div>
-  )
-}
+  return <Login />;
+};
 
-export default LoginMain
+export default LoginMain;

@@ -20,6 +20,8 @@ const Section = ({ section, handleChange }) => {
             type={field.type}
             value={value}
             name={field.name}
+            className={styles.formInput}
+            containerClassName={styles.formInputContainer}
             onChange={(e) => handleChange(field, e.target.value)}
           />
         </div>
@@ -42,21 +44,10 @@ const Section = ({ section, handleChange }) => {
 
   const renderTeamFields = () => {
     return getTeamFields().map((team, index) => (
-      <div
-        key={index}
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexDirection: "row",
-        }}
-        className={styles.teamContainer}
-      >
+      <div key={index} className={styles.teamContainer}>
         {team.map((field, index) => (
           <div
             key={index}
-            style={{
-              width: "30%",
-            }}
             className={styles.teamField}
           >
             <Input
@@ -64,7 +55,8 @@ const Section = ({ section, handleChange }) => {
               label={`${field.name} ${field.isRequired ? "*" : ""}`}
               type={field.type}
               name={field.name}
-              style={{ width: "100%" }}
+              className={styles.formInput}
+              containerClassName={styles.formInputContainer}
               value={
                 field.type === "file" || field.type === "image"
                   ? field.onChangeValue?.name
@@ -107,6 +99,8 @@ const Section = ({ section, handleChange }) => {
                     label={`${field.name} ${field.isRequired ? "*" : ""}`}
                     type={field.type}
                     name={field.name}
+                    className={styles.formInput}
+                    containerClassName={styles.formInputContainer}
                     value={
                       field.type === "file" || field.type === "image"
                         ? field.onChangeValue?.name

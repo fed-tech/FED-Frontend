@@ -1,72 +1,22 @@
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: 20px;
-}
-
 .modal {
-  background: rgb(28, 28, 28);
-  border-radius: 12px;
   max-width: 600px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
   scrollbar-width: none;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  animation: slideIn 0.3s ease-out;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
 }
 
 .modalHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px 15px;
-  border-bottom: 1px solid #000000;
-  background: linear-gradient(135deg, #f97507 0%, #ff6b35 100%);
-  color: white;
-  border-radius: 12px 12px 0 0;
-
-  h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
+  padding: 0;
 }
 
 .closeButton {
   background: none;
   border: none;
-  color: rgb(0, 0, 0);
+  color: inherit;
   cursor: pointer;
-  padding: 8px ;
-  border-radius: 50%;
-  transition: background-color 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
+  padding: 0;
+  border-radius: 10px;
 }
 
 .modalContent {
@@ -98,11 +48,11 @@
   h3 {
     margin: 0;
     background: linear-gradient(
-    rgba(244, 43, 3, 0.84) 0%,
-    rgba(255, 190, 11, 0.84) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+      rgba(244, 43, 3, 0.84) 0%,
+      rgba(255, 190, 11, 0.84) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-size: 1.25rem;
     font-weight: 600;
   }
@@ -111,9 +61,9 @@
 .teamInfo {
   margin-bottom: 24px;
   padding: 20px;
-  background: #232323;
+  background: rgba(255, 255, 255, 0.04);
   border-radius: 8px;
-  border: 1px solid #dd5c00;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .teamHeader {
@@ -141,9 +91,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
-  background: rgb(29, 29, 29);
+  background: rgba(255, 255, 255, 0.04);
   border-radius: 6px;
-  border: 1px solid #585858;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
   .label {
     font-weight: 600;
@@ -152,7 +102,7 @@
   }
 
   .value {
-    color: #cc5c06;
+    color: #f59e0b;
     font-weight: 500;
   }
 }
@@ -166,18 +116,18 @@
 .teamCode {
   font-family: 'Courier New', monospace;
   font-weight: 600;
-  color: #f97507;
-  background: #474747;
+  color: #f59e0b;
+  background: rgba(255, 255, 255, 0.08);
   padding: 6px 12px;
   border-radius: 4px;
-  border: 1px solid #da7603;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.875rem;
 }
 
 .copyButton {
-  background: #f97507;
+  background: rgba(255, 255, 255, 0.08);
   color: white;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 8px;
   border-radius: 4px;
   cursor: pointer;
@@ -187,7 +137,7 @@
   justify-content: center;
 
   &:hover {
-    background: #ea580c;
+    background: rgba(255, 255, 255, 0.16);
   }
 
   &:active {
@@ -223,9 +173,9 @@
   display: flex;
   gap: 16px;
   padding: 16px;
-  background: #232323;
+  background: rgba(255, 255, 255, 0.04);
   border-radius: 8px;
-  border: 1px solid #e27100;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: box-shadow 0.2s;
 
   &:hover {
@@ -239,7 +189,7 @@
   height: 60px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid #f97507;
+  border: 2px solid rgba(255, 255, 255, 0.1);
 
   img {
     width: 100%;
@@ -267,7 +217,7 @@
 
 .memberName {
   margin: 0 0 8px 0;
-  color: #afafaf;
+  color: #ffffff;
   font-size: 1.125rem;
   font-weight: 600;
 }
@@ -282,7 +232,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #6b7280;
+  color: rgba(255, 255, 255, 0.65);
   font-size: 0.875rem;
 
   svg {
@@ -303,18 +253,15 @@
 }
 
 .modalFooter {
-  padding: 20px 24px;
-  border-top: 1px solid #202020;
+  margin-top: 1.5rem;
   display: flex;
   justify-content: flex-end;
-  background: #131313;
-  border-radius: 0 0 12px 12px;
 }
 
 .closeBtn {
-  background: #d06202;
-  color: white;
-  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
@@ -323,7 +270,7 @@
   transition: background-color 0.2s;
 
   &:hover {
-    background: #be4f01;
+    background: rgba(255, 255, 255, 0.16);
   }
 }
 
@@ -341,10 +288,6 @@
 
   .modalHeader {
     padding: 0px 20px;
-
-    h2 {
-      font-size: 1.25rem;
-    }
   }
 
   .teamDetailItem {

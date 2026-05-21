@@ -15,6 +15,10 @@
   overflow: hidden;
 }
 
+.cardWrapper {
+  position: relative;
+}
+
 .sharecontainer {
   position: absolute;
   z-index: 2;
@@ -141,7 +145,12 @@
   width: 1rem;
 }
 
-.price p {
+.price {
+  display: flex;
+  align-items: center;
+}
+
+.priceValue {
   display: flex;
   align-items: center;
   color: #fff;
@@ -188,7 +197,7 @@
   text-overflow:ellipsis;
 }
 
-.eventname p {
+.eventMeta {
   font-size: 0.9rem;
   width: auto;
   display: flex;
@@ -309,7 +318,7 @@ a {
     background-clip: text;
   }
 
-  .eventname p {
+  .eventMeta {
     font-size: 0.7rem;
     display: flex;
     align-items: center;

@@ -37,24 +37,12 @@ $tablet: 768px;
 $mobile: 480px;
 
 // Sizes
-$toggle-button-size: 72px;
+$toggle-button-size: 58px;
 $border-radius-medium: 16px;
 
 // ============================================
 // ANIMATIONS
 // ============================================
-
-@keyframes bounce {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-8px);
-    }
-}
 
 @keyframes fadeIn {
     from {
@@ -99,7 +87,7 @@ $border-radius-medium: 16px;
 .chatbotToggle {
     position: fixed;
     bottom: $spacing-xl;
-    right: $spacing-xl;
+    right: 60px;
     width: $toggle-button-size;
     height: $toggle-button-size;
     border-radius: 50%;
@@ -110,44 +98,18 @@ $border-radius-medium: 16px;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 8px 24px rgba(244, 43, 3, 0.4);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
     z-index: $z-toggle;
     transition: all $transition-fast;
-    animation: bounce 2s infinite;
     backdrop-filter: blur($glass-blur);
 
     &:hover {
-        transform: scale(1.1);
-        animation: none;
-        box-shadow: 0 12px 32px rgba(244, 43, 3, 0.5);
+        transform: none;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
     }
 
     &:active {
-        transform: scale(0.95);
-    }
-}
-
-.pulseRing {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 3px solid rgba(255, 190, 11, 0.6);
-    animation: pulseRing 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulseRing {
-    0% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translate(-50%, -50%) scale(1.5);
-        opacity: 0;
+        transform: none;
     }
 }
 
@@ -186,6 +148,12 @@ $border-radius-medium: 16px;
     backdrop-filter: blur($glass-blur);
     animation: slideInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
+}
+
+:global(body.fed-modal-open) .chatbotToggle,
+:global(body.fed-modal-open) .chatbotContainer,
+:global(body.fed-modal-open) .backdrop {
+    display: none !important;
 }
 
 @keyframes slideInUp {
@@ -671,9 +639,9 @@ $border-radius-medium: 16px;
 
     .chatbotToggle {
         bottom: $spacing-md;
-        right: $spacing-md;
-        width: 64px;
-        height: 64px;
+        right: 26px;
+        width: 54px;
+        height: 54px;
     }
 
     .message {

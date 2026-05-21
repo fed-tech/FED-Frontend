@@ -11,7 +11,7 @@ import { PiClockCountdownDuotone } from "react-icons/pi";
 import { IoIosLock, IoIosStats } from "react-icons/io";
 import { MdGroups } from "react-icons/md";
 
-import { FaUser, FaRupeeSign,FaEye} from "react-icons/fa";
+import { FaUser, FaRupeeSign, FaEye } from "react-icons/fa";
 import { QrCode } from "lucide-react";
 import { parse, differenceInMilliseconds, formatDistanceToNow } from "date-fns";
 import { Button } from "../Core";
@@ -25,9 +25,8 @@ import { TeamDetailsModal } from "../../features/Modals";
 const EventCard = (props) => {
   const {
     data,
-    onOpen,
+    onOpen = () => {},
     type,
-    modalpath,
     customStyles = {},
     showShareButton = true,
     showRegisterButton = true,
@@ -36,7 +35,7 @@ const EventCard = (props) => {
     onEdit,
     onDelete,
     enableEdit,
-    isLoading,
+    isLoading = false,
     isRegisteredInRelatedEvents,
     eventName,
   } = props;
@@ -332,14 +331,10 @@ const EventCard = (props) => {
           duration: 3000,
         });
       } else {
-        setNavigatePath("/Events/" + data.id + "/Form");
         setTimeout(() => {
-          setShouldNavigate(true);
-        }, 1000);
-
-        setTimeout(() => {
+          navigate(`/Events/${data.id}/details`);
           setIsMicroLoading(false);
-        }, 3000);
+        }, 300);
       }
     } else {
       setIsMicroLoading(true);
@@ -363,13 +358,13 @@ const EventCard = (props) => {
   }
 
   return (
-    <div>
+    <div className={style.cardWrapper}>
       <div
         onMouseEnter={() => setisHovered(true)}
         onMouseLeave={() => setisHovered(false)}
         className={style.card}
         style={customStyles.card}
-        // data-aos={aosDisable ? "" : "fade-up"}
+      // data-aos={aosDisable ? "" : "fade-up"}
       >
         <div
           className={style.backimg}
@@ -403,7 +398,10 @@ const EventCard = (props) => {
             <div
               className={style.share}
               style={customStyles.share}
-              onClick={handleShare}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleShare();
+              }}
             >
               <img
                 className={style.shareIcon}
@@ -417,7 +415,10 @@ const EventCard = (props) => {
             <div
               className={style.qrCode}
               style={customStyles.qrCode}
-              onClick={handleQRCode}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleQRCode();
+              }}
               title="View Attendance QR Code"
             >
               <QrCode
@@ -438,7 +439,7 @@ const EventCard = (props) => {
             </span>
 
             {type === "ongoing" && (
-              <p>
+              <div className={style.eventMeta}>
                 {info.participationType === "Team" ? (
                   <>
                     <MdGroups color="#f97507" size={25} />
@@ -470,32 +471,37 @@ const EventCard = (props) => {
                   </>
                 )}
 
-                <div className={style.price} style={customStyles.price}>
+                <span className={style.price} style={customStyles.price}>
                   {info.eventAmount ? (
-                    <p style={{ font: "2rem" }}>
+                    <span className={style.priceValue} style={{ font: "2rem" }}>
                       <FaRupeeSign color="#f97507" size={15} />
                       {info.eventAmount}
-                    </p>
+                    </span>
                   ) : (
-                    <p style={{ color: "white", marginTop: "-1px" }}>Free</p>
+                    <span
+                      className={style.priceValue}
+                      style={{ color: "white", marginTop: "-1px" }}
+                    >
+                      Free
+                    </span>
                   )}
-                </div>
-              </p>
+                </span>
+              </div>
             )}
           </div>
           {type === "ongoing" && showRegisterButton && (
             <div
               style={{ fontSize: ".9rem", color: "white" }}
-              // onMouseEnter={() => {
-              //   if (
-              //     btnTxt === "Locked" &&
-              //     authCtx.isLoggedIn &&
-              //     authCtx.user.access === "USER"
-              //   ) {
-              //   }
-              // }}
+            // onMouseEnter={() => {
+            //   if (
+            //     btnTxt === "Locked" &&
+            //     authCtx.isLoggedIn &&
+            //     authCtx.user.access === "USER"
+            //   ) {
+            //   }
+            // }}
             >
-              
+
               <button
                 className={style.registerbtn}
                 style={{
@@ -503,37 +509,37 @@ const EventCard = (props) => {
                   cursor: btnTxt === "Register Now" ? "pointer" : "not-allowed",
                 }}
                 onClick={handleForm}
-                // disabled={
-                //   btnTxt === "Closed" ||
-                //   btnTxt === "Locked" ||
-                //   btnTxt === "Already Registered" ||
-                //   btnTxt === "Already Member" ||
-                //   btnTxt === `${remainingTime}`
-                // }
+              // disabled={
+              //   btnTxt === "Closed" ||
+              //   btnTxt === "Locked" ||
+              //   btnTxt === "Already Registered" ||
+              //   btnTxt === "Already Member" ||
+              //   btnTxt === `${remainingTime}`
+              // }
               >
                 {btnTxt === "Closed" ? (
-  <>
-    <div style={{ fontSize: "0.9rem" }}>Closed</div>
-    <IoIosLock
-      alt=""
-      style={{ marginLeft: "0px", fontSize: "1rem" }}
-    />
-  </>
-) : btnTxt === "Already Registered" ? (
-  info.participationType === "Team" ? ( // Show Team Details only for team events
-    <>
-      <div
-        style={{ fontSize: "0.9rem", cursor: "pointer" }}
-        onClick={() => setIsTeamDetailsOpen(true)}
-      >
-        Team Details
-      </div>
-    </>
-  ) : (
-    <>
-      <div style={{ fontSize: "0.9rem" }}>Registered</div>
-    </>
-  )
+                  <>
+                    <div style={{ fontSize: "0.9rem" }}>Closed</div>
+                    <IoIosLock
+                      alt=""
+                      style={{ marginLeft: "0px", fontSize: "1rem" }}
+                    />
+                  </>
+                ) : btnTxt === "Already Registered" ? (
+                  info.participationType === "Team" ? ( // Show Team Details only for team events
+                    <>
+                      <div
+                        style={{ fontSize: "0.9rem", cursor: "pointer" }}
+                        onClick={() => navigate(`/Events/${data.id}/team`)}
+                      >
+                        Team Details
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div style={{ fontSize: "0.9rem" }}>Registered</div>
+                    </>
+                  )
 
 
                 ) : btnTxt === "Locked" ? (
@@ -567,7 +573,7 @@ const EventCard = (props) => {
               </button>
             </div>
           )}
-          
+
 
         </div>
         <div className={style.backtxt} style={customStyles.backtxt}>
@@ -575,7 +581,7 @@ const EventCard = (props) => {
             <div className={style.EventDesc} style={customStyles.EventDesc}>
               {info.eventdescription}
             </div>
-            <Link to={modalpath + data.id}>
+            <Link to={`/Events/${data.id}/details`}>
               <span
                 onClick={handleCloseShare}
                 className={style.seeMore}
@@ -625,7 +631,7 @@ const EventCard = (props) => {
               );
               if (isConfirmed && onDelete) {
                 authCtx.eventData = data;
-                onDelete();
+                onDelete(data.id);
               }
             }}
             variant="secondary"
@@ -641,7 +647,7 @@ const EventCard = (props) => {
           />
         </div>
       )}
-      
+
       {/* Team Details Modal */}
       <TeamDetailsModal
         isOpen={isTeamDetailsOpen}
@@ -649,7 +655,7 @@ const EventCard = (props) => {
         formId={data.id}
         eventTitle={info.eventTitle}
       />
-      
+
       <Alert />
     </div>
   );
@@ -657,17 +663,17 @@ const EventCard = (props) => {
 
 EventCard.propTypes = {
   data: PropTypes.object.isRequired,
-  onOpen: PropTypes.func.isRequired,
+  onOpen: PropTypes.func,
   type: PropTypes.string.isRequired,
-  modalpath: PropTypes.string.isRequired,
   customStyles: PropTypes.object,
   showShareButton: PropTypes.bool,
   showRegisterButton: PropTypes.bool,
   additionalContent: PropTypes.node,
   aosDisable: PropTypes.bool,
   onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
   enableEdit: PropTypes.bool,
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 export default EventCard;

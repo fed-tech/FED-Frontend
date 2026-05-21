@@ -1,217 +1,145 @@
-.feedbackContainer {
-  background-color: #1C1C1C;
-  color: #ffffff;
-  text-align: center;
-  position: relative;
+.section {
+  background: #111111;
+  padding: 8rem 0;
   overflow: hidden;
-  padding-bottom: 60px;
-}
-.FeedbackMsg{
-  width: 260px;
-  height: 132px;
-  margin-bottom: 8px;
-  overflow-y: scroll;
-}
-::-webkit-scrollbar{
-  visibility: hidden;
-}
-.feedbackContainer .upQuote {
-  width: 150px;
-  height: 90px;
-  position: absolute;
-  right: 0%;
-  top: 15%;
 }
 
-.feedbackContainer .downQuote {
-  width: 150px;
-  height: 90px;
-  position: absolute;
-  left: 0%;
-  bottom: 0%;
-  rotate: 180deg;
-  margin-bottom: 5px;
-}
-
-.feedbackContainer h2 {
-  font-size: 50px;
-  margin-bottom: 20px;
-  padding-top: 20px;
-}
-
-.bottomLine {
-  width: 12rem;
-  height: 0.3125rem;
-  background: var(--primary);
-  color: transparent;
-  border-radius: 5px;
-  margin-bottom: 4rem;
-}
+/* ===== Heading ===== */
 
 .heading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  margin-top: 3rem;
-  font-size: 1.7rem;
-}
-.heading span{
-  background: var(--primary);
-    background-clip: text;
-    color: transparent;
-}
-.highlight {
-  background: var(--primary);
-    background-clip: text;
-    color: transparent;
+  text-align: center;
+  margin-bottom: 5rem;
 }
 
-.feedbacksContainer {
+.heading h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.heading span {
+  background: var(--primary);
+  background-clip: text;
+  color: transparent;
+}
+
+.line {
+  width: 6rem;
+  height: 4px;
+  background: var(--primary);
+  margin: 1.5rem auto 0 auto;
+  border-radius: 4px;
+}
+
+/* ===== Marquee ===== */
+
+.marquee {
   overflow: hidden;
   width: 100%;
-  position: relative;
 }
 
-.feedbacks {
+.track {
   display: flex;
-  animation: scroll 20s linear infinite;
-  margin-left: 1300px;
-  
-}
-
-
-
-.feedbackCard {
-  border-radius: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.40);
-  background: rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(7.5px);
-  padding: 20px;
-  margin: 10px;
-  min-width: 300px;
-  text-align: left;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  flex-direction: column;
-  height: auto;
-  
+  gap: 3rem;
+  width: max-content;
+  animation: scroll 38s linear infinite;
 }
 
 @keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
+/* ===== Card ===== */
 
-.feedbackText {
-  font-size: 1em;
-  margin-bottom: 20px;
-  white-space: normal; /* Allow text to wrap */
+.card {
+  position: relative;
+  min-width: 380px;
+  max-width: 380px;
+  padding: 2.8rem 2.2rem 2.2rem 2.2rem;
+  border-radius: 1.8rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.feedbackAuthor {
+/* Quote Icon */
+
+.quoteIcon {
+  font-size: 2rem;
+  color: var(--primary);
+  opacity: 0.25;
+  margin-bottom: 1.5rem;
+}
+
+/* Text */
+
+.text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #e5e5e5;
+  margin-bottom: 2rem;
+  cursor: pointer;
+}
+
+.more {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Author */
+
+.author h4 {
+  font-weight: 600;
   background: var(--primary);
-    background-clip: text;
-    color: transparent;
-  font-weight: bold;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 5px;
-  white-space: normal;
 }
 
-.feedbackEv {
-  font-size: 0.9em;
-  color: #cccccc;
-  white-space: normal;
+.author span {
+  font-size: 0.9rem;
+  color: #a0a0a0;
 }
 
-/* Responsive Styles */
+/* ===== Responsive ===== */
+
 @media (max-width: 768px) {
-  .feedbackContainer h2 {
-    font-size: 1.5em;
+  .heading h2 {
+    font-size: 2.2rem;
   }
 
-  .heading {
-    font-size: 2rem;
+  .card {
+    min-width: 300px;
+    max-width: 300px;
   }
 
-  .feedbackCard {
-    min-width: 250px;
-    padding: 15px;
-  }
-
-  .feedbackContainer .upQuote,
-  .feedbackContainer .downQuote {
-    width: 100px;
-    height: 60px;
+  .track {
+    gap: 2rem;
+    animation-duration: 30s;
   }
 }
 
 @media (max-width: 480px) {
-  .feedbackContainer{
-    width: 100%;
-  }
-  
-  .FeedbackMsg{
-    width: 220px;
-    height: 100px;
-    overflow-y: scroll;
-  }
-  .feedbackContainer h2 {
-    font-size: 30px;
-  }
-
-  .bottomLine{
-    width: 7rem;
-  }
-
-  .feedbackCard {
-    min-width: 240px;
-    padding: 15px;
-  }
-  
-  .heading {
+  .heading h2 {
     font-size: 1.8rem;
-    margin-top: 20px;
   }
 
-  .feedbackText {
-    font-size: 0.86em;
-    margin-bottom: 15px;
+  .card {
+    min-width: 260px;
+    max-width: 260px;
+    padding: 1.8rem;
   }
 
-  .feedbackAuthor {
-    font-size: 0.7em;
+  .track {
+    gap: 1.5rem;
+    animation-duration: 26s;
   }
 
-  .feedbackEv {
-    font-size: 0.6em;
-  }
-
-  .feedbacks {
-    display: flex;
-    animation: scroll 17s linear infinite;
-    margin-left: -1500px;
-    margin-right: -2000px;
-  
-  }
-
-  .feedbackContainer .upQuote,
-  .feedbackContainer .downQuote {
-    width: 80px;
-    height: 50px;
-  }
-  
-  .feedbackContainer .upQuote {
-    top: 37%;
-  }
-
-  .feedbackContainer .downQuote {
-    bottom: 5%;
+  .quoteIcon {
+    font-size: 1.6rem;
   }
 }

@@ -22,14 +22,80 @@
   color: transparent;
   
 }
-  .formInput {
-    width: 90% !important;
+.formInput {
+    width: 100% !important;
     margin-bottom: 1.4em;
   }
   .formInputTxtArea {
-    width: 90% !important;
-    height: 31vh !important;
+    width: 100% !important;
+    min-height: 160px !important;
+    height: 200px !important;
+    resize: vertical;
   }
+
+.formBody {
+  height: 90vh;
+  width: 90%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  margin-bottom: 50px;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+.detailsColumn {
+  min-width: 0;
+}
+
+.detailsRight {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.detailsRight .formInput {
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .formHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .formBody {
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+  }
+
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .buttonContainer {
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  .detailsGrid {
+    gap: 1.25rem;
+  }
+
+  .formFieldContainer {
+    width: 100%;
+  }
+}
   
   .formFieldContainer {
     display: flex;

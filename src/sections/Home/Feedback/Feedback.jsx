@@ -1,77 +1,72 @@
-import { useState, useRef, useEffect} from "react";
+import { useRef, useEffect, useState } from "react";
 import styles from "./styles/Feedback.module.scss";
 import feedbackData from "../../../data/Feedback.json";
-import quoteImg from "../../../assets/images/quote.png";
+import { FaQuoteLeft } from "react-icons/fa";
 
 const Feedback = () => {
-  const feedbacksRef = useRef(null);
+  const trackRef = useRef(null);
 
-  const FeedbackCard = ({ quote }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+  const FeedbackCard = ({ item }) => {
+    const [expanded, setExpanded] = useState(false);
 
-    const toggleExpand = () => {
-      setIsExpanded(!isExpanded);
-    };
-
-    const truncatedQuote = quote.quote.length > 200 
-      ? `${quote.quote.substring(0, 160)}...` 
-      : quote.quote;
+    const shortText =
+      item.quote.length > 180
+        ? item.quote.slice(0, 150) + "..."
+        : item.quote;
 
     return (
-      <div className={styles.feedbackCard}>
-        <div className={styles.FeedbackMsg} onClick={toggleExpand}>
-          <p className={styles.feedbackText}>
-            {isExpanded ? quote.quote : truncatedQuote}
-            {quote.quote.length > 160 && !isExpanded && (
-              <span className={styles.readMore} style={{fontWeight:"550", cursor:"pointer", color:"whitesmoke"}}>read more</span>
-            )}
-          </p>
-        </div>
+      <div className={styles.card}>
+        <FaQuoteLeft className={styles.quoteIcon} />
 
-        <div>
-          <p className={styles.feedbackAuthor}>{quote.title}</p>
-          <p className={styles.feedbackEv}>{quote.post}</p>
+        <p
+          className={styles.text}
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? item.quote : shortText}
+          {item.quote.length > 150 && !expanded && (
+            <span className={styles.more}> read more</span>
+          )}
+        </p>
+
+        <div className={styles.author}>
+          <h4>{item.title}</h4>
+          <span>{item.post}</span>
         </div>
       </div>
     );
   };
 
   useEffect(() => {
-    const feedbacksContainer = feedbacksRef.current;
-    const handleMouseEnter = () => {
-      feedbacksContainer.style.animationPlayState = "paused";
-    };
-    const handleMouseLeave = () => {
-      feedbacksContainer.style.animationPlayState = "running";
-    };
+    const track = trackRef.current;
+    const pause = () => (track.style.animationPlayState = "paused");
+    const run = () => (track.style.animationPlayState = "running");
 
-    feedbacksContainer.addEventListener("mouseenter", handleMouseEnter);
-    feedbacksContainer.addEventListener("mouseleave", handleMouseLeave);
+    track.addEventListener("mouseenter", pause);
+    track.addEventListener("mouseleave", run);
 
     return () => {
-      feedbacksContainer.removeEventListener("mouseenter", handleMouseEnter);
-      feedbacksContainer.removeEventListener("mouseleave", handleMouseLeave);
+      track.removeEventListener("mouseenter", pause);
+      track.removeEventListener("mouseleave", run);
     };
   }, []);
 
   return (
-    <div className={styles.feedbackContainer}>
-      <img className={styles.upQuote} src={quoteImg} alt="Up Quote" />
+    <section className={styles.section}>
       <div className={styles.heading}>
         <h2>
-          TESTIMO<span>NIALS</span>
+          Testimonials <span>Voices</span>
         </h2>
-        <div className={styles.bottomLine}></div>
+        <div className={styles.line}></div>
       </div>
-      <div className={styles.feedbacksContainer}>
-        <div className={styles.feedbacks} ref={feedbacksRef}>
-          {feedbackData.concat(feedbackData).map((quote, index) => (
-            <FeedbackCard key={index} quote={quote} />
+
+      <div className={styles.marquee}>
+        <div className={styles.track} ref={trackRef}>
+          {[...feedbackData, ...feedbackData].map((item, i) => (
+            <FeedbackCard key={i} item={item} />
           ))}
         </div>
       </div>
-      <img className={styles.downQuote} src={quoteImg} alt="Down Quote" />
-    </div>
+    </section>
   );
 };
 

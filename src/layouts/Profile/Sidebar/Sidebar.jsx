@@ -1,27 +1,25 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { MdLogout } from "react-icons/md";
 import { TbUserEdit } from "react-icons/tb";
 import { SlCalender } from "react-icons/sl";
 import { SiReacthookform } from "react-icons/si";
 import { FaRegNewspaper, FaCertificate } from "react-icons/fa";
 import { LuClipboardList } from "react-icons/lu";
+import { FiUser } from "react-icons/fi";
 import AuthContext from "../../../context/AuthContext";
 import styles from "./styles/Sidebar.module.scss";
 
 import defaultImg from "../../../assets/images/defaultImg.jpg";
 import camera from "../../../assets/images/camera.svg";
 import { EditImage } from "../../../features";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-const Sidebar = ({ activepage, handleChange }) => {
+const Sidebar = ({ activepage, handleChange, isMobileOpen, closeMobileSidebar }) => {
   const [designation, setDesignation] = useState("");
   const authCtx = useContext(AuthContext);
   const [imagePrv, setimagePrv] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
   const imgRef = useRef(null);
-  const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
@@ -40,11 +38,6 @@ const Sidebar = ({ activepage, handleChange }) => {
       setDesignation("Member");
     }
   }, [authCtx.user.access, authCtx.user.email]);
-
-  const handleLogout = () => {
-    navigate("/");
-    authCtx.logout();
-  };
 
   const handleName = () => {
     const maxLength = 20;
@@ -66,6 +59,31 @@ const Sidebar = ({ activepage, handleChange }) => {
     setimagePrv(url);
   };
 
+  const activeKey = String(activepage || "").toLowerCase();
+  const isActive = (...keys) => keys.some((key) => key.toLowerCase() === activeKey);
+
+  const handleMenuSelect = (page) => {
+    handleChange(page);
+    if (window.innerWidth <= 768) {
+      closeMobileSidebar?.();
+    }
+  };
+
+  const renderMenuItem = ({ label, to, page, Icon, activeKeys = [] }) => {
+    const itemActive = isActive(page, ...activeKeys);
+    return (
+      <div
+        className={`${styles.menuItem} ${itemActive ? styles.menuItemActive : ""}`}
+        onClick={() => handleMenuSelect(page)}
+      >
+        <NavLink to={to} className={styles.menuLink}>
+          <Icon size={17} className={styles.menuIcon} />
+          <span>{label}</span>
+        </NavLink>
+      </div>
+    );
+  };
+
   // Check if user is attendance-only
   const isAttendanceOnly = authCtx.user.email === "attendance@fedkiit.com";
 
@@ -74,187 +92,84 @@ const Sidebar = ({ activepage, handleChange }) => {
     const isMobile = window.innerWidth <= 768;
 
     if (isMobile) {
-      return (
-        <div
-          onClick={() => handleChange("Attendance")}
-          style={{
-            background:
-              activepage === "Attendance" ? "var(--primary)" : "transparent",
-            WebkitBackgroundClip:
-              activepage === "Attendance" ? "text" : "initial",
-            backgroundClip: activepage === "Attendance" ? "text" : "initial",
-            color: activepage === "Attendance" ? "transparent" : "inherit",
-          }}
-        >
-          <LuClipboardList
-            size={17}
-            style={{
-              color: activepage === "Attendance" ? "#FF8A00" : "white",
-              marginRight: "10px",
-            }}
-          />{" "}
-          <Link to={"/profile/attendance"}>Attendance</Link>
-        </div>
-      );
+      return renderMenuItem({
+        label: "Attendance",
+        to: "/profile/attendance",
+        page: "Attendance",
+        Icon: LuClipboardList,
+      });
     }
 
-    return (
-      <div
-        onClick={() => handleChange("Blogs")}
-        style={{
-          background: activepage === "Blogs" ? "var(--primary)" : "transparent",
-          WebkitBackgroundClip: activepage === "Blogs" ? "text" : "initial",
-          backgroundClip: activepage === "Blogs" ? "text" : "initial",
-          color: activepage === "Blogs" ? "transparent" : "inherit",
-        }}
-      >
-        <FaRegNewspaper
-          size={17}
-          style={{
-            color: activepage === "Blogs" ? "#FF8A00" : "white",
-            marginRight: "10px",
-          }}
-        />{" "}
-        <Link to={"/profile/BlogForm"}>Blogs</Link>
-      </div>
-    );
+    return renderMenuItem({
+      label: "Blogs",
+      to: "/profile/BlogForm",
+      page: "Blogs",
+      Icon: FaRegNewspaper,
+    });
   };
 
   const renderAdminMenu = () => (
     <>
-      <div
-        onClick={() => handleChange("Events")}
-        style={{
-          background: activepage === "Events" ? "var(--primary)" : "transparent",
-          WebkitBackgroundClip: activepage === "Events" ? "text" : "initial",
-          backgroundClip: activepage === "Events" ? "text" : "initial",
-          color: activepage === "Events" ? "transparent" : "inherit",
-        }}
-      >
-        <SlCalender
-          size={17}
-          style={{
-            color: activepage === "events" ? "#FF8A00" : "white",
-            marginRight: "10px",
-          }}
-        />{" "}
-        <NavLink to="/profile/events">Event</NavLink>
-      </div>
-
-      <div
-        onClick={() => handleChange("Form")}
-        style={{
-          background: activepage === "Form" ? "var(--primary)" : "transparent",
-          WebkitBackgroundClip: activepage === "Form" ? "text" : "initial",
-          backgroundClip: activepage === "Form" ? "text" : "initial",
-          color: activepage === "Form" ? "transparent" : "inherit",
-        }}
-      >
-        <SiReacthookform
-          size={17}
-          style={{
-            color: activepage === "Form" ? "#FF8A00" : "white",
-            marginRight: "10px",
-          }}
-        />{" "}
-        <Link to={"/profile/Form"}>Form</Link>
-      </div>
-
-      <div
-        onClick={() => handleChange("Members")}
-        style={{
-          background:
-            activepage === "Members" ? "var(--primary)" : "transparent",
-          WebkitBackgroundClip: activepage === "Members" ? "text" : "initial",
-          backgroundClip: activepage === "Members" ? "text" : "initial",
-          color: activepage === "Members" ? "transparent" : "inherit",
-          marginLeft: "-6px",
-        }}
-      >
-        <TbUserEdit
-          size={17}
-          style={{
-            color: activepage === "Members" ? "#FF8A00" : "white",
-            marginRight: "10px",
-          }}
-        />{" "}
-        <Link to={"/profile/members"}> Members</Link>
-      </div>
-
-      <div
-        onClick={() => handleChange("Attendance")}
-        style={{
-          background:
-            activepage === "Attendance" ? "var(--primary)" : "transparent",
-          WebkitBackgroundClip:
-            activepage === "Attendance" ? "text" : "initial",
-          backgroundClip: activepage === "Attendance" ? "text" : "initial",
-          color: activepage === "Attendance" ? "transparent" : "inherit",
-          marginLeft: "-6px",
-        }}
-      >
-        <LuClipboardList
-          size={17}
-          style={{
-            color: activepage === "Attendance" ? "#FF8A00" : "white",
-            marginRight: "10px",
-          }}
-        />{" "}
-        <Link to={"/profile/attendance"}> Attendance</Link>
-      </div>
+      {renderMenuItem({
+        label: "Event",
+        to: "/profile/events",
+        page: "Events",
+        Icon: SlCalender,
+        activeKeys: ["events"],
+      })}
+      {renderMenuItem({
+        label: "Form",
+        to: "/profile/Form",
+        page: "Form",
+        Icon: SiReacthookform,
+      })}
+      {renderMenuItem({
+        label: "Members",
+        to: "/profile/members",
+        page: "Members",
+        Icon: TbUserEdit,
+      })}
+      {renderMenuItem({
+        label: "Attendance",
+        to: "/profile/attendance",
+        page: "Attendance",
+        Icon: LuClipboardList,
+      })}
     </>
   );
 
   // Render attendance-only menu
-  const renderAttendanceOnlyMenu = () => (
-    <div
-      onClick={() => handleChange("Attendance")}
-      style={{
-        background: activepage === "Attendance" ? "var(--primary)" : "transparent",
-        WebkitBackgroundClip: activepage === "Attendance" ? "text" : "initial",
-        backgroundClip: activepage === "Attendance" ? "text" : "initial",
-        color: activepage === "Attendance" ? "transparent" : "inherit",
-      }}
-    >
-      <LuClipboardList
-        size={17}
-        style={{
-          color: activepage === "Attendance" ? "#FF8A00" : "white",
-          marginRight: "10px",
-        }}
-      />{" "}
-      <Link to={"/profile/attendance"}>Attendance</Link>
-    </div>
-  );
+  const renderAttendanceOnlyMenu = () =>
+    renderMenuItem({
+      label: "Attendance",
+      to: "/profile/attendance",
+      page: "Attendance",
+      Icon: LuClipboardList,
+    });
 
-  const renderCertificateMenu = () => (
-    <div
-      onClick={() => handleChange("Certificates")}
-      style={{
-        background: activepage === "Certificates" ? "var(--primary)" : "transparent",
-        WebkitBackgroundClip: activepage === "Certificates" ? "text" : "initial",
-        backgroundClip: activepage === "Certificates" ? "text" : "initial",
-        color: activepage === "Certificates" ? "transparent" : "inherit",
-      }}
-    >
-      <FaCertificate
-        size={17}
-        style={{
-          color: activepage === "Certificates" ? "#FF8A00" : "white",
-          marginRight: "10px",
-        }}
-      />{" "}
-      <Link to={"/profile/certificates"}>Certificates</Link>
-    </div>
-  );
+  const renderCertificateMenu = () =>
+    renderMenuItem({
+      label: "Certificates",
+      to: "/profile/certificates",
+      page: "Certificates",
+      Icon: FaCertificate,
+    });
+
+  const renderProfileDetailsMenu = () =>
+    renderMenuItem({
+      label: "Profile Details",
+      to: "/profile",
+      page: "Profile",
+      Icon: FiUser,
+    });
 
   return (
     <>
-      <div className={styles.sidebar}>
+      <aside className={`${styles.sidebar} ${isMobileOpen ? styles.mobileOpen : ""}`}>
         <div className={styles.profile}>
           <div
             style={{ width: "auto", position: "relative", cursor: "pointer" }}
-            onClick={() => handleChange("Profile")}
+            onClick={() => handleMenuSelect("Profile")}
           >
             <NavLink to={"/profile"}>
               <img
@@ -275,7 +190,9 @@ const Sidebar = ({ activepage, handleChange }) => {
             )}
             {authCtx.user.access !== "USER" && !isAttendanceOnly && (
               <>
-                <div
+                <button
+                  type="button"
+                  className={styles.cameraBtn}
                   style={{ position: "absolute", bottom: "5px", right: "5px" }}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -283,7 +200,7 @@ const Sidebar = ({ activepage, handleChange }) => {
                   }}
                 >
                   <img src={camera} alt="camera" />
-                </div>
+                </button>
                 <input
                   style={{
                     display: "none",
@@ -305,6 +222,7 @@ const Sidebar = ({ activepage, handleChange }) => {
         </div>
         
         <div className={styles.menu}>
+          {renderProfileDetailsMenu()}
           {isAttendanceOnly ? (
             // Show only Attendance menu for attendance@fedkiit.com
             renderAttendanceOnlyMenu()
@@ -316,29 +234,21 @@ const Sidebar = ({ activepage, handleChange }) => {
                 authCtx.user.access === "SENIOR_EXECUTIVE_CREATIVE") &&
                 renderBlogMenu()}
               {designation !== "Admin" && (
-                <div
-                  onClick={() => handleChange("events")}
-                  style={{ color: activepage === "events" ? "#FF8A00" : "white" }}
-                >
-                  <NavLink to={"/profile/events"}>
-                    <SlCalender size={17} style={{ marginRight: "10px" }} /> Event
-                  </NavLink>
-                </div>
+                renderMenuItem({
+                  label: "Event",
+                  to: "/profile/events",
+                  page: "events",
+                  Icon: SlCalender,
+                  activeKeys: ["Events"],
+                })
               )}
               {authCtx.user.access !== "USER" && renderCertificateMenu()}
             </>
           )}
           
-          {/* Logout is always available for all users */}
-          <div
-            onClick={handleLogout}
-            style={{ color: activepage === "Logout" ? "#FF8A00" : "white" }}
-          >
-            <MdLogout size={17} style={{ marginRight: "9px" }} /> Logout
-          </div>
         </div>
         <div className={styles.divider} />
-      </div>
+      </aside>
     </>
   );
 };

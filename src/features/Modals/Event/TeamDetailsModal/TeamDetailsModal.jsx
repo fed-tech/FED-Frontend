@@ -5,6 +5,8 @@ import { FaCopy, FaCheck } from "react-icons/fa";
 import { api } from "../../../../services";
 import { Alert, MicroLoading } from "../../../../microInteraction";
 import styles from "./style/TeamDetailsModal.module.scss";
+import { Dialog } from "../../../../components";
+import modalCard from "../../../../components/ui/ModalCard.module.scss";
 
 const TeamDetailsModal = ({ isOpen, onClose, formId, eventTitle }) => {
   const [teamDetails, setTeamDetails] = useState(null);
@@ -74,23 +76,33 @@ const TeamDetailsModal = ({ isOpen, onClose, formId, eventTitle }) => {
     }
   };
 
-  const handleBackdropClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
-
   if (!isOpen) return null;
 
   return (
-    <div className={styles.modalOverlay} onClick={handleBackdropClick}>
-      <div className={styles.modal}>
-        <div className={styles.modalHeader}>
-          <h2>Team Details</h2>
-          <button className={styles.closeButton} onClick={onClose}>
-            <MdClose size={24} />
+    <Dialog
+      open={isOpen}
+      size="lg"
+      onOpenChange={(next) => {
+        if (!next) onClose();
+      }}
+      contentStyle={{
+        "--dialog-padding": "0",
+        "--dialog-surface": "transparent",
+        "--dialog-border": "none",
+        "--dialog-shadow": "none",
+      }}
+    >
+      <div className={`${styles.modal} ${modalCard.card} ${modalCard.cardLg}`}>
+        <div className={modalCard.header}>
+          <div>
+            <div className={modalCard.title}>Team Details</div>
+            <div className={modalCard.subtitle}>Review team and member info</div>
+          </div>
+          <button className={modalCard.closeBtn} onClick={onClose}>
+            <MdClose size={18} />
           </button>
         </div>
+        <div className={modalCard.divider} />
 
         <div className={styles.modalContent}>
           {isLoading ? (
@@ -201,13 +213,13 @@ const TeamDetailsModal = ({ isOpen, onClose, formId, eventTitle }) => {
           )}
         </div>
 
-        <div className={styles.modalFooter}>
+        <div className={modalCard.footer}>
           <button className={styles.closeBtn} onClick={onClose}>
             Close
           </button>
         </div>
       </div>
-    </div>
+    </Dialog>
   );
 };
 

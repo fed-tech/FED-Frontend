@@ -80,7 +80,7 @@ const FullBlog = () => {
 
           setBlogs(processedBlogs);
 
-          // ✅ Extract departments dynamically
+          //   Extract departments dynamically
           const uniqueDepts = new Set();
           processedBlogs.forEach((blog) => {
             try {

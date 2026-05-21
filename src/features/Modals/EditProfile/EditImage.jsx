@@ -3,7 +3,8 @@ import AvatarEditor from "react-avatar-editor";
 import { FaUpload } from "react-icons/fa";
 import style from "./styles/editImage.module.scss";
 import AuthContext from "../../../context/AuthContext";
-import { Button } from "../../../components";
+import { Button, Dialog } from "../../../components";
+import modalCard from "../../../components/ui/ModalCard.module.scss";
 import { X } from "lucide-react";
 import { Alert, MicroLoading } from "../../../microInteraction";
 import { api } from "../../../services";
@@ -176,41 +177,20 @@ const EditImage = (props) => {
   };
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        width: "100%",
-        height: "100%",
-        zIndex: "10",
-        left: "0",
-        top: "0",
+    <Dialog
+      open
+      size="sm"
+      onOpenChange={(next) => {
+        if (!next) closeModal();
+      }}
+      contentStyle={{
+        "--dialog-padding": "0",
+        "--dialog-surface": "transparent",
+        "--dialog-border": "none",
+        "--dialog-shadow": "none",
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: "0",
-          left: "0",
-          width: "100%",
-          height: "100%",
-          background: "rgba(0, 0, 0, 0.5)",
-          backdropFilter: "blur(4px)",
-          zIndex: "5",
-        }}
-      >
-        <div
-          style={{
-            zIndex: "10",
-            borderRadius: "10px",
-            padding: "2rem",
-            position: "relative",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: ".3rem",
-          }}
-        >
-          <div className={style.container}>
+      <div className={`${style.container} ${modalCard.card}`}>
             <button className={style.closeModal} onClick={closeModal}>
               <X />
             </button>
@@ -316,10 +296,8 @@ const EditImage = (props) => {
               )}
             </div>
           </div>
-        </div>
-      </div>
       <Alert />
-    </div>
+    </Dialog>
   );
 };
 

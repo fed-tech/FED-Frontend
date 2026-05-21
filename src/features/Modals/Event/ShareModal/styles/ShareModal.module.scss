@@ -1,48 +1,107 @@
 .shareContainer {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  z-index: 50;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
-  z-index: 5;
 }
 
 .maindiv {
-  z-index: 1000;
-
-  border-radius: 10px;
-  padding: 2rem;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 9rem;
+}
+
+/* Premium static dark card */
+.card {
+  position: relative;
+  width: min(28rem, 94vw);
+  padding: 2rem 1.8rem 1.6rem 1.8rem;
+  border-radius: 20px;
+
+  background: radial-gradient(
+      circle at top left,
+      rgba(255, 120, 0, 0.08),
+      transparent 40%
+    ),
+    #0c0c0c;
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+}
+
+/* Static gradient border */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 120, 0, 0.4),
+    transparent 40%,
+    transparent 60%,
+    rgba(255, 120, 0, 0.3)
+  );
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.8rem;
+}
+
+.titleWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  color: #ffffff;
+}
+
+.subtitle {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 0.25rem;
 }
 
 .closebtn {
+  height: 36px;
+  width: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  position: absolute;
-  right: 2.5rem;
-  top: 2.4rem;
-  font-size: 1.2rem;
-  color: white;
-  z-index: 20;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.closebtn:hover {
-  color: #D14206;
-  transition:.2s linear;
+.divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  margin-bottom: 1.5rem;
 }
-
-

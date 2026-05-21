@@ -1,11 +1,12 @@
-import { Suspense, lazy, useContext, useEffect } from "react";
+import { Suspense, lazy, useContext, useEffect, useRef } from "react";
 import { Routes, Route, Outlet, Navigate, useLocation } from "react-router-dom";
+import styles from "./App.module.scss";
 
 // layouts
-import { Footer, Navbar, ProfileLayout } from "./layouts";
+import { Footer, ProfileTopbar } from "./layouts";
 
 // microInteraction
-import { Loading } from "./microInteraction";
+import { Loading, Alert } from "./microInteraction";
 
 // modals
 import { EventModal } from "./features";
@@ -19,6 +20,12 @@ import EventStats from "./features/Modals/Event/EventStats/EventStats";
 
 // Chatbot
 import Chatbot from "./components/Chatbot/Chatbot";
+
+// services
+import { api } from "./services";
+
+// Fox Mascot - DISABLED (react-three version incompatibility)
+// import FoxMascot from "./components/FoxMascot";
 
 import {
   EventsView,
@@ -39,6 +46,8 @@ const Home = lazy(() => import("./pages/Home/Home"));
 const Event = lazy(() => import("./pages/Event/Event"));
 const PastEvent = lazy(() => import("./pages/Event/PastEvent"));
 const EventForm = lazy(() => import("./pages/Event/EventForm"));
+const EventDetailPage = lazy(() => import("./pages/Event/EventDetailPage"));
+const EventRegisterPage = lazy(() => import("./pages/Event/EventRegisterPage"));
 const Social = lazy(() => import("./pages/Social/Social"));
 const Team = lazy(() => import("./pages/Team/Team"));
 const Alumni = lazy(() => import("./pages/Alumni/Alumni"));
@@ -64,10 +73,19 @@ const OTPInput = lazy(() =>
   import("./authentication/Login/ForgotPassword/OTPInput")
 );
 const AttendancePage = lazy(() => import('./pages/AttendancePage/AttendancePage'));
+const TeamManagement = lazy(() => import('./pages/TeamManagement/TeamManagement'));
 
 const MainLayout = () => {
   const location = useLocation();
   const isomegaPage = location.pathname === "/omega";
+  const path = location.pathname.toLowerCase();
+  const hideScrollbarOnRoute =
+    path === "/" ||
+    path.startsWith("/events") ||
+    path.startsWith("/social") ||
+    path.startsWith("/team") ||
+    path.startsWith("/blog") ||
+    path.startsWith("/blogs");
 
   useEffect(() => {
     if (isomegaPage) {
@@ -76,18 +94,30 @@ const MainLayout = () => {
       document.body.style.backgroundColor = "";
     }
 
+    if (hideScrollbarOnRoute) {
+      document.body.classList.add("route-scrollbar-hidden");
+      document.documentElement.classList.add("route-scrollbar-hidden");
+    } else {
+      document.body.classList.remove("route-scrollbar-hidden");
+      document.documentElement.classList.remove("route-scrollbar-hidden");
+    }
+
     return () => {
       document.body.style.backgroundColor = "";
+      document.body.classList.remove("route-scrollbar-hidden");
+      document.documentElement.classList.remove("route-scrollbar-hidden");
     };
-  }, [isomegaPage]);
+  }, [isomegaPage, hideScrollbarOnRoute]);
 
   return (
-    <div>
-      <Navbar />
-      <div className={`page ${isomegaPage ? 'omega-page' : ''}`}>
-        <Outlet />
+    <div className={styles.mainLayout}>
+      <div className={styles.siteShell}>
+        <ProfileTopbar />
+        <div className={`${styles.pageBody} page ${isomegaPage ? 'omega-page' : ''}`}>
+          <Outlet />
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 };
@@ -98,14 +128,100 @@ const AuthLayout = () => (
   </div>
 );
 
+// [v2] Protected route wrapper — redirects to login with return URL
+const ProtectedRoute = ({ children }) => {
+  const authCtx = useContext(AuthContext);
+  const location = useLocation();
+
+  if (!authCtx.isLoggedIn) {
+    // Store full URL (path + search params) so login can redirect back
+    sessionStorage.setItem("prevPage", location.pathname + location.search);
+    Alert({
+      type: "info",
+      message: "Please log in first to access this page.",
+      position: "bottom-right",
+      duration: 3000,
+    });
+    return <Navigate to="/Login" replace />;
+  }
+
+  return children;
+};
+
+// [v2] Redirect after login — uses prevPage from sessionStorage if available
+const LoginRedirect = () => {
+  const redirectTo = sessionStorage.getItem("prevPage") || "/profile";
+  sessionStorage.removeItem("prevPage");
+  return <Navigate to={redirectTo} replace />;
+};
+
 function App() {
   const authCtx = useContext(AuthContext);
   console.log(authCtx.user.access);
+
+  // [v2] Check for unseen join request updates globally on login
+  const hasCheckedUpdates = useRef(false);
+  useEffect(() => {
+    if (!authCtx.isLoggedIn || hasCheckedUpdates.current) return;
+    hasCheckedUpdates.current = true;
+
+    const checkGlobalUpdates = async () => {
+      try {
+        const response = await api.get("/api/form/allJoinRequestUpdates");
+        const updates = response.data?.data?.updates;
+        if (!updates || updates.length === 0) return;
+
+        // Small delay so the page renders first
+        setTimeout(() => {
+          for (const update of updates) {
+            const teamLabel = update.teamName ? `"${update.teamName}"` : "a team";
+            switch (update.status) {
+              case "ACCEPTED":
+                Alert({
+                  type: "success",
+                  message: `🎉 Your request to join ${teamLabel} was accepted!`,
+                  position: "top-right",
+                  duration: 5000,
+                });
+                break;
+              case "REJECTED":
+                Alert({
+                  type: "error",
+                  message: `Your request to join ${teamLabel} was declined by the team leader.`,
+                  position: "top-right",
+                  duration: 6000,
+                });
+                break;
+              case "AUTO_EXPIRED":
+              case "EXPIRED":
+                Alert({
+                  type: "info",
+                  message: `Your request to join ${teamLabel} has expired.`,
+                  position: "top-right",
+                  duration: 4000,
+                });
+                break;
+              default:
+                break;
+            }
+          }
+        }, 1500);
+      } catch (err) {
+        // Silent — don't break app startup
+        console.error("Error checking global join request updates:", err);
+      }
+    };
+
+    checkGlobalUpdates();
+  }, [authCtx.isLoggedIn]);
 
   return (
     <div>
       {/* Global Chatbot Component */}
       <Chatbot />
+
+      {/* Fox Mascot Animation - DISABLED */}
+      {/* <FoxMascot /> */}
 
       <Suspense fallback={<Loading />}>
         <Routes>
@@ -121,80 +237,6 @@ function App() {
             <Route path="/Alumni" element={<Alumni />} />
             <Route path="/verify/certificate" element={<VerifyCertificate />} />
             {/* <Route path="/Omega" element={<Omega />} /> */}
-            {/* Route After Login */}
-            {authCtx.isLoggedIn && (
-              <Route path="/profile" element={<Profile />}>
-                <Route
-                  path=""
-                  element={<ProfileView editmodal="/profile/" />}
-                />
-                {authCtx.user.access === "ADMIN" ? (
-                  <Route path="events" element={<ViewEvent />} />
-                ) : (
-                  <>
-                    <Route path="events" element={<EventsView />} />
-                    <Route path="certificates" element={<CertificatesView />} />
-                  </>
-                )}
-                <Route path="Form" element={<NewForm />} />
-
-                {authCtx.user.access === "ADMIN" && (
-                  <Route path="members" element={<ViewMember />} />
-                )}
-
-                {/* blog access to this mail*/}
-
-                {(authCtx.user.access === "ADMIN" ||
-                  authCtx.user.access === "SENIOR_EXECUTIVE_CREATIVE") && (
-                    <Route path="BlogForm" element={<BlogForm />} />
-                  )}
-                {/* Certificates Route */}
-
-                {authCtx.user.access === "ADMIN" && (
-                  <Route path="certificates" element={<CertificatesView />} />
-                )}
-
-                {authCtx.user.access === "ADMIN" && (
-                  <Route
-                    path="events/SendCertificate/:eventId"
-                    element={<SendCertificate />}
-                  />
-                )}
-
-                {authCtx.user.access === "ADMIN" && (
-                  <Route
-                    path="events/createCertificates/:eventId"
-                    element={<CertificatesForm />}
-                  />
-                )}
-
-                {authCtx.user.access === "ADMIN" && (
-                  <Route
-                    path="events/viewCertificates/:eventId"
-                    element={<CertificatesPreview />}
-                  />
-                )}
-
-                <Route
-                  path="events/:eventId"
-                  element={[<EventModal onClosePath="/profile/events" />]}
-                />
-                {authCtx.user.access !== "USER" && (
-                  <Route
-                    path="events/Analytics/:eventId"
-                    element={[<EventStats onClosePath="/profile/events" />]}
-                  />
-                )}
-                {authCtx.user.access === "USER" &&
-                  authCtx.user.email == "attendance@fedkiit.com" && (
-                    <Route
-                      path="events/Analytics/:eventId"
-                      element={[<EventStats onClosePath="/profile/events" />]}
-                    />
-                  )}
-                <Route path="/profile/attendance" element={<AttendancePage />} />
-              </Route>
-            )}
             <Route
               path="/Events/:eventId"
               element={[<Event />, <EventModal onClosePath="/Events" />]}
@@ -213,7 +255,29 @@ function App() {
 
             <Route
               path="/Events/:eventId/Form"
-              element={[<Event />, <EventForm />]}
+              element={
+                <ProtectedRoute>
+                  <Event />
+                  <EventForm />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/Events/:eventId/team"
+              element={
+                <ProtectedRoute>
+                  <TeamManagement />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Events/:eventId/details"
+              element={<EventDetailPage />}
+            />
+            <Route
+              path="/Events/:eventId/Register"
+              element={<EventRegisterPage />}
             />
 
             <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
@@ -224,6 +288,74 @@ function App() {
             <Route path="*" element={<Error />} />
           </Route>
 
+          {authCtx.isLoggedIn && (
+            <Route path="/profile" element={<Profile />}>
+              <Route path="" element={<ProfileView editmodal="/profile/" />} />
+              {authCtx.user.access === "ADMIN" ? (
+                <Route path="events" element={<ViewEvent />} />
+              ) : (
+                <>
+                  <Route path="events" element={<EventsView />} />
+                  <Route path="certificates" element={<CertificatesView />} />
+                </>
+              )}
+              <Route path="Form" element={<NewForm />} />
+
+              {authCtx.user.access === "ADMIN" && (
+                <Route path="members" element={<ViewMember />} />
+              )}
+
+              {(authCtx.user.access === "ADMIN" ||
+                authCtx.user.access === "SENIOR_EXECUTIVE_CREATIVE") && (
+                <Route path="BlogForm" element={<BlogForm />} />
+              )}
+
+              {authCtx.user.access === "ADMIN" && (
+                <Route path="certificates" element={<CertificatesView />} />
+              )}
+
+              {authCtx.user.access === "ADMIN" && (
+                <Route
+                  path="events/SendCertificate/:eventId"
+                  element={<SendCertificate />}
+                />
+              )}
+
+              {authCtx.user.access === "ADMIN" && (
+                <Route
+                  path="events/createCertificates/:eventId"
+                  element={<CertificatesForm />}
+                />
+              )}
+
+              {authCtx.user.access === "ADMIN" && (
+                <Route
+                  path="events/viewCertificates/:eventId"
+                  element={<CertificatesPreview />}
+                />
+              )}
+
+              <Route
+                path="events/:eventId"
+                element={[<EventModal onClosePath="/profile/events" />]}
+              />
+              {authCtx.user.access !== "USER" && (
+                <Route
+                  path="events/Analytics/:eventId"
+                  element={[<EventStats onClosePath="/profile/events" />]}
+                />
+              )}
+              {authCtx.user.access === "USER" &&
+                authCtx.user.email == "attendance@fedkiit.com" && (
+                  <Route
+                    path="events/Analytics/:eventId"
+                    element={[<EventStats onClosePath="/profile/events" />]}
+                  />
+                )}
+              <Route path="/profile/attendance" element={<AttendancePage />} />
+            </Route>
+          )}
+
           {/* Routes for Authentication witout Navbar and footer */}
           <Route element={<AuthLayout />}>
             {!authCtx.isLoggedIn && (
@@ -232,13 +364,13 @@ function App() {
             <Route
               path="/Login"
               element={
-                authCtx.isLoggedIn ? <Navigate to="/profile" /> : <Login />
+                authCtx.isLoggedIn ? <LoginRedirect /> : <Login />
               }
             />
             <Route
               path="/SignUp"
               element={
-                authCtx.isLoggedIn ? <Navigate to="/profile" /> : <Signup />
+                authCtx.isLoggedIn ? <LoginRedirect /> : <Signup />
               }
             />
             <Route

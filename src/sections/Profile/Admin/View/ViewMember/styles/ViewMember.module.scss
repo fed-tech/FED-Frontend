@@ -1,137 +1,150 @@
-.right {
-  width: 100%;
-}
-
 .mainMember {
+  width: 100%;
   height: 100%;
-  width: 100%;
-  position: relative;
-  padding: 2em 3em;
-  padding-right: 1em;
+  padding: 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  box-sizing: border-box;
 }
-.searchContainer {
+
+.header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 
-.searchInput {
-  width: 90%;
-  padding: 10px;
-  border-radius: 15px;
-  border: 1px solid #ffffff;
-  background-color: transparent;
-  color: #ffffff;
-}
-
-
-.buttonContainer {
-  font-size: 30px;
-  line-height: 40px;
-  padding-bottom: 10px;
-  width: 100%;
+.titleSection {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 1.5rem;
 }
 
 .headInnerText {
-  margin-left: 1.2rem;
-  margin-top: 12px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+
+  span {
+    background: linear-gradient(to right, #d03e21 40%, #ff8a00);
+    -webkit-background-clip: text;
+    color: transparent;
+  }
 }
 
-.headInnerText span {
-  margin-right: 3px;
-  background: linear-gradient(to right, #d03e21 40%, #FF8A00);
-  -webkit-background-clip: text;
-  color: transparent;
+/* Dropdown */
+
+.dropdownWrapper {
+  position: relative;
+  width: 220px;
 }
 
-.eventmember {
-  height: 100%;
-  width: 100%;
-  display: flex;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-around;
-  height: auto;
-  flex-wrap: wrap;
-  margin: 0 1rem;
-}
-
-.buttons button {
-  border-radius: 10px;
-  border: 0.3px #969393 solid;
-  color: #ffff;
-  margin-right: 0px;
-  height: 3rem;
-  width: 6rem;
-  font-size: 0.9rem;
-  margin-left: 10px;
+.dropdownHeader {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
   cursor: pointer;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.2s ease;
 }
+
+.dropdownHeader:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.arrow {
+  font-size: 0.7rem;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  background: #111;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-height: 260px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.dropdownItem {
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.dropdownItem:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.activeItem {
+  background: rgba(255, 138, 0, 0.15);
+  color: #ff8a00;
+}
+
+/* Search */
+
+.searchContainer {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 320px;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.searchInput:focus {
+  border-color: #ff8a00;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Grid */
 
 .teamGrid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(100px, 1fr));
-  
-  justify-content: center;
-  padding: 10px 20px;
-  padding-right: 0;
-  height: 360px;
-  overflow: hidden scroll;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 260px);
   scrollbar-width: none;
 }
 
-@media (max-width: 1024px) {
-  .teamGrid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    padding: 0;
-  }
+.teamGrid::-webkit-scrollbar {
+  display: none;
 }
+
+/* Responsive */
 
 @media (max-width: 768px) {
-  .teamGrid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    padding: 0;
+  .header {
+    flex-direction: column;
   }
-}
 
-@media (max-width: 480px) {
-  .teamGrid {
-    grid-template-columns: repeat(2, 1fr);
-    padding: 0;
+  .searchContainer {
+    width: 100%;
   }
-}
 
-/* Custom styles for TeamCard component */
-.teamMemberCustom {
-  height: 18rem;
-  width: 16rem;
-  padding: 2rem;
-  padding-top: 0;
+  .dropdownWrapper {
+    width: 100%;
+  }
 
-}
-.teamMemberBackh5Custom {
-  font-size: smaller;
-}
-
-.socialLinksaCustom {
-  font-size: 1rem;
-}
-
-.buttonCustom {
-  font-size: 1rem;
-}
-
-.knowParaCustom {
-  height: 10rem;
-}
-
-.updatebtnCustom{
-  display: flex;
-  width: 70%;
+  .searchInput {
+    max-width: 100%;
+  }
 }

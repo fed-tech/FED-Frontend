@@ -1,36 +1,61 @@
-#profile {
+.modalRoot {
+  position: absolute;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modalOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(6px);
+}
+
+.modalDialog {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile {
   color: #ffffff;
   font-family: "Open Sans", sans-serif;
   font-weight: 300;
   display: flex;
   flex-direction: column;
-  padding-top: 0px;
-  padding-bottom: 10px;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  background: linear-gradient(
-  90deg,
-  rgba(32, 32, 32, 0.95) -11.52%,
-  rgba(37, 37, 37, 0.95) 106.29%
-);
-border-radius: 1.26863rem;
-border: 1.2px solid rgba(214, 214, 214, 0.81);
+  gap: 0.5rem;
+  padding: 1.5rem 2rem 1.25rem;
+  width: min(840px, 100%);
+  max-height: calc(100% - 1rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .flex{
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
   
 .proHeading {
-  font-size: 35px;
+  font-size: 1.8rem;
   letter-spacing: 0.02em;
-  line-height: 40px;
-  padding-bottom: 50px;
-  margin-top: 20px;
+  line-height: 1.2;
+  padding-bottom: 1rem;
+  margin-top: 0.5rem;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -45,20 +70,23 @@ border: 1.2px solid rgba(214, 214, 214, 0.81);
     color: white;
     border: none;
     background: none;
-    font-size: 30px;
+    font-size: 26px;
     position: relative;
     cursor: pointer;
-    margin-top: -5px;
+    margin-top: -2px;
   }
 
   .closeModal:hover{
     color:#FF8A00;
-    transition: .2s linear;
+    transition: color .2s ease;
   }
 
   .heading{
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
   }
   
   .headInnerText span{
@@ -69,10 +97,18 @@ border: 1.2px solid rgba(214, 214, 214, 0.81);
   
   }
 
+.profileTable {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 1.5rem;
+  width: 100%;
+}
+
   .table{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
     width: 100%;
   }
   
@@ -81,7 +117,7 @@ border: 1.2px solid rgba(214, 214, 214, 0.81);
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-top: -40px;
+    margin-top: 0;
   }
 
   .email{
@@ -94,87 +130,128 @@ border: 1.2px solid rgba(214, 214, 214, 0.81);
   }
 
   .submit{
-    font-size: 15px;
-    width: 15rem;
+    font-size: 0.95rem;
+    width: min(16rem, 100%);
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 10px;
-    margin-top: 25px;
+    margin-top: 1.25rem;
     margin-bottom: 10px;
     cursor: pointer;
   }
 
   .vals{
-    width: 17rem;
-    font-size: 15px;
-    margin: 0px;
-    margin-right: 8px;
+    width: 100%;
+    font-size: 0.95rem;
+    margin: 0;
   }
   
   .dets {
-    margin-top: 15px;
-    padding-right: 100px;
-    font-size: 20px;
+    margin-top: 0.2rem;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.7);
   }
 
-  @media screen and (max-width:600px) {
-  
-    .dets {
-      padding-right: 50px;
+.editNote {
+  margin-top: 0.75rem;
+  text-align: center;
+  width: 100%;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.formActions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+  @media screen and (max-width: 900px) and (min-width: 451px) {
+    .profile {
+      width: min(720px, 100%);
+      max-height: calc(100% - 1rem);
+    }
+
+    .proHeading {
+      font-size: 1.6rem;
+      padding-bottom: 0.75rem;
+    }
+
+    .profileTable {
+      gap: 0.75rem 1.25rem;
     }
   }
+
+@media screen and (max-width:600px) {
+  .profileTable {
+    grid-template-columns: 1fr;
+  }
+
+  .formActions {
+    grid-column: 1 / 2;
+  }
+}
   
   @media screen and (max-width:500px) {
-    #profile {
-      padding-left: 15px;
-      padding-right: 15px;
-    }
-  
-    .dets {
-      padding-right: 30px;
+    .profile {
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
   }
 
   @media screen and (max-width:450px) {
-    
-    .table{
-        display: grid;
-        justify-content: center;
+    .flex {
+      align-items: stretch;
+      justify-content: stretch;
+      height: 100dvh;
     }
 
-    #profile {
+    .modalOverlay {
+      backdrop-filter: blur(5px);
+    }
+
+    .profile {
       width: 100%;
+      max-width: 100%;
+      max-height: 100dvh;
+      height: 100dvh;
+      border-radius: 0;
+      padding-bottom: 1.2rem;
     }
 
     .proHeading{
-      margin-top: 40px;
-      margin-bottom: 0px;
-      padding-bottom: 20px;
-      font-size: 30px;
+      margin-top: 0.5rem;
+      margin-bottom: 0;
+      padding-bottom: 0.75rem;
+      font-size: 1.5rem;
     }
 
     .details{
-        margin-top: 0px;
+        margin-top: 0;
     }
 
     .dets{
-      margin-left: 8px;
-      margin-top: 10px;
-      margin-bottom: -15px;
-      font-size: 17px;
+      margin-left: 0;
+      margin-top: 0.2rem;
+      margin-bottom: 0;
+      font-size: 0.78rem;
   }
 
   .vals{
-    margin-left: -8px;
+    margin-left: 0;
   }
 
     .submit{
-        margin-top: 25px;
+        margin-top: 1.25rem;
     }
 
     .closeModal{
-      top: 0.3rem;
-      right: 1rem;
+      top: 0;
+      right: 0;
     }
     
     }

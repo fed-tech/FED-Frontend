@@ -1,0 +1,56 @@
+.mainLayout {
+  min-height: 100dvh;
+  width: 100%;
+  padding: 0.55rem 0.25rem 0.55rem;
+}
+
+.siteShell {
+  width: min(1700px, calc(100% - 0.5rem));
+  min-height: calc(100dvh - 0.5rem);
+  margin: 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px;
+  overflow: hidden;
+  background: linear-gradient(140deg, rgba(21, 20, 24, 0.94), rgba(10, 10, 14, 0.97));
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.56),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.siteShell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 92% 78%, rgba(255, 114, 14, 0.2), transparent 34%),
+    radial-gradient(circle at 5% 96%, rgba(255, 94, 0, 0.16), transparent 34%);
+  pointer-events: none;
+}
+
+.pageBody {
+  position: relative;
+  z-index: 2;
+  min-height: calc(100dvh - 64px);
+  width: 100%;
+  margin-top: 0;
+  background: transparent;
+}
+
+@media screen and (max-width: 768px) {
+  .mainLayout {
+    padding: 0.28rem 0.15rem 0.35rem;
+  }
+
+  .siteShell {
+    width: calc(100% - 0.25rem);
+    min-height: calc(100dvh - 0.3rem);
+    border-radius: 20px;
+  }
+
+  .pageBody {
+    min-height: calc(100dvh - 58px);
+  }
+}

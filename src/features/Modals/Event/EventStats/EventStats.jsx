@@ -11,6 +11,7 @@ import defaultImg from "../../../../assets/images/defaultImg.jpg";
 import { api } from "../../../../services";
 import styles from "../EventModal/styles/EventModal.module.scss";
 import AuthContext from "../../../../context/AuthContext";
+import { Dialog } from "../../../../components";
 
 const EventStats = ({ onClosePath }) => {
   const navigate = useNavigate();
@@ -151,185 +152,143 @@ const EventStats = ({ onClosePath }) => {
   const yearCounts = year || {};
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        width: "100%",
-        height: "100%",
-        zIndex: "10",
-        left: 0,
-        top: 0,
+    <Dialog
+      open
+      size="xl"
+      onOpenChange={(next) => {
+        if (!next) handleModalClose();
+      }}
+      contentStyle={{
+        "--dialog-padding": "0",
+        "--dialog-surface": "transparent",
+        "--dialog-border": "none",
+        "--dialog-shadow": "none",
       }}
     >
       <div
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          background: "rgba(0, 0, 0, 0.5)",
-          backdropFilter: "blur(4px)",
-          zIndex: "5",
+          borderRadius: "10px",
+          padding: "2rem",
+          position: "relative",
           display: "flex",
           justifyContent: "center",
+          alignItems: "center",
+          marginTop: ".3rem",
         }}
       >
-        <div
-          style={{
-            zIndex: "10",
-            borderRadius: "10px",
-            padding: "2rem",
-            position: "relative",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: ".3rem",
-          }}
-        >
-          {data && (
-            <>
-              <SkeletonTheme baseColor="#313131" highlightColor="#525252">
-                <Skeleton height={180} style={{ marginBottom: "1rem" }} />
-                <Skeleton
-                  count={3}
-                  height={20}
-                  width="100%"
-                  style={{ marginBottom: "0.5rem" }}
+        {data && (
+          <>
+            <SkeletonTheme baseColor="#313131" highlightColor="#525252">
+              <Skeleton height={180} style={{ marginBottom: "1rem" }} />
+              <Skeleton
+                count={3}
+                height={20}
+                width="100%"
+                style={{ marginBottom: "0.5rem" }}
+              />
+            </SkeletonTheme>
+            <div
+              style={{
+                overflowY: "auto",
+              }}
+              className={styles.card}
+            >
+              {isLoading ? (
+                <ComponentLoading
+                  customStyles={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 />
-              </SkeletonTheme>
-              <div
-                style={{
-                  overflowY: "auto",
-                }}
-                className={styles.card}
-              >
-                {isLoading ? (
-                  <ComponentLoading
-                    customStyles={{
-                      width: "100%",
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  />
-                ) : (
-                  <div
-                    style={{
-                      position: "relative",
-                    }}
+              ) : (
+                <div
+                  style={{
+                    position: "relative",
+                  }}
+                >
+                  <button
+                    className={styles.closeModal}
+                    onClick={handleModalClose}
+                    style={{ paddingTop: "42px", paddingRight: "20px" }}
                   >
-                    <button
-                      className={styles.closeModal}
-                      onClick={handleModalClose}
-                      style={{ paddingTop: "42px", paddingRight: "20px" }}
+                    <X />
+                  </button>
+
+                  <div className={styles.backbtn}>
+                    <div
+                      className={styles.eventname}
+                      style={{ paddingTop: "15px" }}
                     >
-                      <X />
-                    </button>
-
-                    <div className={styles.backbtn}>
-                      <div
-                        className={styles.eventname}
-                        style={{ paddingTop: "15px" }}
-                      >
-                        {info.eventTitle}
-                      </div>
-                      {authCtx.user.access === "ADMIN" && (
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            marginTop: "1rem",
-                            padding: "0.5rem",
-                            borderRadius: "0.5rem",
-                            cursor: "pointer",
-                          }}
-                          onClick={handleDownload}
-                        >
-                          <FaDownload
-                            size={18}
-                            style={{
-                              marginRight: "2rem",
-                              color: "#FF8A00",
-                            }}
-                          />
-                        </div>
-                      )}
+                      {info.eventTitle}
                     </div>
-
-                    <div style={{ display: "flex", justifyContent: "left" }}>
+                    {authCtx.user.access === "ADMIN" && (
                       <div
                         style={{
-                          display: "grid",
-                          gridTemplateColumns: "1fr 1fr",
-                          gap: "1rem",
-                          alignItems: "left",
-                          textAlign: "left",
+                          display: "flex",
+                          alignItems: "center",
+                          marginTop: "1rem",
+                          padding: "0.5rem",
+                          borderRadius: "0.5rem",
+                          cursor: "pointer",
                         }}
+                        onClick={handleDownload}
                       >
-                        {/* First column for the toggle switch and total count */}
-                        <div
-                          style={{ display: "flex", flexDirection: "column" }}
-                        >
-                          <div
-                            className={styles.toggleSwitchContainer}
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              alignItems: "center",
-                              marginBottom: "1rem",
-                            }}
-                          >
-                            <Text
-                              style={{
-                                color: "#fff",
-                                fontSize: "1rem",
-                                fontWeight: "500",
-                                marginLeft: "2rem",
-                                marginTop: "0.5rem",
-                              }}
-                            >
-                              {viewTeams ? "Back to Users" : "Switch to Teams"}
-                            </Text>
-                            <label className={styles.switch}>
-                              <input
-                                type="checkbox"
-                                checked={viewTeams}
-                                onChange={() => setViewTeams(!viewTeams)}
-                              />
-                              <span className={styles.slider}></span>
-                            </label>
-                          </div>
+                        <FaDownload
+                          size={18}
+                          style={{
+                            marginRight: "2rem",
+                            color: "#FF8A00",
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
 
+                  <div style={{ display: "flex", justifyContent: "left" }}>
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr",
+                        gap: "1rem",
+                        alignItems: "left",
+                        textAlign: "left",
+                      }}
+                    >
+                      {/* First column for the toggle switch and total count */}
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div
+                          className={styles.toggleSwitchContainer}
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            marginBottom: "1rem",
+                          }}
+                        >
                           <Text
                             style={{
                               color: "#fff",
                               fontSize: "1rem",
                               fontWeight: "500",
-                              textAlign: "left",
-                              marginBottom: "1rem",
                               marginLeft: "2rem",
+                              marginTop: "0.5rem",
                             }}
                           >
-                            Total{" "}
-                            {viewTeams
-                              ? "Registered Teams"
-                              : "Registered Users"}{" "}
-                            :{" "}
-                            <span
-                              style={{
-                                color: "#FF8A00",
-                              }}
-                            >
-                              {viewTeams
-                                ? data[0]?.regTeamNames?.length || 0
-                                : data[0]?.totalRegistrationCount || 0}
-                            </span>
+                            {viewTeams ? "Back to Users" : "Switch to Teams"}
                           </Text>
+                          <label className={styles.switch}>
+                            <input
+                              type="checkbox"
+                              checked={viewTeams}
+                              onChange={() => setViewTeams(!viewTeams)}
+                            />
+                            <span className={styles.slider}></span>
+                          </label>
                         </div>
 
-                        {/* Second column for year counts and download */}
                         <Text
                           style={{
                             color: "#fff",
@@ -337,106 +296,107 @@ const EventStats = ({ onClosePath }) => {
                             fontWeight: "500",
                             textAlign: "left",
                             marginBottom: "1rem",
-                            marginLeft: "1.5rem",
+                            marginLeft: "2rem",
+                          }}
+                        >
+                          Total{" "}
+                          {viewTeams
+                            ? "Registered Teams"
+                            : "Registered Users"}{" "}
+                          :{" "}
+                          <span
+                            style={{
+                              color: "#FF8A00",
+                            }}
+                          >
+                            {viewTeams
+                              ? data[0]?.regTeamNames?.length || 0
+                              : data[0]?.totalRegistrationCount || 0}
+                          </span>
+                        </Text>
+                      </div>
+
+                      {/* Second column for year counts and download */}
+                      <Text
+                        style={{
+                          color: "#fff",
+                          fontSize: "1rem",
+                          fontWeight: "500",
+                          textAlign: "left",
+                          marginBottom: "1rem",
+                          marginLeft: "1.5rem",
+                          marginTop: "0.5rem",
+                        }}
+                      >
+                        Year Counts:
+                        <div
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(5, 1fr)",
+                            gap: "0.5rem",
                             marginTop: "0.5rem",
                           }}
                         >
-                          Year Counts:
-                          <div
-                            style={{
-                              display: "grid",
-                              gridTemplateColumns: "repeat(5, 1fr)",
-                              gap: "0.5rem",
-                              marginTop: "0.5rem",
-                            }}
-                          >
-                            {Object.keys(yearCounts).length > 0 ? (
-                              Object.entries(yearCounts).map(
-                                ([year, count]) => (
-                                  <div
-                                    key={year}
-                                    style={{
-                                      display: "flex",
-                                      alignItems: "center",
-                                      color: "#FF8A00",
-                                    }}
-                                  >
-                                    <span
-                                      style={{
-                                        color: "#fff",
-                                        fontWeight: "bold",
-                                        marginRight: "0.3rem",
-                                      }}
-                                    >
-                                      {year}:
-                                    </span>{" "}
-                                    {count}
-                                  </div>
-                                )
-                              )
-                            ) : (
-                              <span>No data available</span>
-                            )}
-                          </div>
-                        </Text>
-                      </div>
+                          {Object.keys(yearCounts).length > 0 ? (
+                            Object.entries(yearCounts).map(([year, count]) => (
+                              <div
+                                key={year}
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  color: "#FF8A00",
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    color: "#fff",
+                                    fontWeight: "bold",
+                                    marginRight: "0.3rem",
+                                  }}
+                                >
+                                  {year}:
+                                </span>{" "}
+                                {count}
+                              </div>
+                            ))
+                          ) : (
+                            <span>No data available</span>
+                          )}
+                        </div>
+                      </Text>
                     </div>
+                  </div>
 
-                    <input
-                      type="text"
-                      placeholder={`Search by ${viewTeams ? "team" : "email"}`}
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className={styles.searchInput}
-                    />
+                  <input
+                    type="text"
+                    placeholder={`Search by ${viewTeams ? "team" : "email"}`}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className={styles.searchInput}
+                  />
 
-                    <div className={styles.eventEmails}>
-                      {isSearching ? (
-                        <ComponentLoading
-                          customStyles={{
-                            width: "100%",
-                            height: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            marginTop: "-0.4rem",
-                          }}
-                        />
-                      ) : viewTeams ? (
-                        filteredTeams && filteredTeams.length > 0 ? (
-                          filteredTeams.map((team, index) => (
-                            <div key={index} className={styles.userCard}>
-                              <img
-                                src={defaultImg}
-                                alt="Team"
-                                className={styles.userImg}
-                              />
-                              <div className={styles.userEmail}>{team}</div>
-                            </div>
-                          ))
-                        ) : (
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              marginLeft: "25%",
-                            }}
-                          >
-                            <text style={{ fontSize: "20px" }}>
-                              No Teams found
-                            </text>
-                          </div>
-                        )
-                      ) : filteredUsers && filteredUsers.length > 0 ? (
-                        filteredUsers.map((user, index) => (
+                  <div className={styles.eventEmails}>
+                    {isSearching ? (
+                      <ComponentLoading
+                        customStyles={{
+                          width: "100%",
+                          height: "100%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          marginTop: "-0.4rem",
+                        }}
+                      />
+                    ) : viewTeams ? (
+                      filteredTeams && filteredTeams.length > 0 ? (
+                        filteredTeams.map((team, index) => (
                           <div key={index} className={styles.userCard}>
                             <img
                               src={defaultImg}
-                              alt="User"
+                              alt="Team"
                               className={styles.userImg}
                             />
-                            <div className={styles.userEmail}>{user}</div>
+                            <div className={styles.userEmail}>{team}</div>
                           </div>
                         ))
                       ) : (
@@ -449,20 +409,42 @@ const EventStats = ({ onClosePath }) => {
                           }}
                         >
                           <text style={{ fontSize: "20px" }}>
-                            No Users found
+                            No Teams found
                           </text>
                         </div>
-                      )}
-                    </div>
+                      )
+                    ) : filteredUsers && filteredUsers.length > 0 ? (
+                      filteredUsers.map((user, index) => (
+                        <div key={index} className={styles.userCard}>
+                          <img
+                            src={defaultImg}
+                            alt="User"
+                            className={styles.userImg}
+                          />
+                          <div className={styles.userEmail}>{user}</div>
+                        </div>
+                      ))
+                    ) : (
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          marginLeft: "25%",
+                        }}
+                      >
+                        <text style={{ fontSize: "20px" }}>No Users found</text>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            </>
-          )}
-        </div>
+                </div>
+              )}
+            </div>
+          </>
+        )}
       </div>
       <Alert />
-    </div>
+    </Dialog>
   );
 };
 

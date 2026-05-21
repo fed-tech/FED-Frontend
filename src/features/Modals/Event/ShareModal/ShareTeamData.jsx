@@ -14,6 +14,8 @@ import {
 import styles from "./styles/ShareTeamData.module.scss";
 import { X } from "lucide-react";
 import JSConfetti from "js-confetti";
+import { Dialog } from "../../../../components";
+import modalCard from "../../../../components/ui/ModalCard.module.scss";
 
 const jsConfetti = new JSConfetti();
 
@@ -29,12 +31,6 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
     jsConfetti.addConfetti({
       confettiColors: ["#FF8A00", "#FFD700", "#FF4500", "#FF69B4"],
     });
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      
-      document.body.style.overflow = "";
-    };
   }, []);
 
   const handleCopy = () => {
@@ -45,17 +41,38 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
   };
 
   const handleClose = () => {
-    document.body.style.overflow = ""; // Re-enable scrolling
     onClose();
   };
 
   return (
-    <div className={styles.shareContainer}>
-      <div className={styles.overlay}></div>
-      <div className={styles.maindiv}>
-        <div className={styles.closebtn} onClick={handleClose}>
-          <X />
+    <Dialog
+      open
+      size="sm"
+      onOpenChange={(next) => {
+        if (!next) handleClose();
+      }}
+      contentStyle={{
+        "--dialog-padding": "0",
+        "--dialog-surface": "transparent",
+        "--dialog-border": "none",
+        "--dialog-shadow": "none",
+      }}
+    >
+      <div className={`${styles.maindiv} ${modalCard.card}`}>
+        <div className={modalCard.header}>
+          <div>
+            <div className={modalCard.title}>
+              {successMessage ? "Registration Successful" : "Team Details"}
+            </div>
+            <div className={modalCard.subtitle}>
+              Share your team information
+            </div>
+          </div>
+          <button className={modalCard.closeBtn} onClick={handleClose}>
+            <X size={18} />
+          </button>
         </div>
+        <div className={modalCard.divider} />
         {/* Conditional rendering for successMessage */}
         {successMessage && (
           <span className={styles.registrationTitle}>
@@ -72,10 +89,7 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
                 <br />
                 Your Team Code: <span style={{ fontWeight: "bold" }}>{teamCode}</span>
               </p>
-              <button
-                onClick={handleCopy}
-                className={styles.copyButton}
-              >
+              <button onClick={handleCopy} className={styles.copyButton}>
                 {copyText}
               </button>
             </div>
@@ -163,7 +177,7 @@ const ShareTeamData = ({ onClose, teamData, successMessage }) => {
           </div>
         )}
       </div>
-    </div>
+    </Dialog>
   );
 };
 

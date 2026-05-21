@@ -1,229 +1,139 @@
 #profile {
   color: #ffffff;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 300;
   display: flex;
   flex-direction: column;
-  padding-left: 0px;
-  padding-top: 35px;
-  padding-bottom: 27px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100%;
+  padding: 1.2rem 1rem 1.6rem;
 }
-  
+
 .proHeading {
-  font-size: 30px;
+  font-size: 2rem;
   letter-spacing: 0.02em;
-  line-height: 40px;
-  padding-bottom: 50px;
+  line-height: 1.2;
+  padding-bottom: 1.5rem;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.headInnerText{
-  margin-left: 10rem;
+.headInnerText {
+  margin-left: 0;
 }
-  
-.headInnerText span{
+
+.headInnerText span {
   margin-right: 3px;
-  background: linear-gradient(to right , #d03e21 40%, #FF8A00 );
+  background: linear-gradient(to right, #d03e21 40%, #ff8a00);
   -webkit-background-clip: text;
   color: transparent;
-  
 }
-  
-.details{
+
+.details {
   display: flex;
-  justify-content: start;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   width: 100%;
-  // background-color: red;
-  margin-left: 10rem;
-
+  margin-left: 0;
+  min-width: 0;
 }
 
-// .profileBox{
-
-//   width: 700px;
-//   display: flex;
-// }
+.profileBox {
+  width: min(100%, 900px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 1.2rem 1.25rem 0.35rem;
+  background: rgba(255, 255, 255, 0.02);
+}
 
 .profileTable {
   table-layout: fixed;
-  width: 70%;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .vals {
   font-family: "Open Sans", sans-serif;
-  font-size: 20px;
+  font-size: 1.15rem;
   padding-bottom: 27px;
 
   &.highlight {
-    max-width: 50%;
-    overflow: hidden; 
-    text-overflow: ellipsis; 
-    white-space: nowrap; 
-  }
-
-  &.highlight:hover{
-    overflow: scroll;
-    text-overflow: clip;
-  }
-
-  &.highlight::-webkit-scrollbar{
-    display: none;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
   }
 }
 
-.dets{
+.dets {
   font-family: "Open Sans", sans-serif;
-  font-size: 20px;
+  font-size: 1.15rem;
   padding-bottom: 27px;
-  width:35%;
+  width: 34%;
   font-weight: 700;
 }
 
+.detailLink {
+  color: #ffffff;
+  font-weight: 500;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.dets {
+  padding-right: 2rem;
+}
+
+.editbtn {
+  font-size: 1.5rem;
+  margin-right: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 900px) {
+  .profileBox {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  #profile {
+    padding: 0.9rem 0.4rem 1rem;
+  }
+
+  .proHeading {
+    font-size: 1.65rem;
+    padding-bottom: 1.1rem;
+  }
+
+  .dets,
+  .vals {
+    font-size: 1rem;
+  }
 
   .dets {
-    padding-right: 100px;
+    width: 44%;
+    padding-right: 1rem;
   }
 
-  .editbtn{
-    font-size: 1.6rem;
-    margin-right: 13rem;
-    cursor: pointer;
-    display: flex;
-    align-items: end;
+  .profileBox {
+    border-radius: 14px;
+    padding: 1rem 0.8rem 0.2rem;
   }
-  
-  @media screen and (max-width:989px) {
-    .details{
-      width: 90%;
-      margin-left: 5rem;
-    }
+}
 
-    .headInnerText{
-      margin-left: 5rem;
-    }
-
-    .editbtn{
-      margin-right: 5rem;
-    }
-  }
-  
-  @media screen and (max-width:867px) {
-    .details{
-      width: 90%;
-      margin-left: 2rem;
-    }
-
-    .headInnerText{
-      margin-left: 2rem;
-    }
-
-    .editbtn{
-      margin-right: 2rem;
-    }
-  }
-
-  @media screen and (max-width:769px) {
-    .proHeading{
-      display: grid;
-      grid-template-columns: 15% 70% 15%;
-    }
-
-    .headInnerText{
-      grid-column-start: 2;
-      grid-column-end: 3;
-      text-align: center;
-      margin-left: 0px;
-    }
-
-    .editbtn{
-      margin-right: 0rem;
-      margin-left: 20%;
-    }
-
-    .details{
-      justify-content: center;
-      width: 95%;
-      margin-left: 1rem;
-      margin-right: 1rem;
-    }
-
-    .dets{
-      width:50%;
-      padding-left: 2rem;
-    }
-
-  }
-  
-  @media screen and (max-width:480px) {
-    #profile {
-      padding-left: 15px;
-      padding-right: 15px;
-    }
-
-    .proHeading{
-      display: grid;
-      grid-template-columns: 12.5% 65% 10% 12.5%;
-      margin-left: -1.1rem;
-    }
-
-    .headInnerText{
-      font-size: 30px;
-      text-align: start;
-      grid-column-start: 2;
-      grid-column-end: 3;
-    }
-
-    .editbtn{
-      font-size: 20px;
-      text-align: end;
-      grid-column-start: 3;
-      grid-column-end: 4;
-    }
-  
-    .dets {
-      padding-right: 50px;
-    }
-
-    .profileTable{
-      width: 100%;
-      margin-left: -2%;
-    }
-
-  }
-
-  @media screen and (max-width:430px) {
+@media screen and (max-width: 430px) {
   .dets,
   .vals {
     font-size: 16px;
   }
-
-  .proHeading{
-    display: grid;
-    grid-template-columns: 7.5% 70% 15% 7.5%;
-    margin-left: 0.8rem;
+  .dets {
+    width: 46%;
+    padding-right: 0.7rem;
   }
-  }
-
-  @media screen and (max-width:380px) {
-    
-    .dets {
-      padding-right: 30px;
-    }
-
-    .proHeading{
-      display: grid;
-      grid-template-columns: 5% 80% 15%;
-      margin-left: 10px;
-    }
-
-    .profileTable{
-      margin-left: -20px;
-    }
-    
-  }
-  
-  
+}

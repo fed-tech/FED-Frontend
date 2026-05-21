@@ -1,0 +1,250 @@
+@import "/src/assets/styles/Global.scss";
+
+// ── Page wrapper ────────────────────────────────────
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 4rem;
+    position: relative;
+}
+
+// ── Back button ─────────────────────────────────────
+.backBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 0.95rem;
+    cursor: pointer;
+    align-self: flex-start;
+    margin-bottom: 1.5rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    transition: background 0.2s ease, color 0.2s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #f97507;
+    }
+}
+
+// ── Card (full-width, centered) ──────────────────────
+.card {
+    width: 100%;
+    max-width: 680px;
+    background: linear-gradient(90deg,
+            rgba(32, 32, 32, 0.95) -11.52%,
+            rgba(37, 37, 37, 0.95) 106.29%);
+    font-size: 0.75rem;
+    color: white;
+    text-align: center;
+    border-radius: 1.26863rem;
+    border: 1.2px solid rgba(214, 214, 214, 0.81);
+    overflow: hidden;
+}
+
+.card a {
+    color: #fff;
+}
+
+// ── Banner image area ────────────────────────────────
+.backimg {
+    width: 90%;
+    height: 18rem;
+    object-fit: cover;
+    margin-inline: auto;
+    margin-top: 6%;
+    position: relative;
+}
+
+.img {
+    height: 100%;
+    width: 98%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 20px;
+    border: 0.973px solid #fff;
+    box-shadow: 1.945px 1.945px 0px 0px;
+}
+
+// ── Date badge ───────────────────────────────────────
+.date {
+    background: rgba(15, 15, 15, 0.5);
+    backdrop-filter: blur(2px);
+    border: 1px solid rgb(143, 139, 139);
+    color: white;
+    position: absolute;
+    left: 1rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    padding: 5px 10px;
+    top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// ── Share button ─────────────────────────────────────
+.share {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgb(143, 139, 139);
+    color: #f97507;
+    position: absolute;
+    top: 0.8rem;
+    right: 2.8rem;
+    text-align: center;
+    border-radius: 7px;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.shareIcon {
+    height: 1rem;
+    width: 1rem;
+}
+
+// ── Info row (name + register btn) ───────────────────
+.backbtn {
+    width: 87%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.8rem;
+    align-items: center;
+    margin-inline: auto;
+    margin-bottom: 0.5rem;
+}
+
+.eventname {
+    font-size: 1.5rem;
+    width: 65%;
+    font-weight: 600;
+    text-align: start;
+    background: var(--Primary,
+            linear-gradient(260deg,
+                rgba(255, 190, 11, 0.84) -29.7%,
+                rgba(244, 43, 3, 0.84) 128.34%));
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.eventname p {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    margin-top: 0.1rem;
+    color: #fff;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+
+    p {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        color: white;
+        margin: 0;
+    }
+}
+
+// ── Register button ──────────────────────────────────
+.registerbtn {
+    button {
+        border-radius: 0.35788rem;
+        background: var(--Primary,
+                linear-gradient(260deg,
+                    rgba(255, 190, 11, 0.84) -29.7%,
+                    rgba(244, 43, 3, 0.84) 128.34%));
+        display: inline-flex;
+        color: #fff;
+        padding: 0.6rem 1rem;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+        min-width: 9rem;
+        transition: opacity 0.2s ease;
+
+        &:disabled {
+            opacity: 0.7;
+        }
+    }
+}
+
+// ── Description text ─────────────────────────────────
+.backtxt {
+    width: 87%;
+    height: auto;
+    text-align: start;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-inline: auto;
+    margin-top: 0.8rem;
+    margin-bottom: 5%;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #ddd;
+}
+
+// ── Error state ──────────────────────────────────────
+.error {
+    color: white;
+    opacity: 0.7;
+    font-size: 1rem;
+    margin-top: 3rem;
+}
+
+// ── Responsive ───────────────────────────────────────
+@media (max-width: 600px) {
+    .backimg {
+        height: auto;
+        min-height: 12rem;
+    }
+
+    .img {
+        height: auto;
+    }
+
+    .eventname {
+        font-size: 1.1rem;
+    }
+
+    .card {
+        border-radius: 0.8rem;
+    }
+
+    .date {
+        font-size: 0.75rem;
+    }
+
+    .registerbtn button {
+        min-width: 7rem;
+        font-size: 0.78rem;
+        padding: 0.5rem 0.6rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .backbtn {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+    }
+
+    .eventname {
+        width: 100%;
+    }
+}

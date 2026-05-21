@@ -1,28 +1,47 @@
 .main {
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
-  background-color: #1c1c1c;
   position: relative;
   overflow: hidden;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(255, 119, 0, 0.2) 0%, transparent 42%),
+    radial-gradient(circle at 8% 90%, rgba(255, 126, 26, 0.17) 0%, transparent 40%),
+    linear-gradient(140deg, #0e0e11 0%, #17171d 45%, #121218 100%);
+  padding: 1rem 0 1rem;
+}
+
+.bodyChildren {
+  position: relative;
+  z-index: 3;
+}
+
+.frameMiddle,
+.frameBottom {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .frameMiddle {
-  height: 20vw;
-  width: 15vw;
-  background-color: #ff5e00a7;
-  filter: blur(100px);
-  position: absolute;
-  top: 40%;
-  right: -8%;
-  border-radius: 50%;
+  height: clamp(180px, 24vw, 380px);
+  width: clamp(180px, 24vw, 380px);
+  background: rgba(255, 107, 26, 0.36);
+  top: 16%;
+  right: -7%;
 }
+
 .frameBottom {
-  height: 20vw;
-  width: 15vw;
-  background-color: #ff5e00a7;
-  filter: blur(100px);
-  position: absolute;
-  bottom: -26%;
+  height: clamp(180px, 24vw, 380px);
+  width: clamp(180px, 24vw, 380px);
+  background: rgba(255, 94, 0, 0.32);
+  bottom: -12%;
   left: -8%;
-  border-radius: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    padding: 0.45rem 0 0.7rem;
+  }
 }

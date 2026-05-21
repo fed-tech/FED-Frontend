@@ -2,30 +2,41 @@ import { forwardRef, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import Select, { components } from "react-select";
-import DatePicker from "react-date-picker";
 import { AiOutlineDown } from "react-icons/ai";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import DatePickerWithTime from "react-datepicker";
+import { isValid, parse } from "date-fns";
 import styles from "./styles/Core.module.scss";
 
 const CustomInput = forwardRef(
-  ({ value, onClick, placeholder = "Select Date & Time" }, ref) => (
+  (
+    { value, onClick, placeholder = "Select Date & Time", className, style },
+    ref
+  ) => (
     <div
       onClick={onClick}
       ref={ref}
+      className={className}
       style={{
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
+        position: "relative",
+        paddingRight: "40px",
+        cursor: "pointer",
+        ...style,
       }}
     >
       <p
         style={{
-          margin: "4px",
-          fontSize: "12px !important",
+          margin: "0 8px",
+          fontSize: "0.95rem",
           opacity: value ? 1 : 0.5,
-          fontWeight: "100 !important",
+          fontWeight: 400,
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
         }}
       >
         {value || placeholder}
@@ -35,8 +46,9 @@ const CustomInput = forwardRef(
         size={18}
         style={{
           position: "absolute",
-          top: "20%",
-          right: "8px",
+          top: "50%",
+          right: "12px",
+          transform: "translateY(-50%)",
         }}
       />
     </div>
@@ -52,57 +64,67 @@ CustomInput.propTypes = {
 };
 
 const customStyles = {
-  control: (provided) => ({
+  control: (provided, state) => ({
     ...provided,
-    display: "flex",
-    outline: "none",
-    width: "99.5%",
-    fontSize: "12px",
-    backgroundColor: "transparent",
-    borderRadius: "4px",
+    minHeight: "52px",
+    borderRadius: "999px",
     color: "#fff",
-    marginBottom: "0",
-    maxHeight: "40px",
-    marginLeft: "8px",
-    marginRight: "8px",
-    marginTop: "4px",
-    position: "relative",
-    border: "1px solid rgba(211, 211, 211, 0.5)",
-    boxShadow: "none",
+    fontSize: "0.95rem",
+    background:
+      "linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02))",
+    border: state.isFocused
+      ? "1px solid rgba(255, 165, 90, 0.95)"
+      : "1px solid rgba(255, 255, 255, 0.2)",
+    boxShadow: state.isFocused
+      ? "0 0 0 4px rgba(255, 133, 50, 0.18), 0 10px 28px rgba(0, 0, 0, 0.3)"
+      : "none",
+    cursor: "pointer",
     "&:hover": {
-      borderColor: "#fff !important",
+      borderColor: state.isFocused
+        ? "rgba(255, 165, 90, 0.95)"
+        : "rgba(255, 255, 255, 0.2)",
     },
+  }),
+  valueContainer: (provided) => ({
+    ...provided,
+    padding: "0 16px",
   }),
   menu: (provided) => ({
     ...provided,
-    width: "99.5%",
-    marginLeft: "8px",
+    marginTop: "8px",
+    borderRadius: "16px",
+    border: "1px solid rgba(255, 255, 255, 0.18)",
+    background:
+      "linear-gradient(145deg, rgba(16, 19, 28, 0.98), rgba(12, 16, 24, 0.96))",
+    overflow: "hidden",
   }),
   menuPortal: (provided) => ({ ...provided, zIndex: 111 }),
+  menuList: (provided) => ({
+    ...provided,
+    padding: "6px",
+  }),
   placeholder: (provided) => ({
     ...provided,
-    display: "flex",
-    alignItems: "center",
-    marginTop: "-7px",
+    color: "rgba(255, 255, 255, 0.5)",
   }),
   option: (provided, state) => ({
     ...provided,
-    color: state.isSelected ? "#FF8A00" : "#2D2D2D",
-    backgroundColor: state.isSelected ? "#2D2D2D" : "#fff",
+    color: state.isSelected ? "#ffffff" : "rgba(255, 255, 255, 0.9)",
+    background: state.isSelected
+      ? "linear-gradient(140deg, #ff8a3d, #ff5f1f)"
+      : "transparent",
     cursor: "pointer",
-    width: "99%",
-    border: "none",
-    margin: "0 auto",
-    borderRadius: "4px",
+    borderRadius: "12px",
+    margin: "2px 0",
+    fontSize: "0.92rem",
     "&:hover": {
-      transition: "ease-in-out 0.3s",
-      backgroundColor: "#2D2D2D",
-      color: "#FF8A00",
-      margin: "2px auto",
+      background: state.isSelected
+        ? "linear-gradient(140deg, #ff8a3d, #ff5f1f)"
+        : "rgba(255, 255, 255, 0.08)",
+      color: "#fff",
     },
     "&:active": {
-      backgroundColor: "#2D2D2D",
-      color: "#FF8A00",
+      background: "rgba(255, 255, 255, 0.12)",
     },
   }),
   indicatorSeparator: (provided) => ({
@@ -112,25 +134,14 @@ const customStyles = {
   singleValue: (provided) => ({
     ...provided,
     color: "#fff",
-    display: "flex",
-    alignItems: "center",
-    marginTop: "-7px",
-    fontSize:"larger"
+    fontSize: "0.95rem",
   }),
 };
 
 const DropdownIndicator = (props) => {
   return (
     <components.DropdownIndicator {...props}>
-      <AiOutlineDown
-        color="#fff"
-        size={20}
-        style={{
-          position: "absolute",
-          right: "12px",
-          top: "25%",
-        }}
-      />
+      <AiOutlineDown color="#fff" size={18} />
     </components.DropdownIndicator>
   );
 };
@@ -156,6 +167,19 @@ const Input = (props) => {
   const imgRef = useRef(null);
   const [showPassword, setshowPassword] = useState(false);
   const [previewFile, setpreviewFile] = useState(null);
+
+  const parseDateValue = (input) => {
+    if (!input) return null;
+    if (input instanceof Date) return input;
+
+    if (typeof input === "string") {
+      const parsed = parse(input, "MMMM do yyyy, h:mm:ss a", new Date());
+      if (isValid(parsed)) return parsed;
+    }
+
+    const fallback = new Date(input);
+    return Number.isNaN(fallback.getTime()) ? null : fallback;
+  };
 
   const filterPassedTime = (time) => {
     const currentDate = new Date();
@@ -230,46 +254,50 @@ const Input = (props) => {
       case "date":
         return (
           <div>
-            <DatePicker
+            <DatePickerWithTime
               name={name}
-              className={`${styles.input} ${styles.inputDate} ${className}`}
               ref={dateRef}
-              placeholder={placeholder}
-              value={value}
+              selected={parseDateValue(value)}
               onChange={onChange}
-              clearIcon={null}
-              style={style || {}}
-              calendarIcon={
-                <FaRegCalendarAlt
-                  color="#fff"
-                  size={18}
-                  style={{
-                    position: "absolute",
-                    top: "25%",
-                    right: "12px",
-                  }}
-                />
-              }
+              placeholderText={placeholder}
+              className={`${styles.input} ${styles.inputDate} ${className}`}
+              showPopperArrow={false}
+              popperPlacement="bottom-start"
+              popperClassName="fed-datepicker-popper"
+              calendarClassName="fed-datepicker fed-datepicker-compact"
+              withPortal
+              portalId="fed-datepicker-portal"
               {...rest}
             />
           </div>
         );
       case "datetime-local":
         return (
-          <div className={`${styles.input} ${styles.inputDate} ${className}`}>
+          <div className={`${styles.input} ${styles.inputDate} ${styles.datePickerWrap} ${className}`}>
             <DatePickerWithTime
               name={name}
               ref={dateRef}
-              value={value}
+              selected={parseDateValue(value)}
               onChange={onChange}
               clearIcon={null}
               showTimeSelect
               filterTime={filterPassedTime}
-              timeFormat="HH:mm"
-              timeIntervals={15}
+              minDate={new Date()}
+              timeFormat="hh:mm aa"
+              timeIntervals={1}
               timeCaption="time"
-              dateFormat="MMMM d, yyyy h:mm"
+              dateFormat="MMMM d, yyyy h:mm aa"
               customInput={<CustomInput placeholder={placeholder} />}
+              popperPlacement="bottom-start"
+              popperClassName="fed-datepicker-popper"
+              calendarClassName="fed-datepicker fed-datepicker-datetime"
+              showPopperArrow={false}
+              withPortal
+              portalId="fed-datepicker-portal"
+              popperModifiers={[
+                { name: "offset", options: { offset: [0, 8] } },
+                { name: "preventOverflow", options: { boundary: "viewport", padding: 8 } },
+              ]}
               {...rest}
             />
           </div>

@@ -2,11 +2,7 @@
 
 .card {
   width: 32rem;
-  background: linear-gradient(
-    90deg,
-    rgba(32, 32, 32, 0.95) -11.52%,
-    rgba(37, 37, 37, 0.95) 106.29%
-  );
+  background: linear-gradient(145deg, rgba(18, 18, 22, 0.96), rgba(10, 10, 14, 0.96));
   font-size: 0.75rem;
   color: white;
   text-align: center;
@@ -14,8 +10,9 @@
   // top: 2rem;
   // left: 35%;
   z-index: 5;
-  border-radius: 1.26863rem;
-  border: 1.2px solid rgba(214, 214, 214, 0.81);
+  border-radius: 1.1rem;
+  border: 1px solid rgba(255, 138, 0, 0.28);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
 
@@ -119,11 +116,22 @@
   background-clip: text;
 }
 
-.eventname p {
+.eventMeta {
   font-size: 0.9rem;
   display: flex;
   align-items: center;
   margin-top: 0.1rem;
+  color: #fff;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+}
+
+.priceValue {
+  display: flex;
+  align-items: center;
   color: #fff;
 }
 
@@ -161,7 +169,7 @@
 }
 
 .closeModal:hover {
-  color: #f97507;
+  color: #ff8a00;
 }
 
 .card button {
@@ -169,9 +177,9 @@
 }
 
 .share {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgb(143, 139, 139);
-  color: #f97507;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 138, 0, 0.4);
+  color: #ff9a42;
   position: absolute;
   top: 0.8rem;
   right: 2.8rem;
@@ -317,7 +325,7 @@ input:checked + .slider:before {
   .eventname {
     font-size: 0.95rem;
   }
-  .eventname p{
+  .eventMeta{
     font-size: 0.7rem;
   }
 

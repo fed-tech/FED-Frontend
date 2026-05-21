@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles/Hero.module.scss";
 import CarouselImg from "../../../data/Carousel.json";
 import { Carousel } from "../../../components";
-import { AnimatedBox } from "../../../assets/animations/AnimatedBox";
+import heroBgImage from "../../../assets/images/herobgimage.png";
 
 const titles = [
   "Entrepreneurship.",
@@ -26,74 +26,51 @@ function Hero() {
 
   useEffect(() => {
     const title = titles[titleIndex];
-    const typingSpeed = isDeleting ? 50 : 150;
+    const typingSpeed = isDeleting ? 50 : 100;
 
-    const interval = setInterval(() => {
+    const timeout = setTimeout(() => {
       if (isDeleting) {
         setCurrentTitle(title.substring(0, charIndex - 1));
-        setCharIndex(charIndex - 1);
+        setCharIndex((prev) => prev - 1);
       } else {
         setCurrentTitle(title.substring(0, charIndex + 1));
-        setCharIndex(charIndex + 1);
+        setCharIndex((prev) => prev + 1);
       }
 
       if (!isDeleting && charIndex === title.length) {
-        setIsDeleting(true);
+        setTimeout(() => setIsDeleting(true), 800);
       } else if (isDeleting && charIndex === 0) {
         setIsDeleting(false);
-        setTitleIndex((titleIndex + 1) % titles.length);
+        setTitleIndex((prev) => (prev + 1) % titles.length);
       }
     }, typingSpeed);
 
-    return () => clearInterval(interval);
+    return () => clearTimeout(timeout);
   }, [charIndex, isDeleting, titleIndex]);
 
   return (
-    <div className={styles.main}>
+    <section
+      className={styles.main}
+      style={{ "--hero-bg-image": `url(${heroBgImage})` }}
+    >
       <div className={styles.hero}>
-        <div className={styles.heroTextContainer}>
-          <AnimatedBox direction="left">
-            <div className={styles.largeContent}>
-              <p>
-                Nurturing Using Innovative & Creative strategies{" "}
-                <span
-                  className={styles.dynamicText}
-                  style={{
-                    background: "var(--primary)",
-                    WebkitBackgroundClip: "text",
-                    color: "transparent",
-                  }}
-                >
-                  <h3 className={styles.typing}>{currentTitle}</h3>
-                </span>{" "}
-              </p>
-            </div>
-            <div className={styles.smallContainer}>
-              <div className={styles.smallContent}>
-                <p>
-                  Inspiring{" "}
-                  <span
-                    style={{
-                      background: "var(--primary)",
-                      WebkitBackgroundClip: "text",
-                      color: "transparent",
-                    }}
-                  >
-                    visionaries
-                  </span>{" "}
-                  towards cultivating excellence and enrouting future
-                  generations towards growth.
-                </p>
-              </div>
-            </div>
-          </AnimatedBox>
+        <div className={styles.heroText}>
+          <h1 className={styles.heading}>
+            Nurturing Innovative & Creative Strategies{" "}
+            <span className={styles.dynamicText}>{currentTitle}</span>
+          </h1>
+
+          <p className={styles.subtext}>
+            Inspiring visionaries towards cultivating excellence and guiding
+            future generations toward sustainable growth.
+          </p>
         </div>
-        <div className={styles.heroCarousel}>
+
+        <div className={styles.heroMedia}>
           <Carousel images={CarouselImg} />
         </div>
-        <div className={styles.circle}></div>
       </div>
-    </div>
+    </section>
   );
 }
 

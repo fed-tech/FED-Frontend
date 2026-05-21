@@ -30,6 +30,7 @@ import {
 import { api } from "../../../../services";
 import { parse, differenceInMilliseconds, formatDistanceToNow } from "date-fns";
 import eventDefaultImg from "../../../../assets/images/defaultEventModal.png";
+import { Dialog } from "../../../../components";
 
 const EventModal = (props) => {
   const { onClosePath } = props;
@@ -355,44 +356,31 @@ const EventModal = (props) => {
   const url = window.location.href;
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        width: "100%",
-        height: "100%",
-
-        zIndex: "10",
-
-        left: "0",
-        top: "0",
+    <Dialog
+      open
+      size="xl"
+      onOpenChange={(next) => {
+        if (!next) handleModalClose();
+      }}
+      contentStyle={{
+        "--dialog-padding": "0",
+        "--dialog-surface": "transparent",
+        "--dialog-border": "none",
+        "--dialog-shadow": "none",
       }}
     >
       <div
         style={{
-          position: "absolute",
-          top: "0",
-          left: "0",
-          width: "100%",
-          height: "100%",
-          background: "rgba(0, 0, 0, 0.5)",
-          backdropFilter: "blur(4px)",
-          zIndex: "5",
+          borderRadius: "18px",
+          padding: "2rem",
+          position: "relative",
           display: "flex",
           justifyContent: "center",
+          alignItems: "center",
+          maxWidth: "820px",
+          width: "92vw",
         }}
       >
-        <div
-          style={{
-            zIndex: "10",
-            borderRadius: "10px",
-            padding: "2rem",
-            position: "relative",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: ".3rem",
-          }}
-        >
           {data && (
             <>
               <SkeletonTheme baseColor="#313131" highlightColor="#525252">
@@ -475,7 +463,7 @@ const EventModal = (props) => {
                     <div className={EventCardModal.backbtn}>
                       <div className={EventCardModal.eventname}>
                         {info.eventTitle}
-                        <p>
+                        <div className={EventCardModal.eventMeta}>
                           {info.participationType === "Team" ? (
                             <>
                               <MdGroups color="#f97507" size={25} />
@@ -506,19 +494,25 @@ const EventModal = (props) => {
                               {" | "}
                             </>
                           )}
-                          <div className={EventCardModal.price}>
+                          <span className={EventCardModal.price}>
                             {info.eventAmount ? (
-                              <p style={{ font: "2rem" }}>
+                              <span
+                                className={EventCardModal.priceValue}
+                                style={{ font: "2rem" }}
+                              >
                                 <FaRupeeSign color="#f97507" size={15} />
                                 {info.eventAmount}
-                              </p>
+                              </span>
                             ) : (
-                              <p style={{ color: "white", marginTop: "-1px" }}>
+                              <span
+                                className={EventCardModal.priceValue}
+                                style={{ color: "white", marginTop: "-1px" }}
+                              >
                                 Free
-                              </p>
+                              </span>
                             )}
-                          </div>
-                        </p>
+                          </span>
+                        </div>
                       </div>
                       <div className={EventCardModal.registerbtn}>
                         <button
@@ -601,11 +595,9 @@ const EventModal = (props) => {
               {isOpen && <Share onClose={handleShare} urlpath={url} />}
             </>
           )}
-        </div>
-        {/* </div> */}
       </div>
       <Alert />
-    </div>
+    </Dialog>
   );
 };
 

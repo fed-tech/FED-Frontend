@@ -1,241 +1,120 @@
-
+.carousel_outer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
 
 .carousel {
-  display: flex;
-  height: 400.14px;
-  width: 582.01px;
-  max-width: 570px;
-  max-height: 350px;
-  margin-left: 30px;
-  box-sizing: border-box;
-  // margin-top: 5rem;
-}
-
-.image_container {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: min(100%, 720px);
+  aspect-ratio: 16 / 10;
+  perspective: 1400px;
 }
 
-.blurhash {
+/* Cards */
+.card {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  border-radius: 26px;
+  overflow: hidden;
+  background: #111;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+}
+
+.active {
+  transform: translate(0, 0) scale(1);
+  opacity: 1;
+  z-index: 3;
+}
+
+.layerOne {
+  transform: translate(40px, -40px) scale(0.92);
+  opacity: 0.85;
+  z-index: 2;
+}
+
+.layerTwo {
+  transform: translate(80px, -80px) scale(0.85);
+  opacity: 0.65;
   z-index: 1;
 }
 
-.carousel_wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-direction: column;
-}
-
-.carousel_card {
-  display: flex;
-  flex: 1;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 72px;
-  border: 6px solid white; 
-  box-sizing: border-box;
-  box-shadow: 0px 0px 11px 3px rgba(0, 0, 0, 0.15);
+.hidden {
   opacity: 0;
-  pointer-events: none;
-  transform: scale(1);
-  transition: 0.5s ease-in-out;
+  transform: scale(0.8);
+  z-index: 0;
 }
 
-.carousel_card_active {
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: all;
+.imageWrapper {
+  width: 100%;
+  height: 100%;
 }
 
-.card_image {
+.image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.card_image.loaded {
-  z-index: 2;
-}
 
-.card_overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  // background-color: rgba(0, 0, 0, 0.5);
+/* Controls */
+.controls {
   display: flex;
-  padding: 40px 30px;
-  align-items: flex-end;
+  align-items: center;
+  gap: 32px;
 }
 
-.card_title {
-  color: white;
-  font-size: 30px;
-}
-
-.carousel_pagination {
-  position: absolute;
-  // bottom: 5px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  margin-bottom: 10px;
-}
-
-.pagination_dot {
-  height: 10px;
-  width: 10px;
-  background-color: #f5f5f5;
-  border-radius: 50%;
-  display: inline-block;
-  margin-left: 10px;
+/* Modern Clip Button */
+.clipBtn {
+  padding: 10px 28px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  background: transparent;
+  border: 2px solid #ff8a3d;
+  border-radius: 999px;
   cursor: pointer;
+  color: transparent;
+  background-image: linear-gradient(#ff8a3d, #ff8a3d);
+  background-clip: text;
+  -webkit-background-clip: text;
+  transition: all 0.3s ease;
 }
 
-.pagination_dot:hover {
-  transform: scale(1.2);
+.clipBtn:hover {
+  background: #ff8a3d;
+  color: #111;
 }
 
-.pagination_dot_active {
-  background-color: steelblue;
+/* Pagination */
+.pagination {
+  display: flex;
+  gap: 10px;
 }
 
-
-@media  screen and (max-width:400px) {
-  .carousel {
-    height: 18rem;
-    width: 85vw;
-    margin-top: 0rem;
-    margin-right: 1.5rem;
-  }
-
-
-  .carousel_card {
-    border-radius: 40px;
-    border: 2px solid white; 
-  }
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-@media  screen and (min-width:400px) {
-  .carousel {
-    height: 17rem;
-    width: 85vw;
-    margin-top: 2rem;
-    margin-right: 1.5rem;
-  }
-
-  .carousel_card {
-    border-radius: 50px;
-    border: 6px solid white; 
-  }
+.dotActive {
+  background: #ff8a3d;
+  transform: scale(1.4);
 }
 
-@media  screen and (max-width:700px ) {
-
-  .carousel_card {
-    border-radius: 40px;
-    border: 2px solid white; 
-  }
-}
-@media  screen and (min-width:700px) {
-  .carousel {
-   
-    height: 13rem;
-    // width: 36rem;
-    width: 20rem;
-    margin-top:10px ;
+@media (max-width: 768px) {
+  .layerOne {
+    transform: translate(20px, -20px) scale(0.94);
   }
 
-  .carousel_card {
-    border-radius: 40px;
-    border: 2px solid white; 
+  .layerTwo {
+    transform: translate(40px, -40px) scale(0.88);
   }
-
-}
-@media  screen and (min-width:600px) {
-  .carousel {
-
-    height: 11rem;
-    // width: 36rem;
-    width: 17rem;
-    margin-top:10px ;
-  }
-
-  .carousel_card {
-    border-radius: 40px;
-    border: 2px solid white; 
-  }
-
-}
-@media  screen and (min-width:900px) {
-  .carousel {
-
-    height: 17rem;
-    // width: 36rem;
-    width: 27rem;
-    margin-top:10px ;
- 
-
-  }
-
-  .carousel_card {
-    border-radius: 40px;
-    border: 2px solid white; 
-  }
-
-}
-@media  screen and (min-width:800px) {
-  .carousel {
-
-    height: 14rem;
-    // width: 36rem;
-    width: 22rem;
-    margin-top:10px ;
-    margin-right: 2rem;
- 
-
-  }
-
-  .carousel_card {
-    border-radius: 40px;
-    border: 2px solid white; 
-  }
-
-}
-@media  screen and (min-width:1200px) {
-  .carousel {
- 
-    height: 35rem;
-    width: 46rem;
-
-
-  }
-  .carousel_card {
-    border-radius: 72px;
-    border: 6px solid white; 
-  }
-
-}
-@media  screen and (min-width:1100px) {
-  .carousel {
-    display: flex;
-    height: 25rem;
-    width: 40rem;
-
-  }
-  .carousel_card {
-    border-radius: 52px;
-    border: 4px solid white; 
-  }
-
 }

@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import AuthContext from "../../../context/AuthContext";
 import styles from "./styles/EditProfile.module.scss";
-import { Button, Input } from "../../../components";
+import { Button, Dialog, Input } from "../../../components";
+import modalCard from "../../../components/ui/ModalCard.module.scss";
 import { X } from "lucide-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -130,46 +131,25 @@ const EditProfile = ({ handleModalClose }) => {
   };
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        width: "100%",
-        height: "100%",
-        zIndex: "20",
-        left: "0",
-        top: "0",
+    <Dialog
+      open
+      size="xl"
+      onOpenChange={(next) => {
+        if (!next) handleModalClose();
+      }}
+      contentStyle={{
+        "--dialog-surface": "transparent",
+        "--dialog-padding": "0",
+        "--dialog-border": "none",
+        "--dialog-shadow": "none",
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: "0",
-          left: "0",
-          width: "100%",
-          height: "100%",
-          background: "rgba(0, 0, 0, 0.5)",
-          backdropFilter: "blur(4px)",
-          zIndex: "15",
-        }}
-      >
+      <div className={styles.flex}>
         <div
-          style={{
-            zIndex: "10",
-            borderRadius: "10px",
-            position: "relative",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            scale: "0.8",
-          }}
+          className={`${styles.profile} ${modalCard.card} ${modalCard.cardXl}`}
+          data-aos="zoom-in-up"
+          data-aos-duration="500"
         >
-          <>
-            <div className={styles.flex}>
-              <div
-                id={styles.profile}
-                data-aos="zoom-in-up"
-                data-aos-duration="500"
-              >
                 <div className={styles.heading}>
                   <div className={styles.proHeading}>
                     <h3 className={styles.headInnerText}>
@@ -177,6 +157,7 @@ const EditProfile = ({ handleModalClose }) => {
                     </h3>
                   </div>
                   <button
+                    type="button"
                     className={styles.closeModal}
                     onClick={handleModalClose}
                   >
@@ -189,11 +170,6 @@ const EditProfile = ({ handleModalClose }) => {
                       <div className={styles.table}>
                         <h6 className={styles.dets}>Full Name</h6>
                         <Input
-                          style={{
-                            width: "17rem",
-                            margin: "0px",
-                            fontSize: "15px",
-                          }}
                           placeholder="Enter your name"
                           type="text"
                           value={data.name}
@@ -206,11 +182,6 @@ const EditProfile = ({ handleModalClose }) => {
                       <div className={styles.table}>
                         <h6 className={styles.dets}>Roll Number</h6>
                         <Input
-                          style={{
-                            width: "17rem",
-                            margin: "0px",
-                            fontSize: "15px",
-                          }}
                           placeholder="Enter your roll"
                           type="text"
                           value={data.rollNumber}
@@ -223,11 +194,6 @@ const EditProfile = ({ handleModalClose }) => {
                       <div className={styles.table}>
                         <h6 className={styles.dets}>Year</h6>
                         <Input
-                          style={{
-                            width: "17rem",
-                            margin: "0px",
-                            fontSize: "15px",
-                          }}
                           type="select"
                           name={data.year}
                           className={styles.vals}
@@ -248,11 +214,6 @@ const EditProfile = ({ handleModalClose }) => {
                       <div className={styles.table}>
                         <h6 className={styles.dets}>School</h6>
                         <Input
-                          style={{
-                            width: "17rem",
-                            margin: "0px",
-                            fontSize: "15px",
-                          }}
                           placeholder="Enter your school"
                           type="text"
                           value={data.school}
@@ -265,11 +226,6 @@ const EditProfile = ({ handleModalClose }) => {
                       <div className={styles.table}>
                         <h6 className={styles.dets}>College</h6>
                         <Input
-                          style={{
-                            width: "17rem",
-                            margin: "0px",
-                            fontSize: "15px",
-                          }}
                           placeholder="Enter your college"
                           type="text"
                           value={data.college}
@@ -282,11 +238,6 @@ const EditProfile = ({ handleModalClose }) => {
                       <div className={styles.table}>
                         <h6 className={styles.dets}>Mobile No</h6>
                         <Input
-                          style={{
-                            width: "17rem",
-                            margin: "0px",
-                            fontSize: "15px",
-                          }}
                           placeholder="Enter Phone number"
                           type="tel"
                           maxLength={12}
@@ -306,11 +257,6 @@ const EditProfile = ({ handleModalClose }) => {
                           <div className={styles.table}>
                             <h6 className={styles.dets}>Github</h6>
                             <Input
-                              style={{
-                                width: "17rem",
-                                margin: "0px",
-                                fontSize: "15px",
-                              }}
                               placeholder="Enter your Github"
                               type="text"
                               value={data.github}
@@ -323,11 +269,6 @@ const EditProfile = ({ handleModalClose }) => {
                           <div className={styles.table}>
                             <h6 className={styles.dets}>LinkedIn</h6>
                             <Input
-                              style={{
-                                width: "17rem",
-                                margin: "0px",
-                                fontSize: "15px",
-                              }}
                               placeholder="Enter your LinkedIn"
                               type="text"
                               value={data.linkedin}
@@ -340,24 +281,9 @@ const EditProfile = ({ handleModalClose }) => {
                         </>
                       )}
 
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          flexDirection: "column",
-                          alignItems: "center",
-                        }}
-                      >
+                      <div className={styles.formActions}>
                         {authCtx.user.access === "USER" && (
-                          <p
-                            className={styles.vals}
-                            style={{
-                              marginTop: "15px",
-                              textAlign: "center",
-                              width: "100%",
-                              fontSize: "1rem",
-                            }}
-                          >
+                          <p className={styles.editNote}>
                             You can only edit your profile{" "}
                             <span style={{ fontWeight: 600 }}>5 times. </span>{" "}
                             Total Edits left:{" "}
@@ -378,12 +304,9 @@ const EditProfile = ({ handleModalClose }) => {
                   </div>
                 )}
               </div>
-            </div>
-          </>
-        </div>
       </div>
       <Alert />
-    </div>
+    </Dialog>
   );
 };
 

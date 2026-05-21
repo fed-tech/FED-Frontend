@@ -12,6 +12,7 @@ export default defineConfig({
   //     }
   //   },
   // },
+  appType: 'spa', // Always serve index.html for deep routes (fixes new-tab 404)
   plugins: [react()],
   css: {
     preprocessorOptions: {

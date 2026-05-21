@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
-import { EventCard } from "../../components";
+import React, { useState, useEffect, useContext, useRef } from "react";
+import { Dialog, EventCard } from "../../components";
+import modalCard from "../../components/ui/ModalCard.module.scss";
 import { Button } from "../../components/Core";
 import AuthContext from "../../context/AuthContext";
 import { api } from "../../services";
@@ -7,7 +8,7 @@ import styles from "./styles/AttendancePage.module.scss";
 import { IoClose } from "react-icons/io5";
 import { FaDownload } from "react-icons/fa";
 import { Alert, ComponentLoading } from "../../microInteraction";
-import { Html5QrcodeScanner, Html5QrcodeScanType } from "html5-qrcode";
+import BarcodeScanner from "react-qr-barcode-scanner";
 
 const AttendancePage = () => {
   const [ongoingEvents, setOngoingEvents] = useState([]);
@@ -16,12 +17,14 @@ const AttendancePage = () => {
   const [error, setError] = useState(null);
   const [showScanner, setShowScanner] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState(null);
-  const [scanner, setScanner] = useState(null);
   const [isScanning, setIsScanning] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [attendedUser, setAttendedUser] = useState(null);
   const [hasShownAlert, setHasShownAlert] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const isProcessingScanRef = useRef(false);
+  const lastScanRef = useRef({ text: "", time: 0 });
+  const SCAN_DEBOUNCE_MS = 1500;
   const authCtx = useContext(AuthContext);
 
   useEffect(() => {
@@ -65,39 +68,12 @@ const AttendancePage = () => {
     fetchEvents();
   }, []);
 
-  const initializeScanner = () => {
-    try {
-      const qrScanner = new Html5QrcodeScanner(
-        "qr-reader",
-        {
-          fps: 10,
-          qrbox: { width: 250, height: 250 },
-          aspectRatio: 1,
-          supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
-        },
-        false
-      );
-
-      qrScanner.render(onScanSuccess, onScanFailure);
-      setScanner(qrScanner);
-    } catch (error) {
-      console.error("Error initializing scanner:", error);
-      if (!hasShownAlert) {
-        Alert({
-          type: "error",
-          message: "Failed to initialize QR scanner",
-          position: "top-right",
-        });
-        setHasShownAlert(true);
-      }
-      setShowScanner(false);
-    }
-  };
-
   const onScanSuccess = async (decodedText) => {
+    if (isProcessingScanRef.current) return;
+    if (!selectedEventId) return;
+
+    isProcessingScanRef.current = true;
     setIsScanning(true);
-    console.log("QR Code scanned successfully:", decodedText);
-    console.log("Selected Event ID:", selectedEventId);
     
     try {
       // jwt token from qr code
@@ -115,23 +91,16 @@ const AttendancePage = () => {
       );
 
       if (response.status === 200) {
-        // store user details
         setAttendedUser(response.data.user || response.data);
         setIsSuccess(true);
-        if (scanner) {
-          scanner.clear();
-        }
+        setShowScanner(false);
         setShowSuccessModal(true);
-        setIsScanning(false);
-        
-        // show success alert
+
         Alert({
           type: "success",
           message: "Attendance marked successfully!",
           position: "top-right",
         });
-        
-        return; // exit early
       }
     } catch (error) {
       console.error("Error marking attendance:", error);
@@ -160,28 +129,63 @@ const AttendancePage = () => {
       }
     } finally {
       setIsScanning(false);
+      isProcessingScanRef.current = false;
     }
   };
 
-  const onScanFailure = (error) => {
-    console.warn(`QR Code scanning failed: ${error}`);
+  const onScannerUpdate = (error, result) => {
+    if (error) {
+      const errorText = error?.message || "";
+      const errorName = error?.name || "";
+      const isPermissionIssue =
+        errorName === "NotAllowedError" ||
+        /permission|denied|notallowed/i.test(errorText);
+
+      if (isPermissionIssue && !hasShownAlert) {
+        Alert({
+          type: "error",
+          message: "Camera permission denied. Please allow camera access.",
+          position: "top-right",
+        });
+        setHasShownAlert(true);
+      }
+      return;
+    }
+
+    const decodedText = result?.text || result?.getText?.();
+    if (!decodedText) return;
+
+    const now = Date.now();
+    if (isProcessingScanRef.current) return;
+    if (
+      lastScanRef.current.text === decodedText &&
+      now - lastScanRef.current.time < SCAN_DEBOUNCE_MS
+    ) {
+      return;
+    }
+
+    lastScanRef.current = { text: decodedText, time: now };
+    onScanSuccess(decodedText);
   };
 
   const handleScanQR = (eventId) => {
     setSelectedEventId(eventId);
     setShowScanner(true);
-    setHasShownAlert(false); // reset alert state
-    setIsSuccess(false); // reset success state
+    setHasShownAlert(false);
+    setIsSuccess(false);
+    isProcessingScanRef.current = false;
+    lastScanRef.current = { text: "", time: 0 };
   };
 
   const handleCloseSuccessModal = () => {
     setShowSuccessModal(false);
     setAttendedUser(null);
-    // auto open scanner for next scan
     setTimeout(() => {
       setShowScanner(true);
-      setHasShownAlert(false); // reset alert state
-      setIsSuccess(false); // reset success state
+      setHasShownAlert(false);
+      setIsSuccess(false);
+      isProcessingScanRef.current = false;
+      lastScanRef.current = { text: "", time: 0 };
     }, 100);
   };
 
@@ -269,18 +273,10 @@ const AttendancePage = () => {
   );
 
   useEffect(() => {
-    if (showScanner) {
-      initializeScanner();
+    if (!showScanner) {
+      isProcessingScanRef.current = false;
+      lastScanRef.current = { text: "", time: 0 };
     }
-    return () => {
-      if (scanner) {
-        try {
-          scanner.clear();
-        } catch (error) {
-          console.error("Error clearing scanner in cleanup:", error);
-        }
-      }
-    };
   }, [showScanner]);
 
   if (isLoading) {
@@ -313,15 +309,9 @@ const AttendancePage = () => {
             <button
               className={styles.closeButton}
               onClick={() => {
-                if (scanner) {
-                  try {
-                    scanner.clear();
-                  } catch (error) {
-                    console.error("Error clearing scanner:", error);
-                  }
-                }
                 setShowScanner(false);
-                setScanner(null);
+                isProcessingScanRef.current = false;
+                lastScanRef.current = { text: "", time: 0 };
               }}
             >
               <IoClose />
@@ -333,7 +323,13 @@ const AttendancePage = () => {
                   <div className={styles.scanningText}>Processing QR Code...</div>
                 </div>
               )}
-              <div id="qr-reader"></div>
+              <div className={styles.scannerViewport}>
+                <BarcodeScanner
+                  width={460}
+                  height={300}
+                  onUpdate={onScannerUpdate}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -341,8 +337,20 @@ const AttendancePage = () => {
 
       {/* Success Modal */}
       {showSuccessModal && attendedUser && (
-        <div className={styles.scannerModal}>
-          <div className={styles.scannerContent}>
+        <Dialog
+          open
+          size="sm"
+          onOpenChange={(next) => {
+            if (!next) handleCloseSuccessModal();
+          }}
+          contentStyle={{
+            "--dialog-padding": "0",
+            "--dialog-surface": "transparent",
+            "--dialog-border": "none",
+            "--dialog-shadow": "none",
+          }}
+        >
+          <div className={`${styles.scannerContent} ${modalCard.card}`}>
             <button
               className={styles.closeButton}
               onClick={handleCloseSuccessModal}
@@ -364,7 +372,7 @@ const AttendancePage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </Dialog>
       )}
 
       {/* Ongoing Events */}
