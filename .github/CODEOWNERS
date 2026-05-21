@@ -1,16 +1,18 @@
 # Global owner for all files
-* @PrityanshuSingh
+* @fed-tech
 
 # Reviewers for directories
-.github/ @saurav1729 @raazseth @PrityanshuSingh
-src/ @saurav1729 @raazseth @PrityanshuSingh
+.github/ @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+src/ @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
 
 # Reviewers for specific file types
-*.scss @saurav1729 @raazseth @PrityanshuSingh
-*.jsx  @saurav1729 @raazseth @PrityanshuSingh
-*.json @saurav1729 @raazseth @PrityanshuSingh
-PROJECT_STRUCTURE.md @saurav1729 @raazseth @PrityanshuSingh
-README.md @saurav1729 @raazseth @PrityanshuSingh
-index.html @saurav1729 @raazseth @PrityanshuSingh
-vercel.json @saurav1729 @raazseth @PrityanshuSingh
-vite.config.js @saurav1729 @raazseth @PrityanshuSingh
+*.scss @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+*.jsx  @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+*.json @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+PROJECT_STRUCTURE.md @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+README.md @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+index.html @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+vercel.json @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+vite.config.js @AnshRaj112 @shing1Sks @GuinAditi @rudrika08 @fed-tech
+
+
