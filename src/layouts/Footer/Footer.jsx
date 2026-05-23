@@ -34,25 +34,22 @@ export default function Footer() {
                 <h4>Explore</h4>
                 <Link
                   to="/"
-                  className={`${styles.footerleftlink} ${
-                    isOmega ? styles.omegaLink : ""
-                  }`}
+                  className={`${styles.footerleftlink} ${isOmega ? styles.omegaLink : ""
+                    }`}
                 >
                   Home
                 </Link>
                 <Link
                   to="/Events"
-                  className={`${styles.footerleftlink} ${
-                    isOmega ? styles.omegaLink : ""
-                  }`}
+                  className={`${styles.footerleftlink} ${isOmega ? styles.omegaLink : ""
+                    }`}
                 >
                   Events
                 </Link>
                 <Link
                   to="/Team"
-                  className={`${styles.footerleftlink} ${
-                    isOmega ? styles.omegaLink : ""
-                  }`}
+                  className={`${styles.footerleftlink} ${isOmega ? styles.omegaLink : ""
+                    }`}
                 >
                   Team
                 </Link>
@@ -64,17 +61,15 @@ export default function Footer() {
               <HashLink
                 smooth
                 to="/#Contact"
-                className={`${styles.footerleftlink} ${
-                  isOmega ? styles.omegaLink : ""
-                }`}
+                className={`${styles.footerleftlink} ${isOmega ? styles.omegaLink : ""
+                  }`}
               >
                 Contact
               </HashLink>
               <Link
                 to="/Alumni"
-                className={`${styles.footerleftlink} ${
-                  isOmega ? styles.omegaLink : ""
-                }`}
+                className={`${styles.footerleftlink} ${isOmega ? styles.omegaLink : ""
+                  }`}
               >
                 Alumni
               </Link>
@@ -82,9 +77,8 @@ export default function Footer() {
                 href="http://medium.com/@fedkiit"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${styles.footerleftlink} ${
-                  isOmega ? styles.omegaLink : ""
-                }`}
+                className={`${styles.footerleftlink} ${isOmega ? styles.omegaLink : ""
+                  }`}
               >
                 Blog
               </a>
@@ -95,18 +89,16 @@ export default function Footer() {
               <HashLink
                 smooth
                 to="/Manifesto"
-                className={`${styles.footerleftlink} ${
-                  isOmega ? styles.omegaLink : ""
-                }`}
+                className={`${styles.footerleftlink} ${isOmega ? styles.omegaLink : ""
+                  }`}
               >
                 Manifesto
               </HashLink>
               <HashLink
                 smooth
                 to="/#Sponser"
-                className={`${styles.footerleftlink} ${
-                  isOmega ? styles.omegaLink : ""
-                }`}
+                className={`${styles.footerleftlink} ${isOmega ? styles.omegaLink : ""
+                  }`}
               >
                 Partners
               </HashLink>
@@ -119,56 +111,48 @@ export default function Footer() {
                   href="https://www.linkedin.com/company/fedkiit/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${styles.link1} ${
-                    isOmega ? styles.omegaSocialLink : ""
-                  }`}
+                  className={`${styles.link1} ${isOmega ? styles.omegaSocialLink : ""
+                    }`}
                 >
                   <FaLinkedin
-                    className={`${styles.icon} ${
-                      isOmega ? styles.omegaSocialLink : ""
-                    }`}
+                    className={`${styles.icon} ${isOmega ? styles.omegaSocialLink : ""
+                      }`}
                   />
                 </a>
                 <a
                   href="https://www.instagram.com/fedkiit?igsh=amNpM3UxMjE1d3Iy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${styles.link1} ${
-                    isOmega ? styles.omegaSocialLink : ""
-                  }`}
+                  className={`${styles.link1} ${isOmega ? styles.omegaSocialLink : ""
+                    }`}
                 >
                   <FaInstagram
-                    className={`${styles.icon} ${
-                      isOmega ? styles.omegaSocialLink : ""
-                    }`}
+                    className={`${styles.icon} ${isOmega ? styles.omegaSocialLink : ""
+                      }`}
                   />
                 </a>
                 <a
                   href="http://twitter.com/federation_kiit"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${styles.link1} ${
-                    isOmega ? styles.omegaSocialLink : ""
-                  }`}
+                  className={`${styles.link1} ${isOmega ? styles.omegaSocialLink : ""
+                    }`}
                 >
                   <FaXTwitter
-                    className={`${styles.icon} ${
-                      isOmega ? styles.omegaSocialLink : ""
-                    }`}
+                    className={`${styles.icon} ${isOmega ? styles.omegaSocialLink : ""
+                      }`}
                   />
                 </a>
                 <a
                   href="https://youtube.com/@federationkiit"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${styles.link1} ${
-                    isOmega ? styles.omegaSocialLink : ""
-                  }`}
+                  className={`${styles.link1} ${isOmega ? styles.omegaSocialLink : ""
+                    }`}
                 >
                   <FaYoutube
-                    className={`${styles.icon} ${
-                      isOmega ? styles.omegaSocialLink : ""
-                    }`}
+                    className={`${styles.icon} ${isOmega ? styles.omegaSocialLink : ""
+                      }`}
                   />
                 </a>
               </div>
@@ -185,24 +169,22 @@ export default function Footer() {
             <div className={styles.tap1Div}>
               <Link
                 to="/TermsAndConditions"
-                className={`${styles.Linkstyles} ${
-                  isOmega ? styles.omegaLink : ""
-                }`}
+                className={`${styles.Linkstyles} ${isOmega ? styles.omegaLink : ""
+                  }`}
               >
                 Terms and conditions
               </Link>
               <p>&</p>
               <Link
                 to="/PrivacyPolicy"
-                className={`${styles.Linkstyles} ${
-                  isOmega ? styles.omegaLink : ""
-                }`}
+                className={`${styles.Linkstyles} ${isOmega ? styles.omegaLink : ""
+                  }`}
               >
                 Privacy policy
               </Link>
             </div>
             <div className={styles.tnpMDiv}>
-              <p className={styles.copyrightPTag}>© 2024, fedkiit</p>
+              <p className={styles.copyrightPTag}>© {new Date().getFullYear()}, fedkiit</p>
             </div>
             {/* <div className={styles.dotDiv}></div> */}
           </div>
