@@ -1,11 +1,11 @@
-import { Suspense, lazy, useContext, useEffect } from "react";
+import { Suspense, lazy, useContext, useEffect, useRef } from "react";
 import { Routes, Route, Outlet, Navigate, useLocation } from "react-router-dom";
 
 // layouts
 import { Footer, Navbar, ProfileLayout } from "./layouts";
 
 // microInteraction
-import { Loading } from "./microInteraction";
+import { Loading, Alert } from "./microInteraction";
 
 // modals
 import { EventModal } from "./features";
@@ -19,6 +19,9 @@ import EventStats from "./features/Modals/Event/EventStats/EventStats";
 
 // Chatbot
 import Chatbot from "./components/Chatbot/Chatbot";
+
+// services
+import { api } from "./services";
 
 import {
   EventsView,
@@ -64,6 +67,7 @@ const OTPInput = lazy(() =>
   import("./authentication/Login/ForgotPassword/OTPInput")
 );
 const AttendancePage = lazy(() => import('./pages/AttendancePage/AttendancePage'));
+const TeamManagement = lazy(() => import('./pages/TeamManagement/TeamManagement'));
 
 const MainLayout = () => {
   const location = useLocation();
@@ -98,9 +102,92 @@ const AuthLayout = () => (
   </div>
 );
 
+// [v2] Protected route wrapper — redirects to login with return URL
+const ProtectedRoute = ({ children }) => {
+  const authCtx = useContext(AuthContext);
+  const location = useLocation();
+
+  if (!authCtx.isLoggedIn) {
+    // Store full URL (path + search params) so login can redirect back
+    sessionStorage.setItem("prevPage", location.pathname + location.search);
+    Alert({
+      type: "info",
+      message: "Please log in first to access this page.",
+      position: "bottom-right",
+      duration: 3000,
+    });
+    return <Navigate to="/Login" replace />;
+  }
+
+  return children;
+};
+
+// [v2] Redirect after login — uses prevPage from sessionStorage if available
+const LoginRedirect = () => {
+  const redirectTo = sessionStorage.getItem("prevPage") || "/profile";
+  sessionStorage.removeItem("prevPage");
+  return <Navigate to={redirectTo} replace />;
+};
+
 function App() {
   const authCtx = useContext(AuthContext);
   console.log(authCtx.user.access);
+
+  // [v2] Check for unseen join request updates globally on login
+  const hasCheckedUpdates = useRef(false);
+  useEffect(() => {
+    if (!authCtx.isLoggedIn || hasCheckedUpdates.current) return;
+    hasCheckedUpdates.current = true;
+
+    const checkGlobalUpdates = async () => {
+      try {
+        const response = await api.get("/api/form/allJoinRequestUpdates");
+        const updates = response.data?.data?.updates;
+        if (!updates || updates.length === 0) return;
+
+        // Small delay so the page renders first
+        setTimeout(() => {
+          for (const update of updates) {
+            const teamLabel = update.teamName ? `"${update.teamName}"` : "a team";
+            switch (update.status) {
+              case "ACCEPTED":
+                Alert({
+                  type: "success",
+                  message: `🎉 Your request to join ${teamLabel} was accepted!`,
+                  position: "top-right",
+                  duration: 5000,
+                });
+                break;
+              case "REJECTED":
+                Alert({
+                  type: "error",
+                  message: `Your request to join ${teamLabel} was declined by the team leader.`,
+                  position: "top-right",
+                  duration: 6000,
+                });
+                break;
+              case "AUTO_EXPIRED":
+              case "EXPIRED":
+                Alert({
+                  type: "info",
+                  message: `Your request to join ${teamLabel} has expired.`,
+                  position: "top-right",
+                  duration: 4000,
+                });
+                break;
+              default:
+                break;
+            }
+          }
+        }, 1500);
+      } catch (err) {
+        // Silent — don't break app startup
+        console.error("Error checking global join request updates:", err);
+      }
+    };
+
+    checkGlobalUpdates();
+  }, [authCtx.isLoggedIn]);
 
   return (
     <div>
@@ -213,7 +300,21 @@ function App() {
 
             <Route
               path="/Events/:eventId/Form"
-              element={[<Event />, <EventForm />]}
+              element={
+                <ProtectedRoute>
+                  <Event />
+                  <EventForm />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/Events/:eventId/team"
+              element={
+                <ProtectedRoute>
+                  <TeamManagement />
+                </ProtectedRoute>
+              }
             />
 
             <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
@@ -232,13 +333,13 @@ function App() {
             <Route
               path="/Login"
               element={
-                authCtx.isLoggedIn ? <Navigate to="/profile" /> : <Login />
+                authCtx.isLoggedIn ? <LoginRedirect /> : <Login />
               }
             />
             <Route
               path="/SignUp"
               element={
-                authCtx.isLoggedIn ? <Navigate to="/profile" /> : <Signup />
+                authCtx.isLoggedIn ? <LoginRedirect /> : <Signup />
               }
             />
             <Route
