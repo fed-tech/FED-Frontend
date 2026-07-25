@@ -39,7 +39,7 @@ const Login = () => {
   useEffect(() => {
     if (shouldNavigate) {
       navigate(navigatePath);
-      setShouldNavigate(false); 
+      setShouldNavigate(false);
     }
   }, [shouldNavigate, navigatePath, navigate]);
 
@@ -80,10 +80,6 @@ const Login = () => {
         setNavigatePath(sessionStorage.getItem("prevPage") || "/");
 
         setTimeout(() => {
-          setShouldNavigate(true);
-        }, 750);
-
-        setTimeout(() => {
           localStorage.setItem("token", response.data.token);
           authCtx.login(
             user.name,
@@ -107,7 +103,6 @@ const Login = () => {
         }, 800);
         // console.log(authCtx);
 
-        sessionStorage.removeItem("prevPage"); 
       } else {
         setAlert({
           type: "error",

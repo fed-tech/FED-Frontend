@@ -33,14 +33,14 @@ export default function GoogleLogin() {
     if (alert) {
       const { type, message, position, duration } = alert;
       Alert({ type, message, position, duration });
-      setAlert(null); 
+      setAlert(null);
     }
   }, [alert]);
 
   useEffect(() => {
     if (shouldNavigate) {
       navigate(navigatePath);
-      setShouldNavigate(false); 
+      setShouldNavigate(false);
     }
   }, [shouldNavigate, navigatePath, navigate]);
 
@@ -67,11 +67,7 @@ export default function GoogleLogin() {
           setNavigatePath(sessionStorage.getItem("prevPage") || "/");
 
           setTimeout(() => {
-            setShouldNavigate(true);
-          });
-
-          setTimeout(() => {
-            localStorage.setItem("token",response.data.token);
+            localStorage.setItem("token", response.data.token);
             authCtx.login(
               user.name,
               user.email,
@@ -93,9 +89,8 @@ export default function GoogleLogin() {
             );
           }, 800);
 
-          sessionStorage.removeItem("prevPage"); // Clean up
         } else {
-         
+
           // console.log("Unexpected backend response status:", response.status);
           // handleFallbackOrSignup(googleUserData);
         }
@@ -106,9 +101,9 @@ export default function GoogleLogin() {
           position: "bottom-right",
           duration: 3000,
         });
-    
+
         console.error("Backend API call failed:", error);
-    
+
       }
     } catch (error) {
       console.error("Login error:", error);
