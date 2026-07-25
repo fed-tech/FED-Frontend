@@ -23,9 +23,6 @@ import Chatbot from "./components/Chatbot/Chatbot";
 // services
 import { api } from "./services";
 
-// Fox Mascot - DISABLED (react-three version incompatibility)
-// import FoxMascot from "./components/FoxMascot";
-
 import {
   EventsView,
   NewForm,
@@ -196,9 +193,6 @@ function App() {
     <div>
       {/* Global Chatbot Component */}
       <Chatbot />
-
-      {/* Fox Mascot Animation - DISABLED */}
-      {/* <FoxMascot /> */}
 
       <Suspense fallback={<Loading />}>
         <Routes>
