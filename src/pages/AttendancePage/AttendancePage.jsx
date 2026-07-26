@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { EventCard } from "../../components";
 import { Button } from "../../components/Core";
 import AuthContext from "../../context/AuthContext";
@@ -23,6 +23,12 @@ const AttendancePage = () => {
   const [hasShownAlert, setHasShownAlert] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const authCtx = useContext(AuthContext);
+
+  // Refs to prevent duplicate execution & stale closures
+  const isProcessingRef = useRef(false);
+  const alertShownRef = useRef(false);
+  const scannerRef = useRef(null);
+  const selectedEventIdRef = useRef(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -79,15 +85,17 @@ const AttendancePage = () => {
       );
 
       qrScanner.render(onScanSuccess, onScanFailure);
+      scannerRef.current = qrScanner;
       setScanner(qrScanner);
     } catch (error) {
       console.error("Error initializing scanner:", error);
-      if (!hasShownAlert) {
+      if (!alertShownRef.current) {
         Alert({
           type: "error",
           message: "Failed to initialize QR scanner",
           position: "top-right",
         });
+        alertShownRef.current = true;
         setHasShownAlert(true);
       }
       setShowScanner(false);
@@ -95,16 +103,30 @@ const AttendancePage = () => {
   };
 
   const onScanSuccess = async (decodedText) => {
+    if (isProcessingRef.current) {
+      return;
+    }
+    isProcessingRef.current = true;
     setIsScanning(true);
+
+    // Pause scanner immediately to stop further video frames from triggering onScanSuccess
+    if (scannerRef.current) {
+      try {
+        scannerRef.current.pause(true);
+      } catch (err) {
+        console.warn("Could not pause scanner:", err);
+      }
+    }
+
     console.log("QR Code scanned successfully:", decodedText);
-    console.log("Selected Event ID:", selectedEventId);
+    console.log("Selected Event ID:", selectedEventIdRef.current);
     
     try {
       // jwt token from qr code
       const response = await api.post(
         `/api/form/markAttendance`,
         {
-          formId: selectedEventId,
+          formId: selectedEventIdRef.current,
           token: decodedText,
         },
         {
@@ -118,8 +140,12 @@ const AttendancePage = () => {
         // store user details
         setAttendedUser(response.data.user || response.data);
         setIsSuccess(true);
-        if (scanner) {
-          scanner.clear();
+        if (scannerRef.current) {
+          try {
+            scannerRef.current.clear();
+          } catch (err) {
+            console.error("Error clearing scanner on success:", err);
+          }
         }
         setShowSuccessModal(true);
         setIsScanning(false);
@@ -150,14 +176,26 @@ const AttendancePage = () => {
       }
       
       // show error alert
-      if (!hasShownAlert) {
+      if (!alertShownRef.current) {
         Alert({
           type: "error",
           message: errorMessage,
           position: "top-right",
         });
+        alertShownRef.current = true;
         setHasShownAlert(true);
       }
+
+      // Resume scanning on error since the scan session failed
+      if (scannerRef.current) {
+        try {
+          scannerRef.current.resume();
+        } catch (err) {
+          console.warn("Could not resume scanner:", err);
+        }
+      }
+      isProcessingRef.current = false;
+      alertShownRef.current = false;
     } finally {
       setIsScanning(false);
     }
@@ -168,7 +206,10 @@ const AttendancePage = () => {
   };
 
   const handleScanQR = (eventId) => {
+    selectedEventIdRef.current = eventId;
     setSelectedEventId(eventId);
+    isProcessingRef.current = false;
+    alertShownRef.current = false;
     setShowScanner(true);
     setHasShownAlert(false); // reset alert state
     setIsSuccess(false); // reset success state
@@ -177,6 +218,8 @@ const AttendancePage = () => {
   const handleCloseSuccessModal = () => {
     setShowSuccessModal(false);
     setAttendedUser(null);
+    isProcessingRef.current = false;
+    alertShownRef.current = false;
     // auto open scanner for next scan
     setTimeout(() => {
       setShowScanner(true);
@@ -273,9 +316,9 @@ const AttendancePage = () => {
       initializeScanner();
     }
     return () => {
-      if (scanner) {
+      if (scannerRef.current) {
         try {
-          scanner.clear();
+          scannerRef.current.clear();
         } catch (error) {
           console.error("Error clearing scanner in cleanup:", error);
         }
@@ -313,14 +356,15 @@ const AttendancePage = () => {
             <button
               className={styles.closeButton}
               onClick={() => {
-                if (scanner) {
+                if (scannerRef.current) {
                   try {
-                    scanner.clear();
+                    scannerRef.current.clear();
                   } catch (error) {
                     console.error("Error clearing scanner:", error);
                   }
                 }
                 setShowScanner(false);
+                scannerRef.current = null;
                 setScanner(null);
               }}
             >
