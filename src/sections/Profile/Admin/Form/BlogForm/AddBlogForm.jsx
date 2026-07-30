@@ -456,7 +456,7 @@ function NewBlogForm() {
                 window.dispatchEvent(new Event('blog-updated'));
               }
 
-      
+
             } catch (error) {
               console.error("Error refreshing blogs after update:", error);
             }
@@ -493,7 +493,7 @@ function NewBlogForm() {
     try {
       setIsLoading(true);
       const response = await api.post("/api/gemini/summary", {
-         mediumLink: data.mediumLink 
+        mediumLink: data.mediumLink
       });
 
       const result = response.data;
@@ -543,7 +543,7 @@ function NewBlogForm() {
       setIsLoading(true);
 
       const response = await api.post("/api/gemini/autofill", {
-       mediumLink: data.mediumLink
+        mediumLink: data.mediumLink
       });
 
       const result = response.data;
@@ -604,29 +604,22 @@ function NewBlogForm() {
   };
 
   return (
-    <div style={{ width: "100%", marginLeft: "70px" }}>
+    <div className={styles.blogPage}>
       <div className={styles.formHeader}>
         <div className={styles.buttonContainer}>
           <h3 className={styles.headInnerText}>
-            <span>New</span> Blog
+            <span>{isEditing ? "Edit" : "New"}</span> Blog
           </h3>
         </div>
-        <div style={{ display: "flex", gap: "10px" }}>
-          <div style={{ marginTop: "auto", marginBottom: "auto", marginRight: "12px" }}>
+        <div className={styles.headerActions}>
+          <div
+            className={styles.settingsIcon}
+            onClick={() => setisVisibility(!isVisibility)}
+          >
             {isVisibility ? (
-              <IoSettingsSharp
-                size={20}
-                color="#FF8A00"
-                style={{ cursor: "pointer", marginTop: "10px" }}
-                onClick={() => setisVisibility(!isVisibility)}
-              />
+              <IoSettingsSharp size={20} color="#FF8A00" />
             ) : (
-              <IoSettingsOutline
-                size={20}
-                style={{ cursor: "pointer", marginTop: "10px" }}
-                color="#fff"
-                onClick={() => setisVisibility(!isVisibility)}
-              />
+              <IoSettingsOutline size={20} color="#fff" />
             )}
           </div>
 
@@ -637,36 +630,22 @@ function NewBlogForm() {
       </div>
 
       {isVisibility && (
-        <div style={{
-          backgroundColor: "rgb(35, 34, 34)",
-          width: "86%",
-          margin: ".5em 0",
-          padding: "1.6em",
-          borderRadius: "8px",
-          marginBottom: "1em",
-        }}>
-          <div style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginBottom: "1em"
-          }}>
-            <label style={{ color: "#fff", margin: "1px 0", fontSize: ".8em" }}>
-              Blog Visibility (
-              <span style={{ color: !data.isPublished ? "#FF8A00" : "white" }}>
-                Private
-              </span>
-              /
-              <span style={{ color: data.isPublished ? "#FF8A00" : "white" }}>
-                Public
-              </span>
-              )
+        <div className={styles.settingsPanel}>
+          <div className={styles.settingsPanelTitle}>Blog Settings</div>
+
+          <div className={styles.settingsToggleRow}>
+            <label className={`${styles.toggleLabel} ${data.isPublished ? styles.toggleLabelActive : styles.toggleLabelInactive}`}>
+              Visibility:{" "}
+              <span className={!data.isPublished ? styles.toggleValueActive : styles.toggleValueInactive}>Private</span>
+              {" / "}
+              <span className={data.isPublished ? styles.toggleValueActive : styles.toggleValueInactive}>Public</span>
             </label>
             <Switch
               checked={data.isPublished}
               width={36}
               height={18}
               onColor="#FF8A00"
+              offColor="#3a3a3a"
               checkedIcon={false}
               uncheckedIcon={false}
               onChange={() => setdata({ ...data, isPublished: !data.isPublished })}
@@ -674,36 +653,29 @@ function NewBlogForm() {
           </div>
         </div>
       )}
-      <div style={{ fontSize: '0.75em', color: '#FF8A00', margin: '0 0 0.5em 0', fontWeight: 400, letterSpacing: '0.01em' }}>
+      <div className={styles.visibilityReminder}>
         Don't forget to change visibility to Private/Public in settings
       </div>
-      <div style={{
-        height: "90vh",
-        width: "90%",
-        overflow: "hidden scroll",
-        scrollbarWidth: "none",
-        marginBottom: "50px",
-      }}>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <div style={{ width: "45%" }}>
+      <div className={styles.contentArea}>
+        <div className={styles.formFieldsRow}>
+          <div className={styles.formFieldsCol}>
 
-            <div className={styles.mediumLinkWrapper}>
-              <Input
-                placeholder="https://medium.com/@fedkiit/"
-                label="Medium Link"
-                value={data.mediumLink}
-                className={styles.formInput}
-                onChange={(e) => setdata({ ...data, mediumLink: e.target.value })}
-              />
-              <button
-                type="button"
-                className={`${styles.geminiButtonM} ${autoFillAnimated ? styles.animateMediumLink : ''}`}
-                onClick={handleGeminiAutofill}
-                title="Autofill with AI"
-              >
-                <img src={geminiLogo} alt="Gemini" />
-              </button>
-            </div>
+            <Input
+              placeholder="https://medium.com/@fedkiit/"
+              label="Medium Link"
+              value={data.mediumLink}
+              className={styles.formInput}
+              onChange={(e) => setdata({ ...data, mediumLink: e.target.value })}
+            />
+            <button
+              type="button"
+              className={`${styles.aiButton} ${autoFillAnimated ? styles.aiButtonPulse : ''}`}
+              onClick={handleGeminiAutofill}
+              disabled={isLoading}
+            >
+              <img src={geminiLogo} alt="" className={styles.aiButtonIcon} />
+              Autofill with AI
+            </button>
 
             <Input
               placeholder="Enter Blog Title"
@@ -713,110 +685,26 @@ function NewBlogForm() {
               onChange={(e) => setdata({ ...data, blogTitle: e.target.value })}
             />
 
-            <div className={styles.descriptionWrapper}>
-              <Input
-                placeholder="Enter Blog Description"
-                label="Blog Description"
-                type="textArea"
-                className={styles.formInputTxtArea}
-                value={data.metaDescription}
-                onChange={(e) => setdata({ ...data, metaDescription: e.target.value })}
-              />
-
-              <button
-                type="button"
-                className={`${styles.geminiButtonD} ${geminiAnimated ? styles.animateDescription : ''}`}
-                onClick={handleGeminiGenerate}
-                title="Generate with Gemini"
-              >
-                <img src={geminiLogo} alt="Gemini" />
-              </button>
-            </div>
-
-
-            <div style={{ position: "relative" }}>
-              <Input
-                placeholder="Attach Blog Image (URL or upload)"
-                label="Blog Image"
-                type="text" // Correct type for URL input
-                value={
-                  data.image instanceof File
-                    ? data.image.name
-                    : data.image || ""
-                }
-                containerClassName={styles.formInput}
-                onChange={handleImageUrlChange}
-                className={styles.formInput}
-                style={{ paddingRight: "2.5em" }}
-              />
-              <button
-                type="button"
-                onClick={handleAttachClick}
-                style={{
-                  position: "absolute",
-                  right: "4.5rem",
-                  top: "55%",
-                  transform: "translateY(-50%)",
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: 0,
-                  display: "flex",
-                  alignItems: "center"
-                }}
-                title="Upload Image"
-              >
-                <FaPaperclip size={18} color="#FF8A00" />
-              </button>
-              <input
-                type="file"
-                accept="image/*"
-                ref={fileInputRef}
-                style={{ display: "none" }}
-                onChange={handleImageChange}
-              />
-            </div>
-
-            {data.image && (
-              <div style={{ marginTop: "10px" }}>
-                <p style={{ margin: "5px 0", fontSize: "0.9rem", color: "#666" }}>Preview:</p>
-                <img
-                  src={
-                    data.image instanceof File
-                      ? URL.createObjectURL(data.image)
-                      : data.image
-                  }
-                  alt="Blog Thumbnail Preview"
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                    borderRadius: "8px",
-                    boxShadow: "0 0 5px rgba(0,0,0,0.2)",
-                    objectFit: "cover",
-                  }}
-                />
-              </div>
-            )}
-
             <Input
-              placeholder="Select Publication Date"
-              className={styles.formInput}
-              label="Publication Date"
-              type="date"
-              style={{ width: "88%" }}
-              value={data.blogDate}
-              onChange={(e) => setdata({ ...data, blogDate: e.target.value })} 
+              placeholder="Enter Blog Description"
+              label="Blog Description"
+              type="textArea"
+              className={styles.formInputTxtArea}
+              value={data.metaDescription}
+              onChange={(e) => setdata({ ...data, metaDescription: e.target.value })}
             />
-            <Input
-              placeholder="Enter Author Name"
-              label="Blog Author"
-              value={data.blogAuthor}
-              className={styles.formInput}
-              onChange={(e) => setdata({ ...data, blogAuthor: e.target.value })}
-            />
+            <button
+              type="button"
+              className={`${styles.aiButton} ${styles.aiButtonSecondary} ${geminiAnimated ? styles.aiButtonPulse : ''}`}
+              onClick={handleGeminiGenerate}
+              disabled={isLoading}
+            >
+              <img src={geminiLogo} alt="" className={styles.aiButtonIcon} />
+              Generate Summary
+            </button>
 
           </div>
-          <div style={{ width: "45%", paddingTop: "9px" }}>
+          <div className={styles.formFieldsColRight}>
             <Input
               placeholder="Select Blog Department"
               label="Blog Category"
@@ -834,6 +722,67 @@ function NewBlogForm() {
               onChange={(value) => setdata({ ...data, blogCategory: value })}
             />
 
+            <Input
+              placeholder="Select Publication Date"
+              className={styles.formInput}
+              label="Publication Date"
+              type="date"
+              style={{ width: "88%" }}
+              value={data.blogDate}
+              onChange={(e) => setdata({ ...data, blogDate: e.target.value })}
+            />
+
+            <Input
+              placeholder="Enter Author Name"
+              label="Blog Author"
+              value={data.blogAuthor}
+              className={styles.formInput}
+              onChange={(e) => setdata({ ...data, blogAuthor: e.target.value })}
+            />
+
+            <Input
+              placeholder="Paste image URL here"
+              label="Blog Image"
+              type="text"
+              value={
+                data.image instanceof File
+                  ? data.image.name
+                  : data.image || ""
+              }
+              className={styles.formInput}
+              onChange={handleImageUrlChange}
+            />
+            <button
+              type="button"
+              onClick={handleAttachClick}
+              className={styles.uploadButton}
+              title="Upload from device"
+            >
+              <FaPaperclip size={14} />
+              Upload from Device
+            </button>
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleImageChange}
+            />
+
+            {data.image && (
+              <div className={styles.imagePreview}>
+                <p className={styles.imagePreviewLabel}>Preview</p>
+                <img
+                  src={
+                    data.image instanceof File
+                      ? URL.createObjectURL(data.image)
+                      : data.image
+                  }
+                  alt="Blog Thumbnail Preview"
+                  className={styles.imagePreviewImg}
+                />
+              </div>
+            )}
 
           </div>
         </div>
@@ -939,7 +888,7 @@ function NewBlogForm() {
                           >
                             Delete
                           </button>
-                       
+
                         </div>
                       }
                     />

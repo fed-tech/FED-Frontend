@@ -5,25 +5,74 @@ const Section = ({ section, handleChange }) => {
   const getInputFields = (field) => {
     const valiedTypes = ["checkbox", "radio"];
     if (valiedTypes.includes(field.type)) {
-      const valueToArray = field.value.split(",");
-      return valueToArray.map((value, index) => (
-        <div
-          key={index}
-          style={{
-            marginTop: index === 0 ? ".5em" : "0",
-          }}
-        >
-          <Input
-            placeholder={value}
-            label={value}
-            showLabel={false}
-            type={field.type}
-            value={value}
-            name={field.name}
-            onChange={(e) => handleChange(field, e.target.value)}
-          />
+      const valueToArray = field.value.split(",").map(v => v.trim()).filter(Boolean);
+      return (
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "8px",
+          marginTop: "0.5em",
+          width: "100%",
+        }}>
+          {valueToArray.map((value, index) => {
+            const isChecked = field.type === "checkbox"
+              ? (field.onChangeValue || []).includes(value)
+              : field.onChangeValue === value;
+
+            return (
+              <label
+                key={index}
+                onClick={() => handleChange(field, value)}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "10px 14px",
+                  borderRadius: "10px",
+                  cursor: "pointer",
+                  background: isChecked
+                    ? "rgba(255, 138, 0, 0.08)"
+                    : "rgba(255, 255, 255, 0.02)",
+                  border: isChecked
+                    ? "1px solid rgba(255, 138, 0, 0.3)"
+                    : "1px solid rgba(255, 255, 255, 0.06)",
+                  transition: "all 0.2s ease",
+                  color: isChecked ? "#FF8A00" : "rgba(255, 255, 255, 0.7)",
+                  fontSize: "0.85em",
+                  fontWeight: isChecked ? "600" : "400",
+                }}
+              >
+                <span style={{
+                  width: "18px",
+                  height: "18px",
+                  borderRadius: field.type === "radio" ? "50%" : "5px",
+                  border: isChecked
+                    ? "2px solid #FF8A00"
+                    : "2px solid rgba(255, 255, 255, 0.2)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                  transition: "all 0.2s ease",
+                  background: isChecked
+                    ? "rgba(255, 138, 0, 0.15)"
+                    : "transparent",
+                }}>
+                  {isChecked && (
+                    <span style={{
+                      width: field.type === "radio" ? "8px" : "10px",
+                      height: field.type === "radio" ? "8px" : "10px",
+                      borderRadius: field.type === "radio" ? "50%" : "2px",
+                      background: "#FF8A00",
+                    }} />
+                  )}
+                </span>
+                {value}
+              </label>
+            );
+          })}
         </div>
-      ));
+      );
     }
   };
 
@@ -77,8 +126,8 @@ const Section = ({ section, handleChange }) => {
               options={
                 field.type === "select"
                   ? field.value.split(",").map((option) => {
-                      return { value: option, label: option };
-                    })
+                    return { value: option, label: option };
+                  })
                   : []
               }
             />
@@ -96,7 +145,7 @@ const Section = ({ section, handleChange }) => {
         section.fields.map(
           (field) =>
             field !== undefined && (
-              <div key={field._id}>
+              <div key={field._id} style={{ flex: "1 1 calc(50% - 1rem)", minWidth: "200px" }}>
                 {field.type !== "checkbox" && field.type !== "radio" ? (
                   <Input
                     placeholder={
@@ -119,8 +168,8 @@ const Section = ({ section, handleChange }) => {
                     options={
                       field.type === "select"
                         ? field.value.split(",").map((option) => {
-                            return { value: option, label: option };
-                          })
+                          return { value: option, label: option };
+                        })
                         : []
                     }
                   />

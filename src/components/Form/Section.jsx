@@ -465,12 +465,29 @@ const Section = (props) => {
           {section.name}
         </Text>
         {isIncludesOptions().length > 0 && (
-          <GrNavigate
-            size={24}
-            color="#FF8A00"
-            style={{ cursor: "pointer" }}
+          <div
             onClick={() => setshowValidations(!showValidations)}
-          />
+            title="Configure section routing"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              padding: "6px 14px",
+              borderRadius: "8px",
+              background: showValidations
+                ? "linear-gradient(135deg, #FF8A00, #d03e21)"
+                : "rgba(255, 138, 0, 0.1)",
+              border: "1px solid rgba(255, 138, 0, 0.35)",
+              cursor: "pointer",
+              transition: "all 0.25s ease",
+              fontSize: "12px",
+              fontWeight: "600",
+              color: showValidations ? "#fff" : "#FF8A00",
+            }}
+          >
+            <GrNavigate size={16} color={showValidations ? "#fff" : "#FF8A00"} />
+            <span>Redirect</span>
+          </div>
         )}
       </div>
       {showDescription ? (

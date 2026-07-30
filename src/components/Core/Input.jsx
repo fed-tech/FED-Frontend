@@ -57,26 +57,34 @@ const customStyles = {
     display: "flex",
     outline: "none",
     width: "99.5%",
-    fontSize: "12px",
-    backgroundColor: "transparent",
-    borderRadius: "4px",
+    fontSize: "13px",
+    backgroundColor: "rgba(255, 255, 255, 0.03)",
+    borderRadius: "8px",
     color: "#fff",
     marginBottom: "0",
-    maxHeight: "40px",
+    maxHeight: "42px",
     marginLeft: "8px",
     marginRight: "8px",
     marginTop: "4px",
     position: "relative",
-    border: "1px solid rgba(211, 211, 211, 0.5)",
+    border: "1px solid rgba(211, 211, 211, 0.25)",
     boxShadow: "none",
+    transition: "all 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
     "&:hover": {
-      borderColor: "#fff !important",
+      borderColor: "rgba(255, 138, 0, 0.4)",
+      backgroundColor: "rgba(255, 255, 255, 0.05)",
     },
   }),
   menu: (provided) => ({
     ...provided,
     width: "99.5%",
     marginLeft: "8px",
+    backgroundColor: "#1e1e1e",
+    borderRadius: "10px",
+    border: "1px solid rgba(255, 138, 0, 0.12)",
+    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.5)",
+    overflow: "hidden",
+    padding: "4px",
   }),
   menuPortal: (provided) => ({ ...provided, zIndex: 111 }),
   placeholder: (provided) => ({
@@ -84,25 +92,28 @@ const customStyles = {
     display: "flex",
     alignItems: "center",
     marginTop: "-7px",
+    color: "rgba(255, 255, 255, 0.35)",
+    fontSize: "12px",
   }),
   option: (provided, state) => ({
     ...provided,
-    color: state.isSelected ? "#FF8A00" : "#2D2D2D",
-    backgroundColor: state.isSelected ? "#2D2D2D" : "#fff",
+    color: state.isSelected ? "#FF8A00" : "rgba(255, 255, 255, 0.85)",
+    backgroundColor: state.isSelected
+      ? "rgba(255, 138, 0, 0.1)"
+      : "transparent",
     cursor: "pointer",
-    width: "99%",
+    width: "100%",
     border: "none",
-    margin: "0 auto",
-    borderRadius: "4px",
+    borderRadius: "6px",
+    padding: "8px 12px",
+    fontSize: "13px",
+    transition: "all 0.15s ease",
     "&:hover": {
-      transition: "ease-in-out 0.3s",
-      backgroundColor: "#2D2D2D",
+      backgroundColor: "rgba(255, 138, 0, 0.08)",
       color: "#FF8A00",
-      margin: "2px auto",
     },
     "&:active": {
-      backgroundColor: "#2D2D2D",
-      color: "#FF8A00",
+      backgroundColor: "rgba(255, 138, 0, 0.15)",
     },
   }),
   indicatorSeparator: (provided) => ({
@@ -115,7 +126,7 @@ const customStyles = {
     display: "flex",
     alignItems: "center",
     marginTop: "-7px",
-    fontSize:"larger"
+    fontSize: "13px",
   }),
 };
 
@@ -523,7 +534,7 @@ const Input = (props) => {
       className={`${styles.containerInput} ${containerClassName}`}
       style={
         containerStyle || {
-          marginTop: type === "select" ? "0" : "8px",
+          marginTop: "8px",
         }
       }
     >

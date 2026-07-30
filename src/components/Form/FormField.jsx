@@ -88,9 +88,9 @@ function FormField(props) {
         ? property === "isRequired"
           ? value
           : value
-              .split(",")
-              .map((val) => val.trim())
-              .filter(Boolean)
+            .split(",")
+            .map((val) => val.trim())
+            .filter(Boolean)
         : [];
 
     if (property === "value") {
@@ -99,9 +99,8 @@ function FormField(props) {
         type: "length",
         value: values.length > 1 ? 1 : 50,
         operator: "<=",
-        message: `${field.name} should be less than ${
-          values.length > 1 ? 1 : 200
-        } characters long`,
+        message: `${field.name} should be less than ${values.length > 1 ? 1 : 200
+          } characters long`,
       };
 
       newFields[fieldIndex].validations = [fieldValidation];
@@ -174,29 +173,177 @@ function FormField(props) {
           options={fieldTypes}
           onChange={(value) => handleChangeValue(value, "type")}
         />
-        <Input
-          value={
-            typeof field.value === "object" ? field.value?.name : field.value
-          }
-          name="Field_Value"
-          placeholder="Enter Value"
-          label="Field Value"
-          type={
-            field.type === "file" || field.type === "image" ? "file" : "text"
-          }
-          disabled={field.type === "file" || field.type === "image"}
-          style={{
-            cursor:
+        {hasOptions.includes(field.type) ? (
+          <div style={{ width: "30%", marginTop: "8px" }}>
+            <label
+              style={{
+                color: "#fff",
+                fontSize: ".8em",
+                marginLeft: "8px",
+                marginBottom: "4px",
+                display: "block",
+              }}
+            >
+              Options
+            </label>
+            {(field.value ? field.value.split(",").filter(Boolean) : [""]).map(
+              (opt, idx, arr) => (
+                <div
+                  key={idx}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    marginBottom: "6px",
+                    marginLeft: "6px",
+                  }}
+                >
+                  <span
+                    style={{
+                      color: "rgba(255,255,255,0.3)",
+                      fontSize: "12px",
+                      minWidth: "18px",
+                    }}
+                  >
+                    {idx + 1}.
+                  </span>
+                  <input
+                    value={opt}
+                    placeholder={`Option ${idx + 1}`}
+                    style={{
+                      flex: 1,
+                      outline: "none",
+                      border: "1px solid rgba(211,211,211,0.25)",
+                      borderRadius: "8px",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                      backgroundColor: "rgba(255,255,255,0.03)",
+                      color: "#fff",
+                      transition: "border-color 0.2s ease",
+                    }}
+                    onFocus={(e) =>
+                      (e.target.style.borderColor = "#FF8A00")
+                    }
+                    onBlur={(e) =>
+                    (e.target.style.borderColor =
+                      "rgba(211,211,211,0.25)")
+                    }
+                    onChange={(e) => {
+                      const newOpts = [
+                        ...arr,
+                      ];
+                      newOpts[idx] = e.target.value;
+                      handleChangeValue(
+                        newOpts.join(","),
+                        "value"
+                      );
+                    }}
+                  />
+                  {arr.length > 1 && (
+                    <span
+                      onClick={() => {
+                        const newOpts = arr.filter(
+                          (_, i) => i !== idx
+                        );
+                        handleChangeValue(
+                          newOpts.join(","),
+                          "value"
+                        );
+                      }}
+                      style={{
+                        cursor: "pointer",
+                        color: "rgba(255,255,255,0.3)",
+                        fontSize: "18px",
+                        lineHeight: 1,
+                        padding: "2px 4px",
+                        borderRadius: "4px",
+                        transition: "all 0.15s ease",
+                      }}
+                      title="Remove option"
+                      onMouseEnter={(e) => {
+                        e.target.style.color = "#ff4444";
+                        e.target.style.background =
+                          "rgba(255,68,68,0.1)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.color =
+                          "rgba(255,255,255,0.3)";
+                        e.target.style.background = "transparent";
+                      }}
+                    >
+                      ×
+                    </span>
+                  )}
+                </div>
+              )
+            )}
+            <div
+              onClick={() => {
+                const current = field.value || "";
+                const opts = current ? current.split(",") : [];
+                opts.push(" ");
+                handleChangeValue(opts.join(","), "value");
+              }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                marginLeft: "6px",
+                marginTop: "4px",
+                padding: "6px 10px",
+                cursor: "pointer",
+                color: "#FF8A00",
+                fontSize: "12px",
+                fontWeight: "600",
+                borderRadius: "6px",
+                transition: "background 0.15s ease",
+                width: "fit-content",
+              }}
+              onMouseEnter={(e) =>
+              (e.target.style.background =
+                "rgba(255,138,0,0.08)")
+              }
+              onMouseLeave={(e) =>
+                (e.target.style.background = "transparent")
+              }
+            >
+              <span style={{ fontSize: "16px", lineHeight: 1 }}>
+                +
+              </span>
+              Add Option
+            </div>
+          </div>
+        ) : (
+          <Input
+            value={
+              typeof field.value === "object"
+                ? field.value?.name
+                : field.value
+            }
+            name="Field_Value"
+            placeholder="Enter Value"
+            label="Field Value"
+            type={
               field.type === "file" || field.type === "image"
-                ? "not-allowed"
-                : "text",
-          }}
-          className={styles.fieldInput}
-          containerClassName={styles.containerInput}
-          onChange={(e) => {
-            handleChangeValue(e.target.value, "value");
-          }}
-        />
+                ? "file"
+                : "text"
+            }
+            disabled={
+              field.type === "file" || field.type === "image"
+            }
+            style={{
+              cursor:
+                field.type === "file" || field.type === "image"
+                  ? "not-allowed"
+                  : "text",
+            }}
+            className={styles.fieldInput}
+            containerClassName={styles.containerInput}
+            onChange={(e) => {
+              handleChangeValue(e.target.value, "value");
+            }}
+          />
+        )}
         <div
           style={{
             marginTop: "16px",

@@ -4,10 +4,12 @@
   margin-top: 1.6em;
   width: 86%;
 }
+
 .formInput {
   width: 90% !important;
   margin-bottom: 1.4em;
 }
+
 .formInputTxtArea {
   width: 90% !important;
   height: 31vh !important;
@@ -17,97 +19,130 @@
   display: flex;
   flex-direction: column;
   width: 86%;
-  padding: 1em;
-  border-radius: 8px;
-  border: 0.5px solid transparent;
+  padding: 1.2em 1.4em;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 3px solid rgba(255, 138, 0, 0.35);
   position: relative;
-  background-color: rgba(128, 127, 126, 0.066);
-  margin-bottom: 1em;
+  background: rgba(255, 255, 255, 0.02);
+  margin-bottom: 1.2em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .disabledSec {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: 8px;
-  background-color: #fd8e100e;
+  border-radius: 12px;
+  background-color: rgba(253, 142, 16, 0.03);
   z-index: 10;
   opacity: 0.8;
   cursor: not-allowed;
 }
+
 .formFieldContainer:hover {
-  border: 0.5px solid #ff88008c;
-  transition: 0.5s ease-in-out;
+  border-color: rgba(255, 138, 0, 0.2);
+  border-left-color: #FF8A00;
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
-.formFieldContainer:active {
-  border: 0.5px solid #ff88008c;
-  transition: 0.5s ease-in-out;
-}
+
 .mainFieldForm {
   display: flex;
   flex-direction: row;
   align-items: center;
   position: relative;
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
+
+.mainFieldForm:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
 .fieldInput {
   width: 90% !important;
 }
+
 .containerInput {
   display: flex;
   flex-direction: column;
   width: 30%;
 }
+
 .sectionValidation {
   position: absolute;
   bottom: 0px;
   right: 50px;
-  background-color: rgb(41, 41, 41);
-  border-radius: 4px;
+  background: rgba(30, 30, 30, 0.98);
+  border-radius: 12px;
   width: 500px;
   max-height: 424px;
   z-index: 1800 !important;
-  padding: 1em;
-  border: 1px solid #b8b7b78c;
+  padding: 1.2em;
+  border: 1px solid rgba(255, 138, 0, 0.15);
   margin-bottom: 2.4em;
   overflow-y: auto;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
 }
+
 .sectionValidation::-webkit-scrollbar {
-  width: 0px;
+  width: 4px;
 }
+
+.sectionValidation::-webkit-scrollbar-thumb {
+  background: rgba(255, 138, 0, 0.3);
+  border-radius: 4px;
+}
+
 .popField {
   position: absolute;
   bottom: -120%;
   right: 0;
-  background-color: rgb(41, 41, 41);
-  border-radius: 4px;
+  background: rgba(30, 30, 30, 0.98);
+  border-radius: 12px;
   width: 600px;
   max-height: 424px;
   z-index: 1500 !important;
-  padding: 1em;
-  border: 1px solid #b8b7b78c;
+  padding: 1.2em;
+  border: 1px solid rgba(255, 138, 0, 0.15);
   margin-bottom: 2.4em;
   overflow-y: auto;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
+
 .popField::-webkit-scrollbar {
-  width: 0px;
+  width: 4px;
 }
+
+.popField::-webkit-scrollbar-thumb {
+  background: rgba(255, 138, 0, 0.3);
+  border-radius: 4px;
+}
+
 .popFieldInpt {
   display: flex;
   width: 100%;
   align-items: center;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
+
 .popFieldInptContainer {
   display: flex;
   flex-direction: column;
   width: 50%;
 }
+
 .bindInptContainer {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
