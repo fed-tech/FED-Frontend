@@ -29,6 +29,7 @@
     opacity: 0;
     transform: translateY(-20px) scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -57,7 +58,7 @@
   border: none;
   color: rgb(0, 0, 0);
   cursor: pointer;
-  padding: 8px ;
+  padding: 8px;
   border-radius: 50%;
   transition: background-color 0.2s;
   display: flex;
@@ -97,12 +98,10 @@
 
   h3 {
     margin: 0;
-    background: linear-gradient(
-    rgba(244, 43, 3, 0.84) 0%,
-    rgba(255, 190, 11, 0.84) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    background: linear-gradient(rgba(244, 43, 3, 0.84) 0%,
+        rgba(255, 190, 11, 0.84) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-size: 1.25rem;
     font-weight: 600;
   }
@@ -227,9 +226,42 @@
   border-radius: 8px;
   border: 1px solid #e27100;
   transition: box-shadow 0.2s;
+  position: relative;
 
   &:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.removeMemberBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+
+  &:hover:not(:disabled) {
+    background: #b91c1c;
+    transform: scale(1.05);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }
 
